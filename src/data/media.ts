@@ -1,0 +1,176 @@
+import type { GalleryImage, Video } from './types';
+
+/**
+ * Photo collections, grouped by event. Captions are the descriptions published
+ * alongside each photo on the live sites; nothing here is staged or stock.
+ */
+export const galleryCollections = [
+  { id: 'singapore-2026', label: 'Agentic Finance · Singapore 2026', short: 'Singapore 2026', series: 'agentic-finance' },
+  { id: 'the-odds-paris-2026', label: 'The Odds · Paris Blockchain Week 2026', short: 'The Odds · Paris', series: 'more-and-more' },
+  { id: 'web2toweb3-abu-dhabi-2025', label: 'Web2 to Web3 Summit · Abu Dhabi 2025', short: 'Web2 to Web3 · Abu Dhabi', series: 'more-and-more' },
+] as const;
+
+const SG = 'singapore-2026';
+const sg = (id: string, caption: string, tags: string[], position?: string): GalleryImage => ({
+  id: `sg-${id}`,
+  edition: SG,
+  src: `/images/singapore-2026/${id}.webp`,
+  alt: caption,
+  caption,
+  tags,
+  position,
+  width: id === 'agentic-capital-panel' ? 2000 : 1600,
+  height: id === 'agentic-capital-panel' ? 1333 : 1067,
+});
+
+export const gallery: GalleryImage[] = [
+  sg('opening-keynote', 'Tal Mor of More & More opening the day on the Singapore stage', ['stage'], '62% 35%'),
+  sg('agentic-banking-panel', 'The Agentic Banking panel on stage in Singapore, its title on the screen behind', ['stage'], '30% 50%'),
+  sg('agentic-capital-panel', 'The five-strong Agentic Capital panel on the Singapore stage', ['stage'], '50% 46%'),
+  sg('agentic-payments-panel', 'The Agentic Payments panel on stage in Singapore', ['stage']),
+  sg('agentic-trading-panel', 'The Agentic Trading panel on stage in Singapore', ['stage']),
+  sg('cj-hetherington-stage', 'CJ Hetherington of Limitless speaking on the Agentic Trading panel in Singapore', ['stage'], '55% 35%'),
+  sg('the-odds-welcome', 'The host opening The Odds stage in Singapore', ['stage'], '50% 30%'),
+  sg('networking-floor', 'Delegates in conversation on the networking floor in Singapore', ['networking'], '45% 40%'),
+  sg('curated-introductions', 'Delegates being introduced on the floor in Singapore', ['networking'], '50% 40%'),
+  sg('media-on-site', 'A camera on speakers greeting on the Singapore stage', ['media'], '45% 50%'),
+  sg('interview-capture', 'A speaker filmed at the Agentic Finance backdrop in Singapore', ['media'], '40% 40%'),
+  sg('agentic-finance-backdrop', 'The Agentic Finance backdrop in Singapore, with eToro, Aave, Chainlink and the other partner marks', ['partners']),
+  sg('sponsor-wall', 'Guests at the Agentic Finance partner wall in Singapore', ['partners'], '50% 40%'),
+  sg('etoro-team', 'The eToro team at its branded area at Agentic Finance Singapore', ['partners'], '45% 40%'),
+  sg('etoro-booth', 'Visitors at eToro’s stand at Agentic Finance Singapore', ['partners'], '40% 45%'),
+  sg('etoro-branded-area', 'eToro’s branded table and giveaways at Agentic Finance Singapore', ['partners'], '35% 55%'),
+  sg('etoro-f1-simulator', 'A guest racing on eToro’s F1 simulator in Singapore', ['partners'], '45% 55%'),
+  sg('f1-simulator', 'eToro’s F1 simulator at Agentic Finance Singapore', ['partners'], '60% 45%'),
+  sg('etoro-networking', 'Guests meeting beside eToro’s stand in Singapore', ['networking', 'partners'], '50% 35%'),
+  {
+    id: 'odds-stage',
+    edition: 'the-odds-paris-2026',
+    src: '/images/more-and-more/the-odds-stage.webp',
+    alt: 'A speaker addressing a standing-room crowd on a More & More stage',
+    caption: 'A speaker addressing a standing-room crowd on a More & More stage',
+    tags: ['stage'],
+    position: '40% 50%',
+    width: 1600,
+    height: 1066,
+  },
+  {
+    id: 'odds-panel',
+    edition: 'the-odds-paris-2026',
+    src: '/images/more-and-more/the-odds-panel.webp',
+    alt: 'A six-person panel on a branded More & More stage',
+    caption: 'A six-person panel on a branded More & More stage',
+    tags: ['stage'],
+    width: 1600,
+    height: 1066,
+  },
+  {
+    id: 'odds-room',
+    edition: 'the-odds-paris-2026',
+    src: '/images/more-and-more/the-odds-room.webp',
+    alt: 'A packed room facing a panel on a More & More stage',
+    caption: 'A packed room facing a panel on a More & More stage',
+    tags: ['stage'],
+    width: 1600,
+    height: 1066,
+  },
+  {
+    id: 'odds-etoro-stage',
+    edition: 'the-odds-paris-2026',
+    src: '/images/more-and-more/the-odds-paris-etoro-stage.webp',
+    alt: 'Two speakers in conversation on stage in front of eToro x Zengo branding',
+    caption: 'Two speakers in conversation on stage in front of eToro x Zengo branding',
+    tags: ['stage', 'partners'],
+    position: '38% 30%',
+    width: 2000,
+    height: 1333,
+  },
+  {
+    id: 'odds-branding',
+    edition: 'the-odds-paris-2026',
+    src: '/images/more-and-more/the-odds-branding.webp',
+    alt: 'Branded event balloons above the exhibition floor',
+    caption: 'Branded event balloons above the exhibition floor',
+    tags: ['partners'],
+    width: 1600,
+    height: 1066,
+  },
+  {
+    id: 'odds-activation',
+    edition: 'the-odds-paris-2026',
+    src: '/images/more-and-more/the-odds-paris-activation.jpg',
+    alt: 'A branded activation moving through the exhibition floor',
+    caption: 'A branded activation moving through the exhibition floor',
+    tags: ['partners'],
+    position: '35% 50%',
+    width: 1600,
+    height: 1066,
+  },
+  {
+    id: 'w2w3-session',
+    edition: 'web2toweb3-abu-dhabi-2025',
+    src: '/images/more-and-more/web2toweb3-session.webp',
+    alt: 'A seated session at the Web2 to Web3 Summit in Abu Dhabi, produced by More & More',
+    caption: 'A seated session at the Web2 to Web3 Summit in Abu Dhabi, produced by More & More',
+    tags: ['stage'],
+    width: 1600,
+    height: 1070,
+  },
+  {
+    id: 'w2w3-networking',
+    edition: 'web2toweb3-abu-dhabi-2025',
+    src: '/images/more-and-more/hub71-networking.jpg',
+    alt: 'Delegates networking at a More & More gathering at Hub71 in Abu Dhabi',
+    caption: 'Delegates networking at a More & More gathering at Hub71 in Abu Dhabi',
+    tags: ['networking'],
+    width: 1600,
+    height: 1070,
+  },
+];
+
+export const galleryTags = [
+  { id: 'stage', label: 'On stage' },
+  { id: 'networking', label: 'Networking' },
+  { id: 'partners', label: 'Partner activations' },
+  { id: 'media', label: 'Media' },
+] as const;
+
+export const videos: Video[] = [
+  {
+    id: 'singapore-2026-recap',
+    title: 'Agentic Finance Singapore 2026: the recap',
+    description:
+      'Two minutes forty on the first edition: speakers on the backdrop, the panels, eToro’s Yoni Assia, the floor, and what comes next in Abu Dhabi.',
+    edition: 'singapore-2026',
+    kind: 'recap',
+    src: '/video/singapore-2026-recap.mp4',
+    poster: '/images/singapore-2026/recap-poster.jpg',
+    duration: '2:41',
+    hasAudio: true,
+    speakers: ['tal-mor', 'yoni-assia'],
+  },
+  {
+    id: 'singapore-2026-highlights',
+    title: 'Singapore 2026 in twenty seconds',
+    description: 'A silent highlight loop from the day: the main stage, the room, the floor and the partner pavilion.',
+    edition: 'singapore-2026',
+    kind: 'highlights',
+    src: '/video/singapore-2026-summit.mp4',
+    poster: '/images/singapore-2026/summit-poster.jpg',
+    duration: '0:21',
+    hasAudio: false,
+  },
+  {
+    id: 'the-odds-singapore-2026-aftermovie',
+    title: 'The Odds: Prediction Markets Live, Singapore aftermovie',
+    description:
+      'The co-located prediction-markets stage that ran alongside Agentic Finance at Suntec City on 8 October 2026. Hosted on the More & More site.',
+    edition: 'singapore-2026',
+    kind: 'aftermovie',
+    src: 'https://mnm.live/theodds/t2049singapore/aftermovie.mp4',
+    poster: '/images/singapore-2026/the-odds-welcome.webp',
+    duration: '1:26',
+    hasAudio: false,
+    external: true,
+  },
+];

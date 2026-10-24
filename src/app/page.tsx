@@ -1,8 +1,8 @@
 import Link from 'next/link';
 import type { Metadata } from 'next';
-import { EditionCard } from '@/components/editions/EditionCard';
-import { GlobalSeries } from '@/components/editions/GlobalSeries';
 import { HomeHero } from '@/components/home/HomeHero';
+import { PastEventCard, UpcomingEventCard } from '@/components/home/HomeEvents';
+import { LatestArticle } from '@/components/home/LatestArticle';
 import { VideoPlayer } from '@/components/media/VideoPlayer';
 import { LogoWall } from '@/components/partners/LogoWall';
 import { UseCaseCard } from '@/components/partners/UseCaseCard';
@@ -13,11 +13,11 @@ import { CtaBand } from '@/components/ui/CtaBand';
 import { Icon } from '@/components/ui/Icon';
 import { Img } from '@/components/ui/Img';
 import { JsonLd } from '@/components/ui/JsonLd';
-import { Container, Eyebrow, Section, SectionHeader } from '@/components/ui/Layout';
+import { Container, Section, SectionHeader } from '@/components/ui/Layout';
 import { Stats } from '@/components/ui/Stats';
-import { booking, site } from '@/config/site';
-import { producerMetrics, producerTimeline } from '@/data/about';
-import { editions, editionsByStatus, getCurrentEdition, getEdition } from '@/data/editions';
+import { booking, externalLinks, primaryActions, site } from '@/config/site';
+import { editionsByStatus, getCurrentEdition, getEdition } from '@/data/editions';
+import { pastEvents, upcomingEvents } from '@/data/events';
 import { videos } from '@/data/media';
 import { categories, featuredOnStage, getOrganization, partnerBenefits, useCases } from '@/data/partners';
 import { audience, formats, strategicQuestions } from '@/data/program';
@@ -57,74 +57,41 @@ export default function HomePage() {
   const onStage = featuredOnStage.map(getOrganization).filter((o) => o !== undefined);
   const etoro = useCases[0];
   const questions = strategicQuestions.map((q) => ({ ...q, sessionTitle: q.session ? getSession(q.session)?.title : undefined }));
-  const seriesData = editions.map(({ slug, name, shortName, city, country, year, status, dateLabel, tagline, summary, image, metrics, facts, context }) => ({
-    slug,
-    name,
-    shortName,
-    city,
-    country,
-    year,
-    status,
-    dateLabel,
-    tagline,
-    summary,
-    image,
-    metrics,
-    facts,
-    context,
-  }));
 
   return (
     <>
-      <HomeHero next={next} last={singapore} />
+      <HomeHero next={next} />
 
-      {/* Positioning */}
-      <Section className="!py-16 sm:!py-20">
+      <LatestArticle />
+
+      {/* Events: upcoming first, then the record */}
+      <Section id="events">
         <Container>
-          <div className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.3fr)] lg:items-end">
-            <p className="display-tight text-[clamp(1.6rem,1.1rem+1.8vw,2.6rem)] text-paper">
-              Not a conference. <span className="text-gold">A room.</span>
-            </p>
-            <p className="lede">
-              Agentic Finance is not an AI conference and not a crypto conference. It is a selective gathering of senior institutional
-              decision-makers, founders, capital allocators, financial-infrastructure leaders and regulators, built around the
-              decisions AI agents now force on finance. Access, discussion and curated introductions matter more than size.
-            </p>
-          </div>
+          <SectionHeader title="Upcoming events." action={<ButtonLink href="/editions" variant="outline">All editions</ButtonLink>} />
+          <ul className="mt-12 grid gap-4 lg:grid-cols-2">
+            {upcomingEvents.map((e) => (
+              <li key={e.id} className="flex">
+                <UpcomingEventCard event={e} />
+              </li>
+            ))}
+          </ul>
+          <h3 className="display mt-20 text-[length:var(--text-display-sm)]">Past events.</h3>
+          <ul className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {pastEvents.map((e) => (
+              <li key={e.id}>
+                <PastEventCard event={e} />
+              </li>
+            ))}
+          </ul>
         </Container>
       </Section>
 
-      {/* The global series */}
-      <Section bordered tone="raised" id="series">
+      {/* Main themes */}
+      <Section bordered tone="raised" id="questions">
         <Container>
           <SectionHeader
-            index="01"
-            eyebrow="The global series"
-            title={
-              <>
-                One standard.
-                <br />
-                Seven cities.
-              </>
-            }
-            lede="Singapore opened the series. Abu Dhabi is next. Five cities follow in 2027. Each edition is its own curated room; the questions travel with us."
-            action={<ButtonLink href="/editions" variant="outline">All editions</ButtonLink>}
-          />
-          <div className="mt-14">
-            <GlobalSeries editions={seriesData} />
-          </div>
-        </Container>
-      </Section>
-
-      {/* Six questions */}
-      <Section bordered id="questions">
-        <Container>
-          <SectionHeader
-            index="02"
-            eyebrow="The questions shaping finance"
-            title="Six decisions the room is here to settle."
-            lede="Every session is built around a decision someone in the room has to make. These are the six we keep coming back to."
-            action={<ButtonLink href="/program/questions" variant="outline">Read the six questions</ButtonLink>}
+            title="Main themes."
+            action={<ButtonLink href="/program/questions" variant="outline">Explore the themes</ButtonLink>}
           />
           <div className="mt-14">
             <QuestionsEditorial questions={questions} variant="compact" />
@@ -133,14 +100,9 @@ export default function HomePage() {
       </Section>
 
       {/* Who is in the room */}
-      <Section bordered tone="raised" id="room">
+      <Section bordered id="room">
         <Container>
-          <SectionHeader
-            index="03"
-            eyebrow="Who is in the room"
-            title="Chosen for what they decide."
-            lede="Every guest is selected for seniority, institutional relevance and fit. The room is built to be small enough that everyone in it matters."
-          />
+          <SectionHeader title="Who is in the room." lede="Every guest is selected for seniority, institutional relevance and fit." />
           <ul className="mt-14 grid gap-px overflow-hidden rounded-2xl border border-line bg-line sm:grid-cols-2 lg:grid-cols-5">
             {audience.map((a, i) => (
               <li key={a.label} className="flex flex-col gap-3 bg-ink-raised p-6">
@@ -165,13 +127,11 @@ export default function HomePage() {
       </Section>
 
       {/* Speakers */}
-      <Section bordered id="speakers">
+      <Section bordered tone="raised" id="speakers">
         <Container>
           <SectionHeader
-            index="04"
-            eyebrow="Our speakers"
             title="Speakers at our conferences."
-            lede="A deliberately short list, chosen for what they decide rather than how often they speak. Abu Dhabi speakers are announced one by one, as each confirms."
+            lede="Abu Dhabi speakers are announced as each one confirms."
             action={
               <>
                 <ButtonLink href="/speakers" variant="outline">All speakers</ButtonLink>
@@ -189,15 +149,13 @@ export default function HomePage() {
         </Container>
       </Section>
 
-      {/* Inside the experience */}
-      <Section bordered tone="raised" id="experience">
+      {/* Formats */}
+      <Section bordered id="experience">
         <Container>
           <SectionHeader
-            index="05"
-            eyebrow="Inside the experience"
-            title="Fewer sessions. Better conversations."
-            lede="Keynotes with room to say something, discussions built around one decision, and introductions arranged before anyone arrives."
-            action={<ButtonLink href="/program/formats" variant="outline">How the day works</ButtonLink>}
+            title="How the day works."
+            lede="Keynotes, focused discussions, curated introductions and private meetings."
+            action={<ButtonLink href="/program/formats" variant="outline">All formats</ButtonLink>}
           />
           <div className="mt-14 grid gap-4 md:grid-cols-2 md:grid-rows-[300px_300px]">
             {formats.slice(0, 3).map((f, i) => (
@@ -212,14 +170,13 @@ export default function HomePage() {
         </Container>
       </Section>
 
-      {/* Singapore proof */}
-      <Section bordered id="singapore">
+      {/* Singapore recap */}
+      <Section bordered tone="raised" id="singapore">
         <Container>
           <SectionHeader
-            index="06"
-            eyebrow={`Singapore 2026 · ${singapore.dateLabel} · ${singapore.context}`}
-            title="The proof."
-            lede={singapore.summary}
+            eyebrow={`${singapore.dateLabel} · Suntec Singapore · TOKEN2049 week`}
+            title="Singapore 2026 recap."
+            lede="Our first edition, with lead partner eToro."
             action={
               <>
                 <ButtonLink href="/media/singapore-2026-recap" variant="outline">Read the recap</ButtonLink>
@@ -272,19 +229,12 @@ export default function HomePage() {
       </Section>
 
       {/* Partnerships */}
-      <Section bordered tone="raised" id="partnerships">
+      <Section bordered id="partnerships">
         <Container>
           <SectionHeader
-            index="07"
-            eyebrow={`Partnership opportunities · ${next.shortName}`}
-            title={
-              <>
-                {next.partnerPositions} strategic partners.
-                <br />
-                No more.
-              </>
-            }
-            lede="A limited number of positions, so every partner is seen, introduced and remembered. Don’t sponsor a conference: own the conversation your company wants to lead."
+            eyebrow={`Partnerships · ${next.shortName}`}
+            title={`${next.partnerPositions} partner positions.`}
+            lede="Each position comes with one category to lead, stage visibility and curated introductions."
             action={
               <>
                 <ButtonLink href="/partners/book-a-call">{booking.partnership.label}</ButtonLink>
@@ -328,71 +278,78 @@ export default function HomePage() {
         </Container>
       </Section>
 
-      {/* 2027 */}
-      <Section bordered id="expansion">
+      {/* 2027: cities only */}
+      <Section bordered tone="raised" id="expansion">
         <Container>
-          <SectionHeader
-            index="08"
-            eyebrow="2027 global expansion"
-            title="Five cities. Dates to be announced."
-            lede="The series becomes international in 2027. Each city will be announced with its date and venue as they are confirmed."
-            action={<ButtonLink href="/editions/2027" variant="outline">The 2027 series</ButtonLink>}
-          />
+          <SectionHeader title="Five cities in 2027." action={<ButtonLink href="/editions/2027" variant="outline">The 2027 series</ButtonLink>} />
           <ul className="mt-14 grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
-            {planned.map((e, i) => (
+            {planned.map((e) => (
               <li key={e.slug}>
-                <EditionCard edition={e} size="compact" index={`0${i + 1}`} sizes="(min-width: 1024px) 20vw, (min-width: 640px) 50vw, 100vw" />
+                <Link
+                  href={`/editions/${e.slug}`}
+                  className="group relative isolate flex min-h-[240px] flex-col justify-end overflow-hidden rounded-2xl border border-line p-5 transition-colors hover:border-line-strong"
+                >
+                  <Img
+                    src={e.image.src}
+                    alt={e.image.alt}
+                    fill
+                    sizes="(min-width: 1024px) 20vw, (min-width: 640px) 50vw, 100vw"
+                    position={e.image.position}
+                    className="-z-20 object-cover opacity-60 grayscale-[0.35] transition-[transform,filter,opacity] duration-700 group-hover:scale-[1.04] group-hover:opacity-80 group-hover:grayscale-0"
+                  />
+                  <span aria-hidden className="scrim-bottom absolute inset-0 -z-10" />
+                  {e.country !== e.city ? <p className="mono-label text-paper/70">{e.country}</p> : null}
+                  <h3 className="display mt-2 text-[28px]">{e.city}</h3>
+                </Link>
               </li>
             ))}
           </ul>
         </Container>
       </Section>
 
-      {/* Producer */}
-      <Section bordered tone="raised" id="producer">
+      {/* About: goals and what is next */}
+      <Section bordered id="about">
         <Container>
-          <div className="grid gap-14 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:items-center">
-            <div>
-              <Eyebrow index="09">Produced by More &amp; More</Eyebrow>
-              <h2 className="display mt-5 text-[length:var(--text-display-md)]">We have built this room before.</h2>
-              <p className="lede mt-6">
-                More &amp; More creates curated side events, executive gatherings, VIP delegations and business-development
-                environments across global technology and institutional markets, built on one idea: the most valuable deals still
-                happen in the room.
+          <div className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.6fr)]">
+            <h2 className="display text-[length:var(--text-display-md)]">About Agentic Finance.</h2>
+            <div className="grid gap-10 sm:grid-cols-2">
+              <div>
+                <p className="eyebrow">Our goal</p>
+                <p className="mt-4 text-lg leading-relaxed text-paper/90">
+                  Bring the decision-makers, founders, capital allocators and regulators shaping how AI agents change finance into one
+                  room.
+                </p>
+              </div>
+              <div>
+                <p className="eyebrow">What is next</p>
+                <p className="mt-4 text-lg leading-relaxed text-paper/90">
+                  Abu Dhabi: the Summit on 4 December 2026 and the VIP Gala on 8 December. Then Hong Kong, Rio de Janeiro, Paris, Dubai
+                  and Singapore in 2027.
+                </p>
+              </div>
+              <p className="text-sm text-muted sm:col-span-2">
+                Produced by <TextLink href={externalLinks.moreAndMore}>More &amp; More</TextLink>
               </p>
-              <ol className="mt-10 border-t border-line">
-                {producerTimeline.map((t) => (
-                  <li key={t.what} className="grid grid-cols-[minmax(0,180px)_minmax(0,1fr)] gap-4 border-b border-line py-4 text-[15px]">
-                    <span className={`font-mono text-[11px] uppercase tracking-[0.08em] ${t.next ? 'text-gold' : 'text-muted'}`}>{t.when}</span>
-                    <span className={t.next ? 'font-semibold text-gold' : 'text-paper/90'}>{t.what}</span>
-                  </li>
-                ))}
-              </ol>
-              <div className="mt-8 flex flex-wrap gap-3">
-                <ButtonLink href="/about/more-and-more" variant="outline">About More &amp; More</ButtonLink>
-                <ButtonLink href="/about/event-series" variant="ghost">The event series</ButtonLink>
-              </div>
-            </div>
-            <div>
-              <div className="relative aspect-[4/3] overflow-hidden rounded-2xl border border-line">
-                <Img
-                  src="/images/more-and-more/web2toweb3-session.webp"
-                  alt="A seated session at the Web2 to Web3 Summit in Abu Dhabi, produced by More & More"
-                  fill
-                  sizes="(min-width: 1024px) 50vw, 100vw"
-                  className="object-cover"
-                />
-                <span className="absolute bottom-4 left-4 rounded-full border border-paper/20 bg-ink/75 px-3 py-1 font-mono text-[10.5px] uppercase tracking-[0.1em] backdrop-blur-sm">
-                  Web2 to Web3 Summit · Abu Dhabi 2025
-                </span>
-              </div>
-              <Stats items={producerMetrics} size="md" className="mt-8" />
             </div>
           </div>
         </Container>
       </Section>
 
-      <CtaBand />
+      <CtaBand
+        eyebrow={`Agentic Finance Summit Abu Dhabi · ${next.dateLabel}`}
+        title="Join us in Abu Dhabi."
+        body={`${next.guestCount} curated guests. By invitation only.`}
+        actions={
+          <>
+            <ButtonLink href={primaryActions.invitation.href} size="lg">
+              {primaryActions.invitation.label}
+            </ButtonLink>
+            <ButtonLink href={primaryActions.partner.href} variant="outline" size="lg">
+              {primaryActions.partner.label}
+            </ButtonLink>
+          </>
+        }
+      />
 
       <JsonLd
         data={{

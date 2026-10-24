@@ -88,7 +88,7 @@ export function UpcomingEdition({ edition }: { edition: Edition }) {
           <SectionHeader
             eyebrow="Two rooms. One circle."
             title="The Summit and the VIP Gala."
-            lede="Two distinct experiences with separate guest lists. The Summit date and venue are shared with invited guests as they are confirmed."
+            lede="Two distinct experiences with separate guest lists."
           />
           <div className="mt-14 grid gap-5 lg:grid-cols-2">
             {(edition.experiences ?? []).map((x, i) => (

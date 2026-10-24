@@ -124,7 +124,7 @@ export const faqGroups: FaqGroup[] = [
     items: [
       {
         q: 'Where and when is the next edition?',
-        a: 'Abu Dhabi, December 2026. The summit’s date and venue are shared with invited guests as they are confirmed. The VIP Gala is a separate evening on Tuesday 8 December 2026, by invitation only.',
+        a: 'The Summit is on Friday 4 December 2026, 14:00-18:00 GST, on Saadiyat Island, Abu Dhabi. The VIP Gala is a separate evening on Tuesday 8 December 2026, by personal invitation only.',
       },
       {
         q: 'What is the difference between the Summit and the VIP Gala?',

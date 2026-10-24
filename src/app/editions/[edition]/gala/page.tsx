@@ -60,7 +60,7 @@ export default async function GalaPage({ params }: PageProps<'/editions/[edition
           <dl className="grid gap-px overflow-hidden rounded-2xl border border-line bg-line md:grid-cols-3">
             {[
               { k: 'Date', v: 'Tuesday 8 December 2026', icon: 'calendar' as const },
-              { k: 'Time and venue', v: 'Shared with invited guests', icon: 'pin' as const },
+              { k: 'Time and venue', v: '20:00-00:00, Abu Dhabi beach venue', icon: 'pin' as const },
               { k: 'Guests', v: 'Approximately 200, by invitation', icon: 'users' as const },
             ].map((x) => (
               <div key={x.k} className="bg-ink p-7">
@@ -86,7 +86,7 @@ export default async function GalaPage({ params }: PageProps<'/editions/[edition
               <p className="eyebrow">Summit and Gala are separate</p>
               <p className="mt-4 text-lg leading-relaxed text-paper/90">
                 The evening follows the Agentic Finance Summit. Its guest list is separate from the summit’s 500, and the Gala date is not
-                the summit date: the summit’s own date and venue are shared with invited guests as they are confirmed.
+                the summit date: the summit is on Friday 4 December 2026, on Saadiyat Island.
               </p>
               <p className="mt-4 leading-relaxed text-muted">Not invited to the Gala? You can still request an invitation to the summit.</p>
               <div className="mt-8">

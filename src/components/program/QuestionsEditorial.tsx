@@ -17,12 +17,13 @@ export function QuestionsEditorial({ questions, variant = 'full' }: { questions:
           key={q.number}
           className={cn(
             'group/q relative grid gap-4 border-b border-line py-8 transition-opacity duration-500 sm:py-10',
-            'lg:grid-cols-[120px_minmax(0,1.5fr)_minmax(0,1fr)] lg:gap-10',
+            variant === 'full' ? 'lg:grid-cols-[120px_minmax(0,1.5fr)_minmax(0,1fr)]' : 'lg:grid-cols-[minmax(0,1.5fr)_minmax(0,1fr)]',
+            'lg:gap-10',
             'lg:group-hover/list:opacity-35 lg:hover:!opacity-100 lg:group-focus-within/list:opacity-35 lg:focus-within:!opacity-100',
           )}
           tabIndex={variant === 'compact' ? 0 : undefined}
         >
-          <span className="font-mono text-sm text-gold">Q{q.number}</span>
+          {variant === 'full' ? <span className="font-mono text-sm text-gold">Q{q.number}</span> : null}
           <h3
             className={cn(
               'display-tight transition-colors duration-300 lg:group-hover/q:text-gold',

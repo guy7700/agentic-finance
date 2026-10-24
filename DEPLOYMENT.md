@@ -13,6 +13,12 @@ Build settings (repository → Settings → Secrets and variables → Actions �
 | `FORMS_LIVE` | `true` | Forms post to the existing Google Apps Script sheets. Set `false` to switch delivery off. |
 | `ALLOW_INDEXING` | `true` | Search engines may index the site. Set `false` to send `noindex`. |
 
+## Daily "In the news" article
+
+The workflow also runs every day at 04:00 UTC. Before building, `npm run news` (`scripts/latest-article.mjs`) reads the Business Insider, CNBC and TechCrunch fintech feeds, shortlists articles from the last 3 days about AI in finance, and asks Claude to pick one and write a two-sentence summary in its own words. The home page shows the headline, that summary, the source, the date and a link to the original.
+
+It needs one repository secret (Settings → Secrets and variables → Actions → **Secrets**): `ANTHROPIC_API_KEY`. Without it, or when no recent article fits, or the summary fails its checks, the block is simply hidden. The page also hides it in the browser once the article is more than 3 days old. GitHub pauses scheduled workflows in a repository with no activity for 60 days; re-enable it in the Actions tab if that happens.
+
 ## Domain (GoDaddy DNS for agentic-finance.live)
 
 | Type | Name | Value |

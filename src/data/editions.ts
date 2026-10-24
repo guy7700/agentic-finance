@@ -6,8 +6,8 @@ import type { Edition } from './types';
  * convert, completed editions prove, planned editions collect interest.
  *
  * Editorial rules encoded here:
- * - Abu Dhabi: only "December 2026" is public for the summit. The VIP Gala date
- *   (Tue 8 Dec) belongs to the Gala and is never reused as the summit date.
+ * - Abu Dhabi: the Summit is Friday 4 December 2026 on Saadiyat Island; the VIP
+ *   Gala is Tuesday 8 December. The two dates are never swapped or merged.
  * - Singapore: completed. Retrospective figures as published on the Abu Dhabi site.
  * - 2027: planned cities only. No dates, venues or speakers.
  */
@@ -20,8 +20,10 @@ export const editions: Edition[] = [
     country: 'United Arab Emirates',
     year: 2026,
     status: 'upcoming',
-    dateLabel: 'December 2026',
-    venue: { name: 'Abu Dhabi', note: 'Date and venue are shared with invited guests as they are confirmed.' },
+    dateLabel: '4 December 2026',
+    startDate: '2026-12-04T14:00:00+04:00',
+    endDate: '2026-12-04T18:00:00+04:00',
+    venue: { name: 'Saadiyat Island, Abu Dhabi' },
     tagline: 'Where finance’s decision-makers meet.',
     summary:
       'An invitation-only gathering of 500 hand-selected leaders shaping the future of finance, digital assets and prediction markets.',
@@ -42,7 +44,7 @@ export const editions: Edition[] = [
       {
         id: 'summit',
         name: 'Agentic Finance Summit',
-        when: 'Abu Dhabi · December 2026',
+        when: 'Saadiyat Island, Abu Dhabi · Friday 4 December 2026, 14:00-18:00 GST',
         summary:
           'The main gathering. 500 hand-selected guests from institutions, capital and the companies building agentic finance.',
         points: [
@@ -56,7 +58,7 @@ export const editions: Edition[] = [
       {
         id: 'gala',
         name: 'VIP Gala',
-        when: 'Abu Dhabi · Tuesday 8 December 2026',
+        when: 'Abu Dhabi · Tuesday 8 December 2026, 20:00-00:00',
         summary: 'An exclusive evening for approximately 200 invited senior leaders and strategic partners.',
         points: ['Executive networking, seated and unhurried', 'Private relationship building', 'By personal invitation only'],
         href: '/editions/abu-dhabi-2026/gala',

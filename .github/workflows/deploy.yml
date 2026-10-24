@@ -3,6 +3,9 @@ name: Deploy to GitHub Pages
 on:
   push:
     branches: [main]
+  # Daily rebuild so the home page's "In the news" article rotates.
+  schedule:
+    - cron: '0 4 * * *'
   workflow_dispatch:
 
 permissions:
@@ -29,6 +32,10 @@ jobs:
           node-version: 22
           cache: npm
       - run: npm ci
+      # Never fails the build: without a fresh, checked article the block is hidden.
+      - run: npm run news
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
       - run: npm run build
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3

@@ -18,7 +18,7 @@ export const metadata: Metadata = pageMetadata({
 const STEPS = [
   { title: 'Request', body: 'Apply through the Abu Dhabi registration page. It takes a few minutes: who you are, your institution, and why you should be in the room.' },
   { title: 'Review', body: 'The team reads every request manually, for seniority, institutional relevance and fit with the room.' },
-  { title: 'Invitation', body: 'Selected guests receive a personal invitation by email, with the date and venue once confirmed.' },
+  { title: 'Invitation', body: 'Selected guests receive a personal invitation by email.' },
 ];
 
 export default function InvitationPage() {

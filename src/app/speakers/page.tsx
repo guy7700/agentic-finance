@@ -74,7 +74,7 @@ export default function SpeakersPage() {
           />
           <p className="mt-14 max-w-3xl text-[13px] leading-relaxed text-subtle">
             Profiles, titles and photographs are as published for each edition. “More &amp; More conferences” marks speakers listed among
-            speakers at our conferences without a specific Agentic Finance edition; “The Odds · Paris 2026” marks speakers from the sister
+            speakers at our events without a specific Agentic Finance edition; “The Odds · Paris 2026” marks speakers from the sister
             prediction-markets summit.
           </p>
         </Container>

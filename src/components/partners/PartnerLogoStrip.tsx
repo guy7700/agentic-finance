@@ -28,7 +28,7 @@ export function PartnerLogoStrip({
         {link ? <TextLink href={link.href}>{link.label}</TextLink> : null}
       </div>
       <LogoWall items={items} className="mt-5" />
-      <p className="mt-4 text-[13px] text-subtle">{caption}</p>
+      {caption ? <p className="mt-4 text-[13px] text-subtle">{caption}</p> : null}
     </div>
   );
 }

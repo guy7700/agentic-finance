@@ -2,7 +2,6 @@ import type { ReactNode } from 'react';
 import { primaryActions } from '@/config/site';
 import { getCurrentEdition } from '@/data/editions';
 import { ButtonLink } from './Button';
-import { Img } from './Img';
 import { Container, Eyebrow } from './Layout';
 
 type CtaBandProps = {
@@ -10,24 +9,15 @@ type CtaBandProps = {
   title?: ReactNode;
   body?: ReactNode;
   actions?: ReactNode;
-  image?: { src: string; position?: string };
 };
 
 /** Closing conversion band: invitation and partnership, always both. */
-export function CtaBand({ eyebrow, title, body, actions, image }: CtaBandProps) {
+export function CtaBand({ eyebrow, title, body, actions }: CtaBandProps) {
   const current = getCurrentEdition();
   return (
     <section className="relative isolate overflow-hidden border-t border-line">
-      <div className="absolute inset-0 -z-10">
-        <Img
-          src={image?.src ?? '/images/singapore-2026/networking-floor.webp'}
-          alt=""
-          fill
-          sizes="100vw"
-          position={image?.position ?? '45% 40%'}
-          className="object-cover opacity-35"
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-ink-deep via-ink-deep/85 to-ink-deep/60" />
+      <div aria-hidden className="absolute inset-0 -z-10 bg-ink-deep">
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_70%_80%_at_20%_100%,rgb(209_182_121/0.12),transparent_70%)]" />
       </div>
       <Container className="py-24 sm:py-32">
         <div className="max-w-3xl">

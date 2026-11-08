@@ -42,6 +42,8 @@ export type SeriesBrand = {
   relationship: string;
   facts: string[];
   image: { src: string; alt: string };
+  /** A YouTube film shown in place of the photo. */
+  youtube?: { id: string; title: string; duration: string };
   href?: string;
   linkLabel?: string;
 };
@@ -70,6 +72,7 @@ export const seriesBrands: SeriesBrand[] = [
       'A sister brand. In Singapore it ran as a co-located second stage alongside Agentic Finance, on the same day at the same venue.',
     facts: ['Paris · Paris Blockchain Week 2026 · 200+ vetted attendees', 'Singapore · TOKEN2049 Week 2026 · co-located stage'],
     image: { src: '/images/more-and-more/the-odds-paris-room.jpg', alt: 'A full room at The Odds: Prediction Markets Summit, Paris Blockchain Week' },
+    youtube: { id: 'O8voyGJqDLE', title: 'The Odds: Prediction Markets Live (2026, Paris, The Louvre)', duration: '1:39' },
     href: 'https://mnm.live/theodds/t2049singapore',
     linkLabel: 'Visit The Odds',
   },
@@ -83,6 +86,7 @@ export const seriesBrands: SeriesBrand[] = [
       'The proof that More & More can convene Abu Dhabi. Agentic Finance Abu Dhabi is built by the same team, with the same relationships, on the same island.',
     facts: ['Abu Dhabi · 2025', '150 senior professionals', 'Speakers from Fireblocks, eToro, CertiK, Zengo, Nominis and CryptoLaw Partners'],
     image: { src: '/images/more-and-more/web2toweb3-session.webp', alt: 'A seated session at the Web2 to Web3 Summit in Abu Dhabi, produced by More & More' },
+    youtube: { id: 'K7Bu0Pml6-8', title: 'Web2 to Web3 Conference: Official Recap (UAE)', duration: '0:56' },
     href: 'https://mnm.live/case-studies#web2-to-web3',
     linkLabel: 'Read the case study',
   },

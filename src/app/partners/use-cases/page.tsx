@@ -41,7 +41,7 @@ export default function UseCasesPage() {
       </Section>
       <CtaBand
         title="Want this list with your name on it?"
-        body="Positions for Abu Dhabi are limited to eight. Start with a 20-minute call."
+        body="Positions for Abu Dhabi are limited to eight. Start with a 30-minute call."
         actions={
           <>
             <ButtonLink href="/partners/book-a-call" size="lg">

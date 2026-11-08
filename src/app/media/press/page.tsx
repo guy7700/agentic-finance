@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { PressMentions } from '@/components/media/PressMentions';
 import { ButtonLink } from '@/components/ui/Button';
 import { CtaBand } from '@/components/ui/CtaBand';
 import { Icon } from '@/components/ui/Icon';
@@ -12,7 +13,7 @@ import { pageMetadata } from '@/lib/seo';
 
 export const metadata: Metadata = pageMetadata({
   title: 'Press and brand kit',
-  description: 'Press resources for Agentic Finance: official logo files, key facts about the series and editions, and media contacts.',
+  description: 'Agentic Finance in the Press: coverage and original links, plus official logo files, key facts about the series and editions, and media contacts.',
   path: '/media/press',
 });
 
@@ -54,18 +55,25 @@ export default function PressPage() {
         }
       />
 
-      <Section className="!pt-12">
+      <Section className="!pt-12" id="in-the-press">
         <Container>
-          <SectionHeader eyebrow="Coverage" title="In the press." size="md" />
-          <div className="mt-8 rounded-2xl border border-dashed border-line-strong p-8 sm:p-10">
-            <p className="text-lg text-paper/90">Coverage of Agentic Finance will be listed here as it is published.</p>
-            <p className="mt-2 text-muted">
-              Writing about the series or an edition? Send us the link and we will add it.{' '}
-              <a href={`mailto:${contacts.press}`} className="font-semibold text-gold">
-                {contacts.press}
-              </a>
-            </p>
-          </div>
+          <SectionHeader
+            eyebrow="Coverage"
+            title={
+              <>
+                Agentic Finance in the <span className="serif-accent">Press</span>
+              </>
+            }
+            lede="Press mentions and conference recaps, each with a link to the original."
+            size="md"
+          />
+          <PressMentions className="mt-10" />
+          <p className="mt-8 font-light text-muted">
+            Writing about the series or an edition? Send us the link and we will add it.{' '}
+            <a href={`mailto:${contacts.press}`} className="font-semibold text-gold">
+              {contacts.press}
+            </a>
+          </p>
         </Container>
       </Section>
 

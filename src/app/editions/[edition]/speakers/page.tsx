@@ -93,8 +93,12 @@ export default async function EditionSpeakersPage({ params }: PageProps<'/editio
         <Section bordered tone="raised">
           <Container>
             <SectionHeader
-              eyebrow="Historical credibility"
-              title="Speakers at our conferences."
+              eyebrow="Past editions"
+              title={
+                <>
+                  Speakers at <span className="serif-accent">our events</span>
+                </>
+              }
               lede={`Leaders who have taken Agentic Finance stages before. They are shown for context and are not confirmed for ${e.city} unless announced above.`}
               action={<ButtonLink href="/speakers" variant="outline">Full directory</ButtonLink>}
             />

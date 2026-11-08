@@ -55,12 +55,12 @@ export function VideoPlayer({ src, poster, title, duration, hasAudio = true, cla
           <Img src={poster} alt="" fill loading={eager ? 'eager' : undefined} sizes="(min-width: 1024px) 70vw, 100vw" className="object-cover opacity-80 transition-opacity duration-500 group-hover:opacity-95" />
           <span aria-hidden className="absolute inset-0 bg-gradient-to-t from-ink/85 via-ink/20 to-transparent" />
           <span className="absolute inset-0 flex items-center justify-center">
-            <span className="flex size-20 items-center justify-center rounded-full bg-gold text-ink shadow-[0_0_0_10px_rgb(212_175_90/0.18)] transition-transform duration-500 group-hover:scale-105 sm:size-24">
-              <Icon name="play" size={30} />
+            <span className="flex size-14 items-center justify-center rounded-full bg-gold text-ink shadow-[0_0_0_10px_rgb(209_182_121/0.18)] transition-transform duration-500 group-hover:scale-105 sm:size-24">
+              <Icon name="play" size={26} />
             </span>
           </span>
-          <span className="absolute inset-x-5 bottom-5 flex items-end justify-between gap-4 sm:inset-x-8 sm:bottom-7">
-            <span className="text-lg font-semibold leading-tight sm:text-2xl">{title}</span>
+          <span className="absolute inset-x-4 bottom-3 flex items-end justify-between gap-4 sm:inset-x-8 sm:bottom-7">
+            <span className="line-clamp-1 text-sm font-semibold leading-tight sm:line-clamp-none sm:text-2xl">{title}</span>
             <span className="flex shrink-0 items-center gap-2 font-mono text-xs text-paper/80">
               <Icon name={hasAudio ? 'volume' : 'volume-off'} size={14} />
               {duration}

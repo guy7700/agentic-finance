@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState, type KeyboardEvent } from 'react';
 import type { GalleryImage } from '@/data/types';
 import { cn } from '@/lib/cn';
+import { ButtonLink } from '../ui/Button';
 import { Icon } from '../ui/Icon';
 import { Img } from '../ui/Img';
 
@@ -16,18 +17,25 @@ type GalleryProps = {
   /** Hide filters (e.g. single-edition embeds). */
   filters?: boolean;
   initialCollection?: string;
+  /** Show only the first photos of the current view in the grid; the viewer still browses them all. */
+  limit?: number;
+  /** Link to the full gallery, shown when `limit` hides photos. */
+  moreHref?: string;
 };
 
 /**
- * Editorial masonry grid with a native <dialog> lightbox: focus is trapped and
- * Escape closes for free; arrow keys move between photos.
+ * Editorial masonry grid with a full-screen native <dialog> viewer: focus is
+ * trapped and Escape closes for free; arrow keys, the on-screen buttons and a
+ * swipe move between photos. Edition and moment filters only show when they
+ * narrow the view.
  */
-export function Gallery({ images, collections, tags = [], filters = true, initialCollection = '' }: GalleryProps) {
+export function Gallery({ images, collections, tags = [], filters = true, initialCollection = '', limit, moreHref }: GalleryProps) {
   const [collection, setCollection] = useState(initialCollection);
   const [tag, setTag] = useState('');
   const [index, setIndex] = useState<number | null>(null);
   const dialogRef = useRef<HTMLDialogElement>(null);
   const returnFocus = useRef<HTMLElement | null>(null);
+  const touchX = useRef<number | null>(null);
 
   const visible = useMemo(
     () => images.filter((i) => (!collection || i.edition === collection) && (!tag || i.tags.includes(tag))),
@@ -83,34 +91,41 @@ export function Gallery({ images, collections, tags = [], filters = true, initia
 
   const current = index !== null ? visible[index] : null;
   const collectionLabel = (id: string) => collections.find((c) => c.id === id)?.label ?? id;
+  const shown = limit ? visible.slice(0, limit) : visible;
+  const withPhotos = collections.filter((c) => images.some((i) => i.edition === c.id));
+  const usedTags = tags.filter((t) => images.some((i) => i.tags.includes(t.id)));
+  const showEditions = withPhotos.length > 1;
+  const showTags = usedTags.length > 1;
 
   return (
     <div>
-      {filters ? (
+      {filters && (showEditions || showTags) ? (
         <div className="flex flex-col gap-3 border-y border-line py-4 lg:flex-row lg:items-center lg:justify-between">
-          <div role="group" aria-label="Event" className="no-scrollbar -mx-1 flex gap-2 overflow-x-auto px-1">
-            {[{ id: '', short: 'All events' }, ...collections].map((c) => {
-              const count = c.id ? images.filter((i) => i.edition === c.id).length : images.length;
-              return (
-                <button
-                  key={c.id || 'all'}
-                  type="button"
-                  aria-pressed={collection === c.id}
-                  onClick={() => setCollection(c.id)}
-                  className={cn(
-                    'inline-flex h-10 shrink-0 items-center gap-2 rounded-full border px-4 text-[13px] font-semibold transition-colors',
-                    collection === c.id ? 'border-gold bg-gold text-ink' : 'border-line-strong hover:border-gold hover:text-gold',
-                  )}
-                >
-                  {c.short}
-                  <span className={cn('font-mono text-[11px]', collection === c.id ? 'text-ink/70' : 'text-subtle')}>{count}</span>
-                </button>
-              );
-            })}
-          </div>
-          {tags.length ? (
+          {showEditions ? (
+            <div role="group" aria-label="Edition" className="no-scrollbar -mx-1 flex gap-2 overflow-x-auto px-1">
+              {[{ id: '', short: 'All editions' }, ...withPhotos].map((c) => {
+                const count = c.id ? images.filter((i) => i.edition === c.id).length : images.length;
+                return (
+                  <button
+                    key={c.id || 'all'}
+                    type="button"
+                    aria-pressed={collection === c.id}
+                    onClick={() => setCollection(c.id)}
+                    className={cn(
+                      'inline-flex h-10 shrink-0 items-center gap-2 rounded-full border px-4 text-[13px] font-semibold transition-colors',
+                      collection === c.id ? 'border-gold bg-gold text-ink' : 'border-line-strong hover:border-gold hover:text-gold',
+                    )}
+                  >
+                    {c.short}
+                    <span className={cn('font-mono text-[11px]', collection === c.id ? 'text-ink/70' : 'text-subtle')}>{count}</span>
+                  </button>
+                );
+              })}
+            </div>
+          ) : null}
+          {showTags ? (
             <div role="group" aria-label="Moment" className="flex flex-wrap gap-2">
-              {[{ id: '', label: 'All moments' }, ...tags].map((t) => (
+              {[{ id: '', label: 'All moments' }, ...usedTags].map((t) => (
                 <button
                   key={t.id || 'all'}
                   type="button"
@@ -129,15 +144,16 @@ export function Gallery({ images, collections, tags = [], filters = true, initia
         </div>
       ) : null}
 
-      {filters ? (
+      {filters && (showEditions || showTags) ? (
         <p aria-live="polite" className="mono-label mt-6">
+          {shown.length < visible.length ? `Showing ${shown.length} of ` : null}
           {visible.length} {visible.length === 1 ? 'photo' : 'photos'}
         </p>
       ) : null}
 
       {visible.length ? (
         <ul className="mt-6 columns-1 gap-4 sm:columns-2 lg:columns-3 [&>li]:mb-4">
-          {visible.map((img, i) => (
+          {shown.map((img, i) => (
             <li key={img.id} className="break-inside-avoid">
               <figure>
                 <button
@@ -148,7 +164,7 @@ export function Gallery({ images, collections, tags = [], filters = true, initia
                 >
                   <Img
                     src={img.src}
-                    alt={img.alt}
+                    alt=""
                     fill
                     sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
                     className="object-cover transition-transform duration-700 ease-[var(--ease-out-soft)] group-hover:scale-[1.03]"
@@ -156,7 +172,7 @@ export function Gallery({ images, collections, tags = [], filters = true, initia
                   <span className="absolute right-3 top-3 flex size-9 items-center justify-center rounded-full bg-ink/70 text-paper opacity-0 backdrop-blur-sm transition-opacity group-hover:opacity-100 group-focus-visible:opacity-100">
                     <Icon name="expand" size={16} />
                   </span>
-                  <span className="sr-only">Open photo: {img.caption ?? img.alt}</span>
+                  <span className="sr-only">View full screen: {img.caption ?? img.alt}</span>
                 </button>
                 {img.caption ? (
                   <figcaption className="mt-2.5 text-[13px] leading-snug text-muted">
@@ -172,20 +188,28 @@ export function Gallery({ images, collections, tags = [], filters = true, initia
         </ul>
       ) : (
         <p className="mt-8 rounded-2xl border border-dashed border-line-strong p-10 text-center text-muted">
-          No photos in this view yet. Try another event or moment.
+          No photos in this view yet. Try another edition or moment.
         </p>
       )}
+
+      {moreHref && shown.length < visible.length ? (
+        <div className="mt-8 flex justify-center">
+          <ButtonLink href={moreHref} variant="outline">
+            Full gallery
+          </ButtonLink>
+        </div>
+      ) : null}
 
       <dialog
         ref={dialogRef}
         onClose={close}
         onKeyDown={onKeyDown}
         aria-label={current ? `Photo: ${current.caption ?? current.alt}` : 'Photo viewer'}
-        className="m-0 h-dvh max-h-none w-screen max-w-none bg-ink-deep/96 p-0 text-paper backdrop:bg-ink-deep/90"
+        className="m-0 h-dvh max-h-none w-full max-w-none overscroll-contain bg-ink-deep p-0 text-paper backdrop:bg-ink-deep"
       >
         {current ? (
           <div className="flex h-full flex-col">
-            <div className="flex items-center justify-between gap-4 px-4 py-3 sm:px-8">
+            <div className="flex items-center justify-between gap-4 px-4 pb-2 pt-[max(0.75rem,env(safe-area-inset-top))] sm:px-8">
               <p className="font-mono text-xs text-muted">
                 {(index ?? 0) + 1} / {visible.length}
               </p>
@@ -198,7 +222,19 @@ export function Gallery({ images, collections, tags = [], filters = true, initia
                 <span className="sr-only">Close photo viewer</span>
               </button>
             </div>
-            <div className="relative flex min-h-0 flex-1 items-center justify-center px-2 sm:px-20">
+            <div
+              className="relative flex min-h-0 flex-1 touch-pan-y items-center justify-center sm:px-20"
+              onTouchStart={(e) => {
+                touchX.current = e.touches[0]?.clientX ?? null;
+              }}
+              onTouchEnd={(e) => {
+                const start = touchX.current;
+                touchX.current = null;
+                const end = e.changedTouches[0]?.clientX;
+                if (start === null || end === undefined || Math.abs(end - start) < 48) return;
+                step(end < start ? 1 : -1);
+              }}
+            >
               <div className="relative h-full w-full">
                 <Img key={current.id} src={current.src} alt={current.alt} fill sizes="100vw" quality={85} className="object-contain" />
               </div>
@@ -219,7 +255,7 @@ export function Gallery({ images, collections, tags = [], filters = true, initia
                 <span className="sr-only">Next photo</span>
               </button>
             </div>
-            <div className="px-4 pb-[max(1.25rem,env(safe-area-inset-bottom))] pt-4 text-center sm:px-8">
+            <div aria-live="polite" className="px-4 pb-[max(1.25rem,env(safe-area-inset-bottom))] pt-4 text-center sm:px-8">
               <p className="mx-auto max-w-2xl text-[15px] text-paper/90">{current.caption ?? current.alt}</p>
               <p className="mt-1 font-mono text-[10.5px] uppercase tracking-[0.08em] text-subtle">{collectionLabel(current.edition)}</p>
             </div>

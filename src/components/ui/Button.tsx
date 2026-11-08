@@ -8,7 +8,7 @@ export type ButtonVariant = 'primary' | 'outline' | 'ghost' | 'dark';
 export type ButtonSize = 'sm' | 'md' | 'lg';
 
 const base =
-  'group/btn relative inline-flex select-none items-center justify-center gap-2 rounded-full font-semibold uppercase whitespace-nowrap transition-[background-color,border-color,color,box-shadow,transform] duration-300 ease-[var(--ease-out-soft)] focus-visible:outline-2 focus-visible:outline-offset-3 disabled:pointer-events-none disabled:opacity-50';
+  'group/btn relative inline-flex max-w-full select-none items-center justify-center gap-2 rounded-full font-semibold uppercase whitespace-nowrap max-[359px]:whitespace-normal max-[359px]:py-2 max-[359px]:text-center transition-[background-color,border-color,color,box-shadow,transform] duration-300 ease-[var(--ease-out-soft)] focus-visible:outline-2 focus-visible:outline-offset-3 disabled:pointer-events-none disabled:opacity-50';
 
 const variants: Record<ButtonVariant, string> = {
   // As on the Abu Dhabi page: one solid gold pill with a soft glow; outlines

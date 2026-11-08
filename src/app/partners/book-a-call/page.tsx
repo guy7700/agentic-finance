@@ -12,7 +12,7 @@ import { pageMetadata } from '@/lib/seo';
 export const metadata: Metadata = pageMetadata({
   title: 'Book a partnership call',
   description:
-    'Book a 20-minute call with the Agentic Finance partnerships team, or send an enquiry. Every position is shaped around your category.',
+    'Book a 30-minute call with the Agentic Finance partnerships team, or send an enquiry. Every position is shaped around your category.',
   path: '/partners/book-a-call',
 });
 
@@ -37,7 +37,7 @@ export default function BookACallPage() {
       <Section className="!pt-12">
         <Container>
           <div className="grid gap-10 lg:grid-cols-[minmax(0,1.5fr)_minmax(0,1fr)]">
-            <BookingEmbed url={booking.partnership.url} minutes={booking.partnership.minutes} title="A 20-minute partnership call" />
+            <BookingEmbed url={booking.partnership.url} minutes={booking.partnership.minutes} title="A 30-minute partnership call" />
             <div className="rounded-2xl border border-line p-6 sm:p-8">
               <p className="mono-label">What we will cover</p>
               <ul className="mt-4 flex flex-col gap-3">

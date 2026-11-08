@@ -268,35 +268,11 @@ export type Format = {
   image: { src: string; alt: string; position?: string };
 };
 
-/** Formats as published on the Abu Dhabi site, illustrated with Singapore photography. */
+/** Formats, meetings first as in Tal's brief, illustrated with Singapore photography. */
 export const formats: Format[] = [
   {
-    id: 'keynotes',
-    name: 'Keynotes and fireside conversations',
-    summary: 'A few voices, given the time to say something worth hearing.',
-    detail:
-      'In Singapore, eToro’s Co-Founder and CEO Yoni Assia gave the day’s headline keynote, “When the Broker Becomes an Agent”, and the parallel stage paused so both rooms could attend.',
-    image: {
-      src: '/images/singapore-2026/opening-keynote.webp',
-      alt: 'Tal Mor of More & More opening the day on the Singapore stage',
-      position: '62% 35%',
-    },
-  },
-  {
-    id: 'discussions',
-    name: 'Senior institutional discussions',
-    summary: 'Founders and institutions on the decisions in front of them.',
-    detail:
-      'Panels are built around one decision each: banking, wallets, payments, trading, capital and the limits on autonomous agents. Standard Chartered, KPMG, Pantera Capital, Aave Labs and Chainlink Labs took the stage in Singapore.',
-    image: {
-      src: '/images/singapore-2026/agentic-banking-panel.webp',
-      alt: 'The Agentic Banking panel on stage in Singapore, its title on the screen behind',
-      position: '30% 50%',
-    },
-  },
-  {
     id: 'introductions',
-    name: 'Curated introductions',
+    name: 'Curated meetings',
     summary: 'Arranged in advance, around who you need to meet.',
     detail:
       'Guests tell us who they need to meet. The team arranges those introductions before the event, and structured networking blocks in the programme leave time for them.',
@@ -308,8 +284,8 @@ export const formats: Format[] = [
   },
   {
     id: 'meetings',
-    name: 'Private meetings',
-    summary: 'Rooms set aside for conversations that should not happen on a floor.',
+    name: 'Private meeting rooms',
+    summary: 'Dedicated private rooms for meetings away from the floor.',
     detail:
       'Meeting rooms are reserved on site and scheduled in advance for partners and guests, for the conversations that move a deal forward.',
     image: {
@@ -319,9 +295,33 @@ export const formats: Format[] = [
     },
   },
   {
+    id: 'keynotes',
+    name: 'Keynotes and firesides',
+    summary: 'Industry leaders on stage, with time for real detail.',
+    detail:
+      'In Singapore, eToro’s Co-Founder and CEO Yoni Assia gave the day’s headline keynote, “When the Broker Becomes an Agent”, and the parallel stage paused so both rooms could attend.',
+    image: {
+      src: '/images/singapore-2026/opening-keynote.webp',
+      alt: 'Tal Mor of More & More opening the day on the Singapore stage',
+      position: '62% 35%',
+    },
+  },
+  {
+    id: 'discussions',
+    name: 'Panels',
+    summary: 'Institutions and founders, one decision per panel.',
+    detail:
+      'Panels are built around one decision each: banking, wallets, payments, trading, capital and the limits on autonomous agents. Standard Chartered, KPMG, Pantera Capital, Aave Labs and Chainlink Labs took the stage in Singapore.',
+    image: {
+      src: '/images/singapore-2026/agentic-banking-panel.webp',
+      alt: 'The Agentic Banking panel on stage in Singapore, its title on the screen behind',
+      position: '30% 50%',
+    },
+  },
+  {
     id: 'networking',
-    name: 'Executive networking',
-    summary: 'A room where everyone was chosen.',
+    name: 'Networking and deal-making',
+    summary: 'Curated guests, new partnerships and deals.',
     detail:
       'Every guest is selected, so every conversation on the floor is a relevant one. In Abu Dhabi, the VIP Gala extends this into a seated evening for approximately 200 invited leaders.',
     image: {

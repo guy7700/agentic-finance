@@ -297,7 +297,7 @@ export const useCases: UseCase[] = [
 
 /**
  * Use cases from other More & More stages. As on mnm.live/agentic-finance-abu-dhabi;
- * no photos or deliverables beyond these are on file yet.
+ * the MME photos were supplied by the user on 8 November 2026.
  */
 export const otherUseCases: UseCase[] = [
   {
@@ -311,8 +311,44 @@ export const otherUseCases: UseCase[] = [
     categories: [],
     people: [],
     sessions: [],
-    deliverables: [{ label: 'Stage participation' }],
-    photos: [],
+    deliverables: [
+      {
+        label: 'Stage participation',
+        photo: {
+          src: '/images/more-and-more/the-odds-mme-panel.webp',
+          alt: 'The “Can you regulate the future?” panel at The Odds, with the MME logo on the screen behind the speakers',
+        },
+      },
+    ],
+    photos: [
+      {
+        src: '/images/more-and-more/the-odds-mme-panel.webp',
+        alt: 'The “Can you regulate the future?” panel at The Odds, with the MME logo on the screen behind the speakers',
+        width: 1649,
+        height: 1080,
+      },
+      {
+        src: '/images/more-and-more/the-odds-mme-stage.webp',
+        alt: 'Guests on The Odds stage, with the MME Legal, Tax and Compliance logo on the screen behind them',
+        position: '50% 30%',
+        width: 1600,
+        height: 1066,
+      },
+      {
+        src: '/images/more-and-more/the-odds-mme-speaker.webp',
+        alt: 'A panellist speaking into a microphone during the panel at The Odds',
+        position: '70% 40%',
+        width: 1612,
+        height: 1090,
+      },
+      {
+        src: '/images/more-and-more/the-odds-mme-portrait.webp',
+        alt: 'A guest in a navy jacket at The Odds',
+        position: '50% 30%',
+        width: 510,
+        height: 574,
+      },
+    ],
     url: 'https://www.mme.ch',
   },
 ];

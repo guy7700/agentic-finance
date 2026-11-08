@@ -6,7 +6,10 @@ import { PostCard } from './PostCard';
 
 export const blogPageHref = (page: number) => (page <= 1 ? '/blog' : `/blog/page/${page}`);
 
-/** One page of the blog index, with numbered pagination. */
+/**
+ * One page of the blog index, with numbered pagination. Every card leads with
+ * an image; on the first page the newest post is shown large.
+ */
 export function BlogList({ page }: { page: number }) {
   const posts = getPosts().slice((page - 1) * BLOG_PAGE_SIZE, page * BLOG_PAGE_SIZE);
   const pages = blogPageCount();
@@ -15,11 +18,14 @@ export function BlogList({ page }: { page: number }) {
       <Container>
         {posts.length ? (
           <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {posts.map((p) => (
-              <li key={p.slug}>
-                <PostCard post={p} headingLevel="h2" />
-              </li>
-            ))}
+            {posts.map((p, i) => {
+              const feature = page === 1 && i === 0;
+              return (
+                <li key={p.slug} className={cn(feature && 'sm:col-span-2 lg:col-span-3')}>
+                  <PostCard post={p} headingLevel="h2" variant={feature ? 'feature' : 'default'} />
+                </li>
+              );
+            })}
           </ul>
         ) : (
           <p className="lede">The first daily post is on its way.</p>

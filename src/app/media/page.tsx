@@ -1,12 +1,13 @@
 import type { Metadata } from 'next';
 import { Gallery } from '@/components/media/Gallery';
+import { PressMentions } from '@/components/media/PressMentions';
 import { VideoPlayer } from '@/components/media/VideoPlayer';
 import { ButtonLink } from '@/components/ui/Button';
 import { CtaBand } from '@/components/ui/CtaBand';
 import { GroupIndex } from '@/components/ui/GroupIndex';
 import { Container, Section, SectionHeader } from '@/components/ui/Layout';
 import { PageHero } from '@/components/ui/PageHero';
-import { gallery, galleryCollections, videos } from '@/data/media';
+import { gallery, galleryCollections, galleryTags, videos } from '@/data/media';
 import { pageMetadata } from '@/lib/seo';
 
 export const metadata: Metadata = pageMetadata({
@@ -38,10 +39,33 @@ export default function MediaPage() {
       </Section>
       <Section bordered>
         <Container>
-          <SectionHeader eyebrow="Gallery" title="Selected photographs." action={<ButtonLink href="/media/gallery" variant="outline">Full gallery</ButtonLink>} />
+          <SectionHeader
+            eyebrow="Gallery"
+            title={
+              <>
+                Photos by <span className="serif-accent">edition</span>.
+              </>
+            }
+            lede="Filter by edition or moment. Select any photo to view it full screen."
+            action={<ButtonLink href="/media/gallery" variant="outline">Full gallery</ButtonLink>}
+          />
           <div className="mt-10">
-            <Gallery images={gallery.filter((g) => g.edition === 'singapore-2026').slice(0, 9)} collections={galleryCollections} filters={false} />
+            <Gallery images={gallery} collections={galleryCollections} tags={galleryTags} limit={9} moreHref="/media/gallery" />
           </div>
+        </Container>
+      </Section>
+      <Section bordered tone="raised">
+        <Container>
+          <SectionHeader
+            eyebrow="Coverage"
+            title={
+              <>
+                Agentic Finance in the <span className="serif-accent">Press</span>
+              </>
+            }
+            action={<ButtonLink href="/media/press#in-the-press" variant="outline">Press and brand kit</ButtonLink>}
+          />
+          <PressMentions limit={3} className="mt-10" />
         </Container>
       </Section>
       <CtaBand />

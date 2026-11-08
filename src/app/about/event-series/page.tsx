@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { YouTubeEmbed } from '@/components/media/YouTubeEmbed';
 import { ButtonLink } from '@/components/ui/Button';
 import { CtaBand } from '@/components/ui/CtaBand';
 import { Icon } from '@/components/ui/Icon';
@@ -33,8 +34,18 @@ export default function EventSeriesPage() {
                 key={b.id}
                 className={`grid overflow-hidden rounded-2xl border lg:grid-cols-[minmax(0,1fr)_minmax(0,1.15fr)] ${b.id === 'agentic-finance' ? 'border-gold/50' : 'border-line'}`}
               >
-                <div className={`relative min-h-[280px] ${i % 2 === 1 ? 'lg:order-2' : ''}`}>
-                  <Img src={b.image.src} alt={b.image.alt} fill sizes="(min-width: 1024px) 45vw, 100vw" className="object-cover" />
+                <div className={`relative ${b.youtube ? '' : 'min-h-[280px]'} ${i % 2 === 1 ? 'lg:order-2' : ''}`}>
+                  {b.youtube ? (
+                    <YouTubeEmbed
+                      id={b.youtube.id}
+                      poster={b.image.src}
+                      title={b.youtube.title}
+                      duration={b.youtube.duration}
+                      className="h-full rounded-none border-0 lg:absolute lg:inset-0 lg:aspect-auto"
+                    />
+                  ) : (
+                    <Img src={b.image.src} alt={b.image.alt} fill sizes="(min-width: 1024px) 45vw, 100vw" className="object-cover" />
+                  )}
                   {b.id === 'agentic-finance' ? (
                     <span className="absolute left-4 top-4 rounded-full bg-gold px-3 py-1 font-mono text-[10.5px] uppercase tracking-[0.1em] text-ink">You are here</span>
                   ) : null}

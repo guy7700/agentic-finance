@@ -93,6 +93,47 @@ const paths = {
   volume: <path d="M3.5 8h3l4-3.5v11L6.5 12h-3zM13.5 7.5a3.5 3.5 0 0 1 0 5M15.5 5.5a6.5 6.5 0 0 1 0 9" />,
   'volume-off': <path d="M3.5 8h3l4-3.5v11L6.5 12h-3zM13.5 8l4 4m0-4-4 4" />,
   expand: <path d="M4 8V4h4M16 8V4h-4M4 12v4h4M16 12v4h-4" />,
+  card: (
+    <>
+      <rect x="2.5" y="5" width="15" height="10.5" rx="1.5" />
+      <path d="M2.5 8.5h15M5.5 12.5h3" />
+    </>
+  ),
+  chart: <path d="M3 16.5h14M4 13l4-4 3 3 5-6M13 6h3v3" />,
+  chip: (
+    <>
+      <rect x="5.5" y="5.5" width="9" height="9" rx="1.5" />
+      <path d="M8 3v2.5M12 3v2.5M8 14.5V17M12 14.5V17M3 8h2.5M3 12h2.5M14.5 8H17M14.5 12H17" />
+    </>
+  ),
+  bank: <path d="M3 8 10 4l7 4M4.5 8.5v6M8 8.5v6M12 8.5v6M15.5 8.5v6M3 16.5h14" />,
+  database: (
+    <>
+      <ellipse cx="10" cy="5.5" rx="5.5" ry="2" />
+      <path d="M4.5 5.5v9c0 1.1 2.5 2 5.5 2s5.5-.9 5.5-2v-9M4.5 10c0 1.1 2.5 2 5.5 2s5.5-.9 5.5-2" />
+    </>
+  ),
+  shield: <path d="M10 3 4.5 5v4.5c0 3.5 2.4 6.2 5.5 7.5 3.1-1.3 5.5-4 5.5-7.5V5zM7.5 10l2 2 3.5-3.5" />,
+  token: (
+    <>
+      <path d="M10 2.8 16.2 6.4v7.2L10 17.2l-6.2-3.6V6.4z" />
+      <circle cx="10" cy="10" r="2.5" />
+    </>
+  ),
+  wallet: (
+    <>
+      <path d="M15.5 6.5V5A1.5 1.5 0 0 0 14 3.5H4.5A1.5 1.5 0 0 0 3 5v10a1.5 1.5 0 0 0 1.5 1.5H16a1 1 0 0 0 1-1v-8a1 1 0 0 0-1-1H4.5" />
+      <circle cx="13.5" cy="11.5" r=".8" fill="currentColor" />
+    </>
+  ),
+  link: <path d="M8.5 11.5a3 3 0 0 0 4.2 0l2.6-2.6a3 3 0 0 0-4.2-4.2l-.9.9M11.5 8.5a3 3 0 0 0-4.2 0l-2.6 2.6a3 3 0 0 0 4.2 4.2l.9-.9" />,
+  target: (
+    <>
+      <circle cx="10" cy="10" r="6.5" />
+      <circle cx="10" cy="10" r="3" />
+      <circle cx="10" cy="10" r=".6" fill="currentColor" />
+    </>
+  ),
 } as const;
 
 export type IconName = keyof typeof paths;

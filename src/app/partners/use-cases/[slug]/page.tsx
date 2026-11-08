@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { Gallery } from '@/components/media/Gallery';
+import { YouTubeEmbed } from '@/components/media/YouTubeEmbed';
 import { Breadcrumbs } from '@/components/ui/Breadcrumbs';
 import { ButtonLink, TextLink } from '@/components/ui/Button';
 import { CtaBand } from '@/components/ui/CtaBand';
@@ -10,7 +11,7 @@ import { Img } from '@/components/ui/Img';
 import { Container, Section } from '@/components/ui/Layout';
 import { booking } from '@/config/site';
 import { getEdition } from '@/data/editions';
-import { galleryCollections } from '@/data/media';
+import { galleryCollections, videos } from '@/data/media';
 import { categories, getUseCase, otherUseCases, useCases } from '@/data/partners';
 import { getSession, getSpeaker, stageLabels } from '@/lib/content';
 import { speakerThumb } from '@/lib/paths';
@@ -43,6 +44,8 @@ export default async function UseCasePage({ params }: PageProps<'/partners/use-c
   const edition = getEdition(u.edition);
   const eventName = u.event?.name ?? edition?.name;
   const hero = u.photos[0];
+  // The film of the event this use case comes from, when it is on YouTube.
+  const film = videos.find((v) => v.edition === u.edition && v.youtubeId);
   const featured = u.deliverables.filter((d) => d.photo);
   const others = useCases.filter((x) => x.slug !== u.slug);
 
@@ -170,11 +173,20 @@ export default async function UseCasePage({ params }: PageProps<'/partners/use-c
             </div>
             <div className="mt-8">
               <Gallery
-                images={u.photos.map((p, i) => ({ ...p, id: `${u.slug}-${i}`, edition: u.edition, tags: [], width: 1600, height: 1067, caption: p.alt }))}
+                images={u.photos.map((p, i) => ({ ...p, id: `${u.slug}-${i}`, edition: u.edition, tags: [], width: p.width ?? 1600, height: p.height ?? 1067, caption: p.caption ?? p.alt }))}
                 collections={galleryCollections}
                 filters={false}
               />
             </div>
+          </Container>
+        </Section>
+      ) : null}
+
+      {film?.youtubeId ? (
+        <Section bordered>
+          <Container>
+            <h2 className="display-tight text-3xl">The event on video</h2>
+            <YouTubeEmbed id={film.youtubeId} poster={film.poster} title={film.title} duration={film.duration} className="mt-8 max-w-4xl" />
           </Container>
         </Section>
       ) : null}
@@ -202,7 +214,6 @@ export default async function UseCasePage({ params }: PageProps<'/partners/use-c
         eyebrow="Partner with Agentic Finance Abu Dhabi"
         title="Want this list with your name on it?"
         body="No more than eight strategic positions in Abu Dhabi. Each one is built around your category, your stage and your introductions."
-        image={hero ? { src: hero.src, position: hero.position } : undefined}
         actions={
           <>
             <ButtonLink href="/partners/book-a-call" size="lg">

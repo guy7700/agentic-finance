@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { externalLinks } from '@/config/site';
 import { getCurrentEdition } from '@/data/editions';
-import { gallery, galleryCollections, videos } from '@/data/media';
+import { gallery, galleryCollections, galleryTags, videoKindLabels, videos } from '@/data/media';
 import { editionOrganizations, getOrganization, useCases } from '@/data/partners';
 import type { Edition } from '@/data/types';
 import { getSpeaker, isProgrammeSession, sessionsForEdition, speakersForEdition, stageLabels } from '@/lib/content';
@@ -23,6 +23,7 @@ import { Stats } from '../ui/Stats';
 export function CompletedEdition({ edition }: { edition: Edition }) {
   const next = getCurrentEdition();
   const recap = videos.find((v) => v.edition === edition.slug && v.kind === 'recap');
+  const moreVideos = videos.filter((v) => v.edition === edition.slug && v.id !== recap?.id);
   const sessions = sessionsForEdition(edition.slug).filter(isProgrammeSession);
   const editionSpeakers = speakersForEdition(edition.slug);
   const verified = editionOrganizations
@@ -33,7 +34,7 @@ export function CompletedEdition({ edition }: { edition: Edition }) {
     .map((r) => getOrganization(r.org))
     .filter((o) => o !== undefined)
     .slice(0, 24);
-  const photos = gallery.filter((g) => g.edition === edition.slug).slice(0, 6);
+  const photos = gallery.filter((g) => g.edition === edition.slug);
   const editionCases = useCases.filter((u) => u.edition === edition.slug);
 
   return (
@@ -181,8 +182,37 @@ export function CompletedEdition({ edition }: { edition: Edition }) {
         </Container>
       </Section>
 
+      {/* Media */}
+      {moreVideos.length ? (
+        <Section bordered tone="raised" id="media">
+          <Container>
+            <SectionHeader
+              eyebrow="Media"
+              title={
+                <>
+                  More from {edition.city} on <span className="serif-accent">video</span>.
+                </>
+              }
+              action={<ButtonLink href="/media/video" variant="outline">All videos</ButtonLink>}
+            />
+            <ul className="mt-12 grid gap-10 md:grid-cols-2 md:gap-6">
+              {moreVideos.map((v) => (
+                <li key={v.id}>
+                  <VideoPlayer src={v.src} poster={v.poster} title={v.title} duration={v.duration} hasAudio={v.hasAudio} />
+                  <p className="mono-label mt-5">
+                    {videoKindLabels[v.kind]} · {v.duration}
+                    {v.hasAudio ? '' : ' · No audio'}
+                  </p>
+                  <p className="mt-2 max-w-xl font-light leading-relaxed text-muted">{v.description}</p>
+                </li>
+              ))}
+            </ul>
+          </Container>
+        </Section>
+      ) : null}
+
       {/* Partners */}
-      <Section bordered tone="raised" id="partners">
+      <Section bordered id="partners">
         <Container>
           <SectionHeader
             eyebrow="Partners"
@@ -212,7 +242,7 @@ export function CompletedEdition({ edition }: { edition: Edition }) {
       </Section>
 
       {/* Gallery */}
-      <Section bordered id="gallery">
+      <Section bordered tone="raised" id="gallery">
         <Container>
           <SectionHeader
             eyebrow="Gallery"
@@ -220,13 +250,13 @@ export function CompletedEdition({ edition }: { edition: Edition }) {
             action={<ButtonLink href="/media/gallery" variant="outline">Full gallery</ButtonLink>}
           />
           <div className="mt-10">
-            <Gallery images={photos} collections={galleryCollections} filters={false} />
+            <Gallery images={photos} collections={galleryCollections} tags={galleryTags} limit={6} moreHref="/media/gallery" />
           </div>
         </Container>
       </Section>
 
       {/* Venue */}
-      <Section bordered tone="raised" id="venue">
+      <Section bordered id="venue">
         <Container>
           <div className="grid gap-12 lg:grid-cols-2 lg:items-center">
             <div className="relative aspect-[5/4] overflow-hidden rounded-2xl border border-line">

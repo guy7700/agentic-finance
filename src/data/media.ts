@@ -1,4 +1,4 @@
-import type { GalleryImage, Video } from './types';
+import type { GalleryImage, PressMention, Video } from './types';
 
 /**
  * Photo collections, grouped by event. Captions are the descriptions published
@@ -135,6 +135,22 @@ export const galleryTags = [
   { id: 'media', label: 'Media' },
 ] as const;
 
+/** Video types, as labelled in the library filters. A "session" is a stage recording. */
+/** Labels for videos from events that are not Agentic Finance editions. */
+export const otherEventLabels: Record<string, string> = {
+  'the-odds-paris-2026': 'The Odds · Paris 2026',
+  'web2-to-web3-2025': 'Web2 to Web3 · Abu Dhabi 2025',
+};
+
+export const videoKindLabels: Record<Video['kind'], string> = {
+  recap: 'Recap',
+  highlights: 'Highlights',
+  aftermovie: 'Aftermovie',
+  session: 'Stage recording',
+  keynote: 'Keynote',
+  panel: 'Panel discussion',
+};
+
 export const videos: Video[] = [
   {
     id: 'singapore-2026-recap',
@@ -161,6 +177,30 @@ export const videos: Video[] = [
     hasAudio: false,
   },
   {
+    id: 'web2-to-web3-2025',
+    title: 'Web2 to Web3 Conference: Official Recap (UAE)',
+    description: 'The Web2 to Web3 Summit in Abu Dhabi, 2025. On More & More’s YouTube channel.',
+    edition: 'web2-to-web3-2025',
+    kind: 'recap',
+    src: 'https://www.youtube.com/watch?v=K7Bu0Pml6-8',
+    youtubeId: 'K7Bu0Pml6-8',
+    poster: '/images/more-and-more/web2toweb3-session.webp',
+    duration: '0:56',
+    hasAudio: true,
+  },
+  {
+    id: 'the-odds-paris-2026',
+    title: 'The Odds: Prediction Markets Live (2026, Paris, The Louvre)',
+    description: 'The Odds at Paris Blockchain Week, April 2026. On More & More’s YouTube channel.',
+    edition: 'the-odds-paris-2026',
+    kind: 'aftermovie',
+    src: 'https://www.youtube.com/watch?v=O8voyGJqDLE',
+    youtubeId: 'O8voyGJqDLE',
+    poster: '/images/more-and-more/the-odds-paris-room.jpg',
+    duration: '1:39',
+    hasAudio: true,
+  },
+  {
     id: 'the-odds-singapore-2026-aftermovie',
     title: 'The Odds: Prediction Markets Live, Singapore aftermovie',
     description:
@@ -174,3 +214,12 @@ export const videos: Video[] = [
     external: true,
   },
 ];
+
+/**
+ * "Agentic Finance in the Press": third-party coverage, newest first. Empty
+ * until real coverage is confirmed; the press page shows placeholder cards
+ * marked [TBC] until then. Add only published pieces with their original link,
+ * the outlet's own headline and the date as published. Partners and media
+ * partners on stage (e.g. CNBC in Singapore) are not press coverage.
+ */
+export const pressMentions: PressMention[] = [];

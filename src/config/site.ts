@@ -40,7 +40,7 @@ export const externalLinks = {
 export const booking = {
   partnership: {
     url: 'https://calendar.google.com/calendar/appointments/schedules/AcZssZ2zWBN4qAjLZHmAPekDSY8oGVtQhMd5aSu7h0lhOGREZB26jPcYsNkdTEZQepVr_g1j6EYFOJ7d?gv=true',
-    minutes: 20,
+    minutes: 30,
     label: 'Partner with us',
   },
   speaker: {
@@ -127,7 +127,7 @@ export const navigation: NavGroup[] = [
       { label: 'Partnership categories', description: '12 categories, 8 positions in Abu Dhabi', href: '/partners/categories' },
       { label: 'Use cases', description: 'eToro, Fireblocks, Alpaca, Limitless, MME Legal', href: '/partners/use-cases' },
       { label: 'Past partners', description: 'Logo wall by edition', href: '/partners/past-partners' },
-      { label: 'Partner with us', description: 'A 20-minute call', href: '/partners/book-a-call', cta: true },
+      { label: 'Partner with us', description: 'A 30-minute call', href: '/partners/book-a-call', cta: true },
     ],
   },
   {
@@ -161,4 +161,6 @@ export const navigation: NavGroup[] = [
 export const primaryActions = {
   invitation: { label: 'Apply to attend', href: '/invitation' },
   partner: { label: 'Partner with us', href: '/partners' },
+  /** The 2027 questionnaire, linked from the header and the mobile menu. */
+  questionnaire: { label: 'Where in 2027?', href: '/2027' },
 } as const;

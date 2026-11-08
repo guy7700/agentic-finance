@@ -56,9 +56,9 @@ export function CategoryExplorer({ categories, positions }: { categories: Catego
   };
 
   return (
-    <div className="grid gap-10 xl:grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)] xl:gap-14">
+    <div className="grid grid-cols-1 gap-10 xl:grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)] xl:gap-14">
       <h2 className="sr-only">Partnership categories</h2>
-      <div>
+      <div className="min-w-0">
         <div role="tablist" aria-label="Partnership categories" className="grid grid-cols-2 gap-2 sm:grid-cols-3 lg:grid-cols-4">
           {categories.map((c, i) => {
             const on = c.id === current.id;
@@ -77,12 +77,12 @@ export function CategoryExplorer({ categories, positions }: { categories: Catego
                 onClick={() => select(c.id)}
                 onKeyDown={(e) => onKey(e, i)}
                 className={cn(
-                  'group flex min-h-[112px] flex-col justify-between rounded-xl border p-4 text-left transition-colors duration-300',
+                  'group flex min-h-[112px] min-w-0 flex-col justify-between rounded-xl border p-4 text-left transition-colors duration-300',
                   on ? 'border-gold bg-gold/[0.09]' : 'border-line hover:border-line-strong hover:bg-ink-card',
                 )}
               >
                 <span className={cn('font-mono text-[11px]', on ? 'text-gold' : 'text-subtle')}>{c.number}</span>
-                <span className={cn('text-[15px] font-semibold leading-tight sm:text-base', on ? 'text-gold' : 'text-paper')}>{c.name}</span>
+                <span className={cn('hyphens-auto break-words text-[15px] font-semibold leading-tight sm:text-base', on ? 'text-gold' : 'text-paper')}>{c.name}</span>
               </button>
             );
           })}

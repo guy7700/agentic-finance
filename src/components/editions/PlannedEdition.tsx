@@ -131,7 +131,6 @@ export function PlannedEdition({ edition }: { edition: Edition }) {
         eyebrow={`${edition.city} · ${edition.dateLabel}`}
         title={`Be first to hear about ${edition.city}.`}
         body="Register your interest as a guest, or start a conversation about partnering across the 2027 series."
-        image={{ src: edition.image.src, position: edition.image.position }}
         actions={
           <>
             <ButtonLink href={interestHref} size="lg">

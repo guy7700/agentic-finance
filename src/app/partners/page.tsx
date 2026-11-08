@@ -22,7 +22,7 @@ export const metadata: Metadata = pageMetadata({
 });
 
 const PROCESS = [
-  { title: 'A 20-minute call', body: 'Tell us what your company wants to lead and who it needs to meet. We tell you honestly whether the room is right.' },
+  { title: 'A 30-minute call', body: 'Tell us what your company wants to lead and who it needs to meet. We tell you honestly whether the room is right.' },
   { title: 'A proposal built around you', body: 'Category, stage, introductions, activation and the Gala, shaped around your objectives rather than a rate card.' },
   { title: 'Introductions before you land', body: 'We arrange the meetings with the decision-makers you name, ahead of the event.' },
   { title: 'Proof after the room', body: 'Photography, video, PR and social coverage of your presence, as Singapore partners received.' },
@@ -163,7 +163,6 @@ export default function PartnersPage() {
       <CtaBand
         title="Eight positions. One conversation each."
         body="Talk to the partnerships team about the category your company should own in Abu Dhabi."
-        image={{ src: '/images/singapore-2026/etoro-f1-simulator.webp', position: '45% 55%' }}
         actions={
           <>
             <ButtonLink href="/partners/book-a-call" size="lg">

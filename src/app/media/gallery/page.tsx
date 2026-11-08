@@ -21,7 +21,7 @@ export default function GalleryPage() {
         crumbs={[{ label: 'Media', href: '/media' }, { label: 'Gallery' }]}
         eyebrow="Media · Photos by edition"
         title="Gallery."
-        lede="Photographs from Agentic Finance Singapore 2026, and from the More & More rooms that came before it in Paris and Abu Dhabi. Select any photo to view it full size."
+        lede="Photographs from Agentic Finance Singapore 2026, and from the More & More rooms that came before it in Paris and Abu Dhabi. Select any photo to view it full screen."
       />
       <Section className="!pt-10">
         <Container>

@@ -8,9 +8,9 @@ import { editionsByStatus } from '@/data/editions';
 import { pageMetadata } from '@/lib/seo';
 
 export const metadata: Metadata = pageMetadata({
-  title: 'Events: Abu Dhabi, Singapore and 2027',
+  title: 'Editions: Abu Dhabi, Singapore and 2027',
   description:
-    'Agentic Finance events: the Abu Dhabi summit on 4 December 2026, the Singapore 2026 archive and five cities in 2027.',
+    'Agentic Finance editions: the Abu Dhabi summit on 4 December 2026, the Singapore 2026 archive and five cities in 2027.',
   path: '/editions',
 });
 

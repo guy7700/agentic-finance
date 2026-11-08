@@ -185,7 +185,8 @@ export type Video = {
   title: string;
   description: string;
   edition: string;
-  kind: 'recap' | 'highlights' | 'aftermovie' | 'session';
+  /** "session" is a stage recording; keynotes and panels can be tagged on their own. */
+  kind: 'recap' | 'highlights' | 'aftermovie' | 'session' | 'keynote' | 'panel';
   src: string;
   poster: string;
   duration: string;
@@ -194,6 +195,33 @@ export type Video = {
   sessions?: string[];
   /** Hosted on More & More's own site rather than bundled with this one. */
   external?: boolean;
+  /**
+   * YouTube video ID, for films published on YouTube. The library then embeds
+   * the YouTube player (after a click) instead of playing `src`; set `src` to
+   * the YouTube watch URL and `external` to true.
+   */
+  youtubeId?: string;
+};
+
+/**
+ * Coverage of Agentic Finance by a third-party outlet. Only real, published
+ * pieces with a working link; an outlet logo only with the outlet's permission.
+ */
+export type PressMention = {
+  id: string;
+  /** "mention" for an article that covers us; "recap" for an outlet's write-up of an edition. */
+  kind: 'mention' | 'recap';
+  outlet: string;
+  /** Outlet logo under /images/press/, only when we may use it. */
+  logo?: string;
+  /** The outlet's own headline, as published. */
+  headline: string;
+  /** Publication date, YYYY-MM-DD, as published. */
+  date: string;
+  /** The original article. */
+  url: string;
+  /** Edition the piece covers, when it covers one. */
+  edition?: string;
 };
 
 export type GalleryImage = ImageAsset & {

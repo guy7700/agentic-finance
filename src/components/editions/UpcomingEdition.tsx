@@ -208,7 +208,7 @@ export function UpcomingEdition({ edition }: { edition: Edition }) {
           )}
           <div className="mt-16">
             <div className="flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
-              <h3 className="display-tight text-2xl sm:text-3xl">Speakers at our conferences</h3>
+              <h3 className="display-tight text-2xl sm:text-3xl">Speakers at Our Events</h3>
               <TextLink href="/speakers">The full directory</TextLink>
             </div>
             <p className="mt-3 max-w-2xl text-sm text-muted">From past editions. Not confirmed for Abu Dhabi unless announced above.</p>

@@ -25,6 +25,8 @@ jobs:
       # Repository variables (Settings → Secrets and variables → Actions → Variables) override these.
       NEXT_PUBLIC_ALLOW_INDEXING: ${{ vars.ALLOW_INDEXING || 'true' }}
       NEXT_PUBLIC_FORMS_LIVE: ${{ vars.FORMS_LIVE || 'true' }}
+      # 2027 questionnaire: the Meta pixel ID (docs/questionnaire-2027.md). Its Apps Script URL is in src/config/forms.ts.
+      NEXT_PUBLIC_META_PIXEL_ID: ${{ vars.META_PIXEL_ID }}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4

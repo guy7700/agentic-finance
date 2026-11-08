@@ -158,6 +158,8 @@ export type UseCase = {
   deliverables: Deliverable[];
   photos: ImageAsset[];
   url: string;
+  /** For a use case outside the Agentic Finance editions (e.g. The Odds). */
+  event?: { name: string; label: string };
 };
 
 export type OrgRelationship = 'title-partner' | 'partner' | 'on-stage' | 'media' | 'public-sector';

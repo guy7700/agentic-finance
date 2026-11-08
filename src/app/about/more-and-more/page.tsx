@@ -13,7 +13,7 @@ import { pageMetadata } from '@/lib/seo';
 export const metadata: Metadata = pageMetadata({
   title: 'More & More',
   description:
-    'More & More creates curated side events, executive gatherings, VIP delegations and business-development environments. 100+ events organised, 250+ deals and introductions, $50M+ sponsorship value facilitated.',
+    'More & More runs curated side events, executive gatherings and VIP delegations: 100+ events organised and 250+ deals and introductions.',
   path: '/about/more-and-more',
 });
 
@@ -51,7 +51,7 @@ export default function MoreAndMorePage() {
             {producerServices.map((s, i) => (
               <li key={s.name} className="flex flex-col gap-3 bg-ink p-7">
                 <span className="font-mono text-xs text-gold">0{i + 1}</span>
-                <span className="text-xl font-bold">{s.name}</span>
+                <span className="text-xl font-semibold">{s.name}</span>
                 <span className="leading-relaxed text-muted">{s.body}</span>
               </li>
             ))}

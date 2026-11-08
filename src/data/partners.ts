@@ -295,8 +295,30 @@ export const useCases: UseCase[] = [
   },
 ];
 
+/**
+ * Use cases from other More & More stages. As on mnm.live/agentic-finance-abu-dhabi;
+ * no photos or deliverables beyond these are on file yet.
+ */
+export const otherUseCases: UseCase[] = [
+  {
+    slug: 'mme-legal',
+    partner: 'MME Legal',
+    logo: '/images/partners/mme.webp',
+    edition: 'the-odds-paris-2026',
+    event: { name: 'The Odds at Paris Blockchain Week', label: 'The Odds · Paris 2026' },
+    positioning: 'Legal, tax and compliance partner',
+    summary: 'MME Legal, Tax and Compliance on stage at The Odds in Paris.',
+    categories: [],
+    people: [],
+    sessions: [],
+    deliverables: [{ label: 'Stage participation' }],
+    photos: [],
+    url: 'https://www.mme.ch',
+  },
+];
+
 export function getUseCase(slug: string) {
-  return useCases.find((u) => u.slug === slug);
+  return [...useCases, ...otherUseCases].find((u) => u.slug === slug);
 }
 
 /**
@@ -315,6 +337,7 @@ export const organizations: Organization[] = [
   { id: 'base', name: 'Base', logo: '/images/logos/base.png', url: 'https://base.org' },
   { id: 'alchemy', name: 'Alchemy', logo: '/images/logos/alchemy.svg', url: 'https://www.alchemy.com' },
   { id: 'cnbc', name: 'CNBC', logo: '/images/logos/cnbc.png', url: 'https://www.cnbc.com' },
+  { id: 'crypto-com', name: 'Crypto.com', logo: '/images/logos/crypto-com.png', url: 'https://crypto.com' },
   { id: 'animoca', name: 'Animoca Brands', logo: '/images/logos/animoca-minds.svg' },
   { id: 'nethermind', name: 'Nethermind', logo: '/images/logos/nethermind.svg', url: 'https://www.nethermind.io' },
   { id: 'trm-labs', name: 'TRM Labs', logo: '/images/logos/trm-labs.png', url: 'https://www.trmlabs.com' },
@@ -377,5 +400,5 @@ export const editionOrganizations: EditionOrganization[] = [
 
 /** A curated set of on-stage organisations for compact homepage logo rows. */
 export const featuredOnStage = [
-  'standard-chartered', 'kpmg', 'pantera', 'aave', 'chainlink', 'base', 'alchemy', 'trm-labs', 'nethermind', 'cnbc', 'animoca', 'blockaid',
+  'standard-chartered', 'kpmg', 'pantera', 'aave', 'chainlink', 'base', 'alchemy', 'trm-labs', 'nethermind', 'crypto-com', 'animoca', 'blockaid',
 ];

@@ -11,7 +11,7 @@ import { Container, Section } from '@/components/ui/Layout';
 import { booking } from '@/config/site';
 import { getEdition } from '@/data/editions';
 import { galleryCollections } from '@/data/media';
-import { categories, getUseCase, useCases } from '@/data/partners';
+import { categories, getUseCase, otherUseCases, useCases } from '@/data/partners';
 import { getSession, getSpeaker, stageLabels } from '@/lib/content';
 import { speakerThumb } from '@/lib/paths';
 import { pageMetadata } from '@/lib/seo';
@@ -20,7 +20,7 @@ import { pageMetadata } from '@/lib/seo';
 export const dynamicParams = false;
 
 export function generateStaticParams() {
-  return useCases.map((u) => ({ slug: u.slug }));
+  return [...useCases, ...otherUseCases].map((u) => ({ slug: u.slug }));
 }
 
 export async function generateMetadata({ params }: PageProps<'/partners/use-cases/[slug]'>): Promise<Metadata> {
@@ -28,7 +28,7 @@ export async function generateMetadata({ params }: PageProps<'/partners/use-case
   const u = getUseCase(slug);
   if (!u) return {};
   return pageMetadata({
-    title: `${u.partner} at Agentic Finance Singapore`,
+    title: `${u.partner} at ${u.event?.name ?? getEdition(u.edition)?.name}`,
     description: `${u.positioning}. ${u.summary}`,
     path: `/partners/use-cases/${u.slug}`,
     image: u.photos[0]?.src,
@@ -41,6 +41,7 @@ export default async function UseCasePage({ params }: PageProps<'/partners/use-c
   const u = getUseCase(slug);
   if (!u) notFound();
   const edition = getEdition(u.edition);
+  const eventName = u.event?.name ?? edition?.name;
   const hero = u.photos[0];
   const featured = u.deliverables.filter((d) => d.photo);
   const others = useCases.filter((x) => x.slug !== u.slug);
@@ -49,7 +50,7 @@ export default async function UseCasePage({ params }: PageProps<'/partners/use-c
     <>
       <header className="relative isolate overflow-hidden border-b border-line">
         <div className="absolute inset-0 -z-10">
-          <Img src={hero.src} alt="" fill preload sizes="100vw" position={hero.position} className="object-cover opacity-60" />
+          {hero ? <Img src={hero.src} alt="" fill preload sizes="100vw" position={hero.position} className="object-cover opacity-60" /> : null}
           <div className="scrim-hero absolute inset-0" />
         </div>
         <Container className="flex min-h-[min(84svh,780px)] flex-col justify-end pb-14 pt-[calc(var(--header-h)+40px)]">
@@ -58,9 +59,9 @@ export default async function UseCasePage({ params }: PageProps<'/partners/use-c
             <Img src={u.logo} alt={u.partner} fill sizes="208px" className="object-contain object-left" />
           </div>
           <p className="eyebrow mt-6">
-            {edition?.shortName} · {u.positioning}
+            {u.event?.label ?? edition?.shortName} · {u.positioning}
           </p>
-          <h1 className="display mt-5 max-w-4xl text-[length:var(--text-display-md)]">{u.partner} at Agentic Finance Singapore</h1>
+          <h1 className="display mt-5 max-w-4xl text-[length:var(--text-display-md)]">{u.partner} at {eventName}</h1>
           <p className="lede mt-6 max-w-2xl text-paper/85">{u.summary}</p>
           {u.lockup ? (
             <div className="mt-8 inline-flex w-fit items-center gap-4 rounded-xl border border-gold/40 bg-ink/70 px-5 py-3 backdrop-blur-md">
@@ -77,8 +78,8 @@ export default async function UseCasePage({ params }: PageProps<'/partners/use-c
         <Container>
           <div className="grid gap-12 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.3fr)]">
             <div>
-              <h2 className="mono-label">On stage</h2>
-              <ul className="mt-5 flex flex-col gap-4">
+              {u.people.length ? <h2 className="mono-label mb-5">On stage</h2> : null}
+              <ul className="flex flex-col gap-4">
                 {u.people.map((p) => {
                   const s = getSpeaker(p.speaker);
                   if (!s) return null;
@@ -89,7 +90,7 @@ export default async function UseCasePage({ params }: PageProps<'/partners/use-c
                           <Img src={speakerThumb(s.photo)} alt="" fill sizes="64px" position="50% 20%" className="object-cover" />
                         </span>
                         <span>
-                          <span className="block text-lg font-bold group-hover:text-gold">{s.name}</span>
+                          <span className="block text-lg font-semibold group-hover:text-gold">{s.name}</span>
                           <span className="block text-sm text-muted">{p.role}</span>
                         </span>
                       </Link>
@@ -97,8 +98,8 @@ export default async function UseCasePage({ params }: PageProps<'/partners/use-c
                   );
                 })}
               </ul>
-              <h2 className="mono-label mt-10">Sessions</h2>
-              <ul className="mt-4 flex flex-col border-t border-line">
+              {u.sessions.length ? <h2 className="mono-label mt-10">Sessions</h2> : null}
+              <ul className={u.sessions.length ? 'mt-4 flex flex-col border-t border-line' : 'hidden'}>
                 {u.sessions.map((id) => {
                   const s = getSession(id);
                   if (!s) return null;
@@ -114,7 +115,7 @@ export default async function UseCasePage({ params }: PageProps<'/partners/use-c
                   );
                 })}
               </ul>
-              <h2 className="mono-label mt-10">Categories</h2>
+              {u.categories.length ? <h2 className="mono-label mt-10">Categories</h2> : null}
               <ul className="mt-4 flex flex-wrap gap-2">
                 {u.categories.map((id) => {
                   const c = categories.find((x) => x.id === id);
@@ -160,21 +161,23 @@ export default async function UseCasePage({ params }: PageProps<'/partners/use-c
         </Container>
       </Section>
 
-      <Section bordered tone="raised">
-        <Container>
-          <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
-            <h2 className="display-tight text-3xl">In pictures</h2>
-            <TextLink href="/media/gallery">Full gallery</TextLink>
-          </div>
-          <div className="mt-8">
-            <Gallery
-              images={u.photos.map((p, i) => ({ ...p, id: `${u.slug}-${i}`, edition: u.edition, tags: [], width: 1600, height: 1067, caption: p.alt }))}
-              collections={galleryCollections}
-              filters={false}
-            />
-          </div>
-        </Container>
-      </Section>
+      {u.photos.length ? (
+        <Section bordered tone="raised">
+          <Container>
+            <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
+              <h2 className="display-tight text-3xl">In pictures</h2>
+              <TextLink href="/media/gallery">Full gallery</TextLink>
+            </div>
+            <div className="mt-8">
+              <Gallery
+                images={u.photos.map((p, i) => ({ ...p, id: `${u.slug}-${i}`, edition: u.edition, tags: [], width: 1600, height: 1067, caption: p.alt }))}
+                collections={galleryCollections}
+                filters={false}
+              />
+            </div>
+          </Container>
+        </Section>
+      ) : null}
 
       <Section bordered>
         <Container>
@@ -184,7 +187,7 @@ export default async function UseCasePage({ params }: PageProps<'/partners/use-c
               <li key={o.slug}>
                 <Link href={`/partners/use-cases/${o.slug}`} className="group flex h-full items-center justify-between gap-4 rounded-2xl border border-line p-5 hover:border-gold/60">
                   <span>
-                    <span className="block text-lg font-bold">{o.partner}</span>
+                    <span className="block text-lg font-semibold">{o.partner}</span>
                     <span className="text-sm text-muted">{o.positioning}</span>
                   </span>
                   <Icon name="arrow-right" size={18} className="shrink-0 text-gold transition-transform group-hover:translate-x-1" />
@@ -199,7 +202,7 @@ export default async function UseCasePage({ params }: PageProps<'/partners/use-c
         eyebrow="Partner with Agentic Finance Abu Dhabi"
         title="Want this list with your name on it?"
         body="No more than eight strategic positions in Abu Dhabi. Each one is built around your category, your stage and your introductions."
-        image={{ src: hero.src, position: hero.position }}
+        image={hero ? { src: hero.src, position: hero.position } : undefined}
         actions={
           <>
             <ButtonLink href="/partners/book-a-call" size="lg">

@@ -9,9 +9,9 @@ import { topics } from '@/data/program';
 import { pageMetadata } from '@/lib/seo';
 
 export const metadata: Metadata = pageMetadata({
-  title: 'Topics',
+  title: 'Topics: AI agents in banking, payments, trading',
   description:
-    'The 15 programme areas of Agentic Finance, from agentic trading, payments and commerce to wallets, identity, security, regulation, stablecoins, data, AI infrastructure and tokenisation.',
+    'The 15 programme areas of Agentic Finance: AI agents in banking, trading and payments, wallets, stablecoins, regulation and AI infrastructure.',
   path: '/program/topics',
 });
 

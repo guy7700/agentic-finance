@@ -18,10 +18,10 @@ export function SiteFooter() {
         <div className="grid gap-12 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,2fr)]">
           <div className="flex flex-col gap-6">
             <Logo />
-            <p className="max-w-sm text-[15px] leading-relaxed text-muted">
+            <p className="max-w-sm text-[15px] font-light leading-relaxed text-muted">
               An invitation-only summit series for the leaders shaping AI-native finance. Produced by More &amp; More.
             </p>
-            <div className="flex items-start gap-3 rounded-xl border border-line p-4">
+            <div className="edge-gold relative flex items-start gap-3 rounded-xl border border-line bg-ink-card p-4">
               <span className="mt-1 size-2 shrink-0 animate-pulse rounded-full bg-gold" aria-hidden />
               <div className="text-sm">
                 <p className="font-semibold text-paper">Next: {current.name}</p>
@@ -29,10 +29,10 @@ export function SiteFooter() {
               </div>
             </div>
             <div className="flex flex-wrap gap-3">
-              <ButtonLink href={primaryActions.invitation.href} size="sm" variant="outline" icon={null}>
+              <ButtonLink href={primaryActions.invitation.href} size="sm" icon={null}>
                 {primaryActions.invitation.label}
               </ButtonLink>
-              <ButtonLink href={primaryActions.partner.href} size="sm" icon={null}>
+              <ButtonLink href={primaryActions.partner.href} size="sm" variant="outline" icon={null}>
                 {primaryActions.partner.label}
               </ButtonLink>
             </div>
@@ -41,7 +41,7 @@ export function SiteFooter() {
           <nav aria-label="Footer" className="grid grid-cols-2 gap-x-6 gap-y-10 sm:grid-cols-3">
             {navigation.map((group) => (
               <div key={group.id}>
-                <h2 className="mono-label text-gold">
+                <h2 className="mono-label font-semibold text-gold-bright">
                   <Link href={group.href} className="hover:text-gold-bright">
                     {group.label}
                   </Link>
@@ -49,7 +49,7 @@ export function SiteFooter() {
                 <ul className="mt-4 flex flex-col gap-2.5">
                   {group.items.map((item) => (
                     <li key={item.href}>
-                      <Link href={item.href} className="text-[15px] text-paper/80 transition-colors hover:text-gold">
+                      <Link href={item.href} className="text-[15px] font-light text-paper/80 transition-colors hover:text-gold">
                         {item.label}
                       </Link>
                     </li>
@@ -94,7 +94,7 @@ export function SiteFooter() {
           <p>
             © {site.copyrightYear} More &amp; More. Agentic Finance is produced independently by More &amp; More.
           </p>
-          <p className="font-mono text-[11px] uppercase tracking-[0.08em]">Invitation only · Every request reviewed</p>
+          <p className="font-mono text-[11px] uppercase tracking-[0.2em]">Invitation only · Every request reviewed</p>
         </div>
       </Container>
     </footer>

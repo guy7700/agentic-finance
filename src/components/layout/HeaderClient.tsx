@@ -164,8 +164,8 @@ export function HeaderClient({ navigation, actions, features }: HeaderClientProp
                       onMouseEnter={() => scheduleOpen(group.id)}
                       onKeyDown={(e) => onTriggerKey(e, index, group.id)}
                       className={cn(
-                        'relative flex h-11 items-center gap-1.5 rounded-full px-3.5 text-[15px] font-medium transition-colors',
-                        isOpen ? 'text-gold' : active ? 'text-paper' : 'text-paper/85 hover:text-gold',
+                        'relative flex h-11 items-center gap-1.5 rounded-full px-3 text-[11px] font-semibold uppercase tracking-[0.22em] transition-colors',
+                        isOpen ? 'text-gold' : active ? 'text-paper' : 'text-paper/90 hover:text-gold',
                       )}
                     >
                       {group.label}
@@ -205,12 +205,12 @@ export function HeaderClient({ navigation, actions, features }: HeaderClientProp
                                 className={cn(
                                   'group/item flex h-full items-start justify-between gap-4 rounded-xl border p-5 transition-colors',
                                   item.cta
-                                    ? 'border-gold/50 bg-gold/[0.07] hover:border-gold hover:bg-gold/[0.12]'
+                                    ? 'border-gold/40 bg-gold/[0.07] hover:border-gold hover:bg-gold/[0.12]'
                                     : 'border-line hover:border-line-strong hover:bg-ink-card',
                                 )}
                               >
                                 <span className="flex flex-col gap-1.5">
-                                  <span className={cn('text-[17px] font-bold leading-tight', item.cta ? 'text-gold' : 'text-paper')}>
+                                  <span className={cn('text-[17px] font-medium leading-tight', item.cta ? 'text-gold' : 'text-paper')}>
                                     {item.label}
                                   </span>
                                   <span className="text-[13px] leading-snug text-muted">{item.description}</span>
@@ -243,7 +243,7 @@ export function HeaderClient({ navigation, actions, features }: HeaderClientProp
                             />
                             <span aria-hidden className="scrim-bottom absolute inset-0 -z-10" />
                             <span className="eyebrow">{feature.kicker}</span>
-                            <span className="mt-2 text-lg font-bold leading-tight">{feature.title}</span>
+                            <span className="mt-2 text-lg font-medium leading-tight">{feature.title}</span>
                             <span className="mt-1 text-[13px] leading-snug text-muted">{feature.text}</span>
                           </Link>
                         ) : null}
@@ -256,17 +256,11 @@ export function HeaderClient({ navigation, actions, features }: HeaderClientProp
           </nav>
 
           <div className="flex items-center gap-2.5">
-            <Link
-              href={actions.invitation.href}
-              className="hidden min-h-11 items-center rounded-full border border-paper/90 px-[18px] text-sm font-semibold text-paper transition-colors hover:bg-paper hover:text-ink sm:inline-flex"
-            >
-              {actions.invitation.label}
-            </Link>
-            <Link
-              href={actions.partner.href}
-              className="hidden min-h-11 items-center rounded-full bg-gold px-5 text-sm font-bold text-ink transition-colors hover:bg-gold-bright lg:inline-flex"
-            >
+            <Link href={actions.partner.href} className="hidden min-h-11 items-center rounded-full border border-paper/20 px-4 text-[11px] font-semibold uppercase tracking-[0.18em] text-paper transition-colors duration-500 hover:border-gold-bright hover:bg-gold-bright hover:text-ink lg:inline-flex">
               {actions.partner.label}
+            </Link>
+            <Link href={actions.invitation.href} className="glow-gold hidden min-h-11 items-center rounded-full bg-gold px-4 text-[11px] font-semibold uppercase tracking-[0.18em] text-ink transition-colors duration-500 hover:bg-gold-bright sm:inline-flex">
+              {actions.invitation.label}
             </Link>
             <button
               ref={menuButtonRef}
@@ -275,7 +269,7 @@ export function HeaderClient({ navigation, actions, features }: HeaderClientProp
               aria-haspopup="dialog"
               aria-expanded={drawerOpen}
               aria-controls={`${uid}-drawer`}
-              className="flex size-11 items-center justify-center rounded-full border border-line-strong text-paper transition-colors hover:border-gold hover:text-gold xl:hidden"
+              className="flex size-11 items-center justify-center rounded-full border border-gold/20 bg-gold/5 text-paper backdrop-blur-md transition-colors hover:border-gold hover:text-gold xl:hidden"
             >
               <Icon name="menu" size={20} />
               <span className="sr-only">Open menu</span>
@@ -311,7 +305,7 @@ type DrawerProps = {
 /**
  * Mobile drawer from the 390px spec: brand and close at the top, six accordion
  * sections with gold +/− indicators, and a pinned action area at the bottom
- * (Partner with us first, then Request an invitation).
+ * (Apply to attend first, then Partner with us).
  */
 function MobileDrawer({ id, navigation, actions, pathname, onClose }: DrawerProps) {
   const initial = navigation.find((g) => isActiveGroup(g, pathname))?.id ?? navigation[0]?.id ?? null;
@@ -367,7 +361,7 @@ function MobileDrawer({ id, navigation, actions, pathname, onClose }: DrawerProp
         aria-modal="true"
         aria-label="Site menu"
         onKeyDown={onKeyDown}
-        className="absolute inset-y-0 right-0 flex h-dvh w-full max-w-[440px] flex-col overflow-hidden bg-ink shadow-2xl sm:border-l sm:border-line-strong motion-safe:animate-[af-drawer-in_0.35s_var(--ease-out-soft)]"
+        className="absolute inset-y-0 right-0 flex h-dvh w-full max-w-[440px] flex-col overflow-hidden bg-ink-card shadow-2xl sm:border-l sm:border-line-strong motion-safe:animate-[af-drawer-in_0.35s_var(--ease-out-soft)]"
       >
         <div className="flex items-center justify-between border-b border-line px-5 pb-3 pt-5">
           <Logo compact onNavigate={onClose} />
@@ -393,7 +387,7 @@ function MobileDrawer({ id, navigation, actions, pathname, onClose }: DrawerProp
                   aria-expanded={open}
                   aria-controls={panelId}
                   onClick={() => setSection(open ? null : group.id)}
-                  className="flex min-h-14 w-full items-center justify-between border-b border-line px-1 text-left text-xl font-bold text-paper"
+                  className="flex min-h-14 w-full items-center justify-between border-b border-line px-1 text-left text-sm font-semibold uppercase tracking-[0.28em] text-paper"
                 >
                   {group.label}
                   <span aria-hidden className="w-6 text-center text-[22px] font-normal leading-none text-gold">
@@ -425,18 +419,18 @@ function MobileDrawer({ id, navigation, actions, pathname, onClose }: DrawerProp
 
         <div className="flex flex-col gap-2.5 border-t border-line px-5 pb-[max(1.75rem,env(safe-area-inset-bottom))] pt-4">
           <Link
-            href={actions.partner.href}
-            onClick={onClose}
-            className="flex min-h-[52px] items-center justify-center rounded-full bg-gold text-base font-bold text-ink transition-colors hover:bg-gold-bright"
-          >
-            {actions.partner.label}
-          </Link>
-          <Link
             href={actions.invitation.href}
             onClick={onClose}
-            className="flex min-h-[52px] items-center justify-center rounded-full border border-paper text-base font-semibold text-paper transition-colors hover:bg-paper hover:text-ink"
+            className="glow-gold flex min-h-[52px] items-center justify-center rounded-full bg-gold text-xs font-semibold uppercase tracking-[0.18em] text-ink transition-colors hover:bg-gold-bright"
           >
             {actions.invitation.label}
+          </Link>
+          <Link
+            href={actions.partner.href}
+            onClick={onClose}
+            className="flex min-h-[52px] items-center justify-center rounded-full border border-paper/20 text-xs font-semibold uppercase tracking-[0.18em] text-paper transition-colors hover:border-gold hover:bg-gold hover:text-ink"
+          >
+            {actions.partner.label}
           </Link>
         </div>
       </div>

@@ -9,9 +9,9 @@ import { audience } from '@/data/program';
 import { pageMetadata } from '@/lib/seo';
 
 export const metadata: Metadata = pageMetadata({
-  title: 'Request an invitation',
+  title: 'Apply to attend Agentic Finance Abu Dhabi',
   description:
-    'Request an invitation to Agentic Finance Abu Dhabi, December 2026. Invitation only, no tickets: every request is reviewed for seniority, institutional relevance and fit.',
+    'Apply to attend the Agentic Finance Summit Abu Dhabi, 4 December 2026. Invitation only: every application is reviewed for seniority and fit.',
   path: '/invitation',
 });
 
@@ -27,15 +27,15 @@ export default function InvitationPage() {
   return (
     <>
       <PageHero
-        crumbs={[{ label: 'Editions', href: '/editions' }, { label: 'Request an invitation' }]}
+        crumbs={[{ label: 'Editions', href: '/editions' }, { label: 'Apply to attend' }]}
         eyebrow={`${e.name} · ${e.dateLabel}`}
-        title="Request an invitation."
+        title="Apply to attend."
         lede={`${e.guestCount} hand-selected guests. No tickets, no open registration. Tell us who you are, and the team will review your request.`}
         image={{ src: '/images/singapore-2026/curated-introductions.webp', alt: '', position: '50% 40%' }}
         actions={
           <>
             <ButtonLink href={invitationUrl} size="lg">
-              Continue to the application
+              Apply to attend
             </ButtonLink>
             <ButtonLink href="/program/who-gets-in" variant="outline" size="lg">
               Who gets in
@@ -104,7 +104,7 @@ export default function InvitationPage() {
               <p className="mt-2 text-muted">The application opens on Luma, in a new tab.</p>
             </div>
             <ButtonLink href={invitationUrl} size="lg">
-              Continue to the application
+              Apply to attend
             </ButtonLink>
           </div>
         </Container>

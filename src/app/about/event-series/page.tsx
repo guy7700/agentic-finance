@@ -11,7 +11,7 @@ import { pageMetadata } from '@/lib/seo';
 export const metadata: Metadata = pageMetadata({
   title: 'Event series',
   description:
-    'The More & More event ecosystem: Agentic Finance, The Odds: Prediction Markets Live, and the Web2 to Web3 Summit. Related brands with distinct audiences and programmes.',
+    'The More & More event series: Agentic Finance, The Odds: Prediction Markets Live, and the Web2 to Web3 Summit.',
   path: '/about/event-series',
 });
 
@@ -57,7 +57,7 @@ export default function EventSeriesPage() {
                   </ul>
                   {b.href ? (
                     <div className="mt-auto pt-8">
-                      <ButtonLink href={b.href} variant={b.id === 'agentic-finance' ? 'gold' : 'outline'}>
+                      <ButtonLink href={b.href} variant={b.id === 'agentic-finance' ? 'primary' : 'outline'}>
                         {b.linkLabel ?? 'Learn more'}
                       </ButtonLink>
                     </div>

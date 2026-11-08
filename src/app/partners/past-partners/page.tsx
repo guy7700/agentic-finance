@@ -13,7 +13,7 @@ import { pageMetadata } from '@/lib/seo';
 export const metadata: Metadata = pageMetadata({
   title: 'Past partners',
   description:
-    'Partners of Agentic Finance by edition, kept separate from the organisations represented on stage by speakers. eToro, Fireblocks, Alpaca and Limitless partnered Singapore 2026.',
+    'Agentic Finance partners by edition, listed apart from the organisations whose speakers took the stage.',
   path: '/partners/past-partners',
 });
 
@@ -81,7 +81,7 @@ export default function PastPartnersPage() {
                 return (
                   <div key={g.id}>
                     <div className="flex flex-col gap-1 sm:flex-row sm:items-baseline sm:justify-between">
-                      <h3 className="text-xl font-bold">
+                      <h3 className="text-xl font-semibold">
                         {g.title} <span className="font-mono text-sm text-subtle">({items.length})</span>
                       </h3>
                       <p className="text-sm text-muted">{g.note}</p>

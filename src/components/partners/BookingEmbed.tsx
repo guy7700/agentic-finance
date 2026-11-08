@@ -19,7 +19,7 @@ export function BookingEmbed({ url, minutes, title }: { url: string; minutes: nu
             <Icon name="calendar" size={22} />
           </span>
           <div>
-            <p className="text-xl font-bold">{title}</p>
+            <p className="text-xl font-semibold">{title}</p>
             <p className="mt-1 text-sm text-muted">
               {minutes} minutes with the partnerships team · choose a time that suits you
             </p>

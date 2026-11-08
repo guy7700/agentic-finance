@@ -133,7 +133,7 @@ export function AgendaBrowser({ sessions, stages, timezone }: AgendaBrowserProps
                 <div className="flex flex-row items-baseline gap-3 sm:flex-col sm:gap-1.5">
                   <span className="font-mono text-lg text-paper">
                     {s.start}
-                    <span className="text-muted">–{s.end}</span>
+                    <span className="text-muted">-{s.end}</span>
                   </span>
                   <span
                     className={cn(
@@ -146,7 +146,7 @@ export function AgendaBrowser({ sessions, stages, timezone }: AgendaBrowserProps
                 </div>
                 <div>
                   <p className="mono-label">{s.format}</p>
-                  <h3 className={cn('mt-2 font-bold leading-snug', isBlock ? 'text-lg text-paper/85' : 'text-xl sm:text-[22px]')}>{s.title}</h3>
+                  <h3 className={cn('mt-2 font-semibold leading-snug', isBlock ? 'text-lg text-paper/85' : 'text-xl sm:text-[22px]')}>{s.title}</h3>
                   <p className="mt-2 max-w-2xl text-[15px] leading-relaxed text-muted">{s.summary}</p>
                   {s.note ? <p className="mt-3 text-sm text-gold">{s.note}</p> : null}
                   {s.linkTo ? (

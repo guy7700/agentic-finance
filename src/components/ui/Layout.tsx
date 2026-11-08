@@ -41,7 +41,7 @@ export function Eyebrow({ children, className, index }: { children: ReactNode; c
   return (
     <p className={cn('eyebrow flex items-center gap-3', className)}>
       {index ? <span className="text-muted">{index}</span> : null}
-      {index ? <span aria-hidden className="h-px w-6 bg-gold/60" /> : null}
+      {index ? <span aria-hidden className="h-px w-6 bg-gold-bright/50" /> : null}
       <span>{children}</span>
     </p>
   );
@@ -84,5 +84,5 @@ export function SectionHeader({ eyebrow, index, title, lede, action, className, 
 
 /** Thin gold-edged card shell used across the site. */
 export function Card({ className, children, as: Tag = 'div' }: { className?: string; children: ReactNode; as?: ElementType }) {
-  return <Tag className={cn('rounded-2xl border border-line bg-ink-card/60', className)}>{children}</Tag>;
+  return <Tag className={cn('edge-gold relative rounded-2xl border border-line-strong bg-ink-card', className)}>{children}</Tag>;
 }

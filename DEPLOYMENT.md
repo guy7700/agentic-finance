@@ -13,21 +13,23 @@ Build settings (repository → Settings → Secrets and variables → Actions �
 | `FORMS_LIVE` | `true` | Forms post to the existing Google Apps Script sheets. Set `false` to switch delivery off. |
 | `ALLOW_INDEXING` | `true` | Search engines may index the site. Set `false` to send `noindex`. |
 
-## Daily "In the news" article
+## Daily article
 
-The workflow also runs every day at 04:00 UTC. Before building, `npm run news` (`scripts/latest-article.mjs`) reads the Business Insider, CNBC and TechCrunch fintech feeds, shortlists articles from the last 3 days about AI in finance, and asks Claude to pick one and write a two-sentence summary in its own words. The home page shows the headline, that summary, the source, the date and a link to the original.
-
-It needs one repository secret (Settings → Secrets and variables → Actions → **Secrets**): `ANTHROPIC_API_KEY`. Without it, or when no recent article fits, or the summary fails its checks, the block is simply hidden. The page also hides it in the browser once the article is more than 3 days old. GitHub pauses scheduled workflows in a repository with no activity for 60 days; re-enable it in the Actions tab if that happens.
+New daily articles are JSON files in `src/content/daily/`, pushed by the Wire's "Add to website" action. A push to `main` deploys them; the workflow also runs every day at 04:00 UTC to publish entries dated that day and to hide the home page "Today" block once the newest entry is 3 days old. Format and checks: `docs/daily-article.md`.
 
 ## Domain (GoDaddy DNS for agentic-finance.live)
 
-| Type | Name | Value |
-| --- | --- | --- |
-| A | @ | 185.199.108.153 |
-| A | @ | 185.199.109.153 |
-| A | @ | 185.199.110.153 |
-| A | @ | 185.199.111.153 |
-| CNAME | www | guy7700.github.io |
+| Type | Name | Value | TTL |
+| --- | --- | --- | --- |
+| A | @ | 185.199.108.153 | 1 Hour |
+| A | @ | 185.199.109.153 | 1 Hour |
+| A | @ | 185.199.110.153 | 1 Hour |
+| A | @ | 185.199.111.153 | 1 Hour |
+| AAAA | @ | 2606:50c0:8000::153 | 1 Hour |
+| AAAA | @ | 2606:50c0:8001::153 | 1 Hour |
+| AAAA | @ | 2606:50c0:8002::153 | 1 Hour |
+| AAAA | @ | 2606:50c0:8003::153 | 1 Hour |
+| CNAME | www | guy7700.github.io | 1 Hour |
 
 Remove GoDaddy’s default parked `@` A records and any domain forwarding. The custom domain is set in the repository’s Pages settings (and `public/CNAME`). Once the certificate is issued, tick **Enforce HTTPS** in Settings → Pages.
 

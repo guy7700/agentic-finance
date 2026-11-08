@@ -12,9 +12,9 @@ import { editionsByStatus } from '@/data/editions';
 import { pageMetadata } from '@/lib/seo';
 
 export const metadata: Metadata = pageMetadata({
-  title: '2027 cities',
+  title: 'Agentic Finance 2027: five cities',
   description:
-    'Agentic Finance becomes an international series in 2027: Hong Kong, Rio de Janeiro, Paris, Dubai and Singapore. Dates to be announced.',
+    'Agentic Finance in 2027: Hong Kong in February, Dubai in April, Paris in June, Rio de Janeiro in August and Singapore in October.',
   path: '/editions/2027',
 });
 
@@ -27,16 +27,14 @@ export default function Series2027Page() {
         eyebrow="The 2027 international series"
         title={
           <>
-            Five cities.
-            <br />
-            <span className="text-gold">Dates to be announced.</span>
+            Five cities in <span className="text-gold">2027.</span>
           </>
         }
-        lede="After Singapore and Abu Dhabi, Agentic Finance becomes a permanent international series. Each city is announced with its date and venue once confirmed; until then, nothing here is a schedule."
+        lede="Each edition runs during a major industry week in its city. Exact dates and venues follow once confirmed."
         actions={
           <>
-            <ButtonLink href="/about/contact?topic=attendance">Register interest</ButtonLink>
-            <ButtonLink href="/partners/book-a-call" variant="outline">Partner across the series</ButtonLink>
+            <ButtonLink href="/about/contact?topic=attendance">Apply to attend</ButtonLink>
+            <ButtonLink href="/partners/book-a-call" variant="outline">Partner with us</ButtonLink>
           </>
         }
         footer={
@@ -77,7 +75,7 @@ export default function Series2027Page() {
                   {c.dateLabel}
                 </p>
                 <div className="mt-8 flex flex-wrap gap-3">
-                  <ButtonLink href={`/about/contact?topic=attendance&edition=${c.slug}`}>Register interest</ButtonLink>
+                  <ButtonLink href={`/about/contact?topic=attendance&edition=${c.slug}`}>Apply to attend</ButtonLink>
                   <Link href={`/editions/${c.slug}`} className="inline-flex min-h-12 items-center gap-2 px-2 text-sm font-semibold text-paper hover:text-gold">
                     {c.city} 2027 <Icon name="arrow-right" size={16} />
                   </Link>

@@ -50,7 +50,7 @@ export default async function GalaPage({ params }: PageProps<'/editions/[edition
         image={{ src: '/images/abu-dhabi-2026/al-maryah.webp', alt: '' }}
         actions={
           <>
-            <ButtonLink href="/invitation">Request a summit invitation</ButtonLink>
+            <ButtonLink href="/invitation">Apply to attend</ButtonLink>
             <ButtonLink href="/partners/book-a-call" variant="outline">Partner positions include the Gala</ButtonLink>
           </>
         }
@@ -68,7 +68,7 @@ export default async function GalaPage({ params }: PageProps<'/editions/[edition
                   <Icon name={x.icon} size={20} className="shrink-0 text-gold" />
                   {x.k}
                 </dt>
-                <dd className="mt-2 text-xl font-bold">{x.v}</dd>
+                <dd className="mt-2 text-xl font-semibold">{x.v}</dd>
               </div>
             ))}
           </dl>
@@ -77,7 +77,7 @@ export default async function GalaPage({ params }: PageProps<'/editions/[edition
               {PILLARS.map((p, i) => (
                 <li key={p.title} className="rounded-2xl border border-line bg-ink-card/50 p-6">
                   <span className="font-mono text-xs text-gold">0{i + 1}</span>
-                  <h2 className="mt-3 text-xl font-bold">{p.title}</h2>
+                  <h2 className="mt-3 text-xl font-semibold">{p.title}</h2>
                   <p className="mt-2 leading-relaxed text-muted">{p.body}</p>
                 </li>
               ))}
@@ -88,9 +88,9 @@ export default async function GalaPage({ params }: PageProps<'/editions/[edition
                 The evening follows the Agentic Finance Summit. Its guest list is separate from the summit’s 500, and the Gala date is not
                 the summit date: the summit is on Friday 4 December 2026, on Saadiyat Island.
               </p>
-              <p className="mt-4 leading-relaxed text-muted">Not invited to the Gala? You can still request an invitation to the summit.</p>
+              <p className="mt-4 leading-relaxed text-muted">Not invited to the Gala? You can still apply to attend the summit.</p>
               <div className="mt-8">
-                <ButtonLink href="/invitation">Request a summit invitation</ButtonLink>
+                <ButtonLink href="/invitation">Apply to attend</ButtonLink>
               </div>
             </div>
           </div>

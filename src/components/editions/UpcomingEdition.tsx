@@ -64,7 +64,7 @@ export function UpcomingEdition({ edition }: { edition: Edition }) {
           <p className="lede mt-6 max-w-2xl text-paper/80">{edition.summary}</p>
           <div className="mt-9 flex flex-wrap gap-3">
             <ButtonLink href={primaryActions.invitation.href} size="lg">
-              Request an invitation
+              Apply to attend
             </ButtonLink>
             <ButtonLink href="#partnerships" variant="outline" size="lg" icon="arrow-down">
               Explore partnerships
@@ -109,7 +109,7 @@ export function UpcomingEdition({ edition }: { edition: Edition }) {
                 </ul>
                 {x.href ? (
                   <div className="mt-auto pt-8">
-                    <ButtonLink href={x.href} variant={i === 0 ? 'gold' : 'outline'}>
+                    <ButtonLink href={x.href} variant={i === 0 ? 'primary' : 'outline'}>
                       {x.cta}
                     </ButtonLink>
                   </div>
@@ -241,7 +241,7 @@ export function UpcomingEdition({ edition }: { edition: Edition }) {
             {partnerBenefits.map((b, i) => (
               <li key={b.title} className="flex flex-col gap-3 bg-ink p-6 sm:p-7">
                 <span className="font-mono text-xs text-gold">0{i + 1}</span>
-                <span className="text-xl font-bold">{b.title}</span>
+                <span className="text-xl font-semibold">{b.title}</span>
                 <span className="text-[15px] leading-relaxed text-muted">{b.body}</span>
               </li>
             ))}

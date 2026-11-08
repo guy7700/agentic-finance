@@ -15,7 +15,7 @@ type ContactFormProps = {
 
 /**
  * General enquiries with a type selector. Accepts ?topic=<type>&edition=<slug>
- * so CTAs across the site (e.g. "Register interest" for a 2027 city) prefill it.
+ * so CTAs across the site (e.g. "Apply to attend" for a 2027 city) prefill it.
  */
 export function ContactForm({ editions }: ContactFormProps) {
   const [v, setV] = useState(initial);

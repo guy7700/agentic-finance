@@ -12,8 +12,7 @@
     "qa:interact": "node qa/interact.js",
     "qa:overflow": "node qa/overflow.js 390 $(cat qa/routes.txt)",
     "qa:links": "node qa/crawl.js",
-    "qa:a11y": "node qa/axe.js && node qa/axe.js mobile",
-    "news": "node scripts/latest-article.mjs"
+    "qa:a11y": "node qa/axe.js && node qa/axe.js mobile"
   },
   "dependencies": {
     "next": "16.4.2",
@@ -21,7 +20,6 @@
     "react-dom": "19.3.0"
   },
   "devDependencies": {
-    "@anthropic-ai/sdk": "^1.3.0",
     "@tailwindcss/turbopack": "^4",
     "@types/node": "^20",
     "@types/react": "^19",

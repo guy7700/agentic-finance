@@ -82,7 +82,7 @@ export function CategoryExplorer({ categories, positions }: { categories: Catego
                 )}
               >
                 <span className={cn('font-mono text-[11px]', on ? 'text-gold' : 'text-subtle')}>{c.number}</span>
-                <span className={cn('text-[15px] font-bold leading-tight sm:text-base', on ? 'text-gold' : 'text-paper')}>{c.name}</span>
+                <span className={cn('text-[15px] font-semibold leading-tight sm:text-base', on ? 'text-gold' : 'text-paper')}>{c.name}</span>
               </button>
             );
           })}
@@ -181,7 +181,7 @@ export function CategoryExplorer({ categories, positions }: { categories: Catego
         ) : null}
 
         <div className="mt-8 flex flex-wrap gap-3 border-t border-line pt-6">
-          <Link href={`/partners/book-a-call?category=${current.id}`} className={buttonClasses({ variant: 'gold' })}>
+          <Link href={`/partners/book-a-call?category=${current.id}`} className={buttonClasses({ variant: 'primary' })}>
             Enquire about {current.name}
             <Icon name="arrow-right" size={18} />
           </Link>

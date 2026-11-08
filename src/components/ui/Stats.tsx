@@ -17,12 +17,12 @@ export function Stats({ items, className, size = 'lg', source }: { items: Metric
             <dt className="mono-label">{m.label}</dt>
             <dd
               className={cn(
-                'display text-paper',
                 !/\d/.test(m.value)
-                  ? 'text-[clamp(1.6rem,1.2rem+1.2vw,2.25rem)] leading-[1.15]'
-                  : size === 'lg'
-                    ? 'text-[clamp(2.5rem,1.6rem+3.2vw,4.5rem)]'
-                    : 'text-[clamp(2rem,1.5rem+1.8vw,3rem)]',
+                  ? 'display text-[clamp(1.6rem,1.2rem+1.2vw,2.25rem)] leading-[1.15] text-paper'
+                  : cn(
+                      'serif-figure leading-none',
+                      size === 'lg' ? 'text-[clamp(3rem,1.9rem+3.8vw,5.25rem)]' : 'text-[clamp(2.4rem,1.8rem+2.1vw,3.5rem)]',
+                    ),
               )}
             >
               {m.value}

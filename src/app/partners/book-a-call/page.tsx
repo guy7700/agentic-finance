@@ -12,7 +12,7 @@ import { pageMetadata } from '@/lib/seo';
 export const metadata: Metadata = pageMetadata({
   title: 'Book a partnership call',
   description:
-    'Book a 20-minute call with the Agentic Finance partnerships team, or send a partnership enquiry. No public price list: every position is shaped around your category and introductions.',
+    'Book a 20-minute call with the Agentic Finance partnerships team, or send an enquiry. Every position is shaped around your category.',
   path: '/partners/book-a-call',
 });
 

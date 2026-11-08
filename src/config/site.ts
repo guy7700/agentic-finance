@@ -16,7 +16,7 @@ export const site = {
   description:
     'Agentic Finance is an invitation-only summit series convening the institutions, capital allocators, regulators and builders shaping AI-native finance.',
   tagline: 'Where finance’s decision-makers meet.',
-  /** The edition every global "Request an invitation" CTA points to. */
+  /** The edition every global "Apply to attend" CTA points to. */
   currentEdition: 'abu-dhabi-2026',
   copyrightYear: 2026,
 } as const;
@@ -41,7 +41,7 @@ export const booking = {
   partnership: {
     url: 'https://calendar.google.com/calendar/appointments/schedules/AcZssZ2zWBN4qAjLZHmAPekDSY8oGVtQhMd5aSu7h0lhOGREZB26jPcYsNkdTEZQepVr_g1j6EYFOJ7d?gv=true',
     minutes: 20,
-    label: 'Book a 20-minute partnership call',
+    label: 'Partner with us',
   },
   speaker: {
     url: 'https://calendar.google.com/calendar/appointments/schedules/AcZssZ2zWBN4qAjLZHmAPekDSY8oGVtQhMd5aSu7h0lhOGREZB26jPcYsNkdTEZQepVr_g1j6EYFOJ7d?gv=true',
@@ -60,7 +60,7 @@ export const social = [
   { label: 'More & More on LinkedIn', short: 'LinkedIn', href: 'https://www.linkedin.com/company/moreandmore-bd/' },
   { label: 'More & More on X', short: 'X', href: 'https://x.com/moreandmorebd' },
   { label: 'More & More on Instagram', short: 'Instagram', href: 'https://www.instagram.com/moreandmorebd' },
-  { label: 'More & More on Telegram', short: 'Telegram', href: 'https://t.me/moreandmorebd' },
+  { label: 'The Odds on Telegram', short: 'Telegram', href: 'https://t.me/theoddspredict' },
 ] as const;
 
 export type NavItem = {
@@ -91,7 +91,7 @@ export const navigation: NavGroup[] = [
       { label: 'Abu Dhabi 2026', description: 'Upcoming · Summit and VIP Gala, Tue 8 Dec', href: '/editions/abu-dhabi-2026' },
       { label: 'Singapore 2026', description: 'Archive · 8 Oct 2026, recap and numbers', href: '/editions/singapore-2026' },
       { label: '2027 cities', description: 'Hong Kong, Rio de Janeiro, Paris, Dubai, Singapore', href: '/editions/2027' },
-      { label: 'Request an invitation', description: 'Abu Dhabi 2026', href: '/invitation', cta: true },
+      { label: 'Apply to attend', description: 'Abu Dhabi 2026', href: '/invitation', cta: true },
     ],
   },
   {
@@ -125,9 +125,9 @@ export const navigation: NavGroup[] = [
     href: '/partners',
     items: [
       { label: 'Partnership categories', description: '12 categories, 8 positions in Abu Dhabi', href: '/partners/categories' },
-      { label: 'Use cases', description: 'eToro, Fireblocks, Alpaca, Limitless', href: '/partners/use-cases' },
+      { label: 'Use cases', description: 'eToro, Fireblocks, Alpaca, Limitless, MME Legal', href: '/partners/use-cases' },
       { label: 'Past partners', description: 'Logo wall by edition', href: '/partners/past-partners' },
-      { label: 'Book a partnership call', description: '20 minutes', href: '/partners/book-a-call', cta: true },
+      { label: 'Partner with us', description: 'A 20-minute call', href: '/partners/book-a-call', cta: true },
     ],
   },
   {
@@ -136,6 +136,7 @@ export const navigation: NavGroup[] = [
     job: 'Proof in pictures for partners and guests.',
     href: '/media',
     items: [
+      { label: 'Blog', description: 'Today in agentic finance', href: '/blog' },
       { label: 'Singapore 2026 recap', description: 'Numbers, sessions, moments', href: '/media/singapore-2026-recap' },
       { label: 'Video', description: 'Recap and highlights', href: '/media/video' },
       { label: 'Gallery', description: 'Photos by edition', href: '/media/gallery' },
@@ -158,6 +159,6 @@ export const navigation: NavGroup[] = [
 
 /** The two permanent header actions. */
 export const primaryActions = {
-  invitation: { label: 'Request an invitation', href: '/invitation' },
+  invitation: { label: 'Apply to attend', href: '/invitation' },
   partner: { label: 'Partner with us', href: '/partners' },
 } as const;

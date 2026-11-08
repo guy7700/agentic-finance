@@ -1,8 +1,9 @@
 import type { MetadataRoute } from 'next';
 import { navigation } from '@/config/site';
 import { editions } from '@/data/editions';
-import { useCases } from '@/data/partners';
+import { otherUseCases, useCases } from '@/data/partners';
 import { profiledSpeakers } from '@/lib/content';
+import { blogPageCount, getPosts } from '@/lib/daily';
 import { absoluteUrl } from '@/lib/paths';
 
 // Generated once at build time for the static export.
@@ -26,7 +27,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...staticPaths,
     ...editionPaths,
     ...profiledSpeakers().map((s) => `/speakers/${s.slug}`),
-    ...useCases.map((u) => `/partners/use-cases/${u.slug}`),
+    ...[...useCases, ...otherUseCases].map((u) => `/partners/use-cases/${u.slug}`),
+    ...Array.from({ length: blogPageCount() - 1 }, (_, i) => `/blog/page/${i + 2}`),
+    ...getPosts().map((p) => `/blog/${p.slug}`),
   ];
 
   return Array.from(new Set(paths)).map((p) => ({

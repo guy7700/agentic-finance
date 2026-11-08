@@ -12,7 +12,7 @@ import { pageMetadata } from '@/lib/seo';
 export const metadata: Metadata = pageMetadata({
   title: 'FAQ',
   description:
-    'Answers about Agentic Finance invitations, registration, speaker nominations, partnerships, locations, media enquiries and the difference between editions.',
+    'Answers on applying to attend, speaker nominations, partnerships, locations and media enquiries for Agentic Finance.',
   path: '/about/faq',
 });
 

@@ -70,7 +70,7 @@ export default async function AgendaPage({ params }: PageProps<'/editions/[editi
         crumbs={[{ label: 'Editions', href: '/editions' }, { label: e.shortName, href: `/editions/${e.slug}` }, { label: 'Agenda' }]}
         eyebrow={`Archive · ${e.dateLabel} · ${e.venue?.name}`}
         title="The run of show."
-        lede={`${contentCount} sessions across two stages, plus opening and closing remarks, 14:00–20:00 SGT. Agentic Finance on the main stage, hosted by Tal Mor of More & More and moderated by Vaibhavv Ali (Vali); The Odds: Prediction Markets Live alongside it.`}
+        lede={`${contentCount} sessions across two stages, plus opening and closing remarks, 14:00-20:00 SGT. Agentic Finance on the main stage, hosted by Tal Mor of More & More and moderated by Vaibhavv Ali (Vali); The Odds: Prediction Markets Live alongside it.`}
         actions={
           <>
             <ButtonLink href={`/editions/${e.slug}/speakers`} variant="outline">Speakers by session</ButtonLink>

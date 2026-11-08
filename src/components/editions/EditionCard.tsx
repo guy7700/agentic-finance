@@ -36,7 +36,7 @@ export function EditionCard({ edition, index, size = 'standard', className, size
         position={edition.image.position}
         className={cn(
           '-z-20 object-cover transition-[transform,filter,opacity] duration-[900ms] ease-[var(--ease-out-soft)] group-hover:scale-[1.04]',
-          planned ? 'opacity-55 grayscale-[0.35] group-hover:opacity-75 group-hover:grayscale-0' : 'opacity-70 group-hover:opacity-85',
+          planned ? 'opacity-85 group-hover:opacity-100' : 'opacity-70 group-hover:opacity-85',
         )}
       />
       <span aria-hidden className="scrim-bottom absolute inset-0 -z-10" />

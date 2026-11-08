@@ -27,7 +27,7 @@ export function CtaBand({ eyebrow, title, body, actions, image }: CtaBandProps) 
           position={image?.position ?? '45% 40%'}
           className="object-cover opacity-35"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-ink via-ink/85 to-ink/70" />
+        <div className="absolute inset-0 bg-gradient-to-t from-ink-deep via-ink-deep/85 to-ink-deep/60" />
       </div>
       <Container className="py-24 sm:py-32">
         <div className="max-w-3xl">

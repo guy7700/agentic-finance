@@ -59,7 +59,7 @@ export default function SingaporeRecapPage() {
               <Eyebrow>At a glance</Eyebrow>
               <dl className="mt-6 flex flex-col border-t border-line">
                 {[
-                  ['When', `${e.dateLabel}, 14:00–20:00 SGT`],
+                  ['When', `${e.dateLabel}, 14:00-20:00 SGT`],
                   ['Where', `${e.venue?.name}, Singapore`],
                   ['Context', 'Official side event of TOKEN2049 Singapore'],
                   ['Stages', 'Agentic Finance main stage · The Odds: Prediction Markets Live'],
@@ -99,7 +99,7 @@ export default function SingaporeRecapPage() {
                       {s.format} · {s.start}
                     </span>
                   </p>
-                  <h3 className="mt-3 text-lg font-bold leading-snug">{s.title}</h3>
+                  <h3 className="mt-3 text-lg font-semibold leading-snug">{s.title}</h3>
                   <p className="mt-2 text-sm leading-relaxed text-muted">{h.why}</p>
                   <div className="mt-auto flex items-center justify-between gap-4 pt-5">
                     <span className="flex -space-x-2">
@@ -148,7 +148,7 @@ export default function SingaporeRecapPage() {
                     <Img src={u.photos[0].src} alt={u.photos[0].alt} fill sizes="(min-width: 1024px) 25vw, 50vw" position={u.photos[0].position} className="object-cover transition-transform duration-700 group-hover:scale-[1.04]" />
                   </span>
                   <span className="block p-5">
-                    <span className="block text-lg font-bold">{u.partner}</span>
+                    <span className="block text-lg font-semibold">{u.partner}</span>
                     <span className="mt-1 block text-sm text-muted">{u.positioning}</span>
                   </span>
                 </Link>

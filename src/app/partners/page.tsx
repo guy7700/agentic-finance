@@ -11,13 +11,13 @@ import { PageHero } from '@/components/ui/PageHero';
 import { Stats } from '@/components/ui/Stats';
 import { booking } from '@/config/site';
 import { getCurrentEdition, getEdition } from '@/data/editions';
-import { categories, partnerBenefits, useCases } from '@/data/partners';
+import { categories, otherUseCases, partnerBenefits, useCases } from '@/data/partners';
 import { pageMetadata } from '@/lib/seo';
 
 export const metadata: Metadata = pageMetadata({
   title: 'Partner with us',
   description:
-    'No more than eight strategic partner positions at Agentic Finance Abu Dhabi. Own a category, take a seat on stage, and meet 500 hand-selected decision-makers through introductions arranged in advance.',
+    'Eight partner positions at the Agentic Finance Summit Abu Dhabi. Own a category, take the stage and meet 500 curated guests.',
   path: '/partners',
 });
 
@@ -69,7 +69,7 @@ export default function PartnersPage() {
             {partnerBenefits.map((b, i) => (
               <li key={b.title} className="flex flex-col gap-3 bg-ink-raised p-6 sm:p-7">
                 <span className="font-mono text-xs text-gold">0{i + 1}</span>
-                <span className="text-xl font-bold">{b.title}</span>
+                <span className="text-xl font-semibold">{b.title}</span>
                 <span className="text-[15px] leading-relaxed text-muted">{b.body}</span>
               </li>
             ))}
@@ -107,12 +107,12 @@ export default function PartnersPage() {
           <SectionHeader
             eyebrow="Evidence · Singapore 2026"
             title="What partners actually received."
-            lede="Real activations from the first edition, partner by partner. No invented ROI figures; just what happened in the room."
+            lede="What partners received at our events, partner by partner."
             action={<ButtonLink href="/partners/use-cases" variant="outline">All use cases</ButtonLink>}
           />
-          <div className="mt-12 grid gap-5 lg:grid-cols-3">
-            <UseCaseCard useCase={useCases[0]} featured className="lg:col-span-3" />
-            {useCases.slice(1).map((u) => (
+          <div className="mt-12 grid gap-5 sm:grid-cols-2 xl:grid-cols-4">
+            <UseCaseCard useCase={useCases[0]} featured className="sm:col-span-2 xl:col-span-4" />
+            {[...useCases.slice(1), ...otherUseCases].map((u) => (
               <UseCaseCard key={u.slug} useCase={u} />
             ))}
           </div>
@@ -130,7 +130,7 @@ export default function PartnersPage() {
                   <li key={p.title} className="grid grid-cols-[48px_minmax(0,1fr)] gap-4 border-b border-line py-6">
                     <span className="font-mono text-sm text-gold">0{i + 1}</span>
                     <span>
-                      <span className="block text-lg font-bold">{p.title}</span>
+                      <span className="block text-lg font-semibold">{p.title}</span>
                       <span className="mt-1 block leading-relaxed text-muted">{p.body}</span>
                     </span>
                   </li>
@@ -142,7 +142,7 @@ export default function PartnersPage() {
                 <Img src="/images/singapore-2026/etoro-networking.webp" alt="Guests meeting beside eToro’s stand in Singapore" fill sizes="(min-width: 1024px) 50vw, 100vw" position="50% 35%" className="object-cover" />
               </div>
               <div className="mt-6 rounded-2xl border border-gold/40 bg-gold/[0.05] p-6 sm:p-8">
-                <p className="text-xl font-bold">Ready when you are.</p>
+                <p className="text-xl font-semibold">Ready when you are.</p>
                 <p className="mt-2 text-muted">Twenty minutes with the partnerships team, or a short form if you prefer to write.</p>
                 <div className="mt-6 flex flex-wrap gap-3">
                   <ButtonLink href="/partners/book-a-call">Book the call</ButtonLink>
@@ -170,7 +170,7 @@ export default function PartnersPage() {
               {booking.partnership.label}
             </ButtonLink>
             <ButtonLink href="/invitation" variant="outline" size="lg">
-              Request an invitation
+              Apply to attend
             </ButtonLink>
           </>
         }

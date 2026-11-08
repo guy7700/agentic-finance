@@ -9,7 +9,7 @@ import { pageMetadata } from '@/lib/seo';
 export const metadata: Metadata = pageMetadata({
   title: 'Gallery',
   description:
-    'Photography from Agentic Finance Singapore 2026 and More & More events in Paris and Abu Dhabi: the stages, the floor, partner activations and the people in the room.',
+    'Photos from Agentic Finance Singapore 2026 and More & More events in Paris and Abu Dhabi: stages, partner activations and guests.',
   path: '/media/gallery',
 });
 

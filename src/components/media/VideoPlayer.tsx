@@ -60,7 +60,7 @@ export function VideoPlayer({ src, poster, title, duration, hasAudio = true, cla
             </span>
           </span>
           <span className="absolute inset-x-5 bottom-5 flex items-end justify-between gap-4 sm:inset-x-8 sm:bottom-7">
-            <span className="text-lg font-bold leading-tight sm:text-2xl">{title}</span>
+            <span className="text-lg font-semibold leading-tight sm:text-2xl">{title}</span>
             <span className="flex shrink-0 items-center gap-2 font-mono text-xs text-paper/80">
               <Icon name={hasAudio ? 'volume' : 'volume-off'} size={14} />
               {duration}

@@ -20,11 +20,22 @@ export async function generateMetadata({ params }: PageProps<'/editions/[edition
   const { edition: slug } = await params;
   const e = getEdition(slug);
   if (!e) return {};
+  // Primary keywords: "fintech conference Abu Dhabi" for the next edition, "finance AI summit" for the archive.
   const title =
-    e.status === 'completed' ? `${e.name} 2026 · Archive` : e.status === 'planned' ? `${e.city} 2027 · Planned edition` : `${e.name} · ${e.dateLabel}`;
+    e.status === 'upcoming'
+      ? `Fintech conference ${e.city}: Agentic Finance Summit`
+      : e.status === 'completed'
+        ? `Finance AI summit: ${e.name} ${e.year}`
+        : `${e.name} ${e.year}`;
+  const description =
+    e.status === 'upcoming'
+      ? `${e.name}: an invitation-only fintech conference on AI agents in finance. ${e.dateLabel}, ${e.venue?.name}. ${e.guestCount} curated guests.`
+      : e.status === 'completed'
+        ? `The first Agentic Finance Summit, a finance AI summit in ${e.city} on ${e.dateLabel} during ${e.context}: ${(e.metrics ?? []).slice(0, 2).map((m) => `${m.value} ${m.label.toLowerCase()}`).join(' and ')}.`
+        : `${e.name}: ${e.dateLabel}${e.context ? `, during ${e.context}` : ''}. AI agents in finance, with exact dates and venue to follow.`;
   return pageMetadata({
     title,
-    description: e.status === 'planned' ? `${e.positioning} Dates to be announced.` : e.summary,
+    description,
     path: `/editions/${e.slug}`,
   });
 }

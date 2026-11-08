@@ -99,13 +99,13 @@ export const faqGroups: FaqGroup[] = [
       },
       {
         q: 'Can anyone register?',
-        a: 'No. Agentic Finance is invitation-only and there are no tickets. Every guest is selected. You can request an invitation, and each request is reviewed by the team. Submitting a request does not guarantee admission.',
+        a: 'No. Agentic Finance is invitation-only and there are no tickets. Every guest is selected. You can apply to attend, and each application is reviewed by the team. Submitting a request does not guarantee admission.',
         links: [{ label: 'How selection works', href: '/program/who-gets-in' }],
       },
       {
-        q: 'How do I request an invitation to Abu Dhabi?',
-        a: 'Use any “Request an invitation” button. It takes you to the Abu Dhabi application on Luma, where the team reviews your seniority, institution and fit. You will hear back by email.',
-        links: [{ label: 'Request an invitation', href: '/invitation' }],
+        q: 'How do I apply to attend Abu Dhabi?',
+        a: 'Use any “Apply to attend” button. It takes you to the Abu Dhabi application on Luma, where the team reviews your seniority, institution and fit. You will hear back by email.',
+        links: [{ label: 'Apply to attend', href: '/invitation' }],
       },
       {
         q: 'I have received a personal invitation. What next?',
@@ -114,7 +114,7 @@ export const faqGroups: FaqGroup[] = [
       },
       {
         q: 'Can I bring a colleague?',
-        a: 'Invitations cannot be transferred or shared. If a colleague should be in the room, ask them to request an invitation of their own.',
+        a: 'Invitations cannot be transferred or shared. If a colleague should be in the room, ask them to apply to attend on their own.',
       },
     ],
   },
@@ -169,7 +169,7 @@ export const faqGroups: FaqGroup[] = [
       {
         q: 'Can my company become a partner?',
         a: 'Yes. Abu Dhabi has no more than eight strategic partner positions, each built around a seat on stage, introductions arranged before the event and the VIP Gala. Start with the partnership form or book a call.',
-        links: [{ label: 'Book a partnership call', href: '/partners/book-a-call' }],
+        links: [{ label: 'Partner with us', href: '/partners/book-a-call' }],
       },
       {
         q: 'What does owning a category mean?',

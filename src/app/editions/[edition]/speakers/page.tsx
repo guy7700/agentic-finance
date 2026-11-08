@@ -146,11 +146,11 @@ export default async function EditionSpeakersPage({ params }: PageProps<'/editio
             {sessions.map((s) => (
               <li key={s.id} className="rounded-2xl border border-line bg-ink p-6">
                 <p className="flex flex-wrap gap-x-3 font-mono text-[10.5px] uppercase tracking-[0.08em]">
-                  <span>{s.start}–{s.end}</span>
+                  <span>{s.start}-{s.end}</span>
                   <span className={s.stage === 'af' ? 'text-gold' : 'text-[#9fb6e8]'}>{stageLabels[s.stage].name}</span>
                   <span className="text-subtle">{s.format}</span>
                 </p>
-                <h3 className="mt-2 text-lg font-bold leading-snug">
+                <h3 className="mt-2 text-lg font-semibold leading-snug">
                   <Link href={`/editions/${e.slug}/agenda#${s.id}`} className="hover:text-gold">
                     {s.title}
                   </Link>

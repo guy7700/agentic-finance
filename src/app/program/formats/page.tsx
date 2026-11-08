@@ -10,7 +10,7 @@ import { pageMetadata } from '@/lib/seo';
 export const metadata: Metadata = pageMetadata({
   title: 'Formats',
   description:
-    'How an Agentic Finance day works: keynotes and fireside conversations, senior institutional discussions, curated introductions, private meetings and executive networking.',
+    'How an Agentic Finance day works: keynotes, senior discussions, curated introductions, private meetings and executive networking.',
   path: '/program/formats',
 });
 
@@ -44,7 +44,7 @@ export default function FormatsPage() {
           <p className="mt-6 text-[13px] text-subtle">All photography from Agentic Finance Singapore, 8 October 2026.</p>
           <div className="mt-14 flex flex-wrap gap-3">
             <ButtonLink href="/editions/singapore-2026/agenda" variant="outline">See a full run of show</ButtonLink>
-            <ButtonLink href="/invitation">Request an invitation</ButtonLink>
+            <ButtonLink href="/invitation">Apply to attend</ButtonLink>
           </div>
         </Container>
       </Section>

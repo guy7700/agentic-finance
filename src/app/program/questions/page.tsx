@@ -10,9 +10,9 @@ import { getSession } from '@/lib/content';
 import { pageMetadata } from '@/lib/seo';
 
 export const metadata: Metadata = pageMetadata({
-  title: 'The six questions',
+  title: 'Main themes',
   description:
-    'Who controls the agent? Can an AI manage institutional capital? Who is liable when an autonomous transaction goes wrong? The six questions Agentic Finance is here to settle.',
+    'The six questions behind Agentic Finance, from who controls the agent to who is liable when an autonomous transaction goes wrong.',
   path: '/program/questions',
 });
 

@@ -15,8 +15,8 @@ export const metadata: Metadata = pageMetadata({
 });
 
 const ROUTES: { title: string; body: string; href: string; label: string; icon: IconName }[] = [
-  { title: 'Attend', body: 'Invitation requests for the next edition.', href: '/invitation', label: 'Request an invitation', icon: 'door' },
-  { title: 'Partner', body: `A ${booking.partnership.minutes}-minute call with the partnerships team.`, href: '/partners/book-a-call', label: 'Book a call', icon: 'handshake' },
+  { title: 'Attend', body: 'Invitation requests for the next edition.', href: '/invitation', label: 'Apply to attend', icon: 'door' },
+  { title: 'Partner', body: `A ${booking.partnership.minutes}-minute call with the partnerships team.`, href: '/partners/book-a-call', label: 'Partner with us', icon: 'handshake' },
   { title: 'Speak', body: 'Put yourself or someone else forward.', href: '/speakers/nominate', label: 'Nominate a speaker', icon: 'mic' },
   { title: 'Press', body: 'Interviews, imagery and the brand kit.', href: '/media/press', label: 'Press resources', icon: 'spark' },
 ];
@@ -39,7 +39,7 @@ export default function ContactPage() {
               <li key={r.title}>
                 <SmartLink href={r.href} className="group flex h-full flex-col gap-3 rounded-2xl border border-line p-6 hover:border-gold/60">
                   <Icon name={r.icon} size={22} className="text-gold" />
-                  <span className="text-xl font-bold">{r.title}</span>
+                  <span className="text-xl font-semibold">{r.title}</span>
                   <span className="text-sm text-muted">{r.body}</span>
                   <span className="mt-auto inline-flex items-center gap-1.5 pt-3 text-sm font-semibold text-gold">
                     {r.label}
@@ -73,7 +73,7 @@ export default function ContactPage() {
               <div className="rounded-2xl border border-line p-6">
                 <p className="mono-label">More &amp; More</p>
                 <p className="mt-3 text-[15px] text-paper/90">Tel Aviv · Dubai</p>
-                <p className="text-sm text-muted">Sun–Thu, 9am–6pm Gulf Standard Time</p>
+                <p className="text-sm text-muted">Sunday to Thursday, 9am to 6pm Gulf Standard Time</p>
                 <ul className="mt-5 flex flex-wrap gap-2">
                   {social.map((s) => (
                     <li key={s.href}>

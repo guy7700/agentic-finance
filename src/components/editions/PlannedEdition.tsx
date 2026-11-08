@@ -38,13 +38,16 @@ export function PlannedEdition({ edition }: { edition: Edition }) {
           <div className="mt-8 inline-flex max-w-xl items-start gap-3 rounded-xl border border-paper/20 bg-ink/60 p-4 text-sm text-paper/85 backdrop-blur-md">
             <Icon name="calendar" size={18} className="mt-0.5 shrink-0 text-gold" />
             <span>
-              <strong className="text-paper">Dates to be announced.</strong> Venue, programme and speakers will be published when they are
-              confirmed. Nothing on this page is a confirmed schedule.
+              <strong className="text-paper">
+                {edition.dateLabel}
+                {edition.context ? `, during ${edition.context}` : ''}.
+              </strong>{' '}
+              Exact dates, venue, programme and speakers follow once confirmed.
             </span>
           </div>
           <div className="mt-9 flex flex-wrap gap-3">
             <ButtonLink href={interestHref} size="lg">
-              Register interest
+              Apply to attend
             </ButtonLink>
             <ButtonLink href="/partners/book-a-call" variant="outline" size="lg">
               Partner across the 2027 series
@@ -64,7 +67,7 @@ export function PlannedEdition({ edition }: { edition: Edition }) {
             {formats.map((f, i) => (
               <li key={f.id} className="flex flex-col gap-3 rounded-2xl border border-line bg-ink-card/50 p-6">
                 <span className="font-mono text-xs text-gold">0{i + 1}</span>
-                <span className="text-lg font-bold leading-snug">{f.name}</span>
+                <span className="text-lg font-semibold leading-snug">{f.name}</span>
                 <span className="text-sm leading-relaxed text-muted">{f.summary}</span>
               </li>
             ))}
@@ -125,14 +128,14 @@ export function PlannedEdition({ edition }: { edition: Edition }) {
       </Section>
 
       <CtaBand
-        eyebrow={`${edition.city} 2027 · Dates to be announced`}
+        eyebrow={`${edition.city} · ${edition.dateLabel}`}
         title={`Be first to hear about ${edition.city}.`}
         body="Register your interest as a guest, or start a conversation about partnering across the 2027 series."
         image={{ src: edition.image.src, position: edition.image.position }}
         actions={
           <>
             <ButtonLink href={interestHref} size="lg">
-              Register interest
+              Apply to attend
             </ButtonLink>
             <ButtonLink href={booking.partnership.url} variant="outline" size="lg">
               {booking.partnership.label}

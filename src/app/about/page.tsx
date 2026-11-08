@@ -11,7 +11,7 @@ import { pageMetadata } from '@/lib/seo';
 
 export const metadata: Metadata = pageMetadata({
   title: 'About',
-  description: 'Who stands behind Agentic Finance: More & More, the producer of curated executive gatherings across global technology and institutional markets.',
+  description: 'Agentic Finance is produced by More & More, which runs curated summits and side events across technology and finance.',
   path: '/about',
 });
 

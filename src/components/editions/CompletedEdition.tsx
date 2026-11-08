@@ -54,7 +54,7 @@ export function CompletedEdition({ edition }: { edition: Edition }) {
           <ul className="mt-6 flex flex-wrap gap-x-6 gap-y-2 text-sm text-paper/80">
             <li className="flex items-center gap-2">
               <Icon name="calendar" size={16} className="text-gold" />
-              {edition.dateLabel} · 14:00–20:00 SGT
+              {edition.dateLabel} · 14:00-20:00 SGT
             </li>
             {edition.venue ? (
               <li className="flex items-center gap-2">
@@ -114,7 +114,7 @@ export function CompletedEdition({ edition }: { edition: Edition }) {
                 <li className="flex gap-3">
                   <span className="mono-label w-28 shrink-0 pt-1">Context</span>
                   <span className="text-paper/85">
-                    An official side event of TOKEN2049 Singapore, which ran 7–8 October 2026 at Marina Bay Sands.
+                    An official side event of TOKEN2049 Singapore, which ran on 7 and 8 October 2026 at Marina Bay Sands.
                   </span>
                 </li>
               </ul>

@@ -17,6 +17,9 @@ const nextConfig: NextConfig = {
   // export has none, so they stay off.
   basePath: basePath || undefined,
   poweredByHeader: false,
+  // Dev only: lets a Cloudflare quick tunnel (cloudflared tunnel --url) load the
+  // dev server's scripts, for sharing a preview link.
+  allowedDevOrigins: ['*.trycloudflare.com'],
   images: {
     // GitHub Pages has no image optimiser; images are pre-sized WebP files.
     unoptimized: true,

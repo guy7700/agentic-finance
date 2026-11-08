@@ -10,7 +10,7 @@ import { pageMetadata } from '@/lib/seo';
 export const metadata: Metadata = pageMetadata({
   title: 'Who gets in',
   description:
-    'Agentic Finance is invitation-only. Every request is reviewed manually for institutional relevance, decision-making seniority and strategic fit. A request does not guarantee admission.',
+    'Agentic Finance is invitation-only. Every application is reviewed for institutional relevance, seniority and fit.',
   path: '/program/who-gets-in',
 });
 
@@ -44,7 +44,7 @@ export default function WhoGetsInPage() {
         lede="There are no tickets. Every guest is selected, and every invitation is personal. That is what makes the conversations worth having."
         actions={
           <>
-            <ButtonLink href="/invitation">Request an invitation</ButtonLink>
+            <ButtonLink href="/invitation">Apply to attend</ButtonLink>
             <ButtonLink href="/about/faq" variant="outline">Questions about access</ButtonLink>
           </>
         }
@@ -79,7 +79,7 @@ export default function WhoGetsInPage() {
             {audience.map((a, i) => (
               <li key={a.label} className="flex flex-col gap-3 bg-ink-raised p-6">
                 <span className="font-mono text-xs text-gold">0{i + 1}</span>
-                <span className="text-lg font-bold leading-snug">{a.label}</span>
+                <span className="text-lg font-semibold leading-snug">{a.label}</span>
                 <span className="text-sm leading-relaxed text-muted">{a.detail}</span>
               </li>
             ))}

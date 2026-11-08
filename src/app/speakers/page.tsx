@@ -12,7 +12,7 @@ import { toDirectoryEntry } from '@/lib/speaker-cards';
 export const metadata: Metadata = pageMetadata({
   title: 'All speakers',
   description:
-    'The Agentic Finance speaker directory: leaders from Standard Chartered, eToro, Pantera Capital, Aave Labs, Chainlink Labs, KPMG, Fireblocks and more, filterable by edition, city and organisation.',
+    'Speakers at Agentic Finance events, from Standard Chartered, eToro, Pantera Capital, Aave Labs, Chainlink Labs, KPMG and Fireblocks.',
   path: '/speakers',
 });
 

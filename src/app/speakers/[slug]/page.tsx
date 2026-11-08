@@ -146,12 +146,12 @@ export default async function SpeakerPage({ params }: PageProps<'/speakers/[slug
                     <p className="flex flex-wrap gap-x-3 font-mono text-[10.5px] uppercase tracking-[0.08em] text-muted">
                       <span>{e?.shortName}</span>
                       <span>
-                        {x.start}–{x.end} SGT
+                        {x.start}-{x.end} SGT
                       </span>
                       <span className={x.stage === 'af' ? 'text-gold' : 'text-[#9fb6e8]'}>{stageLabels[x.stage].name}</span>
                       <span>{x.format}</span>
                     </p>
-                    <h3 className="mt-3 text-xl font-bold leading-snug">
+                    <h3 className="mt-3 text-xl font-semibold leading-snug">
                       <Link href={`/editions/${x.edition}/agenda#${x.id}`} className="hover:text-gold">
                         {x.title}
                       </Link>
@@ -202,7 +202,7 @@ export default async function SpeakerPage({ params }: PageProps<'/speakers/[slug
         actions={
           <>
             <ButtonLink href="/invitation" size="lg">
-              Request an invitation
+              Apply to attend
             </ButtonLink>
             <ButtonLink href="/speakers/nominate" variant="outline" size="lg">
               Nominate a speaker

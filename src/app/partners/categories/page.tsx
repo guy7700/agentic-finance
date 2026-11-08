@@ -12,9 +12,9 @@ import { getSession } from '@/lib/content';
 import { pageMetadata } from '@/lib/seo';
 
 export const metadata: Metadata = pageMetadata({
-  title: 'Partnership categories',
+  title: 'Partner categories: agentic payments to prediction markets',
   description:
-    'Twelve partnership categories, from agentic trading and payments to compliance, data, AI infrastructure and banking. No more than eight strategic positions in Abu Dhabi.',
+    'Twelve partner categories, from agentic payments, agentic commerce and stablecoin payments to prediction markets, compliance and AI infrastructure.',
   path: '/partners/categories',
 });
 

@@ -69,7 +69,7 @@ export function primarySessionLabel(s: Speaker): string | undefined {
 }
 
 export function formatTimeRange(s: Session): string {
-  return `${s.start}–${s.end}`;
+  return `${s.start}-${s.end}`;
 }
 
 export { editions, speakers };

@@ -8,9 +8,9 @@ import { editionsByStatus } from '@/data/editions';
 import { pageMetadata } from '@/lib/seo';
 
 export const metadata: Metadata = pageMetadata({
-  title: 'Editions',
+  title: 'Events: Abu Dhabi, Singapore and 2027',
   description:
-    'The Agentic Finance series: Abu Dhabi in December 2026, the Singapore 2026 archive, and five planned 2027 cities: Hong Kong, Rio de Janeiro, Paris, Dubai and Singapore.',
+    'Agentic Finance events: the Abu Dhabi summit on 4 December 2026, the Singapore 2026 archive and five cities in 2027.',
   path: '/editions',
 });
 
@@ -28,7 +28,7 @@ export default function EditionsPage() {
         lede="What is coming, and what already happened. Every edition is its own curated room; the standard and the questions travel with us."
         actions={
           <>
-            <ButtonLink href="/invitation">Request an invitation</ButtonLink>
+            <ButtonLink href="/invitation">Apply to attend</ButtonLink>
             <ButtonLink href="/editions/2027" variant="outline">The 2027 cities</ButtonLink>
           </>
         }
@@ -52,8 +52,8 @@ export default function EditionsPage() {
         <Container>
           <SectionHeader
             eyebrow="2027 · Planned"
-            title="Five cities. Dates to be announced."
-            lede="Planned editions, not scheduled events. Each city is announced with its date and venue once confirmed."
+            title="Five cities in 2027."
+            lede="Each edition runs during a major industry week in its city. Exact dates and venues follow once confirmed."
             action={<ButtonLink href="/editions/2027" variant="outline">About the 2027 series</ButtonLink>}
           />
           <ul className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
@@ -73,10 +73,10 @@ export default function EditionsPage() {
             {[
               { k: 'Upcoming', v: 'Open for invitation requests, speaker nominations and partnership conversations. Only confirmed details are published.' },
               { k: 'Archive', v: 'Completed editions: verified numbers, the agenda as it ran, speakers, partners, photography and video.' },
-              { k: 'Planned', v: 'Cities on the roadmap. No dates, venues or speakers until they are confirmed; you can register interest.' },
+              { k: 'Planned', v: 'The 2027 calendar, with a month for each city. Exact dates, venues and speakers follow once confirmed.' },
             ].map((x) => (
               <div key={x.k} className="bg-ink p-7">
-                <dt className="text-xl font-bold text-gold">{x.k}</dt>
+                <dt className="text-xl font-semibold text-gold">{x.k}</dt>
                 <dd className="mt-3 leading-relaxed text-muted">{x.v}</dd>
               </div>
             ))}

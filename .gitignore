@@ -44,6 +44,3 @@ qa/output/
 # local tooling
 /.claude/
 
-# generated daily by scripts/latest-article.mjs
-/src/data/latest-article.json
-/public/latest-article.json

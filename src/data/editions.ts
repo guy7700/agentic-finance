@@ -9,7 +9,7 @@ import type { Edition } from './types';
  * - Abu Dhabi: the Summit is Friday 4 December 2026 on Saadiyat Island; the VIP
  *   Gala is Tuesday 8 December. The two dates are never swapped or merged.
  * - Singapore: completed. Retrospective figures as published on the Abu Dhabi site.
- * - 2027: planned cities only. No dates, venues or speakers.
+ * - 2027: cities and months from the Abu Dhabi page calendar. No venues or speakers.
  */
 export const editions: Edition[] = [
   {
@@ -53,7 +53,7 @@ export const editions: Edition[] = [
           'Curated introductions and private meetings',
         ],
         href: '/invitation',
-        cta: 'Request an invitation',
+        cta: 'Apply to attend',
       },
       {
         id: 'gala',
@@ -112,7 +112,8 @@ export const editions: Edition[] = [
     country: 'Hong Kong SAR',
     year: 2027,
     status: 'planned',
-    dateLabel: 'Dates to be announced',
+    dateLabel: 'February 2027',
+    context: 'Consensus Hong Kong',
     tagline: 'Asia’s capital markets, and the agents entering them.',
     summary: 'A planned 2027 edition in one of Asia’s deepest capital markets.',
     positioning:
@@ -123,6 +124,38 @@ export const editions: Edition[] = [
     },
   },
   {
+    slug: 'dubai-2027',
+    name: 'Agentic Finance Dubai',
+    shortName: 'Dubai 2027',
+    city: 'Dubai',
+    country: 'United Arab Emirates',
+    year: 2027,
+    status: 'planned',
+    dateLabel: 'April 2027',
+    context: 'TOKEN2049 Dubai',
+    tagline: 'The Gulf’s fastest-moving market for digital assets.',
+    summary: 'A planned 2027 edition in More & More’s home market.',
+    positioning:
+      'A regional hub for exchanges, fintech and digital-asset firms, and one of More & More’s two bases. Dubai is where operators come to build, license and scale.',
+    image: { src: '/images/cities/dubai.webp', alt: 'Downtown Dubai at dusk, the Burj Khalifa rising above the skyline' },
+  },
+  {
+    slug: 'paris-2027',
+    name: 'Agentic Finance Paris',
+    shortName: 'Paris 2027',
+    city: 'Paris',
+    country: 'France',
+    year: 2027,
+    status: 'planned',
+    dateLabel: 'June 2027',
+    context: 'Proof of Talk',
+    tagline: 'European rules for autonomous finance.',
+    summary: 'A planned 2027 edition in the city where More & More produced The Odds in April 2026.',
+    positioning:
+      'Europe sets much of the world’s regulatory tone. Paris is the room for governance, compliance and the institutional questions agentic finance has to answer before it scales.',
+    image: { src: '/images/cities/paris.webp', alt: 'The Louvre pyramid in Paris, lit at night' },
+  },
+  {
     slug: 'rio-de-janeiro-2027',
     name: 'Agentic Finance Rio de Janeiro',
     shortName: 'Rio de Janeiro 2027',
@@ -130,7 +163,8 @@ export const editions: Edition[] = [
     country: 'Brazil',
     year: 2027,
     status: 'planned',
-    dateLabel: 'Dates to be announced',
+    dateLabel: 'August 2027',
+    context: 'Blockchain.RIO',
     tagline: 'Latin America’s payments momentum, in one room.',
     summary: 'A planned 2027 edition, the series’ first in Latin America.',
     positioning:
@@ -141,36 +175,6 @@ export const editions: Edition[] = [
     },
   },
   {
-    slug: 'paris-2027',
-    name: 'Agentic Finance Paris',
-    shortName: 'Paris 2027',
-    city: 'Paris',
-    country: 'France',
-    year: 2027,
-    status: 'planned',
-    dateLabel: 'Dates to be announced',
-    tagline: 'European rules for autonomous finance.',
-    summary: 'A planned 2027 edition in the city where More & More produced The Odds in April 2026.',
-    positioning:
-      'Europe sets much of the world’s regulatory tone. Paris is the room for governance, compliance and the institutional questions agentic finance has to answer before it scales.',
-    image: { src: '/images/cities/paris.webp', alt: 'The Louvre pyramid in Paris, lit at night' },
-  },
-  {
-    slug: 'dubai-2027',
-    name: 'Agentic Finance Dubai',
-    shortName: 'Dubai 2027',
-    city: 'Dubai',
-    country: 'United Arab Emirates',
-    year: 2027,
-    status: 'planned',
-    dateLabel: 'Dates to be announced',
-    tagline: 'The Gulf’s fastest-moving market for digital assets.',
-    summary: 'A planned 2027 edition in More & More’s home market.',
-    positioning:
-      'A regional hub for exchanges, fintech and digital-asset firms, and one of More & More’s two bases. Dubai is where operators come to build, license and scale.',
-    image: { src: '/images/cities/dubai.webp', alt: 'Downtown Dubai at dusk, the Burj Khalifa rising above the skyline' },
-  },
-  {
     slug: 'singapore-2027',
     name: 'Agentic Finance Singapore',
     shortName: 'Singapore 2027',
@@ -178,7 +182,8 @@ export const editions: Edition[] = [
     country: 'Singapore',
     year: 2027,
     status: 'planned',
-    dateLabel: 'Dates to be announced',
+    dateLabel: 'October 2027',
+    context: 'TOKEN2049 Singapore',
     tagline: 'Back where the series began.',
     summary: 'A planned 2027 return to the city that hosted the first Agentic Finance Summit.',
     positioning:

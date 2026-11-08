@@ -5,7 +5,7 @@ import { cn } from '@/lib/cn';
 import { Icon } from '../ui/Icon';
 
 const control =
-  'w-full rounded-xl border bg-ink-card/80 px-4 text-[15px] text-paper placeholder:text-subtle transition-colors focus:border-gold focus:outline-none focus-visible:outline-none';
+  'w-full rounded-lg border bg-paper/[0.03] px-4 text-[15px] font-light text-paper placeholder:text-subtle transition-colors focus:border-gold focus:outline-none focus-visible:outline-none';
 
 type BaseFieldProps = {
   label: string;
@@ -240,7 +240,7 @@ export function FormSection({ title, hint, children }: { title: string; hint?: s
   return (
     <fieldset className="rounded-2xl border border-line bg-ink-card/40 p-5 sm:p-8">
       <legend className="sr-only">{title}</legend>
-      <h2 aria-hidden className="text-xl font-bold sm:text-2xl">
+      <h2 aria-hidden className="text-xl font-semibold sm:text-2xl">
         {title}
       </h2>
       {hint ? <p className="mt-1.5 text-sm text-muted">{hint}</p> : null}

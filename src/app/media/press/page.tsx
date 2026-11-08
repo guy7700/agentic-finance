@@ -17,6 +17,7 @@ export const metadata: Metadata = pageMetadata({
 });
 
 const LOGOS = [
+  { name: 'Agentic Finance logo, blue (as on the Abu Dhabi page)', file: '/brand/agentic-finance-logo-blue.svg', bg: 'bg-ink' },
   { name: 'Agentic Finance wordmark, gold', file: '/brand/agentic-finance-logo-gold.svg', bg: 'bg-ink' },
   { name: 'Agentic Finance logo', file: '/brand/agentic-finance-logo.svg', bg: 'bg-ink' },
   { name: 'More & More logo, white', file: '/brand/more-and-more-logo-white.svg', bg: 'bg-ink' },
@@ -30,7 +31,7 @@ export default function PressPage() {
     ['Producer', 'More & More, a curated events and business-development company, headquartered in Tel Aviv and Dubai.'],
     ['First edition', `${sg.name}, ${sg.dateLabel}, ${sg.venue?.name}. An official side event of TOKEN2049 Singapore. ${sg.metrics?.map((m) => `${m.value} ${m.label.toLowerCase()}`).join(', ')}.`],
     ['Next edition', `${next.name}, ${next.dateLabel}. ${next.guestCount} curated guests; VIP Gala on Tuesday 8 December 2026.`],
-    ['2027', 'Planned editions in Hong Kong, Rio de Janeiro, Paris, Dubai and Singapore. Dates to be announced.'],
+    ['2027', 'Hong Kong (February), Dubai (April), Paris (June), Rio de Janeiro (August) and Singapore (October).'],
   ];
 
   return (
@@ -91,9 +92,9 @@ export default function PressPage() {
           </ul>
           <div className="mt-8 grid gap-4 md:grid-cols-3">
             {[
-              { name: 'Ink', hex: '#0A0E1A', cls: 'bg-ink border border-line-strong' },
-              { name: 'Paper', hex: '#F3F1EA', cls: 'bg-paper' },
-              { name: 'Gold', hex: '#D4AF5A', cls: 'bg-gold' },
+              { name: 'Navy', hex: '#0A1428', cls: 'bg-ink border border-line-strong' },
+              { name: 'Ivory', hex: '#EDE6D3', cls: 'bg-ivory' },
+              { name: 'Gold', hex: '#D1B679', cls: 'bg-gold' },
             ].map((c) => (
               <div key={c.hex} className="flex items-center gap-4 rounded-2xl border border-line p-4">
                 <span className={`size-12 shrink-0 rounded-xl ${c.cls}`} />
@@ -105,7 +106,7 @@ export default function PressPage() {
             ))}
           </div>
           <p className="mt-6 text-sm text-muted">
-            Typography: Archivo and JetBrains Mono. For event photography, contact the press team.
+            Typography: Space Grotesk and Cormorant Garamond. For event photography, contact the press team.
           </p>
         </Container>
       </Section>

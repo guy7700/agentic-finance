@@ -40,7 +40,7 @@ export function SpeakerCard({ speaker, className, priority, sizes }: { speaker: 
         ) : null}
       </div>
       <div className="mt-4 flex flex-col gap-1">
-        <h3 className="text-[17px] font-bold leading-tight transition-colors group-hover:text-gold">{speaker.name}</h3>
+        <h3 className="text-[17px] font-semibold leading-tight transition-colors group-hover:text-gold">{speaker.name}</h3>
         <p className="text-[13.5px] leading-snug text-muted">{speaker.title}</p>
         <p className="font-mono text-[11px] uppercase tracking-[0.08em] text-gold">{speaker.organization}</p>
         {speaker.tagline ? <p className="mt-1 text-[12.5px] leading-snug text-subtle">{speaker.tagline}</p> : null}

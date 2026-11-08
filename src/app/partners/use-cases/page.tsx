@@ -5,13 +5,13 @@ import { CtaBand } from '@/components/ui/CtaBand';
 import { Container, Section } from '@/components/ui/Layout';
 import { PageHero } from '@/components/ui/PageHero';
 import { booking } from '@/config/site';
-import { useCases } from '@/data/partners';
+import { otherUseCases, useCases } from '@/data/partners';
 import { pageMetadata } from '@/lib/seo';
 
 export const metadata: Metadata = pageMetadata({
   title: 'Partner use cases',
   description:
-    'How eToro, Fireblocks, Alpaca and Limitless partnered with Agentic Finance Singapore 2026: title partnership, keynotes, panel seats, branded areas, activations and executive networking.',
+    'What eToro, Fireblocks, Alpaca, Limitless and MME Legal got from our events: stage time, branding, activations and introductions.',
   path: '/partners/use-cases',
 });
 
@@ -28,14 +28,14 @@ export default function UseCasesPage() {
       />
       <Section className="!pt-12">
         <Container>
-          <div className="grid gap-5 lg:grid-cols-3">
-            <UseCaseCard useCase={useCases[0]} featured className="lg:col-span-3" />
-            {useCases.slice(1).map((u) => (
+          <div className="grid gap-5 sm:grid-cols-2 xl:grid-cols-4">
+            <UseCaseCard useCase={useCases[0]} featured className="sm:col-span-2 xl:col-span-4" />
+            {[...useCases.slice(1), ...otherUseCases].map((u) => (
               <UseCaseCard key={u.slug} useCase={u} />
             ))}
           </div>
           <p className="mt-8 max-w-3xl text-[13px] leading-relaxed text-subtle">
-            Use cases describe what each partner received at Agentic Finance Singapore on 8 October 2026, as documented by More &amp; More.
+            Use cases describe what each partner received at our events, as documented by More &amp; More.
           </p>
         </Container>
       </Section>

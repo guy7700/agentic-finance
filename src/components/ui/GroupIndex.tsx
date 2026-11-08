@@ -25,7 +25,7 @@ export function GroupIndex({ group, exclude }: { group: string; exclude?: string
                 >
                   <span className="font-mono text-xs text-muted">0{idx + 1}</span>
                   <span>
-                    <span className={cn('flex items-center justify-between gap-3 text-xl font-bold', item.cta && 'text-gold')}>
+                    <span className={cn('flex items-center justify-between gap-3 text-xl font-semibold', item.cta && 'text-gold')}>
                       {item.label}
                       <Icon name="arrow-right" size={18} className="shrink-0 transition-transform group-hover:translate-x-1" />
                     </span>

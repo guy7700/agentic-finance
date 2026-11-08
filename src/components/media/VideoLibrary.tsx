@@ -35,7 +35,7 @@ export function VideoLibrary({ videos }: { videos: VideoView[] }) {
             {current.editionLabel} · {kindLabel[current.kind]} · {current.duration}
             {current.hasAudio ? '' : ' · No audio'}
           </p>
-          <h2 className="mt-3 text-2xl font-bold sm:text-3xl">{current.title}</h2>
+          <h2 className="mt-3 text-2xl font-semibold sm:text-3xl">{current.title}</h2>
           <p className="mt-3 max-w-2xl leading-relaxed text-muted">{current.description}</p>
           {current.speakerNames.length ? (
             <p className="mt-3 text-sm text-muted">

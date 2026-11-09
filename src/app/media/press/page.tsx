@@ -58,13 +58,13 @@ export default function PressPage() {
       <Section className="!pt-12" id="in-the-press">
         <Container>
           <SectionHeader
-            eyebrow="Coverage"
+            eyebrow="Press"
             title={
               <>
                 Agentic Finance in the <span className="serif-accent">Press</span>
               </>
             }
-            lede="Press mentions and conference recaps, each with a link to the original."
+            lede="Our press releases and the sites that published them, with a link to each article."
             size="md"
           />
           <PressMentions className="mt-10" />

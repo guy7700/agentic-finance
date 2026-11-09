@@ -216,10 +216,95 @@ export const videos: Video[] = [
 ];
 
 /**
- * "Agentic Finance in the Press": third-party coverage, newest first. Empty
- * until real coverage is confirmed; the press page shows placeholder cards
- * marked [TBC] until then. Add only published pieces with their original link,
- * the outlet's own headline and the date as published. Partners and media
- * partners on stage (e.g. CNBC in Singapore) are not press coverage.
+ * "Agentic Finance in the Press", newest first. Add only published pieces with
+ * their original link, the outlet's own headline and the date as published.
+ * More & More's own releases on a paid wire (Chainwire) are kind "release" and
+ * show as "Press release", never as coverage; `pickups` lists the other sites
+ * that republished each one, every link opened and checked before adding.
+ * Partners and media partners on
+ * stage (e.g. CNBC in Singapore) are not press coverage.
  */
-export const pressMentions: PressMention[] = [];
+export const pressMentions: PressMention[] = [
+  {
+    id: 'chainwire-2026-10-06-agentic-finance-singapore',
+    kind: 'release',
+    outlet: 'Chainwire',
+    headline: 'More & More to Host Agentic Finance Summit With etoro, Pantera Capital + Chainlink, During TOKEN2049 Singapore',
+    date: '2026-10-06',
+    url: 'https://chainwire.org/2026/10/06/more-more-to-host-agentic-finance-summit-with-etoro-pantera-capital-chainlink-during-token2049-singapore/',
+    edition: 'singapore-2026',
+    image: { src: '/images/singapore-2026/opening-keynote.webp', alt: 'Tal Mor of More & More opening the day on the Singapore stage', position: '62% 35%' },
+    pickups: [
+      { outlet: 'TradingView', url: 'https://www.tradingview.com/news/chainwire:db77e20f7094b:0-more-more-to-host-agentic-finance-summit-with-etoro-pantera-capital-chainlink-during-token2049-singapore/', date: '2026-10-06' },
+      { outlet: 'TheStreet', url: 'https://www.thestreet.com/crypto/press-releases/more-more-to-host-agentic-finance-summit-with-etoro-pantera-capital-chainlink-during-token2049-singapore', date: '2026-10-06' },
+      { outlet: 'Benzinga', url: 'https://www.benzinga.com/content/62182860/more-more-host-agentic-finance-summit-etoro-pantera-capital-chainlink-during-token2049-singapore', date: '2026-10-06' },
+      { outlet: 'Unchained', url: 'https://unchainedcrypto.com/press-release/more-more-to-host-agentic-finance-summit-with-etoro-pantera-capital-chainlink-during-token2049-singapore/', date: '2026-10-06' },
+      { outlet: 'altFINS', url: 'https://altfins.com/crypto-news/article/more-more-to-host-agentic-finance-summit-with-etoro-pantera-capital-chainlink-during-token2049-singapore', date: '2026-10-06' },
+      { outlet: 'BitcoinWorld', headline: 'More & More to Host Agentic Finance Summit With etoro, Pantera Capital and Chainlink, During TOKEN2049 Singapore', url: 'https://bitcoinworld.co.in/more-more-to-host-agentic-finance-summit-with-etoro-pantera-capital-and-chainlink-during-token2049-singapore/', date: '2026-10-05' },
+      { outlet: 'CoinStats', headline: 'More & More to Host Agentic Finance Summit With etoro, Pantera Capital and Chainlink, During TOKEN2049 Singapore', url: 'https://coinstats.app/news/0c611587bf0e416c1161e177f091a606e85e31b238ecadf983c0ee3a7a42b3de_More--More-to-Host-Agentic-Finance-Summit-With-etoro-Pantera-Capital-and-Chainlink-During-TOKEN2049-Singapore', date: '2026-10-05' },
+      { outlet: 'Crypto Events', url: 'https://cryptoevents.global/more-more-to-host-agentic-finance-summit-with-etoro-pantera-capital-chainlink-during-token2049-singapore/', date: '2026-10-06' },
+    ],
+  },
+  {
+    id: 'chainwire-2026-04-27-the-odds-debut',
+    kind: 'release',
+    outlet: 'Chainwire',
+    headline: 'The Odds Conference Marks Strong Debut at Paris Blockchain Week',
+    date: '2026-04-27',
+    url: 'https://chainwire.org/2026/04/27/the-odds-conference-marks-strong-debut-at-paris-blockchain-week/',
+    edition: 'the-odds-paris-2026',
+    image: { src: '/images/more-and-more/the-odds-room.webp', alt: 'A packed room facing a panel on a More & More stage' },
+    pickups: [
+      { outlet: 'TradingView', url: 'https://www.tradingview.com/news/chainwire:bd544989b094b:0-the-odds-conference-marks-strong-debut-at-paris-blockchain-week/', date: '2026-04-27' },
+      { outlet: 'Binance Square', headline: 'The Odds Conference Marks Strong Debut At Paris Blockchain Week (27 Apr)', url: 'https://www.binance.com/en/square/post/317004111055538', date: '2026-04-27' },
+      { outlet: 'CoinMarketCap', headline: 'The Odds Conference Marks Strong Debut at Paris Blockchain Week (27 Apr)', url: 'https://coinmarketcap.com/community/articles/69ef37295e465c29a10ddf78/', date: '2026-04-27' },
+      { outlet: 'Business Insider', url: 'https://markets.businessinsider.com/news/currencies/the-odds-conference-marks-strong-debut-at-paris-blockchain-week-1036065791', date: '2026-04-27' },
+      { outlet: 'TheStreet', url: 'https://www.thestreet.com/crypto/press-releases/the-odds-conference-marks-strong-debut-at-paris-blockchain-week', date: '2026-04-27' },
+      { outlet: 'Benzinga', url: 'https://www.benzinga.com/pressreleases/26/04/52056185/the-odds-conference-marks-strong-debut-at-paris-blockchain-week', date: '2026-04-27' },
+      { outlet: 'Crypto Events', url: 'https://cryptoevents.global/the-odds-conference-marks-strong-debut-at-paris-blockchain-week/', date: '2026-04-27' },
+    ],
+  },
+  {
+    id: 'chainwire-2026-04-13-the-odds-launch',
+    kind: 'release',
+    outlet: 'Chainwire',
+    headline: 'The Odds Conference Launches at Paris Blockchain Week',
+    date: '2026-04-13',
+    url: 'https://chainwire.org/2026/04/13/the-odds-conference-launches-at-paris-blockchain-week/',
+    edition: 'the-odds-paris-2026',
+    image: { src: '/images/more-and-more/the-odds-panel.webp', alt: 'A six-person panel on a branded More & More stage' },
+    pickups: [
+      { outlet: 'TradingView', url: 'https://www.tradingview.com/news/chainwire:511b8fcee094b:0-the-odds-conference-launches-at-paris-blockchain-week/', date: '2026-04-13' },
+      { outlet: 'Benzinga', url: 'https://www.benzinga.com/pressreleases/26/04/51773457/the-odds-conference-launches-at-paris-blockchain-week', date: '2026-04-13' },
+      { outlet: 'The Defiant', url: 'https://thedefiant.io/news/press-releases/the-odds-conference-launches-at-paris-blockchain-week', date: '2026-04-13' },
+      { outlet: 'Crypto Events', url: 'https://cryptoevents.global/the-odds-conference-launches-at-paris-blockchain-week/', date: '2026-04-13' },
+    ],
+  },
+  {
+    id: 'chainwire-2026-01-05-web2-to-web3-concludes',
+    kind: 'release',
+    outlet: 'Chainwire',
+    headline: 'Web2 to Web3 Conference Successfully Concludes in Abu Dhabi, Showcasing Institutional Railways to Blockchain Adoption Across MENA',
+    date: '2026-01-05',
+    url: 'https://chainwire.org/2026/01/05/web2-to-web3-conference-successfully-concludes-in-abu-dhabi-showcasing-institutional-railways-to-blockchain-adoption-across-mena/',
+    edition: 'web2toweb3-abu-dhabi-2025',
+    image: { src: '/images/more-and-more/web2toweb3-session.webp', alt: 'A seated session at the Web2 to Web3 Summit in Abu Dhabi, produced by More & More' },
+    pickups: [
+      { outlet: 'Benzinga', url: 'https://www.benzinga.com/pressreleases/26/01/49685381/web2-to-web3-conference-successfully-concludes-in-abu-dhabi-showcasing-institutional-railways-to-bl', date: '2026-01-05' },
+      { outlet: 'Crypto Events', url: 'https://cryptoevents.global/web2-to-web3-conference-successfully-concludes-in-abu-dhabi-showcasing-institutional-railways-to-blockchain-adoption-across-mena/', date: '2026-01-05' },
+    ],
+  },
+  {
+    id: 'chainwire-2025-12-01-web2-to-web3-launch',
+    kind: 'release',
+    outlet: 'Chainwire',
+    headline: 'Web2 to Web3 Conference Launches in Abu Dhabi to Unite Global Finance and Digital Asset Leaders',
+    date: '2025-12-01',
+    url: 'https://chainwire.org/2025/12/01/web2-to-web3-conference-launches-in-abu-dhabi-to-unite-global-finance-and-digital-asset-leaders/',
+    edition: 'web2toweb3-abu-dhabi-2025',
+    image: { src: '/images/more-and-more/hub71-networking.jpg', alt: 'Delegates networking at a More & More gathering at Hub71 in Abu Dhabi' },
+    pickups: [
+      { outlet: 'GuruFocus', url: 'https://www.gurufocus.com/news/3227871/web2-to-web3-conference-launches-in-abu-dhabi-to-unite-global-finance-and-digital-asset-leaders', date: '2025-12-01' },
+    ],
+  },
+];

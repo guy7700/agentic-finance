@@ -57,7 +57,7 @@ export default function MediaPage() {
       <Section bordered tone="raised">
         <Container>
           <SectionHeader
-            eyebrow="Coverage"
+            eyebrow="Press"
             title={
               <>
                 Agentic Finance in the <span className="serif-accent">Press</span>
@@ -65,7 +65,7 @@ export default function MediaPage() {
             }
             action={<ButtonLink href="/media/press#in-the-press" variant="outline">Press and brand kit</ButtonLink>}
           />
-          <PressMentions limit={3} className="mt-10" />
+          <PressMentions limit={2} className="mt-10" />
         </Container>
       </Section>
       <CtaBand />

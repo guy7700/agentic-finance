@@ -349,7 +349,7 @@ export function FormatTiles() {
 const MEDIA = [
   { href: '/media/video', label: 'Video library', text: 'Films from our Editions, by edition and type.', image: '/images/singapore-2026/recap-poster.jpg' },
   { href: '/media/gallery', label: 'Photo gallery', text: 'Filter by edition and view full screen.', image: '/images/singapore-2026/agentic-finance-backdrop.webp' },
-  { href: '/media/press', label: 'Agentic Finance in the Press', text: 'Coverage, recaps and original links.' },
+  { href: '/media/press', label: 'Agentic Finance in the Press', text: 'TradingView, Binance, CoinMarketCap and more.' },
 ];
 
 /** Media, video gallery and press coverage. */

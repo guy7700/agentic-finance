@@ -212,8 +212,8 @@ export type Video = {
  */
 export type PressMention = {
   id: string;
-  /** "mention" for an article that covers us; "recap" for an outlet's write-up of an edition. */
-  kind: 'mention' | 'recap';
+  /** "mention" for an article that covers us; "recap" for an outlet's write-up of an edition; "release" for our own press release on a paid wire (e.g. Chainwire). */
+  kind: 'mention' | 'recap' | 'release';
   outlet: string;
   /** Outlet logo under /images/press/, only when we may use it. */
   logo?: string;
@@ -223,8 +223,15 @@ export type PressMention = {
   date: string;
   /** The original article. */
   url: string;
-  /** Edition the piece covers, when it covers one. */
+  /** Edition the piece covers, when it covers one: a gallery collection id (e.g. "the-odds-paris-2026"). */
   edition?: string;
+  /** A photo from that event, from our own gallery. */
+  image?: ImageAsset;
+  /**
+   * For a release: the sites that republished it, each opened and checked. Date YYYY-MM-DD as
+   * published there; `headline` only when that site's headline differs from ours.
+   */
+  pickups?: { outlet: string; url: string; date: string; headline?: string }[];
 };
 
 export type GalleryImage = ImageAsset & {

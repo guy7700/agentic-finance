@@ -1,14 +1,13 @@
 import { TextLink } from '../ui/Button';
 import { Img } from '../ui/Img';
-import { Placeholder } from '../ui/Placeholder';
 
 /**
  * The lead use case. What is on file: eToro and Zengo both spoke at the Web2 to
  * Web3 Summit (Abu Dhabi, 2025); The Odds in Paris (April 2026) carried eToro x
  * Zengo stage branding; eToro acquired Zengo in April 2026 (Ouriel Ohayon's
- * speaker bio on the Abu Dhabi site); eToro was Singapore's title partner. That they met on
- * our stage and that the acquisition was announced at The Odds is not on file,
- * so both are marked [TBC], and the wording waits for Tal.
+ * speaker bio on the Abu Dhabi site); eToro was Singapore's title partner.
+ * Not on file, so not claimed (removed 9 Nov 2026): that they met on our stage,
+ * and that the acquisition was announced at The Odds. Add back only once Tal confirms.
  */
 export function EtoroZengoStory() {
   const steps = [
@@ -36,13 +35,8 @@ export function EtoroZengoStory() {
           <span className="relative h-7 w-24">
             <Img src="/images/logos/zengo.png" alt="Zengo" fill sizes="96px" className="object-contain object-left" />
           </span>
-          <Placeholder>Confirm with Tal</Placeholder>
         </div>
-        <h3 className="mt-6 text-2xl font-semibold leading-snug sm:text-[28px]">From our stage to an acquisition</h3>
-        <p className="mt-4 leading-relaxed text-paper/85">
-          eToro and Zengo met on our stage in Abu Dhabi <Placeholder />. eToro&rsquo;s acquisition of Zengo was later announced at The
-          Odds, our event in Paris <Placeholder />.
-        </p>
+        <h3 className="mt-6 text-2xl font-semibold leading-snug sm:text-[28px]">eToro and Zengo across our events</h3>
         <ol className="mt-6 flex flex-col border-t border-line">
           {steps.map((s) => (
             <li key={s.when} className="grid gap-1 border-b border-line py-3 sm:grid-cols-[170px_minmax(0,1fr)] sm:gap-4">

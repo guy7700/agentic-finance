@@ -368,7 +368,7 @@ function testSubmission() {
         company: 'Test Co',
         events_selected: ['TOKEN2049 Singapore', 'Sibos, Singapore'],
         other_event: '',
-        audience_wanted: ['Commercial Banks', 'Payment Providers'],
+        audience_wanted: ['Commercial & Retail Banks', 'Payment Providers & Networks'],
         tell_us_more: 'A test answer to the open question.',
         consent: true,
         utm_content: 'email_1',

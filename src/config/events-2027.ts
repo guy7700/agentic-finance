@@ -123,20 +123,24 @@ export const events2027: Event2027[] = [
 
 export const getEvent2027 = (id: string) => events2027.find((e) => e.id === id);
 
-/** Who people can ask to connect with, in this order, two to a row. */
+/** Who people can ask to connect with, in this order: two to a row, one on phones. */
 export const audienceSegments = [
-  'Commercial Banks',
+  'Commercial & Retail Banks',
   'Investment Banks',
+  'Private Banks & Wealth Managers',
   'Family Offices',
   'Sovereign Wealth Funds',
   'Asset Managers',
   'Venture Capital',
-  'Private Equity',
-  'Payment Providers',
-  'Trading Firms',
-  'Digital Asset Firms',
-  'Regulators',
-  'AI & Agentic Finance',
+  'Crypto & Digital Asset Exchanges',
+  'Stock & Derivatives Exchanges',
+  'Payment Providers & Networks',
+  'Trading Firms & Market Makers',
+  'Digital Asset & Tokenization Firms',
+  'Custodians & Prime Brokers',
+  'Regulators & Government Bodies',
+  'AI & Agentic Finance Companies',
+  'Fintech & Financial Infrastructure',
 ] as const;
 
 export const channels = ['email', 'dm', 'whatsapp', 'luma', 'social'] as const;

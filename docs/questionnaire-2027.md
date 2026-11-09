@@ -18,7 +18,7 @@ Changed after Tomer's review on the 9 Nov call:
 | --- | --- | --- |
 | Details | Full name, work email, company | Yes |
 | 1. Where will you be in 2027? | One flat list of every event, in calendar order (days shown only where confirmed), plus "Somewhere else? Tell us where" | At least one event, or something typed in "Somewhere else" |
-| 2. Who would you like to connect with? | 12 options, two to a row: Commercial Banks, Investment Banks, Family Offices, Sovereign Wealth Funds, Asset Managers, Venture Capital, Private Equity, Payment Providers, Trading Firms, Digital Asset Firms, Regulators, AI & Agentic Finance | At least one |
+| 2. Who would you like to connect with? | 16 options, two to a row (one on phones): Commercial & Retail Banks, Investment Banks, Private Banks & Wealth Managers, Family Offices, Sovereign Wealth Funds, Asset Managers, Venture Capital, Crypto & Digital Asset Exchanges, Stock & Derivatives Exchanges, Payment Providers & Networks, Trading Firms & Market Makers, Digital Asset & Tokenization Firms, Custodians & Prime Brokers, Regulators & Government Bodies, AI & Agentic Finance Companies, Fintech & Financial Infrastructure | At least one |
 | Open question | "In order for us to get you the best meeting, tell us more about whatever you need" | No |
 | Consent | Agree to be contacted | Yes |
 

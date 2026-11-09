@@ -320,7 +320,7 @@ function QuestionnaireForm() {
       >
         <fieldset aria-describedby={errors.audience ? 'q-audience-error' : undefined}>
           <legend className="sr-only">Who would you like to connect with?</legend>
-          <div className="grid grid-cols-2 gap-2 sm:gap-3">
+          <div className="grid grid-cols-1 gap-2 sm:grid-cols-2 sm:gap-3">
             {audienceSegments.map((a) => (
               <ConnectCard key={a} name="audience" value={a} checked={v.audiences.includes(a)} onChange={(on) => update({ audiences: toggle(v.audiences, a, on) })}>
                 {a}

@@ -9,7 +9,6 @@ import { cn } from '@/lib/cn';
 import { VideoPlayer } from '../media/VideoPlayer';
 import { YouTubeEmbed } from '../media/YouTubeEmbed';
 import { LogoWall, type LogoItem } from '../partners/LogoWall';
-import { PartnerLogoStrip } from '../partners/PartnerLogoStrip';
 import { ButtonLink } from '../ui/Button';
 import { Icon, type IconName } from '../ui/Icon';
 import { Img } from '../ui/Img';
@@ -19,16 +18,10 @@ import { PastEventCard } from './HomeEvents';
 
 const isDefined = <T,>(x: T | undefined): x is T => x !== undefined;
 
-/** Partners first, then the organisations our speakers came from, kept apart so a logo never reads as an endorsement. */
+/** One logo wall of the organisations at our conferences: partners, then a curated set from the stage, with no categories. */
 export function HomePartners() {
-  const partners: LogoItem[] = editionOrganizations
-    .filter((r) => r.relationship === 'title-partner' || r.relationship === 'partner')
-    .map((r) => {
-      const org = getOrganization(r.org);
-      return org && { ...org, note: r.relationship === 'title-partner' ? 'Title Partner' : r.note };
-    })
-    .filter(isDefined);
-  const onStage = featuredOnStage.map(getOrganization).filter(isDefined);
+  const ids = [...editionOrganizations.filter((r) => r.relationship === 'title-partner' || r.relationship === 'partner').map((r) => r.org), ...featuredOnStage];
+  const orgs: LogoItem[] = [...new Set(ids)].map(getOrganization).filter(isDefined);
 
   return (
     <Section id="partners" className="!py-16 sm:!py-20">
@@ -46,18 +39,7 @@ export function HomePartners() {
             </ButtonLink>
           }
         />
-        <div className="mt-10 grid gap-12 lg:grid-cols-[minmax(0,2fr)_minmax(0,3fr)]">
-          <div>
-            <p className="mono-label">Partners · Singapore 2026</p>
-            <LogoWall items={partners} columns="wide" labelled className="mt-5" />
-          </div>
-          <PartnerLogoStrip
-            items={onStage}
-            label="Organizations represented by our speakers"
-            caption=""
-            link={null}
-          />
-        </div>
+        <LogoWall items={orgs} className="mt-10" />
       </Container>
     </Section>
   );

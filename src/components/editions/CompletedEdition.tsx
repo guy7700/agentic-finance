@@ -2,7 +2,7 @@ import Link from 'next/link';
 import { externalLinks } from '@/config/site';
 import { getCurrentEdition } from '@/data/editions';
 import { gallery, galleryCollections, galleryTags, videoKindLabels, videos } from '@/data/media';
-import { editionOrganizations, getOrganization, useCases } from '@/data/partners';
+import { editionOrganizations, getOrganization } from '@/data/partners';
 import type { Edition } from '@/data/types';
 import { getSpeaker, isProgrammeSession, sessionsForEdition, speakersForEdition, stageLabels } from '@/lib/content';
 import { speakerThumb } from '@/lib/paths';
@@ -26,16 +26,11 @@ export function CompletedEdition({ edition }: { edition: Edition }) {
   const moreVideos = videos.filter((v) => v.edition === edition.slug && v.id !== recap?.id);
   const sessions = sessionsForEdition(edition.slug).filter(isProgrammeSession);
   const editionSpeakers = speakersForEdition(edition.slug);
-  const verified = editionOrganizations
-    .filter((r) => r.edition === edition.slug && (r.relationship === 'title-partner' || r.relationship === 'partner'))
-    .map((r) => ({ ...getOrganization(r.org)!, note: r.relationship === 'title-partner' ? 'Title Partner' : r.note }));
-  const onStage = editionOrganizations
-    .filter((r) => r.edition === edition.slug && r.relationship !== 'title-partner' && r.relationship !== 'partner')
+  const editionOrgs = editionOrganizations
+    .filter((r) => r.edition === edition.slug)
     .map((r) => getOrganization(r.org))
-    .filter((o) => o !== undefined)
-    .slice(0, 24);
+    .filter((o) => o !== undefined);
   const photos = gallery.filter((g) => g.edition === edition.slug);
-  const editionCases = useCases.filter((u) => u.edition === edition.slug);
 
   return (
     <>
@@ -217,27 +212,15 @@ export function CompletedEdition({ edition }: { edition: Edition }) {
           <SectionHeader
             eyebrow="Partners"
             title="Who made it happen."
-            lede="Verified partners of the Singapore edition, and the organisations represented on its stages."
+            lede={`The organisations that took part in ${edition.shortName}.`}
             action={<ButtonLink href="/partners/use-cases" variant="outline">Partner use cases</ButtonLink>}
           />
-          <p className="mono-label mt-12">Partners · Singapore 2026</p>
-          <LogoWall items={verified} columns="wide" labelled className="mt-4" />
-          <div className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
-            {editionCases.map((u) => (
-              <Link key={u.slug} href={`/partners/use-cases/${u.slug}`} className="group flex items-center justify-between rounded-xl border border-line px-5 py-4 text-sm hover:border-gold/60">
-                <span>
-                  <span className="block font-semibold">{u.partner}</span>
-                  <span className="text-muted">{u.positioning}</span>
-                </span>
-                <Icon name="arrow-right" size={16} className="shrink-0 text-gold transition-transform group-hover:translate-x-1" />
-              </Link>
-            ))}
-          </div>
-          <p className="mono-label mt-14">Organisations on stage</p>
-          <LogoWall items={onStage} className="mt-4" />
-          <p className="mt-4 text-[13px] text-subtle">
-            Represented by speakers on the Singapore stages. Inclusion here does not imply sponsorship.
-          </p>
+          <LogoWall items={editionOrgs.slice(0, 24)} className="mt-12" />
+          {editionOrgs.length > 24 ? (
+            <TextLink href="/partners/past-partners" className="mt-5">
+              All {editionOrgs.length} organisations
+            </TextLink>
+          ) : null}
         </Container>
       </Section>
 

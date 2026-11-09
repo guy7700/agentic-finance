@@ -10,8 +10,9 @@ import { SmartLink } from '../ui/SmartLink';
 
 export const plural = (n: number, one: string, many = `${one}s`) => `${n} ${n === 1 ? one : many}`;
 
-/** The date as published, with the year when the label leaves it out: "21-22 Apr 2027", "Mid Nov (TBC) · 2027". */
+/** The date as published, with the year when the label leaves it out: "21-22 Apr 2027", "Mid Nov · 2027", or just "2027". */
 export function dateWithYear(e: CalendarEvent): string {
+  if (!e.dateLabel) return String(e.year);
   if (/\d{4}/.test(e.dateLabel)) return e.dateLabel;
   return e.start ? `${e.dateLabel} ${e.year}` : `${e.dateLabel} · ${e.year}`;
 }

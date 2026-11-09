@@ -322,7 +322,8 @@ export function buildCalendarEvents({
       year: e.start ? Number(e.start.slice(0, 4)) : year,
       city: e.city,
       region: e.region,
-      label: e.category,
+      // Categories are not shown on the calendar.
+      label: '',
       href: questionnaireHref(e.id),
       cta: QUESTIONNAIRE_CTA,
       image: e.image,

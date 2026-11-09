@@ -156,13 +156,7 @@ export function MonthView({ uid, events, month, first, last, today, pinned, prev
   const prev = shiftMonth(month, -1);
   const next = shiftMonth(month, 1);
 
-  const tbcCount = tbcHere.length;
-  let summary = 'No events';
-  if (monthEvents.length) {
-    summary = plural(monthEvents.length, 'event');
-    if (tbcCount === monthEvents.length) summary += tbcCount === 1 ? ', date TBC' : ', dates TBC';
-    else if (tbcCount) summary += `, ${tbcCount} date${tbcCount === 1 ? '' : 's'} TBC`;
-  }
+  const summary = monthEvents.length ? plural(monthEvents.length, 'event') : 'No events';
 
   // Keep the active month chip in view inside its scrolling row (never scrolls the page).
   useEffect(() => {
@@ -633,7 +627,6 @@ function Spotlight({
   onPin: (id: string) => void;
 }) {
   const titleId = `${uid}-spotlight-title`;
-  const tbc = !isDated(e);
   const place = [e.venue, e.city, e.country && e.country !== e.city ? e.country : undefined].filter(Boolean).join(', ');
   const outside = e.month !== month;
 
@@ -663,13 +656,12 @@ function Spotlight({
       </div>
 
       <div className="flex min-w-0 flex-1 flex-col p-5 sm:p-6">
-        <p className="mono-label">{e.label}</p>
+        {e.label ? <p className="mono-label">{e.label}</p> : null}
         <h4 id={titleId} className="mt-2 text-[22px] font-medium leading-snug text-balance">
           {e.name}
         </h4>
         <p className="eyebrow mt-3">
           {dateWithYear(e)}
-          {tbc && !/tbc/i.test(e.dateLabel) ? <span className="text-paper/80"> · Date TBC</span> : null}
         </p>
         <p className="mt-3 flex items-start gap-2 text-[15px] font-light text-paper/90">
           <Icon name="pin" size={16} className="mt-1 shrink-0 text-gold-bright" />
@@ -760,7 +752,6 @@ function AgendaRow({
   onKeyboardFocus: () => void;
   onActivate: () => void;
 }) {
-  const tbc = !isDated(e);
   return (
     <button
       type="button"
@@ -788,11 +779,10 @@ function AgendaRow({
       <span className="flex min-w-0 flex-1 flex-col">
         <span className="eyebrow">
           {e.dateLabel}
-          {tbc && !/tbc/i.test(e.dateLabel) ? ' · TBC' : ''}
         </span>
         <span className="mt-1 truncate text-[15px] font-medium leading-snug text-paper">{e.name}</span>
         <span className="mt-1 truncate text-xs font-light text-muted">
-          {e.city} · {e.label}
+          {e.label ? `${e.city} · ${e.label}` : e.city}
         </span>
       </span>
       <Icon name="chevron-right" size={16} className="shrink-0 text-gold transition-transform duration-300 group-hover:translate-x-0.5" />

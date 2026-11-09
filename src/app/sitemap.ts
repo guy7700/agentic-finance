@@ -10,7 +10,7 @@ import { absoluteUrl } from '@/lib/paths';
 export const dynamic = 'force-static';
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const staticPaths = new Set<string>(['/', '/invitation']);
+  const staticPaths = new Set<string>(['/', '/invitation', '/photo-credits']);
   for (const g of navigation) {
     staticPaths.add(g.href);
     for (const i of g.items) staticPaths.add(i.href);

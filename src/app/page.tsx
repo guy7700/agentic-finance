@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import Link from 'next/link';
 import { EventCalendar } from '@/components/events/EventCalendar';
 import { HomeHero } from '@/components/home/HomeHero';
 import { CategoryCards, FormatTiles, HomePartners, MediaTeaser, PastEditions, QuestionnaireBand, WhoWeAre } from '@/components/home/HomeSections';
@@ -75,6 +76,13 @@ export default function HomePage() {
             }
           />
           <EventCalendar events={buildCalendarEvents({ nextEvent, editions, events: events2027, year: EVENTS_YEAR })} className="mt-12" />
+          <p className="mt-6 text-[13px] text-subtle">
+            City photos:{' '}
+            <Link href="/photo-credits" className="text-gold underline decoration-gold/40 underline-offset-4 hover:text-gold-bright">
+              photo credits
+            </Link>
+            .
+          </p>
         </Container>
       </Section>
 

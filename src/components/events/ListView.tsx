@@ -62,7 +62,7 @@ function ListCard({ event: e }: { event: CalendarEvent }) {
         </div>
       </div>
       <div className="flex min-w-0 flex-1 flex-col p-4 sm:p-6 sm:pb-0">
-        <p className="mono-label text-[10px] sm:text-[11px]">{e.ours && e.badge ? e.badge : e.label}</p>
+        {e.ours && e.badge ? <p className="mono-label text-[10px] sm:text-[11px]">{e.badge}</p> : e.label ? <p className="mono-label text-[10px] sm:text-[11px]">{e.label}</p> : null}
         <h4 className="mt-1.5 text-lg font-medium leading-snug sm:mt-2 sm:text-xl">
           {e.ours ? (
             <SmartLink href={e.href} className="transition-colors after:absolute after:inset-0 after:content-[''] group-hover:text-gold">
@@ -166,7 +166,7 @@ function TbcCard({ event: e }: { event: CalendarEvent }) {
             <Icon name="pin" size={14} className="shrink-0 text-gold-bright" />
             <span className="truncate">{e.city}</span>
           </p>
-          <p className="mono-label mt-1.5 text-[10px]">{e.label}</p>
+          {e.label ? <p className="mono-label mt-1.5 text-[10px]">{e.label}</p> : null}
         </div>
       </div>
       <EventCta event={e} variant="outline" size="md" className="mt-auto w-full" />

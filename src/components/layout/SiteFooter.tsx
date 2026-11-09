@@ -94,7 +94,12 @@ export function SiteFooter() {
           <p>
             © {site.copyrightYear} More &amp; More. Agentic Finance is produced independently by More &amp; More.
           </p>
-          <p className="font-mono text-[11px] uppercase tracking-[0.2em]">Invitation only · Every request reviewed</p>
+          <div className="flex flex-wrap items-center gap-x-6 gap-y-2">
+            <Link href="/photo-credits" className="hover:text-gold">
+              Photo credits
+            </Link>
+            <p className="font-mono text-[11px] uppercase tracking-[0.2em]">Invitation only · Every request reviewed</p>
+          </div>
         </div>
       </Container>
     </footer>

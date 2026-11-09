@@ -3,48 +3,29 @@
  * reading the personal link, campaign tracking, validation, the payload the
  * Apps Script expects (apps-script/questionnaire-2027.gs) and browser storage.
  */
-import {
-  audienceSegments,
-  channels,
-  eventCities,
-  eventOptionLabel,
-  eventRegions,
-  events2027,
-  getEvent2027,
-  type Event2027,
-} from '@/config/events-2027';
+import { audienceSegments, channels, events2027, getEvent2027, type Event2027 } from '@/config/events-2027';
 import { clean } from '@/lib/forms';
 
 /* ------------------------------------------------------------------ Types */
 
 export type Answers = {
-  first_name: string;
-  last_name: string;
+  full_name: string;
   email: string;
   company: string;
   /** Event ids. */
   events: string[];
-  cities: string[];
-  regions: string[];
   other_event: string;
-  not_sure: boolean;
   audiences: string[];
-  company_type: string;
-  role_title: string;
-  seniority: string;
-  hq_country: string;
-  hq_city: string;
-  phone: string;
-  linkedin: string;
+  /** The optional open question at the end. */
+  tell_us_more: string;
   consent: boolean;
 };
 
-export type ErrorKey = 'first_name' | 'last_name' | 'email' | 'company' | 'where' | 'audience' | 'consent';
+export type ErrorKey = 'full_name' | 'email' | 'company' | 'where' | 'audience' | 'consent';
 export type Errors = Partial<Record<ErrorKey, string>>;
 
 export type Prefill = {
-  first_name: string;
-  last_name: string;
+  full_name: string;
   email: string;
   company: string;
   /** Form fields that came from the link, in form order. */
@@ -63,16 +44,13 @@ export type Tracking = {
 export type ThanksSummary = {
   first_name: string;
   events: string[];
-  cities: string[];
-  regions: string[];
   other: string;
-  not_sure: boolean;
   audiences: string[];
+  more: string;
 };
 
 /* ------------------------------------------------------------- Constants */
 
-export const NOT_SURE = 'Not sure yet';
 export const THANKS_PATH = '/2027/thanks';
 
 /** Personal fields in the link. Stripped from the address bar and from `source_url`. */
@@ -80,7 +58,7 @@ export const PII_PARAMS = ['first_name', 'last_name', 'name', 'fname', 'lname', 
 const UTM_KEYS = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content'] as const;
 
 /** Lengths match the Apps Script's limits. */
-export const MAX = { name: 100, email: 200, company: 200, short: 100, role: 200, other: 500, phone: 60, linkedin: 300 } as const;
+export const MAX = { name: 200, email: 200, company: 200, short: 100, other: 500, more: 1000 } as const;
 
 const RATE_LIMIT_MS = 60_000;
 
@@ -114,53 +92,43 @@ function linkEmail(raw: string | null | undefined): string {
   return v.length <= MAX.email && isEmail(v) ? v : '';
 }
 
-/** Required fields, at least one place, at least one audience, consent. Keys follow the form's order. */
+/** Required fields, at least one event (or somewhere else), at least one audience, consent. Keys follow the form's order. */
 export function validateAnswers(a: Answers): Errors {
   const e: Errors = {};
-  if (!a.first_name.trim()) e.first_name = 'Please add your first name.';
-  if (!a.last_name.trim()) e.last_name = 'Please add your last name.';
+  if (!a.full_name.trim()) e.full_name = 'Please add your full name.';
   if (!a.email.trim()) e.email = 'Please add your work email.';
   else if (!isEmail(a.email)) e.email = 'That email does not look right. Please check it.';
   if (!a.company.trim()) e.company = 'Please add your company.';
-  const anyPlace = a.events.length + a.cities.length + a.regions.length > 0 || a.other_event.trim() !== '' || a.not_sure;
-  if (!anyPlace) e.where = 'Pick at least one event, city or region, write where you will be, or tick Not sure yet.';
-  if (a.audiences.length === 0) e.audience = 'Pick at least one group you want to meet.';
+  if (!a.events.length && !a.other_event.trim()) e.where = 'Pick at least one event, or tell us where you will be.';
+  if (a.audiences.length === 0) e.audience = 'Pick at least one group you would like to connect with.';
   if (!a.consent) e.consent = 'Please tick this box so we can contact you about the meetings.';
   return e;
 }
 
 export const errorLabels: Record<ErrorKey, string> = {
-  first_name: 'First name',
-  last_name: 'Last name',
+  full_name: 'Full name',
   email: 'Work email',
   company: 'Company',
   where: 'Where you will be',
-  audience: 'Who you want to meet',
+  audience: 'Who you would like to connect with',
   consent: 'Agreement to be contacted',
 };
 
 /* ------------------------------------------------------- Personal link */
 
-export const emptyPrefill: Prefill = { first_name: '', last_name: '', email: '', company: '', prefilled: [] };
+export const emptyPrefill: Prefill = { full_name: '', email: '', company: '', prefilled: [] };
 
 /**
- * Name, email and company from the personal link. Accepts first_name/last_name,
- * fname/lname, or a full `name` to split. Anything missing or invalid stays empty.
+ * Name, email and company from the personal link. Accepts a full `name`, or
+ * first_name/last_name (fname/lname) joined into one. Anything missing or invalid stays empty.
  */
 export function parsePrefill(params: URLSearchParams): Prefill {
-  let first = linkText(params.get('first_name') || params.get('fname'), MAX.name, 'name');
-  let last = linkText(params.get('last_name') || params.get('lname'), MAX.name, 'name');
-  if (!first && !last) {
-    const full = linkText(params.get('name'), MAX.name * 2, 'name');
-    if (full) {
-      const [f, ...rest] = full.split(' ');
-      first = f;
-      last = rest.join(' ');
-    }
-  }
+  const first = linkText(params.get('first_name') || params.get('fname'), MAX.name, 'name');
+  const last = linkText(params.get('last_name') || params.get('lname'), MAX.name, 'name');
+  const full_name = linkText(params.get('name'), MAX.name, 'name') || [first, last].filter(Boolean).join(' ').slice(0, MAX.name);
   const email = linkEmail(params.get('email'));
   const company = linkText(params.get('company'), MAX.company, 'company');
-  const values = { first_name: first, last_name: last, email, company };
+  const values = { full_name, email, company };
   const prefilled = (Object.keys(values) as (keyof typeof values)[]).filter((k) => values[k]);
   return { ...values, prefilled };
 }
@@ -171,15 +139,15 @@ function revalidatePrefill(p: unknown): Prefill | null {
   const o = p as Record<string, unknown>;
   const str = (v: unknown) => (typeof v === 'string' ? v : '');
   const params = new URLSearchParams();
-  params.set('first_name', str(o.first_name));
-  params.set('last_name', str(o.last_name));
+  // A prefill saved before the single name field kept first and last name apart.
+  params.set('name', str(o.full_name) || [str(o.first_name), str(o.last_name)].filter(Boolean).join(' '));
   params.set('email', str(o.email));
   params.set('company', str(o.company));
   const next = parsePrefill(params);
   return next.prefilled.length ? next : null;
 }
 
-export const isCompletePrefill = (p: Prefill) => Boolean(p.first_name && p.last_name && p.email && p.company);
+export const isCompletePrefill = (p: Prefill) => Boolean(p.full_name && p.email && p.company);
 
 /* ------------------------------------------------------------- Tracking */
 
@@ -259,23 +227,13 @@ export function persistInitial(init: Initial) {
 
 export function initialAnswers(init: Initial): Answers {
   return {
-    first_name: init.prefill.first_name,
-    last_name: init.prefill.last_name,
+    full_name: init.prefill.full_name,
     email: init.prefill.email,
     company: init.prefill.company,
     events: init.event ? [init.event.id] : [],
-    cities: [],
-    regions: [],
     other_event: '',
-    not_sure: false,
     audiences: [],
-    company_type: '',
-    role_title: '',
-    seniority: '',
-    hq_country: '',
-    hq_city: '',
-    phone: '',
-    linkedin: '',
+    tell_us_more: '',
     consent: false,
   };
 }
@@ -285,9 +243,21 @@ export function initialAnswers(init: Initial): Answers {
 /** Selected values in menu order, whatever order they were ticked in. */
 const inOrder = <T extends string>(selected: string[], options: readonly T[]) => options.filter((o) => selected.includes(o));
 
+/** Sort key: exact first day, else the best known month, else last. */
+const dateKey = (e: Event2027) => e.start ?? (e.month ? `2027-${String(e.month).padStart(2, '0')}-99` : '9999');
+
+/** Every event in one flat list, in calendar order. */
+export const eventList = [...events2027].sort((a, b) => dateKey(a).localeCompare(dateKey(b)));
+
+/** "Event, City", or just the event when its name already says the city. Used in the Sheet, Chat and emails. */
+export const eventName = (e: Event2027) => (e.name.includes(e.city) ? e.name : `${e.name}, ${e.city}`);
+
 export function selectedEvents(a: Answers) {
-  return events2027.filter((e) => a.events.includes(e.id));
+  return eventList.filter((e) => a.events.includes(e.id));
 }
+
+/** First word of the full name, for greetings. */
+export const firstWord = (name: string) => name.trim().split(/\s+/)[0] ?? '';
 
 export type Payload = ReturnType<typeof buildPayload>;
 
@@ -295,23 +265,14 @@ export function buildPayload(a: Answers, ctx: { tracking: Tracking; prefilled: s
   const events = selectedEvents(a);
   return {
     formType: 'Questionnaire 2027',
-    first_name: clean(a.first_name, MAX.name),
-    last_name: clean(a.last_name, MAX.name),
+    full_name: clean(a.full_name, MAX.name),
     email: a.email.trim().slice(0, MAX.email),
     company: clean(a.company, MAX.company),
-    company_type: clean(a.company_type, MAX.short),
-    role_title: clean(a.role_title, MAX.role),
-    seniority: clean(a.seniority, MAX.short),
-    hq_country: clean(a.hq_country, MAX.short),
-    hq_city: clean(a.hq_city, MAX.short),
-    events_selected: [...events.map(eventOptionLabel), ...(a.not_sure ? [NOT_SURE] : [])],
+    events_selected: events.map(eventName),
     event_ids: events.map((e) => e.id),
-    cities_selected: inOrder(a.cities, eventCities),
-    regions_selected: inOrder(a.regions, eventRegions),
     other_event: clean(a.other_event, MAX.other),
     audience_wanted: inOrder(a.audiences, audienceSegments),
-    phone: clean(a.phone, MAX.phone),
-    linkedin: clean(a.linkedin, MAX.linkedin),
+    tell_us_more: clean(a.tell_us_more, MAX.more),
     consent: true as const,
     utm_source: ctx.tracking.utm_source,
     utm_medium: ctx.tracking.utm_medium,
@@ -326,15 +287,13 @@ export function buildPayload(a: Answers, ctx: { tracking: Tracking; prefilled: s
   };
 }
 
-export function toSummary(p: Payload, a: Answers): ThanksSummary {
+export function toSummary(p: Payload): ThanksSummary {
   return {
-    first_name: p.first_name,
-    events: selectedEvents(a).map(eventOptionLabel),
-    cities: p.cities_selected,
-    regions: p.regions_selected,
+    first_name: firstWord(p.full_name),
+    events: p.events_selected,
     other: p.other_event,
-    not_sure: a.not_sure,
     audiences: p.audience_wanted,
+    more: p.tell_us_more,
   };
 }
 
@@ -383,11 +342,9 @@ export function parseSummary(raw: string | null): ThanksSummary | null {
     return {
       first_name: str(o.first_name, MAX.name),
       events: list(o.events),
-      cities: list(o.cities),
-      regions: list(o.regions),
       other: str(o.other, MAX.other),
-      not_sure: o.not_sure === true,
       audiences: list(o.audiences),
+      more: str(o.more, MAX.more),
     };
   } catch {
     return null;
@@ -410,9 +367,4 @@ export function markSent() {
   } catch {
     /* storage unavailable: the server still rate-limits */
   }
-}
-
-/** Cities that host at least one listed event in a region, for the region chips. */
-export function citiesIn(region: string) {
-  return [...new Set(events2027.filter((e) => e.region === region).map((e) => e.city))].sort((a, b) => a.localeCompare(b));
 }

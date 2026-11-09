@@ -5,7 +5,7 @@ import { questionnaire2027 } from '@/config/events-2027';
 import { contacts } from '@/config/site';
 import { ButtonLink } from '../ui/Button';
 import { Icon } from '../ui/Icon';
-import { NOT_SURE, parseSummary, readSummaryRaw } from './lib';
+import { parseSummary, readSummaryRaw } from './lib';
 
 const noopSubscribe = () => () => {};
 const serverSnapshot = () => null;
@@ -21,12 +21,10 @@ export function ThanksContent() {
 
   const rows = summary
     ? [
-        { label: 'Cities', items: summary.cities },
-        { label: 'Regions', items: summary.regions },
         { label: 'Events', items: summary.events },
-        { label: 'Other', items: summary.other ? [summary.other] : [] },
-        { label: 'Plans', items: summary.not_sure ? [NOT_SURE] : [] },
-        { label: 'Who you want to meet', items: summary.audiences },
+        { label: 'Somewhere else', items: summary.other ? [summary.other] : [] },
+        { label: 'Who you would like to connect with', items: summary.audiences },
+        { label: 'What you need', items: summary.more ? [summary.more] : [] },
       ].filter((r) => r.items.length)
     : [];
 
@@ -58,7 +56,7 @@ export function ThanksContent() {
                 <dd>
                   <ul className="flex flex-wrap gap-2">
                     {r.items.map((item) => (
-                      <li key={item} className="rounded-lg border border-gold/35 bg-gold/10 px-3 py-1.5 text-[14px] leading-snug text-gold-bright">
+                      <li key={item} className="whitespace-pre-line break-words rounded-lg border border-gold/35 bg-gold/10 px-3 py-1.5 text-[14px] leading-snug text-gold-bright">
                         {item}
                       </li>
                     ))}

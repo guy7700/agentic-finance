@@ -2,17 +2,17 @@
 
 import { useRouter } from 'next/navigation';
 import { useEffect, useRef, useState, useSyncExternalStore, type FormEvent, type ReactNode } from 'react';
-import { audienceSegments, companyTypes, questionnaire2027, seniorityLevels } from '@/config/events-2027';
+import { audienceSegments, questionnaire2027 } from '@/config/events-2027';
 import { formWebhooks } from '@/config/forms';
 import { contacts } from '@/config/site';
 import { cn } from '@/lib/cn';
 import { trackLead } from '../analytics/MetaPixel';
-import { SelectField, TextField } from '../forms/Fields';
+import { TextAreaField, TextField } from '../forms/Fields';
 import { FormError } from '../forms/FormStatus';
 import type { SubmitState } from '../forms/useEnquiry';
 import { Button } from '../ui/Button';
 import { Icon } from '../ui/Icon';
-import { Chip, toggle } from './Chips';
+import { ConnectCard, toggle } from './Chips';
 import {
   MAX,
   THANKS_PATH,
@@ -31,10 +31,10 @@ import {
   type Answers,
   type ErrorKey,
 } from './lib';
-import { WhereStep, type WhereTab } from './WhereStep';
+import { WhereStep } from './WhereStep';
 
 const noopSubscribe = () => () => {};
-const YOU_KEYS: ErrorKey[] = ['first_name', 'last_name', 'email', 'company'];
+const YOU_KEYS: ErrorKey[] = ['full_name', 'email', 'company'];
 const plural = (n: number, one: string, many = `${one}s`) => `${n} ${n === 1 ? one : many}`;
 
 /**
@@ -54,8 +54,6 @@ function QuestionnaireForm() {
   const [init] = useState(readInitial);
   const [v, setV] = useState<Answers>(() => initialAnswers(init));
   const [editingYou, setEditingYou] = useState(() => !isCompletePrefill(init.prefill));
-  const [tab, setTab] = useState<WhereTab>('events');
-  const [moreOpen, setMoreOpen] = useState(false);
   const [attempted, setAttempted] = useState(false);
   const [state, setState] = useState<SubmitState>({ status: 'idle' });
   const [honeypot, setHoneypot] = useState('');
@@ -96,7 +94,7 @@ function QuestionnaireForm() {
     // Wait for React to show the field before moving focus.
     window.setTimeout(() => {
       const el =
-        key === 'where' ? form.querySelector<HTMLElement>('#q-where [role="tab"][aria-selected="true"]')
+        key === 'where' ? form.querySelector<HTMLElement>('input[name="events"]')
         : key === 'audience' ? form.querySelector<HTMLElement>('input[name="audience"]')
         : form.querySelector<HTMLElement>(`[name="${key}"]`);
       el?.focus();
@@ -105,7 +103,7 @@ function QuestionnaireForm() {
 
   const editYou = () => {
     setEditingYou(true);
-    window.setTimeout(() => formRef.current?.querySelector<HTMLElement>('[name="first_name"]')?.focus(), 0);
+    window.setTimeout(() => formRef.current?.querySelector<HTMLElement>('[name="full_name"]')?.focus(), 0);
   };
 
   const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
@@ -126,7 +124,7 @@ function QuestionnaireForm() {
       elapsedMs: startedAt.current === null ? 0 : Math.max(0, Math.round(e.timeStamp - startedAt.current)),
     });
     const finish = () => {
-      saveSummary(toSummary(payload, v));
+      saveSummary(toSummary(payload));
       router.push(THANKS_PATH);
     };
 
@@ -184,13 +182,7 @@ function QuestionnaireForm() {
     }
   };
 
-  const placeCount = v.events.length + v.cities.length + v.regions.length + (v.other_event.trim() ? 1 : 0);
-  const status = [
-    placeCount ? plural(placeCount, 'place') : v.not_sure ? 'Not sure yet' : '',
-    v.audiences.length ? `${plural(v.audiences.length, 'group')} to meet` : '',
-  ]
-    .filter(Boolean)
-    .join(' · ');
+  const placeCount = v.events.length + (v.other_event.trim() ? 1 : 0);
 
   return (
     <form
@@ -232,15 +224,13 @@ function QuestionnaireForm() {
         </div>
       ) : null}
 
-      {/* Step 1 */}
-      <Step n={1} id="q-you" title="You" hint="Where we send your meeting plan.">
+      {/* Name, email, company */}
+      <section aria-label="Your details" className="edge-gold relative rounded-2xl border border-line bg-ink-card p-5 sm:p-8">
         {!editingYou ? (
-          <div className="flex flex-col gap-4 rounded-xl border border-line bg-paper/[0.02] p-4 sm:flex-row sm:items-center sm:justify-between sm:p-5">
+          <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
             <dl className="grid min-w-0 gap-0.5 text-[15px]">
-              <dt className="sr-only">Name</dt>
-              <dd className="font-medium text-paper">
-                {v.first_name} {v.last_name}
-              </dd>
+              <dt className="sr-only">Full name</dt>
+              <dd className="font-medium text-paper">{v.full_name}</dd>
               <dt className="sr-only">Work email</dt>
               <dd className="break-all font-light text-muted">{v.email}</dd>
               <dt className="sr-only">Company</dt>
@@ -257,31 +247,22 @@ function QuestionnaireForm() {
             </button>
           </div>
         ) : init.prefill.prefilled.length ? (
-          <p className="-mt-2 mb-5 flex items-center gap-2 text-[13.5px] text-subtle">
+          <p className="mb-5 flex items-center gap-2 text-[13.5px] text-subtle">
             <Icon name="check" size={14} className="text-gold" />
             We filled in what we had. Change anything that is not right.
           </p>
         ) : null}
         <div id="q-you-fields" hidden={!editingYou} className="grid gap-5 sm:grid-cols-2">
           <TextField
-            label="First name"
-            name="first_name"
+            label="Full name"
+            name="full_name"
             required
-            autoComplete="given-name"
+            autoComplete="name"
             maxLength={MAX.name}
-            value={v.first_name}
-            onChange={field('first_name')}
-            error={errors.first_name}
-          />
-          <TextField
-            label="Last name"
-            name="last_name"
-            required
-            autoComplete="family-name"
-            maxLength={MAX.name}
-            value={v.last_name}
-            onChange={field('last_name')}
-            error={errors.last_name}
+            value={v.full_name}
+            onChange={field('full_name')}
+            error={errors.full_name}
+            className="sm:col-span-2"
           />
           <TextField
             label="Work email"
@@ -308,16 +289,16 @@ function QuestionnaireForm() {
             error={errors.company}
           />
         </div>
-      </Step>
+      </section>
 
-      {/* Step 2 */}
+      {/* Step 1 */}
       <Step
-        n={2}
+        n={1}
         id="q-where"
         title="Where will you be in 2027?"
-        hint="Pick events, cities or regions. Any mix works."
+        hint="Pick all that apply."
         highlight={Boolean(init.event)}
-        count={placeCount ? `${placeCount} picked` : v.not_sure ? 'Not sure yet' : 'None picked yet'}
+        count={placeCount ? `${placeCount} picked` : 'None picked yet'}
         error={errors.where}
       >
         {init.event && v.events.includes(init.event.id) ? (
@@ -326,91 +307,41 @@ function QuestionnaireForm() {
             We ticked {init.event.name} for you. Add any others.
           </p>
         ) : null}
-        <WhereStep answers={v} update={update} tab={tab} onTab={setTab} errorId={errors.where ? 'q-where-error' : undefined} />
+        <WhereStep answers={v} update={update} errorId={errors.where ? 'q-where-error' : undefined} />
       </Step>
 
-      {/* Step 3 */}
+      {/* Step 2 */}
       <Step
-        n={3}
+        n={2}
         id="q-audience"
-        title="Who do you want to meet?"
-        hint="Pick all that apply."
-        count={v.audiences.length ? `${v.audiences.length} picked` : 'None picked yet'}
+        title="Who would you like to connect with?"
+        count="Select all that apply"
         error={errors.audience}
       >
         <fieldset aria-describedby={errors.audience ? 'q-audience-error' : undefined}>
-          <legend className="sr-only">Who do you want to meet?</legend>
-          <div className="flex flex-wrap gap-2">
+          <legend className="sr-only">Who would you like to connect with?</legend>
+          <div className="grid grid-cols-2 gap-2 sm:gap-3">
             {audienceSegments.map((a) => (
-              <Chip key={a} name="audience" value={a} checked={v.audiences.includes(a)} onChange={(on) => update({ audiences: toggle(v.audiences, a, on) })}>
+              <ConnectCard key={a} name="audience" value={a} checked={v.audiences.includes(a)} onChange={(on) => update({ audiences: toggle(v.audiences, a, on) })}>
                 {a}
-              </Chip>
+              </ConnectCard>
             ))}
           </div>
         </fieldset>
       </Step>
 
-      {/* Optional details */}
-      <section aria-labelledby="q-more-title" className="rounded-2xl border border-line bg-ink-card/50">
-        <h2 id="q-more-title" className="text-[17px] font-normal">
-          <button
-            type="button"
-            aria-expanded={moreOpen}
-            aria-controls="q-more"
-            onClick={() => setMoreOpen((o) => !o)}
-            className="flex min-h-16 w-full items-center justify-between gap-4 rounded-2xl px-5 py-4 text-left transition-colors hover:text-gold sm:px-8"
-          >
-            <span>
-              A bit more about you <span className="text-[14px] font-light text-subtle">(optional)</span>
-            </span>
-            <span className="flex size-9 shrink-0 items-center justify-center rounded-full border border-line-strong text-gold">
-              <Icon name={moreOpen ? 'minus' : 'plus'} size={16} />
-            </span>
-          </button>
-        </h2>
-        <div id="q-more" hidden={!moreOpen} className="grid gap-5 border-t border-line px-5 pb-6 pt-5 sm:grid-cols-2 sm:px-8 sm:pb-8">
-          <SelectField
-            label="Company type"
-            name="company_type"
-            options={companyTypes.map((c) => ({ value: c, label: c }))}
-            value={v.company_type}
-            onChange={field('company_type')}
-          />
-          <TextField label="Job title" name="role_title" autoComplete="organization-title" maxLength={MAX.role} value={v.role_title} onChange={field('role_title')} />
-          <SelectField
-            label="Seniority"
-            name="seniority"
-            options={seniorityLevels.map((s) => ({ value: s, label: s }))}
-            value={v.seniority}
-            onChange={field('seniority')}
-          />
-          <TextField label="Based in: country" name="hq_country" autoComplete="country-name" maxLength={MAX.short} value={v.hq_country} onChange={field('hq_country')} />
-          <TextField label="Based in: city" name="hq_city" autoComplete="address-level2" maxLength={MAX.short} value={v.hq_city} onChange={field('hq_city')} />
-          <TextField
-            label="WhatsApp or phone"
-            name="phone"
-            type="tel"
-            autoComplete="tel"
-            inputMode="tel"
-            maxLength={MAX.phone}
-            value={v.phone}
-            onChange={field('phone')}
-          />
-          <TextField
-            label="LinkedIn profile"
-            name="linkedin"
-            type="url"
-            inputMode="url"
-            autoCapitalize="none"
-            spellCheck={false}
-            maxLength={MAX.linkedin}
-            placeholder="linkedin.com/in/..."
-            value={v.linkedin}
-            onChange={field('linkedin')}
-            className="sm:col-span-2"
-          />
-        </div>
-      </section>
+      {/* Open question */}
+      <div className="rounded-2xl border border-line bg-ink-card/50 p-5 sm:px-8 sm:py-6">
+        <TextAreaField
+          label="In order for us to get you the best meeting, tell us more about whatever you need"
+          name="tell_us_more"
+          rows={3}
+          maxLength={MAX.more}
+          value={v.tell_us_more}
+          onChange={field('tell_us_more')}
+          className="[&_textarea]:min-h-24"
+        />
+      </div>
 
       {/* Consent */}
       <div className="rounded-2xl border border-line bg-ink-card/50 p-5 sm:px-8 sm:py-6">
@@ -455,27 +386,16 @@ function QuestionnaireForm() {
 
       <FormError state={state} />
 
-      {/* Submit: stays in view at the bottom of the screen while the form scrolls. */}
-      <div className="sticky bottom-0 z-20 -mx-4 border-t border-line-strong bg-ink/90 px-4 pb-[max(0.75rem,env(safe-area-inset-bottom))] pt-3 shadow-[0_-16px_40px_rgb(5_11_24/0.55)] backdrop-blur-md sm:bottom-4 sm:mx-0 sm:rounded-2xl sm:border sm:px-6 sm:py-4">
-        <div className="flex items-center justify-between gap-4">
-          <p className="min-w-0 text-[13px] leading-snug text-muted">
-            {sending ? (
-              'Sending your answers…'
-            ) : errorKeys.length ? (
-              <span className="text-danger">Check {plural(errorKeys.length, 'answer')} above</span>
-            ) : (
-              status || 'Two minutes, one form.'
-            )}
+      {/* Submit: sits at the end of the form, not pinned to the screen. */}
+      <div className="flex flex-wrap items-center justify-end gap-x-4 gap-y-3">
+        {sending || errorKeys.length ? (
+          <p aria-live="polite" className="min-w-0 flex-1 text-[13px] leading-snug text-muted">
+            {sending ? 'Sending your answers…' : <span className="text-danger">Check {plural(errorKeys.length, 'answer')} above</span>}
           </p>
-          <Button type="submit" size="lg" icon={sending ? null : 'arrow-right'} disabled={sending} className="shrink-0">
-            {sending ? 'Sending' : (
-              <>
-                <span className="sm:hidden">Send</span>
-                <span className="hidden sm:inline">Tell us where you’ll be</span>
-              </>
-            )}
-          </Button>
-        </div>
+        ) : null}
+        <Button type="submit" size="lg" icon={sending ? null : 'arrow-right'} disabled={sending} className="w-full shrink-0 sm:w-auto">
+          {sending ? 'Sending' : 'Book my meetings'}
+        </Button>
       </div>
     </form>
   );
@@ -538,7 +458,7 @@ function Step({ n, id, title, hint, count, error, highlight, children }: StepPro
 
 /* -------------------------------------------------------------- Skeleton */
 
-const SKELETON_STEPS = ['You', 'Where will you be in 2027?', 'Who do you want to meet?'];
+const SKELETON_STEPS = ['Where will you be in 2027?', 'Who would you like to connect with?'];
 
 /** What the static HTML shows until the form renders. */
 function QuestionnaireSkeleton() {
@@ -554,7 +474,7 @@ function QuestionnaireSkeleton() {
             <p className="pt-1 text-[clamp(1.3rem,1.15rem+0.6vw,1.65rem)] font-normal leading-tight">{title}</p>
           </div>
           <div aria-hidden className="mt-6 grid gap-3 motion-safe:animate-pulse sm:grid-cols-2">
-            {Array.from({ length: i === 1 ? 6 : 4 }, (_, j) => (
+            {Array.from({ length: i === 0 ? 6 : 4 }, (_, j) => (
               <div key={j} className="h-12 rounded-xl border border-line bg-paper/[0.03]" />
             ))}
           </div>

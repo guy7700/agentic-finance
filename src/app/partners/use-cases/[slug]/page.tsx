@@ -173,7 +173,7 @@ export default async function UseCasePage({ params }: PageProps<'/partners/use-c
             </div>
             <div className="mt-8">
               <Gallery
-                images={u.photos.map((p, i) => ({ ...p, id: `${u.slug}-${i}`, edition: u.edition, tags: [], width: p.width ?? 1600, height: p.height ?? 1067, caption: p.caption ?? p.alt }))}
+                images={u.photos.map((p, i) => ({ ...p, id: `${u.slug}-${i}`, edition: p.edition ?? u.edition, tags: [], width: p.width ?? 1600, height: p.height ?? 1067, caption: p.caption ?? p.alt }))}
                 collections={galleryCollections}
                 filters={false}
               />

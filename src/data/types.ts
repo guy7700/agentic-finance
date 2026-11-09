@@ -144,6 +144,9 @@ export type PartnershipCategory = {
 
 export type Deliverable = { label: string; photo?: ImageAsset };
 
+/** A use-case photo. `edition` is a gallery collection id, for a photo from another event than the use case's own. */
+export type UseCasePhoto = ImageAsset & { edition?: string };
+
 export type UseCase = {
   slug: string;
   partner: string;
@@ -156,7 +159,7 @@ export type UseCase = {
   people: { speaker: string; role: string }[];
   sessions: string[];
   deliverables: Deliverable[];
-  photos: ImageAsset[];
+  photos: UseCasePhoto[];
   url: string;
   /** For a use case outside the Agentic Finance editions (e.g. The Odds). */
   event?: { name: string; label: string };

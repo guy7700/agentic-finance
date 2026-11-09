@@ -245,7 +245,20 @@ export const useCases: UseCase[] = [
     ],
     photos: [
       sg('agentic-payments-panel', 'The Agentic Payments panel on stage in Singapore'),
-      sg('agentic-finance-backdrop', 'The Agentic Finance backdrop in Singapore, with eToro, Aave, Chainlink and the other partner marks'),
+      {
+        src: '/images/more-and-more/fireblocks-ran-goldi-panel.webp',
+        alt: 'Ran Goldi, SVP Payments & Network at Fireblocks, seated on the panel at the Web2 to Web3 Summit, Abu Dhabi 2025',
+        edition: 'web2toweb3-abu-dhabi-2025',
+        width: 1600,
+        height: 900,
+      },
+      {
+        src: '/images/more-and-more/fireblocks-ran-goldi-close.webp',
+        alt: 'Ran Goldi, SVP Payments & Network at Fireblocks, on stage with his name on screen at the Web2 to Web3 Summit, Abu Dhabi 2025',
+        edition: 'web2toweb3-abu-dhabi-2025',
+        width: 1600,
+        height: 900,
+      },
     ],
     url: 'https://www.fireblocks.com',
   },

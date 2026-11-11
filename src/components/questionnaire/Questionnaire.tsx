@@ -394,7 +394,7 @@ function QuestionnaireForm() {
           </p>
         ) : null}
         <Button type="submit" size="lg" icon={sending ? null : 'arrow-right'} disabled={sending} className="w-full shrink-0 sm:w-auto">
-          {sending ? 'Sending' : 'Book my meetings'}
+          {sending ? 'Sending' : 'Send'}
         </Button>
       </div>
     </form>

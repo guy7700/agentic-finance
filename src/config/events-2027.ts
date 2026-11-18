@@ -78,10 +78,10 @@ export const events2027: Event2027[] = [
   // Crypto and web3
   { id: 'consensus-hk', name: 'Consensus Hong Kong', city: 'Hong Kong', region: 'Asia', category: 'Crypto and web3', dateLabel: '1-3 Feb', start: '2027-02-01', end: '2027-02-03', image: city.hongKong },
   { id: 'hk-web3-festival', name: 'Hong Kong Web3 Festival', city: 'Hong Kong', region: 'Asia', category: 'Crypto and web3', dateLabel: 'Apr', month: 4, image: city.hongKong },
+  { id: 'ethcc', name: 'EthCC', city: 'Cannes', region: 'Europe', category: 'Crypto and web3', dateLabel: '12-15 Apr', start: '2027-04-12', end: '2027-04-15', image: city.cannes },
   { id: 'token2049-dubai', name: 'TOKEN2049 Dubai', city: 'Dubai', region: 'Middle East', category: 'Crypto and web3', dateLabel: '21-22 Apr', start: '2027-04-21', end: '2027-04-22', image: city.dubai },
   { id: 'consensus-miami', name: 'Consensus Miami', city: 'Miami', region: 'Americas', category: 'Crypto and web3', dateLabel: '4-6 May', start: '2027-05-04', end: '2027-05-06', image: city.miami },
   { id: 'token2049-ny', name: 'TOKEN2049 New York (first edition)', city: 'New York', region: 'Americas', category: 'Crypto and web3', dateLabel: '16-17 Jun', start: '2027-06-16', end: '2027-06-17', image: city.newYork },
-  { id: 'ethcc', name: 'EthCC', city: 'Cannes', region: 'Europe', category: 'Crypto and web3', dateLabel: 'Jun or Jul', month: 6, image: city.cannes },
   { id: 'signal-week', name: 'Signal Week (formerly Paris Blockchain Week)', city: 'Paris', region: 'Europe', category: 'Crypto and web3', dateLabel: '6-7 Jul', start: '2027-07-06', end: '2027-07-07', image: city.paris },
   { id: 'bitcoin-2027', name: 'Bitcoin 2027', city: 'Nashville', region: 'Americas', category: 'Crypto and web3', dateLabel: '15-17 Jul', start: '2027-07-15', end: '2027-07-17', image: city.nashville },
   { id: 'token2049-sg', name: 'TOKEN2049 Singapore', city: 'Singapore', region: 'Asia', category: 'Crypto and web3', dateLabel: '6-7 Oct', start: '2027-10-06', end: '2027-10-07', image: city.singapore },

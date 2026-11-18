@@ -4,7 +4,8 @@
  * Add, remove or edit an event here and both update; no page code changes.
  *
  * The 35 events every voter marked Yes in the "2027 Conference Shortlist" (9 November
- * 2026), with dates as given there. Use `start`/`end` only for
+ * 2026). Dates checked against each organiser's own site on 18 November 2026;
+ * where the organiser gives only a month, only the month is shown. Use `start`/`end` only for
  * exact days; anything else (a month, "Early Dec", or nothing yet) leaves them out and
  * the event goes to the "Dates to be confirmed" strip, ordered by `month`.
  *
@@ -77,7 +78,7 @@ const city = {
 export const events2027: Event2027[] = [
   // Crypto and web3
   { id: 'consensus-hk', name: 'Consensus Hong Kong', city: 'Hong Kong', region: 'Asia', category: 'Crypto and web3', dateLabel: '1-3 Feb', start: '2027-02-01', end: '2027-02-03', image: city.hongKong },
-  { id: 'hk-web3-festival', name: 'Hong Kong Web3 Festival', city: 'Hong Kong', region: 'Asia', category: 'Crypto and web3', dateLabel: 'Apr', month: 4, image: city.hongKong },
+  { id: 'hk-web3-festival', name: 'Hong Kong Web3 Festival', city: 'Hong Kong', region: 'Asia', category: 'Crypto and web3', dateLabel: '19-21 Apr', start: '2027-04-19', end: '2027-04-21', image: city.hongKong },
   { id: 'ethcc', name: 'EthCC', city: 'Cannes', region: 'Europe', category: 'Crypto and web3', dateLabel: '12-15 Apr', start: '2027-04-12', end: '2027-04-15', image: city.cannes },
   { id: 'token2049-dubai', name: 'TOKEN2049 Dubai', city: 'Dubai', region: 'Middle East', category: 'Crypto and web3', dateLabel: '21-22 Apr', start: '2027-04-21', end: '2027-04-22', image: city.dubai },
   { id: 'consensus-miami', name: 'Consensus Miami', city: 'Miami', region: 'Americas', category: 'Crypto and web3', dateLabel: '4-6 May', start: '2027-05-04', end: '2027-05-06', image: city.miami },
@@ -98,26 +99,26 @@ export const events2027: Event2027[] = [
 
   // Derivatives, gaming and tech
   { id: 'ice-barcelona', name: 'ICE Barcelona', city: 'Barcelona', region: 'Europe', category: 'Derivatives, gaming and tech', dateLabel: '18-20 Jan', start: '2027-01-18', end: '2027-01-20', image: city.barcelona },
-  { id: 'sigma-world-rome', name: 'SiGMA World', city: 'Rome', region: 'Europe', category: 'Derivatives, gaming and tech', dateLabel: '2-7 May', start: '2027-05-02', end: '2027-05-07', image: city.rome },
-  { id: 'sigma-asia', name: 'SiGMA Asia', city: 'Manila', region: 'Asia', category: 'Derivatives, gaming and tech', dateLabel: '1-4 Jun', start: '2027-06-01', end: '2027-06-04', image: city.manila },
-  { id: 'sbc-summit', name: 'SBC Summit', city: 'Lisbon', region: 'Europe', category: 'Derivatives, gaming and tech', dateLabel: 'Sep', month: 9, image: city.lisbon },
+  { id: 'sigma-world-rome', name: 'SiGMA World', city: 'Rome', region: 'Europe', category: 'Derivatives, gaming and tech', dateLabel: '24-27 May', start: '2027-05-24', end: '2027-05-27', image: city.rome },
+  { id: 'sigma-asia', name: 'SiGMA Asia', city: 'Manila', region: 'Asia', category: 'Derivatives, gaming and tech', dateLabel: 'Jun', month: 6, image: city.manila },
+  { id: 'sbc-summit', name: 'SBC Summit', city: 'Lisbon', region: 'Europe', category: 'Derivatives, gaming and tech', dateLabel: '21-23 Sep', start: '2027-09-21', end: '2027-09-23', image: city.lisbon },
   { id: 'g2e', name: 'G2E Las Vegas', city: 'Las Vegas', region: 'Americas', category: 'Derivatives, gaming and tech', dateLabel: '27-30 Sep', start: '2027-09-27', end: '2027-09-30', image: city.lasVegas },
-  { id: 'sigma-europe', name: 'SiGMA Europe', city: 'Malta', region: 'Europe', category: 'Derivatives, gaming and tech', dateLabel: '1-5 Nov', start: '2027-11-01', end: '2027-11-05', image: city.malta },
-  { id: 'aibc-sigma-uae', name: 'AIBC Eurasia / SiGMA', city: 'UAE', region: 'Middle East', category: 'Derivatives, gaming and tech', dateLabel: '1-4 Dec', start: '2027-12-01', end: '2027-12-04', image: city.uae },
+  { id: 'sigma-europe', name: 'SiGMA Europe', city: 'Malta', region: 'Europe', category: 'Derivatives, gaming and tech', dateLabel: 'Nov', month: 11, image: city.malta },
+  { id: 'aibc-sigma-uae', name: 'AIBC Eurasia / SiGMA', city: 'UAE', region: 'Middle East', category: 'Derivatives, gaming and tech', dateLabel: 'Dec', month: 12, image: city.uae },
 
   // General tech and AI
   { id: 'web-summit-qatar', name: 'Web Summit Qatar', city: 'Doha', region: 'Middle East', category: 'General tech and AI', dateLabel: '31 Jan to 3 Feb', start: '2027-01-31', end: '2027-02-03', image: city.doha },
   { id: 'nvidia-gtc', name: 'NVIDIA GTC', city: 'San Jose', region: 'Americas', category: 'General tech and AI', dateLabel: '15-18 Mar', start: '2027-03-15', end: '2027-03-18', image: city.sanJose },
   { id: 'web-summit-vancouver', name: 'Web Summit Vancouver', city: 'Vancouver', region: 'Americas', category: 'General tech and AI', dateLabel: '25-28 May', start: '2027-05-25', end: '2027-05-28', image: city.vancouver },
-  { id: 'vivatech', name: 'VivaTech', city: 'Paris', region: 'Europe', category: 'General tech and AI', dateLabel: 'Jun', month: 6, image: city.paris },
+  { id: 'vivatech', name: 'VivaTech', city: 'Paris', region: 'Europe', category: 'General tech and AI', dateLabel: '16-19 Jun', start: '2027-06-16', end: '2027-06-19', image: city.paris },
   { id: 'databricks-ai-summit', name: 'Databricks Data + AI Summit', city: 'San Francisco', region: 'Americas', category: 'General tech and AI', dateLabel: '21-24 Jun', start: '2027-06-21', end: '2027-06-24', image: city.sanFrancisco },
   { id: 'ibc-amsterdam', name: 'IBC Amsterdam', city: 'Amsterdam', region: 'Europe', category: 'General tech and AI', dateLabel: '10-13 Sep', start: '2027-09-10', end: '2027-09-13', image: city.amsterdam },
-  { id: 'gitex-global', name: 'GITEX Global', city: 'Dubai', region: 'Middle East', category: 'General tech and AI', dateLabel: 'Oct', month: 10, image: city.dubai },
-  { id: 'web-summit', name: 'Web Summit Lisbon', city: 'Lisbon', region: 'Europe', category: 'General tech and AI', dateLabel: 'Second week of Nov', month: 11, image: city.lisbon },
+  { id: 'gitex-global', name: 'GITEX Global', city: 'Dubai', region: 'Middle East', category: 'General tech and AI', dateLabel: '', image: city.dubai },
+  { id: 'web-summit', name: 'Web Summit Lisbon', city: 'Lisbon', region: 'Europe', category: 'General tech and AI', dateLabel: '8-11 Nov', start: '2027-11-08', end: '2027-11-11', image: city.lisbon },
   { id: 'slush', name: 'Slush', city: 'Helsinki', region: 'Europe', category: 'General tech and AI', dateLabel: 'Nov', month: 11, image: city.helsinki },
 
   // Global economy
-  { id: 'fii-riyadh', name: 'FII Riyadh', city: 'Riyadh', region: 'Middle East', category: 'Global economy', dateLabel: 'Last week of Oct', month: 10, image: city.riyadh },
+  { id: 'fii-riyadh', name: 'FII Riyadh', city: 'Riyadh', region: 'Middle East', category: 'Global economy', dateLabel: '25-28 Oct', start: '2027-10-25', end: '2027-10-28', image: city.riyadh },
   { id: 'adfw', name: 'Abu Dhabi Finance Week', city: 'Abu Dhabi', region: 'Middle East', category: 'Global economy', dateLabel: 'Early Dec', month: 12, image: city.abuDhabi },
 ];
 

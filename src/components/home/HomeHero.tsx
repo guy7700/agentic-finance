@@ -1,22 +1,32 @@
 import Link from 'next/link';
 import { primaryActions } from '@/config/site';
+import { getEdition } from '@/data/editions';
 import type { Edition } from '@/data/types';
 import { cn } from '@/lib/cn';
 import { getLatestNews } from '@/lib/daily';
+import { AmbientVideo } from '../media/VideoPlayer';
 import { ButtonLink } from '../ui/Button';
 import { Icon } from '../ui/Icon';
 import { Container } from '../ui/Layout';
 import { HeroNews } from './HeroNews';
 
-/** The hero: the brief's headline, one line on what we do, the two actions and the latest industry news. */
+/** Darkens the top and the text side, then fades fully into --color-ink so the hero runs into the next section with no seam. */
+const SCRIM = [
+  'linear-gradient(to bottom, rgb(10 20 40 / 0.7) 0%, rgb(10 20 40 / 0.15) 24%, rgb(10 20 40 / 0.2) 55%, rgb(10 20 40 / 1) 100%)',
+  'linear-gradient(to right, rgb(10 20 40 / 0.8) 0%, rgb(10 20 40 / 0.25) 60%, rgb(10 20 40 / 0) 100%)',
+].join(', ');
+
+/** The hero: the Singapore film behind the brief's headline, one line on what we do, the two actions and the latest industry news. */
 export function HomeHero({ next }: { next: Edition }) {
   const news = getLatestNews();
+  const film = getEdition('singapore-2026')?.heroVideo;
   return (
-    <section aria-labelledby="hero-title" className="relative isolate overflow-hidden border-b border-line">
-      {/* No photograph: a plain navy field with a soft gold glow. */}
-      <div aria-hidden className="absolute inset-0 -z-10 bg-ink-deep">
+    <section aria-labelledby="hero-title" className="relative isolate overflow-hidden">
+      {/* The Singapore 2026 film, silent and looping at low opacity, with no still image. It fades into the next section. */}
+      <div aria-hidden className="absolute inset-0 -z-10 bg-ink">
+        {film ? <AmbientVideo src={film.src} allScreens className="absolute inset-0 h-full w-full object-cover opacity-40" /> : null}
+        <div className="absolute inset-0" style={{ background: SCRIM }} />
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_60%_at_75%_20%,rgb(209_182_121/0.12),transparent_70%)]" />
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-ink" />
       </div>
 
       <Container wide className="flex min-h-[min(92svh,900px)] flex-col justify-end pb-14 pt-[calc(var(--header-h)+56px)] sm:pb-20">

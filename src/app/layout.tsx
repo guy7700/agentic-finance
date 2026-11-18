@@ -49,7 +49,8 @@ export const viewport: Viewport = {
 export default function RootLayout({ children }: LayoutProps<'/'>) {
   return (
     <html lang="en" className={`${spaceGrotesk.variable} ${cormorant.variable}`}>
-      <body className="flex min-h-dvh flex-col">
+      {/* Browser extensions (Grammarly and others) add attributes to <body> before React loads; ignore those, not the page's own markup. */}
+      <body className="flex min-h-dvh flex-col" suppressHydrationWarning>
         <a
           href="#main"
           className="sr-only z-[100] rounded-full bg-gold px-5 py-3 text-xs font-semibold uppercase tracking-[0.18em] text-ink focus:not-sr-only focus:fixed focus:left-4 focus:top-4"

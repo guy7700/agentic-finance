@@ -74,18 +74,19 @@ export function VideoPlayer({ src, poster, title, duration, hasAudio = true, cla
 }
 
 /**
- * Silent, looping background film (decorative). It only loads on wide screens,
- * once the page is idle, and never for visitors who prefer reduced motion or
- * have Data Saver on; everyone else sees the optimised poster image beneath it.
- * Paused whenever the route is hidden.
+ * Silent, looping background film (decorative). It loads once the page is
+ * idle, only on wide screens unless `allScreens` is set, and never for
+ * visitors who prefer reduced motion or have Data Saver on. Paused whenever
+ * the route is hidden. `className` styles a wrapper (position, opacity), so
+ * the fade-in rises to that opacity instead of flashing at full strength.
  */
-export function AmbientVideo({ src, className }: { src: string; className?: string }) {
+export function AmbientVideo({ src, className, allScreens }: { src: string; className?: string; allScreens?: boolean }) {
   const ref = useRef<HTMLVideoElement>(null);
   const [active, setActive] = useState(false);
 
   useLayoutEffect(() => {
     const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    const wide = window.matchMedia('(min-width: 1024px)').matches;
+    const wide = allScreens || window.matchMedia('(min-width: 1024px)').matches;
     const saveData = (navigator as Navigator & { connection?: { saveData?: boolean } }).connection?.saveData === true;
     if (reduce || !wide || saveData) return;
     const start = () => setActive(true);
@@ -95,7 +96,7 @@ export function AmbientVideo({ src, className }: { src: string; className?: stri
     }
     const t = setTimeout(start, 1200);
     return () => clearTimeout(t);
-  }, []);
+  }, [allScreens]);
 
   useLayoutEffect(() => {
     const v = ref.current;
@@ -106,16 +107,17 @@ export function AmbientVideo({ src, className }: { src: string; className?: stri
 
   if (!active) return null;
   return (
-    <video
-      ref={ref}
-      className={cn('motion-reduce:hidden motion-safe:animate-[af-fade-in_1.2s_ease-out]', className)}
-      src={asset(src)}
-      muted
-      loop
-      playsInline
-      preload="auto"
-      aria-hidden
-      tabIndex={-1}
-    />
+    <div aria-hidden className={cn('motion-reduce:hidden', className)}>
+      <video
+        ref={ref}
+        className="h-full w-full object-cover motion-safe:animate-[af-fade-in_1.2s_ease-out]"
+        src={asset(src)}
+        muted
+        loop
+        playsInline
+        preload="auto"
+        tabIndex={-1}
+      />
+    </div>
   );
 }

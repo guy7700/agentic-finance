@@ -9,10 +9,12 @@ type CtaBandProps = {
   title?: ReactNode;
   body?: ReactNode;
   actions?: ReactNode;
+  /** Centre the band's text and buttons. */
+  centered?: boolean;
 };
 
 /** Closing conversion band: invitation and partnership, always both. */
-export function CtaBand({ eyebrow, title, body, actions }: CtaBandProps) {
+export function CtaBand({ eyebrow, title, body, actions, centered }: CtaBandProps) {
   const current = getCurrentEdition();
   return (
     <section className="relative isolate overflow-hidden border-t border-line">
@@ -20,13 +22,13 @@ export function CtaBand({ eyebrow, title, body, actions }: CtaBandProps) {
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_70%_80%_at_20%_100%,rgb(209_182_121/0.12),transparent_70%)]" />
       </div>
       <Container className="py-24 sm:py-32">
-        <div className="max-w-3xl">
-          <Eyebrow>{eyebrow ?? `${current.name} · ${current.dateLabel}`}</Eyebrow>
+        <div className={centered ? 'mx-auto max-w-3xl text-center' : 'max-w-3xl'}>
+          <Eyebrow className={centered ? 'justify-center' : undefined}>{eyebrow ?? `${current.name} · ${current.dateLabel}`}</Eyebrow>
           <h2 className="display mt-6 text-[length:var(--text-display-md)]">
             {title ?? 'The people in the room are the point.'}
           </h2>
           <p className="lede mt-6">{body ?? 'Every guest is selected. Every invitation is personal. Every partner is introduced.'}</p>
-          <div className="mt-10 flex flex-wrap gap-3">
+          <div className={centered ? 'mt-10 flex flex-wrap justify-center gap-3' : 'mt-10 flex flex-wrap gap-3'}>
             {actions ?? (
               <>
                 <ButtonLink href={primaryActions.invitation.href} size="lg">

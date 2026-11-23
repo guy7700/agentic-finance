@@ -4,6 +4,7 @@ const paths = {
   'arrow-right': <path d="M4 10h12m-5-5 5 5-5 5" />,
   'arrow-up-right': <path d="M6 14 14 6M7 6h7v7" />,
   'arrow-down': <path d="M10 4v12m-5-5 5 5 5-5" />,
+  'arrow-up': <path d="M10 16V4m-5 5 5-5 5 5" />,
   'arrow-left': <path d="M16 10H4m5-5-5 5 5 5" />,
   'chevron-down': <path d="m5 8 5 5 5-5" />,
   'chevron-left': <path d="m12 5-5 5 5 5" />,

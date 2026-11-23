@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import type { ReactNode } from 'react';
 import { events2027 } from '@/config/events-2027';
 import { externalLinks, primaryActions } from '@/config/site';
 import type { PastEvent } from '@/data/events';
@@ -301,16 +302,20 @@ export function CategoryCards() {
 }
 
 /** Formats as photographs, meetings first. */
-export function FormatTiles() {
+export function FormatTiles({ id = 'formats', eyebrow, title, lede }: { id?: string; eyebrow?: ReactNode; title?: ReactNode; lede?: ReactNode } = {}) {
   return (
-    <Section bordered id="formats">
+    <Section bordered id={id}>
       <Container>
         <SectionHeader
+          eyebrow={eyebrow}
           title={
-            <>
-              Event formats and <span className="serif-accent">experience</span>
-            </>
+            title ?? (
+              <>
+                Event formats and <span className="serif-accent">experience</span>
+              </>
+            )
           }
+          lede={lede}
           action={
             <ButtonLink href="/program/formats" variant="outline">
               All formats

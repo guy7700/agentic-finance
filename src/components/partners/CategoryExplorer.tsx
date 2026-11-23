@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { useEffect, useId, useRef, useState, type KeyboardEvent } from 'react';
+import { useEffect, useId, useRef, useState, type KeyboardEvent, type ReactNode } from 'react';
 import type { PartnershipCategory } from '@/data/types';
 import { cn } from '@/lib/cn';
 import { buttonClasses } from '../ui/Button';
@@ -18,7 +18,7 @@ export type CategoryView = PartnershipCategory & {
  * Twelve categories, one selected at a time (tabs pattern with a 4×3 grid of
  * tabs). ?category=<id> preselects a category and stays in sync for sharing.
  */
-export function CategoryExplorer({ categories, positions }: { categories: CategoryView[]; positions: number }) {
+export function CategoryExplorer({ categories, positions, note }: { categories: CategoryView[]; positions?: number; note?: ReactNode }) {
   const [active, setActive] = useState(categories[0]?.id);
   const tabRefs = useRef<Record<string, HTMLButtonElement | null>>({});
   const panelRef = useRef<HTMLDivElement>(null);
@@ -90,8 +90,12 @@ export function CategoryExplorer({ categories, positions }: { categories: Catego
         <p className="mt-5 flex items-start gap-3 rounded-xl border border-line bg-ink-card/50 p-4 text-sm leading-relaxed text-muted">
           <Icon name="lock" size={18} className="mt-0.5 shrink-0 text-gold" />
           <span>
-            Twelve conversations, and no more than <strong className="text-paper">{positions} strategic partner positions</strong> in Abu
-            Dhabi overall. Categories are not slots: some will have a lead partner, some will not.
+            {note ?? (
+              <>
+                Twelve conversations, and no more than <strong className="text-paper">{positions} strategic partner positions</strong> in Abu
+                Dhabi overall. Categories are not slots: some will have a lead partner, some will not.
+              </>
+            )}
           </span>
         </p>
       </div>

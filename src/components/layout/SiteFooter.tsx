@@ -1,6 +1,5 @@
 import Link from 'next/link';
 import { contacts, externalLinks, navigation, primaryActions, site, social } from '@/config/site';
-import { getCurrentEdition } from '@/data/editions';
 import { ButtonLink } from '../ui/Button';
 import { Icon, type IconName } from '../ui/Icon';
 import { Img } from '../ui/Img';
@@ -11,7 +10,6 @@ import { Logo } from './Logo';
 const socialIcon: Record<string, IconName> = { LinkedIn: 'linkedin', X: 'x', Instagram: 'instagram', Telegram: 'telegram' };
 
 export function SiteFooter() {
-  const current = getCurrentEdition();
   return (
     <footer className="border-t border-line bg-ink-deep">
       <Container className="py-16 sm:py-20">
@@ -21,13 +19,6 @@ export function SiteFooter() {
             <p className="max-w-sm text-[15px] font-light leading-relaxed text-muted">
               An invitation-only summit series for the leaders shaping AI-native finance. Produced by More &amp; More.
             </p>
-            <div className="edge-gold relative flex items-start gap-3 rounded-xl border border-line bg-ink-card p-4">
-              <span className="mt-1 size-2 shrink-0 animate-pulse rounded-full bg-gold" aria-hidden />
-              <div className="text-sm">
-                <p className="font-semibold text-paper">Next: {current.name}</p>
-                <p className="text-muted">{current.dateLabel} · Summit and VIP Gala</p>
-              </div>
-            </div>
             <div className="flex flex-wrap gap-3">
               <ButtonLink href={primaryActions.invitation.href} size="sm" icon={null}>
                 {primaryActions.invitation.label}

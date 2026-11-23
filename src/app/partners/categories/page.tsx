@@ -1,14 +1,12 @@
 import type { Metadata } from 'next';
-import { CategoryExplorer, type CategoryView } from '@/components/partners/CategoryExplorer';
+import { CategoryExplorer } from '@/components/partners/CategoryExplorer';
 import { ButtonLink } from '@/components/ui/Button';
 import { CtaBand } from '@/components/ui/CtaBand';
 import { Container, Section } from '@/components/ui/Layout';
 import { PageHero } from '@/components/ui/PageHero';
 import { booking } from '@/config/site';
 import { getCurrentEdition } from '@/data/editions';
-import { categories, useCases } from '@/data/partners';
-import { topics } from '@/data/program';
-import { getSession } from '@/lib/content';
+import { categoryViews } from '@/lib/category-views';
 import { pageMetadata } from '@/lib/seo';
 
 export const metadata: Metadata = pageMetadata({
@@ -20,16 +18,7 @@ export const metadata: Metadata = pageMetadata({
 
 export default function CategoriesPage() {
   const current = getCurrentEdition();
-  const views: CategoryView[] = categories.map((c, i) => ({
-    ...c,
-    number: String(i + 1).padStart(2, '0'),
-    topics: topics.filter((t) => t.category === c.id).map((t) => ({ slug: t.slug, name: t.name })),
-    sessionList: c.sessions
-      .map((id) => getSession(id))
-      .filter((s) => s !== undefined)
-      .map((s) => ({ id: s.id, title: s.title, format: s.format })),
-    useCases: useCases.filter((u) => u.categories[0] === c.id).map((u) => ({ slug: u.slug, partner: u.partner })),
-  }));
+  const views = categoryViews();
 
   return (
     <>

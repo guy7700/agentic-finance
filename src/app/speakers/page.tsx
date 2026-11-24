@@ -10,7 +10,7 @@ import { pageMetadata } from '@/lib/seo';
 import { toDirectoryEntry } from '@/lib/speaker-cards';
 
 export const metadata: Metadata = pageMetadata({
-  title: 'All speakers',
+  title: 'Speakers from every edition',
   description:
     'Speakers at Agentic Finance events, from Standard Chartered, eToro, Pantera Capital, Aave Labs, Chainlink Labs, KPMG and Fireblocks.',
   path: '/speakers',

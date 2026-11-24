@@ -9,7 +9,7 @@ import { editions } from '@/data/editions';
 import { pageMetadata } from '@/lib/seo';
 
 export const metadata: Metadata = pageMetadata({
-  title: 'Contact',
+  title: 'Contact the team',
   description: 'Contact the Agentic Finance team about attendance, partnerships, speaking or press.',
   path: '/about/contact',
 });

@@ -28,8 +28,6 @@ export async function generateMetadata({ params }: PageProps<'/blog/[slug]'>): P
     title: p.title.length > 58 ? `${p.title.slice(0, 55).trimEnd()}...` : p.title,
     description: p.summary.length > 155 ? `${p.summary.slice(0, 152).trimEnd()}...` : p.summary,
     path: `/blog/${p.slug}`,
-    image: p.image?.src,
-    imageAlt: p.image?.alt,
     type: 'article',
   });
 }

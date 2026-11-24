@@ -11,7 +11,7 @@ import { getSession } from '@/lib/content';
 import { pageMetadata } from '@/lib/seo';
 
 export const metadata: Metadata = pageMetadata({
-  title: 'Program',
+  title: 'Program: topics, questions and formats',
   description: 'What the Agentic Finance room discusses and who belongs in it: 15 topics, six strategic questions, the formats, and how invitations are decided.',
   path: '/program',
 });

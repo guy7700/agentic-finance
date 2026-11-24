@@ -4,7 +4,9 @@ import { SiteFooter } from '@/components/layout/SiteFooter';
 import { SiteHeader } from '@/components/layout/SiteHeader';
 import { JsonLd } from '@/components/ui/JsonLd';
 import { contacts, site } from '@/config/site';
+import { getOgCard } from '@/lib/og/cards';
 import { absoluteUrl } from '@/lib/paths';
+import { ogImage } from '@/lib/seo';
 import './globals.css';
 
 // The typography of mnm.live/agentic-finance-abu-dhabi: Space Grotesk for text
@@ -37,6 +39,9 @@ export const metadata: Metadata = {
   publisher: 'More & More',
   robots: site.allowIndexing ? { index: true, follow: true } : { index: false, follow: false },
   formatDetection: { telephone: false, email: false, address: false },
+  // Pages set their own preview; this covers the few that do not (the 404 page).
+  openGraph: { siteName: site.name, locale: 'en_GB', type: 'website', images: [ogImage(getOgCard('/')!)] },
+  twitter: { card: 'summary_large_image' },
 };
 
 export const viewport: Viewport = {

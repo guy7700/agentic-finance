@@ -32,8 +32,6 @@ export async function generateMetadata({ params }: PageProps<'/partners/use-case
     title: `${u.partner} at ${u.event?.name ?? getEdition(u.edition)?.name}`,
     description: `${u.positioning}. ${u.summary}`,
     path: `/partners/use-cases/${u.slug}`,
-    image: u.photos[0]?.src,
-    imageAlt: u.photos[0]?.alt,
   });
 }
 

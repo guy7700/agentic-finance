@@ -26,7 +26,7 @@ export async function generateMetadata({ params }: PageProps<'/editions/[edition
       ? `Fintech conference ${e.city}: Agentic Finance Summit`
       : e.status === 'completed'
         ? `Finance AI summit: ${e.name} ${e.year}`
-        : `${e.name} ${e.year}`;
+        : `${e.name} ${e.year}${e.context ? `, during ${e.context}` : ''}`;
   const description =
     e.status === 'upcoming'
       ? `${e.name}: an invitation-only fintech conference on AI agents in finance. ${e.dateLabel}, ${e.venue?.name}. ${e.guestCount} curated guests.`
@@ -35,6 +35,8 @@ export async function generateMetadata({ params }: PageProps<'/editions/[edition
         : `${e.name}: ${e.dateLabel}${e.context ? `, during ${e.context}` : ''}. AI agents in finance, with exact dates and venue to follow.`;
   return pageMetadata({
     title,
+    // Link previews show the event itself; the search title keeps its keywords.
+    socialTitle: e.status === 'planned' ? undefined : `${e.name} · ${e.dateLabel}`,
     description,
     path: `/editions/${e.slug}`,
   });

@@ -1,14 +1,18 @@
 import type { Metadata } from 'next';
 import { site } from '@/config/site';
+import { getOgCard, ogCardAlt, ogCardVersion, ogImageSegments, type OgCard } from './og/cards';
 import { absoluteUrl } from './paths';
 
 type PageMetaInput = {
+  /** The search title. The layout adds " · Agentic Finance" when it fits. */
   title: string;
   description: string;
   path: string;
-  /** Absolute or site-relative image; defaults to the generated brand image. */
-  image?: string;
-  imageAlt?: string;
+  /**
+   * The title for link previews (Telegram, WhatsApp, LinkedIn, X). Defaults to
+   * the title as the browser shows it, brand included.
+   */
+  socialTitle?: string;
   type?: 'website' | 'profile' | 'article';
   noindex?: boolean;
 };
@@ -27,25 +31,37 @@ function clamp(text: string, max: number): string {
 }
 
 /**
- * The layout template adds " · Agentic Finance". Titles that already name the
- * brand, or would run past 60 characters with it, are used on their own.
+ * The title as the browser shows it. The layout template adds " · Agentic
+ * Finance"; titles that already name the brand, or would run past 60
+ * characters with it, are used on their own.
  */
-function documentTitle(title: string): Metadata['title'] {
-  if (title.includes(site.name) || title.length + SUFFIX.length > TITLE_MAX) return { absolute: clamp(title, TITLE_MAX) };
-  return title;
+function shownTitle(title: string): string {
+  if (title.includes(site.name) || title.length + SUFFIX.length > TITLE_MAX) return clamp(title, TITLE_MAX);
+  return `${title}${SUFFIX}`;
+}
+
+/** The page's share card, as Open Graph image fields. */
+export function ogImage(card: OgCard) {
+  const url = `${absoluteUrl(`/og/${ogImageSegments(card.path).join('/')}`)}?v=${ogCardVersion(card)}`;
+  return { url, width: 1200, height: 630, alt: ogCardAlt(card), type: 'image/jpeg' };
 }
 
 /** Consistent per-page metadata: canonical, Open Graph and Twitter cards. */
-export function pageMetadata({ title, description, path, image, imageAlt, type = 'website', noindex }: PageMetaInput): Metadata {
+export function pageMetadata({ title, description, path, socialTitle, type = 'website', noindex }: PageMetaInput): Metadata {
   const url = absoluteUrl(path);
   const desc = clamp(description, DESCRIPTION_MAX);
-  const images = [{ url: absoluteUrl(image ?? '/og-image.jpg'), width: 1200, height: 630, alt: imageAlt ?? site.name }];
+  const shown = shownTitle(title);
+  const share = socialTitle ?? shown;
+  const card = getOgCard(path) ?? getOgCard('/');
+  if (!getOgCard(path)) console.warn(`[seo] No share card for ${path}; using the home card. Add one in src/lib/og/cards.ts.`);
+  const images = card ? [ogImage(card)] : [];
   return {
-    title: documentTitle(title),
+    // The layout's title template would add the suffix again, so the finished title is passed as absolute.
+    title: { absolute: shown },
     description: desc,
     alternates: { canonical: url },
-    openGraph: { title, description: desc, url, siteName: site.name, type, images, locale: 'en_GB' },
-    twitter: { card: 'summary_large_image', title, description: desc, images: images.map((i) => i.url) },
+    openGraph: { title: share, description: desc, url, siteName: site.name, type, images, locale: 'en_GB' },
+    twitter: { card: 'summary_large_image', title: share, description: desc, images },
     ...(noindex ? { robots: { index: false, follow: true } } : {}),
   };
 }

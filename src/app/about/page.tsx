@@ -10,7 +10,7 @@ import { producerMetrics } from '@/data/about';
 import { pageMetadata } from '@/lib/seo';
 
 export const metadata: Metadata = pageMetadata({
-  title: 'About',
+  title: 'About Agentic Finance',
   description: 'Agentic Finance is produced by More & More, which runs curated summits and side events across technology and finance.',
   path: '/about',
 });

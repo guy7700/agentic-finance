@@ -31,8 +31,6 @@ export async function generateMetadata({ params }: PageProps<'/speakers/[slug]'>
     title: `${s.name}, ${s.organization}`,
     description: `${s.name}, ${s.title} at ${s.organization}. ${s.bio.split('. ')[0]}.`,
     path: `/speakers/${s.slug}`,
-    image: s.photo,
-    imageAlt: s.photoAlt,
     type: 'profile',
   });
 }

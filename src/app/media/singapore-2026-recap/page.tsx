@@ -21,7 +21,6 @@ export const metadata: Metadata = pageMetadata({
   description:
     'The Agentic Finance Singapore 2026 recap: 650+ attendees, 60+ speakers, 17 sessions and two stages at Suntec City during TOKEN2049 week, 8 October 2026.',
   path: '/media/singapore-2026-recap',
-  image: '/images/singapore-2026/agentic-capital-panel.webp',
 });
 
 const HIGHLIGHTS = [

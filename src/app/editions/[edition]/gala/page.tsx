@@ -21,7 +21,7 @@ export async function generateMetadata({ params }: PageProps<'/editions/[edition
   const e = getEdition(slug);
   if (!e?.hasGala) return {};
   return pageMetadata({
-    title: `VIP Gala · ${e.shortName}`,
+    title: `VIP Gala, ${e.shortName}`,
     description: 'An exclusive evening for approximately 200 invited senior leaders and strategic partners. Tuesday 8 December 2026, by personal invitation only.',
     path: `/editions/${e.slug}/gala`,
   });

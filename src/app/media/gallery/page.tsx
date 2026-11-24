@@ -7,7 +7,7 @@ import { gallery, galleryCollections, galleryTags } from '@/data/media';
 import { pageMetadata } from '@/lib/seo';
 
 export const metadata: Metadata = pageMetadata({
-  title: 'Gallery',
+  title: 'Photo gallery',
   description:
     'Photos from Agentic Finance Singapore 2026 and More & More events in Paris and Abu Dhabi: stages, partner activations and guests.',
   path: '/media/gallery',

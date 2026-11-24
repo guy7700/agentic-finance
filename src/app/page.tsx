@@ -18,7 +18,8 @@ import { otherUseCases, useCases } from '@/data/partners';
 import { buildCalendarEvents } from '@/lib/calendar';
 import { getSpeaker } from '@/lib/content';
 import { absoluteUrl } from '@/lib/paths';
-import { pageMetadata } from '@/lib/seo';
+import { getOgCard } from '@/lib/og/cards';
+import { ogImage, pageMetadata } from '@/lib/seo';
 import { toSpeakerCard } from '@/lib/speaker-cards';
 
 // Primary keyword: "agentic finance".
@@ -48,6 +49,7 @@ const FEATURED_SPEAKERS = [
 /** Home page order as set in Tal's redesign brief. */
 export default function HomePage() {
   const next = getCurrentEdition();
+  const eventCard = getOgCard(`/editions/${next.slug}`);
   const featured = FEATURED_SPEAKERS.map(getSpeaker).filter((s) => s !== undefined).map((s) => toSpeakerCard(s));
   // eToro leads through the eToro and Zengo story; every other use case follows.
   const cases = [...useCases.filter((u) => u.slug !== 'etoro'), ...otherUseCases];
@@ -208,7 +210,7 @@ export default function HomePage() {
               name: `${nextEvent.venue}, ${nextEvent.city}`,
               address: { '@type': 'PostalAddress', addressLocality: nextEvent.city, addressCountry: 'AE' },
             },
-            image: [absoluteUrl('/og-image.jpg')],
+            image: [eventCard ? ogImage(eventCard).url : absoluteUrl(next.image.src)],
             url: nextEvent.href,
             organizer: { '@type': 'Organization', name: 'More & More', url: 'https://mnm.live' },
           },

@@ -10,7 +10,7 @@ import { faqGroups } from '@/data/about';
 import { pageMetadata } from '@/lib/seo';
 
 export const metadata: Metadata = pageMetadata({
-  title: 'FAQ',
+  title: 'FAQ: attending, speaking and partnering',
   description:
     'Answers on applying to attend, speaker nominations, partnerships, locations and media enquiries for Agentic Finance.',
   path: '/about/faq',

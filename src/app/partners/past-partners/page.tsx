@@ -10,7 +10,7 @@ import { editionOrganizations, getOrganization } from '@/data/partners';
 import { pageMetadata } from '@/lib/seo';
 
 export const metadata: Metadata = pageMetadata({
-  title: 'Past partners',
+  title: 'Partners and organisations',
   description: 'The partners and organisations that took part in each Agentic Finance edition.',
   path: '/partners/past-partners',
 });

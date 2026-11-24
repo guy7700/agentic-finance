@@ -55,7 +55,7 @@ Navigation follows the six-group hierarchy in the navigation spec (`Agentic Fina
 | | `/about/event-series` | Agentic Finance, The Odds, Web2 to Web3 |
 | | `/about/faq` | FAQ (FAQPage structured data) |
 | | `/about/contact` | Contact form (`?topic=&edition=` prefill) |
-| — | `/sitemap.xml`, `/robots.txt`, `/og-image.jpg` | SEO |
+| — | `/sitemap.xml`, `/robots.txt`, `/og/<page path>.jpg` | SEO and link previews: one share card per page, drawn at build time from `src/lib/og/cards.ts` |
 
 ## Architecture
 

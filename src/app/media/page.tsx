@@ -11,7 +11,7 @@ import { gallery, galleryCollections, galleryTags, videos } from '@/data/media';
 import { pageMetadata } from '@/lib/seo';
 
 export const metadata: Metadata = pageMetadata({
-  title: 'Media',
+  title: 'Media: recap, photos, video and press',
   description: 'Agentic Finance in pictures and video: the Singapore 2026 recap, event photography by edition, press resources and the brand kit.',
   path: '/media',
 });

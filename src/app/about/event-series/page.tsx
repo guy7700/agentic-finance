@@ -10,7 +10,7 @@ import { seriesBrands } from '@/data/about';
 import { pageMetadata } from '@/lib/seo';
 
 export const metadata: Metadata = pageMetadata({
-  title: 'Event series',
+  title: 'Event series by More & More',
   description:
     'The More & More event series: Agentic Finance, The Odds: Prediction Markets Live, and the Web2 to Web3 Summit.',
   path: '/about/event-series',

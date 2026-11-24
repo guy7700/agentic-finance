@@ -8,7 +8,7 @@ import { audience } from '@/data/program';
 import { pageMetadata } from '@/lib/seo';
 
 export const metadata: Metadata = pageMetadata({
-  title: 'Who gets in',
+  title: 'Who gets in: invitation only',
   description:
     'Agentic Finance is invitation-only. Every application is reviewed for institutional relevance, seniority and fit.',
   path: '/program/who-gets-in',

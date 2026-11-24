@@ -18,11 +18,9 @@ export async function generateMetadata({ params }: PageProps<'/upcoming/2027/[sl
   if (!page) return {};
   const dates = contextDates(page);
   return pageMetadata({
-    title: `${page.name} 2027`,
+    title: page.brand === 'the-odds' ? `${page.name} 2027 · Prediction Markets Live` : `${page.name} 2027, during ${page.context}`,
     description: `${page.name}: during ${page.context}${dates ? `, ${dates}` : ''}. The exact day, venue and programme follow once confirmed.`,
     path: `/upcoming/2027/${page.slug}`,
-    image: page.image.src,
-    imageAlt: page.image.alt,
     noindex: !page.published,
   });
 }

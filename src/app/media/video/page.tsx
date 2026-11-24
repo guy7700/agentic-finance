@@ -11,7 +11,7 @@ import { absoluteUrl } from '@/lib/paths';
 import { pageMetadata } from '@/lib/seo';
 
 export const metadata: Metadata = pageMetadata({
-  title: 'Video',
+  title: 'Video: recaps and highlights',
   description: 'Video from Agentic Finance: the Singapore 2026 recap, a highlight loop from the day, and The Odds Singapore aftermovie.',
   path: '/media/video',
 });

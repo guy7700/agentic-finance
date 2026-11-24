@@ -8,7 +8,7 @@ import { formats } from '@/data/program';
 import { pageMetadata } from '@/lib/seo';
 
 export const metadata: Metadata = pageMetadata({
-  title: 'Formats',
+  title: 'Event formats',
   description:
     'How an Agentic Finance day works: keynotes, senior discussions, curated introductions, private meetings and executive networking.',
   path: '/program/formats',

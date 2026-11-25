@@ -32,7 +32,7 @@ export default function PressPage() {
     ['Producer', 'More & More, a curated events and business-development company, headquartered in Tel Aviv and Dubai.'],
     ['First edition', `${sg.name}, ${sg.dateLabel}, ${sg.venue?.name}. An official side event of TOKEN2049 Singapore. ${sg.metrics?.map((m) => `${m.value} ${m.label.toLowerCase()}`).join(', ')}.`],
     ['Next edition', `${next.name}, ${next.dateLabel}. ${next.guestCount} curated guests; VIP Gala on Tuesday 8 December 2026.`],
-    ['2027', 'Hong Kong (February), Dubai (April), Paris (June), Rio de Janeiro (August) and Singapore (October).'],
+    ['2027', 'Hong Kong (February), Dubai (April), Paris (July), Rio de Janeiro (August) and Singapore (October).'],
   ];
 
   return (

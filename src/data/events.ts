@@ -46,7 +46,7 @@ export const nextEvent: UpcomingEvent = {
 export const plannedEvents: UpcomingEvent[] = [
   { id: 'hong-kong-2027', name: 'Agentic Finance Hong Kong', date: 'February 2027', city: 'Hong Kong', line: 'During Consensus Hong Kong.', href: '/editions/hong-kong-2027' },
   { id: 'dubai-2027', name: 'Agentic Finance Dubai', date: 'April 2027', city: 'Dubai', line: 'During TOKEN2049 Dubai.', href: '/editions/dubai-2027' },
-  { id: 'paris-2027', name: 'Agentic Finance Paris', date: 'June 2027', city: 'Paris', line: 'During Proof of Talk.', href: '/editions/paris-2027' },
+  { id: 'paris-2027', name: 'Agentic Finance Paris', date: 'July 2027', city: 'Paris', line: 'During Signal Week.', href: '/editions/paris-2027' },
   { id: 'rio-de-janeiro-2027', name: 'Agentic Finance Rio de Janeiro', date: 'August 2027', city: 'Rio de Janeiro', line: 'During Blockchain.RIO.', href: '/editions/rio-de-janeiro-2027' },
   { id: 'singapore-2027', name: 'Agentic Finance Singapore', date: 'October 2027', city: 'Singapore', line: 'During TOKEN2049 Singapore.', href: '/editions/singapore-2027' },
 ];

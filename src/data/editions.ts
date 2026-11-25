@@ -147,8 +147,8 @@ export const editions: Edition[] = [
     country: 'France',
     year: 2027,
     status: 'planned',
-    dateLabel: 'June 2027',
-    context: 'Proof of Talk',
+    dateLabel: 'July 2027',
+    context: 'Signal Week',
     tagline: 'European rules for autonomous finance.',
     summary: 'A planned 2027 edition in the city where More & More produced The Odds in April 2026.',
     positioning:

@@ -14,7 +14,7 @@ import { pageMetadata } from '@/lib/seo';
 export const metadata: Metadata = pageMetadata({
   title: 'Agentic Finance 2027: five cities',
   description:
-    'Agentic Finance in 2027: Hong Kong in February, Dubai in April, Paris in June, Rio de Janeiro in August and Singapore in October.',
+    'Agentic Finance in 2027: Hong Kong in February, Dubai in April, Paris in July, Rio de Janeiro in August and Singapore in October.',
   path: '/editions/2027',
 });
 

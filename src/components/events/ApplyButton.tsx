@@ -43,7 +43,7 @@ export function ApplyButton({ event, variant = 'primary', size = 'lg', className
         onClick={(e) => {
           if (e.metaKey || e.ctrlKey || e.shiftKey || e.button !== 0) return;
           e.preventDefault();
-          track('apply_to_attend', { event_name: event.name });
+          track('apply_to_attend', { edition: event.name });
           setOpen(true);
         }}
         aria-haspopup="dialog"

@@ -143,7 +143,7 @@ function TopicDetail({ topic, large }: { topic: TopicView; large?: boolean }) {
       </ul>
       <div className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-3 border-t border-line pt-6">
         <Link
-          href={`/partners/categories?category=${topic.category}`}
+          href={`/network/companies?category=${topic.category}#categories`}
           className="inline-flex items-center gap-1.5 text-sm font-semibold text-gold hover:text-gold-bright"
         >
           Partnership category: {topic.categoryName}

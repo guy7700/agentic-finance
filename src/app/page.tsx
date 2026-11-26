@@ -145,7 +145,7 @@ export default function HomePage() {
             }
             lede="What partners got from our events."
             action={
-              <ButtonLink href="/partners/use-cases" variant="outline">
+              <ButtonLink href="/partners#case-studies" variant="outline">
                 All use cases
               </ButtonLink>
             }

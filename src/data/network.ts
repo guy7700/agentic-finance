@@ -9,7 +9,9 @@
  * same fields and options on the server. Change a field here and there together.
  */
 
-export type Audience = 'startup' | 'vc' | 'company' | 'institution' | 'ecosystem';
+import type { NetworkGroup } from './types';
+
+export type Audience = NetworkGroup;
 
 type Option = { value: string; label: string };
 export type NetworkField =
@@ -178,7 +180,7 @@ export const networkPages: NetworkPage[] = [
     title: 'Own agentic finance in 2027.',
     lede: 'Two partner seats for companies that want to be the name in agentic finance across four summits: Hong Kong, Dubai, Paris and Singapore.',
     primaryCta: 'Request the Partnership Deck',
-    secondaryCta: { label: 'Talk to us', href: 'booking' },
+    secondaryCta: { label: 'Talk to us', href: '#book-a-call' },
     benefitsTitle: 'What companies get',
     benefits: [
       { title: 'Startups, deals and news', body: 'A steady flow of new startups, deal opportunities and market news relevant to your business, including events that are not ours.' },

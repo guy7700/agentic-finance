@@ -1,6 +1,5 @@
-import { booking } from '@/config/site';
 import { editions, getCurrentEdition, getEdition, statusLabel } from '@/data/editions';
-import { editionOrganizations, otherUseCases, useCases } from '@/data/partners';
+import { otherUseCases, useCases, wallFor } from '@/data/partners';
 import { networkPages } from '@/data/network';
 import { contextDates, upcoming2027 } from '@/data/upcoming-2027';
 import { profiledSpeakers, speakerAppearances } from '@/lib/content';
@@ -141,42 +140,14 @@ function staticCards(): OgCard[] {
       image: `${SG}/cj-hetherington-stage.webp`,
     },
 
-    // Partners
+    // Partners. The categories and the partnership call are on /network/companies; the old
+    // /partners/* addresses forward and keep their share-card address (scripts/write-redirects.mjs).
     {
       path: '/partners',
-      eyebrow: `Partnerships · ${next.name}`,
-      title: 'Don’t sponsor a conference.',
-      accent: 'Own the conversation.',
-      subtitle: next.partnerPositions ? `No more than ${next.partnerPositions} strategic partner positions in ${next.city}.` : undefined,
-      image: `${SG}/etoro-networking.webp`,
-    },
-    {
-      path: '/partners/categories',
-      eyebrow: 'Partners · 12 categories',
-      title: 'Where does your company fit?',
-      subtitle: 'From agentic payments and stablecoins to prediction markets, compliance and AI infrastructure.',
-      image: `${SG}/etoro-branded-area.webp`,
-    },
-    {
-      path: '/partners/use-cases',
-      eyebrow: 'Partner use cases',
-      title: 'What partners received.',
-      subtitle: [...useCases, ...otherUseCases].map((u) => u.partner).join(' · '),
-      image: `${SG}/etoro-booth.webp`,
-    },
-    {
-      path: '/partners/past-partners',
-      eyebrow: 'By edition',
-      title: 'Partners and organisations.',
-      subtitle: 'The organisations that took part in each Agentic Finance edition.',
-      image: `${SG}/networking-floor.webp`,
-    },
-    {
-      path: '/partners/book-a-call',
       eyebrow: 'Partners',
-      title: 'Book a partnership call.',
-      subtitle: `A ${booking.partnership.minutes}-minute call with the partnerships team, or send an enquiry.`,
-      image: `${SG}/f1-simulator.webp`,
+      title: 'Every company we’ve worked with.',
+      subtitle: 'Partners, Network members and the companies at our events.',
+      image: `${SG}/etoro-networking.webp`,
     },
 
     // Photos, video and press (under About), and the Singapore recap
@@ -285,7 +256,7 @@ function editionCards(): OgCard[] {
       });
     }
     if (e.status !== 'planned') {
-      const orgCount = editionOrganizations.filter((r) => r.edition === e.slug).length;
+      const orgCount = wallFor(e.slug).length;
       cards.push({
         path: `${e.path}/partners`,
         eyebrow: `${e.shortName} · Partners`,

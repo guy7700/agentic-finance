@@ -185,7 +185,7 @@ export function CategoryExplorer({ categories, positions, note }: { categories: 
         ) : null}
 
         <div className="mt-8 flex flex-wrap gap-3 border-t border-line pt-6">
-          <Link href={`/partners/book-a-call?category=${current.id}`} className={buttonClasses({ variant: 'primary' })}>
+          <Link href={`/network/companies?category=${current.id}#apply`} className={buttonClasses({ variant: 'primary' })}>
             Enquire about {current.name}
             <Icon name="arrow-right" size={18} />
           </Link>

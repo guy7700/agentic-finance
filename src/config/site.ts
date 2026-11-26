@@ -110,13 +110,13 @@ export const navigation: NavGroup[] = [
   {
     id: 'partners',
     label: 'Partners',
-    job: 'The commercial path. Ends in a call, never a price list.',
+    job: 'Every company we’ve worked with.',
     href: '/partners',
     items: [
-      { label: 'Partnership categories', description: '12 categories, 8 positions in Abu Dhabi', href: '/partners/categories' },
-      { label: 'Use cases', description: 'eToro, Fireblocks, Alpaca, Limitless, MME Legal', href: '/partners/use-cases' },
-      { label: 'Past partners', description: 'Logo wall by edition', href: '/partners/past-partners' },
-      { label: 'Partner with us', description: 'A 30-minute call', href: '/partners/book-a-call', cta: true },
+      { label: 'All companies', description: 'By Network group and by event', href: '/partners' },
+      { label: 'Case studies', description: 'eToro, Fireblocks, Alpaca, Limitless, MME Legal', href: '/partners#case-studies' },
+      { label: 'Partnership categories', description: '12 categories', href: '/network/companies#categories' },
+      { label: 'Partner with us', description: 'A 30-minute call', href: '/network/companies#book-a-call', cta: true },
     ],
   },
   {

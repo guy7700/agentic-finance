@@ -173,7 +173,14 @@ export type UseCase = {
   event?: { name: string; label: string };
 };
 
-export type OrgRelationship = 'title-partner' | 'partner' | 'on-stage' | 'media' | 'public-sector';
+/**
+ * How an organisation took part in an event. "attended" means the company only sent
+ * a team: it is named in a "Teams attending from" line, never shown on a logo wall.
+ */
+export type OrgRelationship = 'title-partner' | 'partner' | 'on-stage' | 'media' | 'public-sector' | 'attended';
+
+/** The five Agentic Finance Network groups (/network/<group>). */
+export type NetworkGroup = 'startup' | 'vc' | 'company' | 'institution' | 'ecosystem';
 
 export type Organization = {
   id: string;
@@ -182,6 +189,10 @@ export type Organization = {
   url?: string;
   /** Logo needs a light surface to remain legible. */
   invertLogo?: boolean;
+  /** Network group, for the /partners/ filter. Left out until the team classifies the company: shows [TBC]. */
+  group?: NetworkGroup;
+  /** Member of the Agentic Finance Network. Left out until confirmed: shows [TBC]. */
+  networkMember?: boolean;
 };
 
 export type EditionOrganization = {

@@ -173,17 +173,17 @@ export const faqGroups: FaqGroup[] = [
       {
         q: 'Can my company become a partner?',
         a: 'Yes. Abu Dhabi has no more than eight strategic partner positions, each built around a seat on stage, introductions arranged before the event and the VIP Gala. Start with the partnership form or book a call.',
-        links: [{ label: 'Partner with us', href: '/partners/book-a-call' }],
+        links: [{ label: 'Partner with us', href: '/network/companies#book-a-call' }],
       },
       {
         q: 'What does owning a category mean?',
         a: 'Each part of the agentic finance ecosystem, from trading and payments to wallets, compliance and capital, is a conversation we lead on stage. A category partner becomes the company associated with one of them: its session, its branding and the introductions around it. There are twelve categories but no more than eight positions, so not every category will have a partner.',
-        links: [{ label: 'Partnership categories', href: '/partners/categories' }],
+        links: [{ label: 'Partnership categories', href: '/network/companies#categories' }],
       },
       {
         q: 'What did partners receive in Singapore?',
         a: 'Title positioning, keynotes and panel seats, branded areas, main-stage branding, activations such as an F1 simulator, PR, photography, video and executive networking. The use cases show it partner by partner.',
-        links: [{ label: 'Use cases', href: '/partners/use-cases' }],
+        links: [{ label: 'Use cases', href: '/partners#case-studies' }],
       },
       {
         q: 'Is there a price list?',

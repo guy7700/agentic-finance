@@ -53,7 +53,7 @@ export default async function GalaPage({ params }: PageProps<'/events/2026/[city
         actions={
           <>
             <ButtonLink href="/apply">Apply to attend</ButtonLink>
-            <ButtonLink href="/partners/book-a-call" variant="outline">Partner positions include the Gala</ButtonLink>
+            <ButtonLink href="/network/companies#book-a-call" variant="outline">Partner positions include the Gala</ButtonLink>
           </>
         }
       />

@@ -420,6 +420,13 @@ export const organizations: Organization[] = [
   { id: 'stratamedia', name: 'StrataMedia', logo: '/images/logos/stratamedia.png' },
   { id: 'tradeil', name: 'Israel Trade Mission Singapore', logo: '/images/logos/tradeil.png' },
   { id: 'mme', name: 'MME Legal | Tax | Compliance', logo: '/images/partners/mme.webp' },
+  // Agoric: Singapore (Dean Tribble, Agentic Capital panel). n.exchange and Sumsub: The Odds.
+  // Kalshi and AWS: ecosystem partners in Singapore. Logos supplied by the user (26 Nov 2026).
+  { id: 'agoric', name: 'Agoric', logo: '/images/logos/agoric.png' },
+  { id: 'n-exchange', name: 'n.exchange', logo: '/images/logos/n-exchange.png' },
+  { id: 'sumsub', name: 'Sumsub', logo: '/images/logos/sumsub.png' },
+  { id: 'kalshi', name: 'Kalshi', logo: '/images/logos/kalshi.png' },
+  { id: 'aws', name: 'AWS', logo: '/images/logos/aws.png' },
 ];
 
 export function getOrganization(id: string) {
@@ -427,15 +434,20 @@ export function getOrganization(id: string) {
 }
 
 /**
- * Relationship of each organisation to an edition. Only the four companies with
- * published Singapore case studies are marked as partners. Everyone else was
- * represented on stage by a speaker, which does not imply sponsorship.
+ * Relationship of each organisation to an event: the one company list behind /partners/
+ * and each event's partners page. Singapore partners: the four companies with published case
+ * studies, and Kalshi and AWS as ecosystem partners (user, 26 Nov 2026). Everyone else was
+ * represented on stage by a speaker,
+ * which does not imply sponsorship. A company that only sent a team is "attended": it is
+ * named in the "Teams attending from" line, never on a wall. None recorded yet.
  */
 export const editionOrganizations: EditionOrganization[] = [
   { org: 'etoro', edition: 'singapore-2026', relationship: 'title-partner', note: 'Title Partner · “Agentic Finance by eToro”' },
   { org: 'fireblocks', edition: 'singapore-2026', relationship: 'partner', note: 'Agentic Payments' },
   { org: 'alpaca', edition: 'singapore-2026', relationship: 'partner', note: 'Agentic Trading' },
   { org: 'limitless', edition: 'singapore-2026', relationship: 'partner', note: 'Prediction Markets' },
+  { org: 'kalshi', edition: 'singapore-2026', relationship: 'partner', note: 'Ecosystem partner' },
+  { org: 'aws', edition: 'singapore-2026', relationship: 'partner', note: 'Ecosystem partner' },
   ...[
     'standard-chartered', 'kpmg', 'pantera', 'aave', 'chainlink', 'base', 'alchemy', 'animoca', 'nethermind', 'trm-labs',
     'bank-frick', 'world', 'hfw', 'zengo', 'blockaid', 'redstone', 'liquid', 'theoriq', 'aeon', 'atlas', 'acx', 'secondlane',
@@ -445,7 +457,29 @@ export const editionOrganizations: EditionOrganization[] = [
   { org: 'cnbc', edition: 'singapore-2026', relationship: 'media' },
   { org: 'fca', edition: 'singapore-2026', relationship: 'public-sector' },
   { org: 'tradeil', edition: 'singapore-2026', relationship: 'public-sector' },
+  // The Odds at Paris Blockchain Week: MME Legal's case study (/partners/mme-legal).
+  { org: 'mme', edition: 'the-odds-paris-2026', relationship: 'partner', note: 'Legal, tax and compliance partner' },
+  // Agoric spoke in Singapore (Dean Tribble, Agentic Capital panel; user, 26 Nov 2026).
+  { org: 'agoric', edition: 'singapore-2026', relationship: 'on-stage' },
+  // On stage at The Odds (user, 26 Nov 2026).
+  ...['n-exchange', 'sumsub'].map((org) => ({ org, edition: 'the-odds-paris-2026', relationship: 'on-stage' as const })),
 ];
+
+/** Every organisation on an event's wall (all but teams that only attended), in record order. */
+export function wallFor(event: string): Organization[] {
+  return editionOrganizations
+    .filter((r) => r.edition === event && r.relationship !== 'attended')
+    .map((r) => getOrganization(r.org))
+    .filter((o) => o !== undefined);
+}
+
+/** Companies that only sent a team to an event, for the "Teams attending from" line. */
+export function teamsAttending(event: string): Organization[] {
+  return editionOrganizations
+    .filter((r) => r.edition === event && r.relationship === 'attended')
+    .map((r) => getOrganization(r.org))
+    .filter((o) => o !== undefined);
+}
 
 /** A curated set of on-stage organisations for compact homepage logo rows. */
 export const featuredOnStage = [

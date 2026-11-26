@@ -28,6 +28,14 @@ export const redirects = [
   { from: '/partners/use-cases/limitless', to: '/partners/limitless' },
   { from: '/partners/use-cases/mme-legal', to: '/partners/mme-legal' },
 
+  // Partners is the company list (Tal's site structure). The walls by event are its event
+  // filter and the use cases its case studies; the partnership call (booking and steps)
+  // and the 12 categories are on /network/companies. ?category= links keep working.
+  { from: '/partners/use-cases', to: '/partners#case-studies' },
+  { from: '/partners/past-partners', to: '/partners' },
+  { from: '/partners/categories', to: '/network/companies#categories' },
+  { from: '/partners/book-a-call', to: '/network/companies#book-a-call' },
+
   // Events: /editions/<city>-<year> → /events/<year>/<city>, sub-pages included.
   { from: '/editions', to: '/events' },
   { from: '/editions/abu-dhabi-2026', to: '/events/2026/abu-dhabi' },

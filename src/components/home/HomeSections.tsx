@@ -3,6 +3,7 @@ import type { ReactNode } from 'react';
 import { events2027 } from '@/config/events-2027';
 import { externalLinks, primaryActions } from '@/config/site';
 import type { PastEvent } from '@/data/events';
+import { getEdition } from '@/data/editions';
 import { videos } from '@/data/media';
 import { editionOrganizations, featuredOnStage, getOrganization } from '@/data/partners';
 import { formats } from '@/data/program';
@@ -21,7 +22,7 @@ const isDefined = <T,>(x: T | undefined): x is T => x !== undefined;
 
 /** One logo wall of the organisations at our conferences: partners, then a curated set from the stage, with no categories. */
 export function HomePartners() {
-  const ids = [...editionOrganizations.filter((r) => r.relationship === 'title-partner' || r.relationship === 'partner').map((r) => r.org), ...featuredOnStage];
+  const ids = [...editionOrganizations.filter((r) => getEdition(r.edition) && (r.relationship === 'title-partner' || r.relationship === 'partner')).map((r) => r.org), ...featuredOnStage];
   const orgs: LogoItem[] = [...new Set(ids)].map(getOrganization).filter(isDefined);
 
   return (
@@ -35,7 +36,7 @@ export function HomePartners() {
           }
           size="md"
           action={
-            <ButtonLink href="/partners/past-partners" variant="outline">
+            <ButtonLink href="/partners" variant="outline">
               By edition
             </ButtonLink>
           }
@@ -269,7 +270,7 @@ export function CategoryCards() {
           }
           action={
             <>
-              <ButtonLink href="/partners/categories" variant="outline">
+              <ButtonLink href="/network/companies#categories" variant="outline">
                 All categories
               </ButtonLink>
               <ButtonLink href="/about#topics" variant="outline">
@@ -282,7 +283,7 @@ export function CategoryCards() {
           {CATEGORIES.map((c) => (
             <li key={c.name} className="min-w-0">
               <Link
-                href="/partners/categories"
+                href="/network/companies#categories"
                 className="edge-gold group relative flex h-full min-h-40 flex-col justify-between gap-6 rounded-2xl border border-line bg-ink-card p-4 transition-colors duration-500 hover:border-gold/60 min-[360px]:p-5 sm:p-6"
               >
                 <span className="flex size-12 items-center justify-center rounded-full border border-gold/30 bg-gold/10 text-gold-bright transition-shadow duration-500 group-hover:shadow-[0_0_24px_rgb(209_182_121/0.35)]">

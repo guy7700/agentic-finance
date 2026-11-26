@@ -2,12 +2,15 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { NetworkForm, VenturePartnerButton } from '@/components/network/NetworkForm';
+import { CategoryExplorer } from '@/components/partners/CategoryExplorer';
+import { PartnershipCall } from '@/components/partners/PartnershipCall';
 import { ButtonLink } from '@/components/ui/Button';
 import { Icon } from '@/components/ui/Icon';
 import { Container, Section, SectionHeader } from '@/components/ui/Layout';
 import { PageHero } from '@/components/ui/PageHero';
 import { booking } from '@/config/site';
 import { getNetworkPage, networkPages, partnerSeats, startupCompetition, vcAfterJoin, venturePartner } from '@/data/network';
+import { categoryViews } from '@/lib/category-views';
 import { pageMetadata } from '@/lib/seo';
 
 // Every valid path is generated at build time; anything else is a 404.
@@ -157,6 +160,29 @@ export default async function NetworkAudiencePage({ params }: PageProps<'/networ
         </Section>
       ) : null}
 
+      {p.audience === 'company' ? (
+        <Section bordered tone="raised" id="categories">
+          <Container>
+            <SectionHeader
+              eyebrow="Category ownership"
+              title="Twelve conversations. Room for one company to lead each."
+              lede="Choose a category to see what it covers, who belongs in it, the conversations it leads and what happened in it in Singapore."
+            />
+            <div className="mt-12">
+              <CategoryExplorer
+                categories={categoryViews()}
+                note={
+                  <>
+                    <strong className="text-paper">Not sure which category is yours?</strong> Most companies span two or three. The partnerships team
+                    will help you pick the one you can credibly lead.
+                  </>
+                }
+              />
+            </div>
+          </Container>
+        </Section>
+      ) : null}
+
       {p.audience !== 'vc' ? (
         <Section bordered>
           <Container>
@@ -183,6 +209,8 @@ export default async function NetworkAudiencePage({ params }: PageProps<'/networ
           </div>
         </Container>
       </Section>
+
+      {p.audience === 'company' ? <PartnershipCall /> : null}
 
       {p.audience === 'vc' ? (
         <>

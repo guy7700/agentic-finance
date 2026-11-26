@@ -330,7 +330,7 @@ export function AfHkPage({ page }: { page: Upcoming2027 }) {
                 </>
               }
               action={
-                <ButtonLink href="/partners/use-cases" variant="outline">
+                <ButtonLink href="/partners#case-studies" variant="outline">
                   All use cases
                 </ButtonLink>
               }

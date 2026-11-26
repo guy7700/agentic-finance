@@ -150,7 +150,7 @@ export default function SingaporeRecapPage() {
             eyebrow="Partner activations"
             title="Seen, introduced, remembered."
             lede="Title positioning, a CEO keynote, panel seats in the categories that mattered and an F1 simulator on the floor."
-            action={<ButtonLink href="/partners/use-cases" variant="outline">All use cases</ButtonLink>}
+            action={<ButtonLink href="/partners#case-studies" variant="outline">All use cases</ButtonLink>}
           />
           <ul className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
             {useCases.map((u) => (

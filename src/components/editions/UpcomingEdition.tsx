@@ -240,8 +240,8 @@ export function UpcomingEdition({ edition }: { edition: Edition }) {
             lede="A limited number of positions, so every partner is seen, introduced and remembered. Twelve categories to lead; no more than eight positions overall."
             action={
               <>
-                <ButtonLink href="/partners/book-a-call">{booking.partnership.label}</ButtonLink>
-                <ButtonLink href="/partners/categories" variant="outline">Partnership categories</ButtonLink>
+                <ButtonLink href="/network/companies#book-a-call">{booking.partnership.label}</ButtonLink>
+                <ButtonLink href="/network/companies#categories" variant="outline">Partnership categories</ButtonLink>
               </>
             }
           />
@@ -258,7 +258,7 @@ export function UpcomingEdition({ edition }: { edition: Edition }) {
             {categories.map((c) => (
               <li key={c.id}>
                 <Link
-                  href={`/partners/categories?category=${c.id}`}
+                  href={`/network/companies?category=${c.id}#categories`}
                   className="inline-flex min-h-10 items-center rounded-full border border-line-strong px-4 text-sm text-paper/85 transition-colors hover:border-gold hover:text-gold"
                 >
                   {c.name}

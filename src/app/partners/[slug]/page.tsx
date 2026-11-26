@@ -55,7 +55,7 @@ export default async function UseCasePage({ params }: PageProps<'/partners/[slug
           <div className="scrim-hero absolute inset-0" />
         </div>
         <Container className="flex min-h-[min(84svh,780px)] flex-col justify-end pb-14 pt-[calc(var(--header-h)+40px)]">
-          <Breadcrumbs items={[{ label: 'Partners', href: '/partners' }, { label: 'Use cases', href: '/partners/use-cases' }, { label: u.partner }]} />
+          <Breadcrumbs items={[{ label: 'Partners', href: '/partners' }, { label: 'Case studies', href: '/partners#case-studies' }, { label: u.partner }]} />
           <div className="mt-10 relative h-10 w-44 sm:h-12 sm:w-52">
             <Img src={u.logo} alt={u.partner} fill sizes="208px" className="object-contain object-left" />
           </div>
@@ -122,7 +122,7 @@ export default async function UseCasePage({ params }: PageProps<'/partners/[slug
                   const c = categories.find((x) => x.id === id);
                   return c ? (
                     <li key={id}>
-                      <Link href={`/partners/categories?category=${id}`} className="inline-flex min-h-10 items-center rounded-full border border-line-strong px-4 text-sm hover:border-gold hover:text-gold">
+                      <Link href={`/network/companies?category=${id}#categories`} className="inline-flex min-h-10 items-center rounded-full border border-line-strong px-4 text-sm hover:border-gold hover:text-gold">
                         {c.name}
                       </Link>
                     </li>
@@ -214,10 +214,10 @@ export default async function UseCasePage({ params }: PageProps<'/partners/[slug
         body="No more than eight strategic positions in Abu Dhabi. Each one is built around your category, your stage and your introductions."
         actions={
           <>
-            <ButtonLink href="/partners/book-a-call" size="lg">
+            <ButtonLink href="/network/companies#book-a-call" size="lg">
               {booking.partnership.label}
             </ButtonLink>
-            <ButtonLink href="/partners/categories" variant="outline" size="lg">
+            <ButtonLink href="/network/companies#categories" variant="outline" size="lg">
               Find your category
             </ButtonLink>
           </>

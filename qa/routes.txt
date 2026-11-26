@@ -34,14 +34,11 @@
 /speakers/shiliang-tang
 /speakers/nominate
 /partners
-/partners/categories
-/partners/use-cases
 /partners/etoro
 /partners/fireblocks
 /partners/alpaca
 /partners/limitless
-/partners/past-partners
-/partners/book-a-call
+/partners/mme-legal
 /events/2026/singapore/recap
 /about/video
 /about/gallery

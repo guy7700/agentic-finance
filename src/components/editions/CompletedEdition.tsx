@@ -2,7 +2,7 @@ import Link from 'next/link';
 import { externalLinks } from '@/config/site';
 import { getCurrentEdition } from '@/data/editions';
 import { gallery, galleryCollections, galleryTags, videoKindLabels, videos } from '@/data/media';
-import { editionOrganizations, getOrganization } from '@/data/partners';
+import { wallFor } from '@/data/partners';
 import type { Edition } from '@/data/types';
 import { getSpeaker, isProgrammeSession, sessionsForEdition, speakersForEdition, stageLabels } from '@/lib/content';
 import { speakerThumb } from '@/lib/paths';
@@ -27,10 +27,7 @@ export function CompletedEdition({ edition }: { edition: Edition }) {
   const moreVideos = videos.filter((v) => v.edition === edition.slug && v.id !== recap?.id);
   const sessions = sessionsForEdition(edition.slug).filter(isProgrammeSession);
   const editionSpeakers = speakersForEdition(edition.slug);
-  const editionOrgs = editionOrganizations
-    .filter((r) => r.edition === edition.slug)
-    .map((r) => getOrganization(r.org))
-    .filter((o) => o !== undefined);
+  const editionOrgs = wallFor(edition.slug);
   const photos = gallery.filter((g) => g.edition === edition.slug);
 
   return (
@@ -221,7 +218,7 @@ export function CompletedEdition({ edition }: { edition: Edition }) {
             eyebrow="Partners"
             title="Who made it happen."
             lede={`The organisations that took part in ${edition.shortName}.`}
-            action={<ButtonLink href="/partners/use-cases" variant="outline">Partner use cases</ButtonLink>}
+            action={<ButtonLink href="/partners#case-studies" variant="outline">Partner use cases</ButtonLink>}
           />
           <LogoWall items={editionOrgs.slice(0, 24)} className="mt-12" />
           <TextLink href={`${edition.path}/partners`} className="mt-5">

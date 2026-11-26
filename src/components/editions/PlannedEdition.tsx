@@ -49,7 +49,7 @@ export function PlannedEdition({ edition }: { edition: Edition }) {
             <ButtonLink href={interestHref} size="lg">
               Apply to attend
             </ButtonLink>
-            <ButtonLink href="/partners/book-a-call" variant="outline" size="lg">
+            <ButtonLink href="/network/companies#book-a-call" variant="outline" size="lg">
               Partner across the 2027 series
             </ButtonLink>
           </div>

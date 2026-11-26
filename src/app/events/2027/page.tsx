@@ -37,7 +37,7 @@ export default function Series2027Page() {
         actions={
           <>
             <ButtonLink href="/about/contact?topic=attendance">Apply to attend</ButtonLink>
-            <ButtonLink href="/partners/book-a-call" variant="outline">Partner with us</ButtonLink>
+            <ButtonLink href="/network/companies#book-a-call" variant="outline">Partner with us</ButtonLink>
           </>
         }
         footer={
@@ -116,8 +116,8 @@ export default function Series2027Page() {
             lede="Category ownership can extend across the 2027 series, so a company leads the same conversation in every city. Positions are limited in each edition."
             action={
               <>
-                <ButtonLink href="/partners/book-a-call">{booking.partnership.label}</ButtonLink>
-                <ButtonLink href="/partners/categories" variant="outline">Partnership categories</ButtonLink>
+                <ButtonLink href="/network/companies#book-a-call">{booking.partnership.label}</ButtonLink>
+                <ButtonLink href="/network/companies#categories" variant="outline">Partnership categories</ButtonLink>
               </>
             }
           />

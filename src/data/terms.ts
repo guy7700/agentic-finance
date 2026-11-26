@@ -266,7 +266,7 @@ export const termsSections: TermsSection[] = [
     blocks: [
       lines(
         'Agentic Finance | More & More',
-        'Legal Entity: MORE AND MORE B,D, LTD',
+        'Legal Entity: MORE AND MORE B.D. LTD',
         'Company Registration Number: 517306296',
         'Country of Incorporation: Israel',
         'Business Inquiries: guy@mnm.live',

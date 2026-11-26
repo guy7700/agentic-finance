@@ -41,6 +41,15 @@ function split(to) {
   return i < 0 ? { page: to, anchor: '' } : { page: to.slice(0, i), anchor: to.slice(i) };
 }
 
+/**
+ * A script redirect makes this forwarding page the referrer of the new page, so GA4 would count a
+ * visit from a press article (or any other site) as direct. When the visitor came from another site
+ * and the address has no campaign tags, pass that site on as utm_source with utm_medium=referral.
+ */
+const keepSource =
+  'var s=location.search,h="";try{h=document.referrer?new URL(document.referrer).hostname:""}catch(e){}' +
+  'if(h&&h!==location.hostname&&!/[?&]utm_source=/.test(s)){s+=(s?"&":"?")+"utm_source="+encodeURIComponent(h)+"&utm_medium=referral"}';
+
 function forwardingPage(to, tags) {
   const { page, anchor } = split(to);
   const target = `${BASE_PATH}${slashed(page)}`;
@@ -51,7 +60,7 @@ function forwardingPage(to, tags) {
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 <meta name="${MARK}" content="${escapeAttr(href)}"/>
-<script>location.replace(${JSON.stringify(target)}+location.search+(location.hash||${JSON.stringify(anchor)}))</script>
+<script>${keepSource}location.replace(${JSON.stringify(target)}+s+(location.hash||${JSON.stringify(anchor)}))</script>
 <noscript><meta http-equiv="refresh" content="0;url=${escapeAttr(href)}"/></noscript>
 ${tags.join('\n')}
 <style>body{margin:0;min-height:100vh;display:grid;place-items:center;background:#0b1424;color:#f3efe6;font:16px/1.5 system-ui,sans-serif}a{color:#d6b46a}</style>

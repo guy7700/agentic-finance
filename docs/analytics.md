@@ -22,4 +22,24 @@ Sent with `track()` from `GoogleTag.tsx` as `gtag('event', …)` commands. The G
 - Key events: the five events above. GA4 has no way to add a key event by name in advance: once an event has arrived (it shows under Admin > Data display > Events > Recent events within 24 hours), select the star next to it.
 - Search Console: not linked yet. Link it under Admin > Product links > Search Console links (property https://agentic-finance.live/).
 
+## PR traffic
+
+GA4's primary channel group is **Channels with PR** (Admin > Data display > Channel groups, set 26 Nov 2026): the default channels plus a **PR** channel, placed above Referral. A session is PR when:
+
+- its campaign medium is `pr` (a tagged link, below), or
+- its source partially matches `chainwire|businessinsider|benzinga|financepolice|gurufocus|cryptoevents|tradingview|thedefiant|coinmarketcap`, or
+- its source partially matches `blockchainmagazine|blockchainreporter|coinlive|yellow\.com|theblockopedia|cryptofrontnews|cryptonewsfocus`.
+
+When a release is picked up by an outlet not in those lists, add it (edit the PR channel; up to 10 conditions). In reports: Reports > Acquisition > Traffic acquisition, row PR. For the outlet behind each visit, use the Page referrer dimension in Explore.
+
+**Links in new releases.** Link to the page itself (for Hong Kong, `/events/2027/hong-kong/`, not an old address) and tag it, so every pickup counts as PR even where the outlet hides the referrer:
+
+`https://agentic-finance.live/events/2027/hong-kong/?utm_source=chainwire&utm_medium=pr&utm_campaign=<release>`
+
+with `<release>` a short name such as `hk27-announcement`. Releases sent before 26 Nov 2026 have no tags; today's Singapore release links to `/events/2027/hong-kong/` and the old `/upcoming/2027/afhk/`, and both are counted by the outlet rules above.
+
+**Old addresses.** Forwarding pages (scripts/write-redirects.mjs) redirect with a script, which would make the forwarding page the referrer and the visit "direct". When the visitor came from another site and the link has no campaign tags, the forwarding page adds `utm_source=<that site>&utm_medium=referral`, so the PR rules above still apply.
+
+**Consent.** Analytics storage is denied until the visitor accepts the cookie bar. Visitors who decline or ignore it send cookieless pings that GA4 uses only for modelling, which a site of this size does not qualify for, so they are mostly missing from the reports, PR visits included.
+
 A new event name needs no GA4 setup to be collected. Star it as a key event if it counts as a lead, add a custom dimension for any new parameter, and list it here.

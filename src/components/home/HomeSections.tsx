@@ -293,18 +293,20 @@ export function PartnerBenefits() {
 }
 
 /**
- * 8. eToro: the relationship across our events, with Yoni Assia. Only what is on file: eToro and
- * Zengo both on stage in Abu Dhabi (2025), eToro's acquisition of Zengo in April 2026 (with eToro x
- * Zengo branding at The Odds, Paris), and eToro as title partner in Singapore. `quote` stays empty
- * until eToro approves a quotation in Yoni Assia's name; nothing is shown in its place.
+ * 8. eToro: the relationship across our events, with Yoni Assia. The quotation is his, as published in
+ * our press release "The Odds Conference Marks Strong Debut at Paris Blockchain Week" (Chainwire, 27 April
+ * 2026), where he announced the Zengo acquisition live on stage.
  */
-const ETORO_QUOTE: { text: string; source: string } | undefined = undefined;
+const ETORO_QUOTE: { text: string; source: string } | undefined = {
+  text: 'What makes this moment even more meaningful is that the first conversations began four months ago at a More and More event in Abu Dhabi. It’s a strong example of how the right room can turn into real deals.',
+  source: 'Yoni Assia, CEO, eToro · The Odds, Paris, April 2026',
+};
 
 export function EtoroStory() {
   const yoni = getSpeaker('yoni-assia');
   const steps = [
-    { when: 'Abu Dhabi · 2025', what: 'eToro and Zengo both take the stage at our Web2 to Web3 conference.' },
-    { when: 'Paris · April 2026', what: 'eToro acquires Zengo. The two brands share the stage at The Odds, Paris Blockchain Week.' },
+    { when: 'Abu Dhabi · 2025', what: 'eToro and Zengo meet at our Web2 to Web3 conference, where the first conversations begin.' },
+    { when: 'Paris · April 2026', what: 'Yoni Assia announces the acquisition of Zengo live on our stage at The Odds, Paris Blockchain Week.' },
     { when: 'Singapore · October 2026', what: 'eToro becomes title partner: “Agentic Finance by eToro”, with Yoni Assia’s keynote.' },
   ];
   return (

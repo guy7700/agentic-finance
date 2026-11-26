@@ -167,7 +167,7 @@ export const navigation: NavGroup[] = [
   },
   {
     id: 'about',
-    label: 'About',
+    label: 'About Us',
     job: 'More & More, the producer behind the room.',
     href: '/about',
     items: [

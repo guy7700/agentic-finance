@@ -14,7 +14,8 @@ type CtaBandProps = {
 };
 
 /** Closing conversion band: invitation and partnership, always both. */
-export function CtaBand({ eyebrow, title, body, actions, centered }: CtaBandProps) {
+/** Centred everywhere (user, 26 Nov 2026); pass centered={false} only for a deliberate exception. */
+export function CtaBand({ eyebrow, title, body, actions, centered = true }: CtaBandProps) {
   const current = getCurrentEdition();
   return (
     <section className="relative isolate overflow-hidden border-t border-line">

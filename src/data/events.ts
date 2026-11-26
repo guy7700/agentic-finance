@@ -87,7 +87,7 @@ export const pastEvents: PastEvent[] = [
     id: 'web2-to-web3-2025',
     name: 'Web2 to Web3 Conference',
     city: 'Abu Dhabi',
-    date: '2025',
+    date: '10 December 2025',
     facts: [
       { value: '150', label: 'Attendees' },
       { value: '15+', label: 'Speakers' },

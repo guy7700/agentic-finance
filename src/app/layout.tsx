@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from 'next';
 import { Cormorant_Garamond, Space_Grotesk } from 'next/font/google';
+import { GoogleTag } from '@/components/analytics/GoogleTag';
 import { SiteFooter } from '@/components/layout/SiteFooter';
 import { SiteHeader } from '@/components/layout/SiteHeader';
 import { JsonLd } from '@/components/ui/JsonLd';
@@ -80,6 +81,7 @@ export default function RootLayout({ children }: LayoutProps<'/'>) {
             parentOrganization: { '@type': 'Organization', name: 'More & More', url: 'https://mnm.live' },
           }}
         />
+        <GoogleTag />
       </body>
     </html>
   );

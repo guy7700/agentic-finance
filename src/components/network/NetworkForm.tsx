@@ -1,5 +1,7 @@
 'use client';
 
+import { track } from '../analytics/GoogleTag';
+
 import { useEffect, useRef, useState, type FormEvent } from 'react';
 import { contacts } from '@/config/site';
 import { formWebhooks } from '@/config/forms';
@@ -235,6 +237,7 @@ export function NetworkForm({ page }: { page: NetworkPage }) {
     if (r.ok) {
       lastPayload.current = { ...body, company_url: undefined };
       setStatus({ kind: 'success', duplicate: r.duplicate });
+      track('network_signup', { audience: page.audience });
       window.setTimeout(() => document.getElementById('apply')?.scrollIntoView({ behavior: 'smooth', block: 'start' }), 0);
       return;
     }

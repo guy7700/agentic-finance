@@ -56,8 +56,9 @@ export const pastArchives: PastArchive[] = [
     path: '/events/2025/web2-to-web3-abu-dhabi',
     name: 'Web2 to Web3 Conference',
     city: 'Abu Dhabi',
-    date: '2025',
-    where: 'Abu Dhabi · co-produced with Hub71',
+    date: 'December 2025',
+    // 10 December 2025 at Hub71, ADGM, during Abu Dhabi Finance Week (our Chainwire releases of 1 Dec 2025 and 5 Jan 2026).
+    where: 'Hub71, ADGM · 10 December 2025 · during Abu Dhabi Finance Week',
     summary:
       'A curated institutional programme where banks, payment leaders, regulators and VCs met the founders building the onboarding layer for institutional capital. Speakers from Fireblocks, eToro, CertiK, Zengo, Nominis and CryptoLaw Partners.',
     facts: [
@@ -69,6 +70,7 @@ export const pastArchives: PastArchive[] = [
     galleryId: 'web2toweb3-abu-dhabi-2025',
     videoIds: ['web2-to-web3-2025', 'web2toweb3-abu-dhabi-2025'],
     conferenceId: 'web2toweb3-abu-dhabi-2025',
+    orgEdition: 'web2toweb3-abu-dhabi-2025',
     pressIds: ['web2toweb3-abu-dhabi-2025'],
     caseStudy: 'https://mnm.live/case-studies#web2-to-web3',
   },

@@ -1,5 +1,7 @@
 'use client';
 
+import { track } from '../analytics/GoogleTag';
+
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 import type { Upcoming2027 } from '@/data/upcoming-2027';
@@ -41,6 +43,7 @@ export function ApplyButton({ event, variant = 'primary', size = 'lg', className
         onClick={(e) => {
           if (e.metaKey || e.ctrlKey || e.shiftKey || e.button !== 0) return;
           e.preventDefault();
+          track('apply_to_attend', { event_name: event.name });
           setOpen(true);
         }}
         aria-haspopup="dialog"

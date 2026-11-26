@@ -294,6 +294,8 @@ export const pressMentions: PressMention[] = [
     summary: 'The Web2 to Web3 Conference concluded in Abu Dhabi during Abu Dhabi Finance Week, hosted with Hub71, with panels on custody, security and trust.',
     image: { src: '/images/more-and-more/web2toweb3-session.webp', alt: 'A seated session at the Web2 to Web3 Summit in Abu Dhabi, produced by More & More' },
     pickups: [
+      { outlet: 'Business Insider', url: 'https://markets.businessinsider.com/news/currencies/web2-to-web3-conference-successfully-concludes-in-abu-dhabi-showcasing-institutional-railways-to-blockchain-adoption-across-mena-1035682127', date: '2026-01-05' },
+      { outlet: 'Binance Square', url: 'https://www.binance.com/en/square/post/34670992068153', date: '2026-01-05' },
       { outlet: 'Benzinga', url: 'https://www.benzinga.com/pressreleases/26/01/49685381/web2-to-web3-conference-successfully-concludes-in-abu-dhabi-showcasing-institutional-railways-to-bl', date: '2026-01-05' },
       { outlet: 'Crypto Events', url: 'https://cryptoevents.global/web2-to-web3-conference-successfully-concludes-in-abu-dhabi-showcasing-institutional-railways-to-blockchain-adoption-across-mena/', date: '2026-01-05' },
     ],
@@ -310,6 +312,10 @@ export const pressMentions: PressMention[] = [
     image: { src: '/images/more-and-more/hub71-networking.jpg', alt: 'Delegates networking at a More & More gathering at Hub71 in Abu Dhabi' },
     pickups: [
       { outlet: 'GuruFocus', url: 'https://www.gurufocus.com/news/3227871/web2-to-web3-conference-launches-in-abu-dhabi-to-unite-global-finance-and-digital-asset-leaders', date: '2025-12-01' },
+      { outlet: 'Business Insider', url: 'https://markets.businessinsider.com/news/currencies/web2-to-web3-conference-launches-in-abu-dhabi-to-unite-global-finance-and-digital-asset-leaders-1035605822', date: '2025-12-01' },
+      { outlet: 'Finance Police', url: 'https://financepolice.com/web2-to-web3-conference-launches-in-abu-dhabi-to-unite-global-finance-and-digital-asset-leaders/', date: '2025-12-01' },
+      // Also republished by Benzinga, CoinMarketCap and Binance Square (More & More's press graphic);
+      // their article links were not found on 26 Nov 2026. Add each once known.
     ],
   },
 ];

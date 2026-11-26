@@ -421,6 +421,13 @@ export const organizations: Organization[] = [
   { id: 'mme', name: 'MME Legal | Tax | Compliance', logo: '/images/partners/mme.webp', group: 'company' },
   // Agoric: Singapore (Dean Tribble, Agentic Capital panel). n.exchange and Sumsub: The Odds.
   // Kalshi and AWS: ecosystem partners in Singapore. Logos supplied by the user (26 Nov 2026).
+  // On stage at Web2 to Web3 Abu Dhabi 2025 (speakers' companies; logos from the user's sourced pack, 26 Nov 2026).
+  { id: 'nominis', name: 'Nominis', logo: '/images/logos/nominis.png', url: 'https://www.nominis.io', group: 'startup' },
+  { id: 'addressable', name: 'Addressable', logo: '/images/logos/addressable.png', url: 'https://www.addressable.io', group: 'startup' },
+  { id: 'certik', name: 'CertiK', logo: '/images/logos/certik.png', url: 'https://www.certik.com', group: 'company' },
+  { id: 'mom3ntum', name: 'Mom3ntum', logo: '/images/logos/mom3ntum.png', url: 'https://mom3ntum.io', group: 'startup' },
+  { id: 'signal-week', name: 'Signal Week', logo: '/images/logos/signal-week.png', url: 'https://www.signalweek.com', group: 'ecosystem' },
+  { id: 'israel-trade-mission-uae', name: 'Israel Economic and Trade Mission to the UAE', logo: '/images/logos/israel-trade-mission-uae.png', group: 'ecosystem' },
   { id: 'agoric', name: 'Agoric', logo: '/images/logos/agoric.png', group: 'startup', about: 'The team behind Ymax, for the safe deployment of capital by autonomous agents within a client’s mandate.' },
   { id: 'n-exchange', name: 'n.exchange', logo: '/images/logos/n-exchange.png', group: 'company' },
   { id: 'sumsub', name: 'Sumsub', logo: '/images/logos/sumsub.png', group: 'company' },
@@ -458,6 +465,12 @@ export const editionOrganizations: EditionOrganization[] = [
   { org: 'tradeil', edition: 'singapore-2026', relationship: 'public-sector' },
   // The Odds at Paris Blockchain Week: MME Legal's case study (/partners/mme-legal).
   { org: 'mme', edition: 'the-odds-paris-2026', relationship: 'partner', note: 'Legal, tax and compliance partner' },
+  // Web2 to Web3 Abu Dhabi 2025: companies on stage.
+  ...['fireblocks', 'etoro', 'zengo', 'n-exchange', 'nominis', 'addressable', 'certik', 'mom3ntum', 'signal-week', 'israel-trade-mission-uae'].map((org) => ({
+    org,
+    edition: 'web2toweb3-abu-dhabi-2025',
+    relationship: 'on-stage' as const,
+  })),
   // Agoric spoke in Singapore (Dean Tribble, Agentic Capital panel; user, 26 Nov 2026).
   { org: 'agoric', edition: 'singapore-2026', relationship: 'on-stage' },
   // On stage at The Odds (user, 26 Nov 2026).
@@ -486,11 +499,11 @@ export const featuredOnStage = [
 ];
 
 /**
- * "Achievements of our partners" on /partners (Tal's review, 26 Nov 2026), worded from the records
- * on file. Not claimed until confirmed: that eToro and Zengo first met at our event, that the
- * acquisition was announced on our stage, that Atlas "launched" (rather than presented) the
- * Technodollar with us, and that The Odds was the world's first prediction markets conference.
- * The 50,000-listener X Space belongs on The Odds' site (Tal), so it is not here.
+ * "Achievements of our partners" on /partners (Tal's review, 26 Nov 2026). eToro and Zengo: Yoni
+ * Assia's own words in our press release of 27 April 2026 (first conversations at our Abu Dhabi event,
+ * acquisition announced live at The Odds). Atlas launching the Technodollar with us and The Odds as
+ * the world's first prediction markets conference: confirmed by the user, 26 Nov 2026. The
+ * 50,000-listener X Space belongs on The Odds' site (Tal), so it is not here.
  */
 export const partnerAchievements: {
   id: string;
@@ -505,7 +518,7 @@ export const partnerAchievements: {
     id: 'etoro-zengo',
     when: 'Abu Dhabi 2025 → Paris 2026',
     title: 'eToro acquires Zengo',
-    body: 'Both companies took the stage at our Web2 to Web3 conference in Abu Dhabi. In April 2026 eToro acquired Zengo, and the two brands shared the stage at The Odds in Paris.',
+    body: 'Their first conversations began at our Web2 to Web3 conference in Abu Dhabi. Four months later, Yoni Assia announced the acquisition live on our stage at The Odds in Paris.',
     orgs: ['etoro', 'zengo'],
     href: '/partners/etoro',
     image: { src: '/images/more-and-more/the-odds-paris-etoro-stage.webp', alt: 'Two speakers on stage at The Odds in Paris, in front of eToro x Zengo branding', position: '38% 30%' },
@@ -522,8 +535,8 @@ export const partnerAchievements: {
   {
     id: 'atlas-technodollar',
     when: 'Singapore · October 2026',
-    title: 'Atlas Capital presents the Technodollar',
-    body: 'Founder and CEO Reza Bundy presented the Technodollar, a programmable reserve asset designed for AI agents, in a keynote on our Singapore stage.',
+    title: 'Atlas Capital launches the Technodollar',
+    body: 'Founder and CEO Reza Bundy launched the Technodollar, a programmable reserve asset designed for AI agents, in a keynote on our Singapore stage.',
     orgs: ['atlas'],
     href: '/partners/atlas',
     image: { src: '/images/speakers/reza-bundy.webp', alt: 'Reza Bundy, Founder, Chairman and CEO of Atlas Capital Team', position: '50% 25%' },
@@ -531,7 +544,7 @@ export const partnerAchievements: {
   {
     id: 'the-odds',
     when: 'Paris · April 2026',
-    title: 'A conference built for prediction markets',
+    title: 'The world’s first prediction markets conference',
     body: 'The Odds: Prediction Markets Live brought operators, exchanges and regulators together at the Louvre during Paris Blockchain Week, with MME Legal as legal, tax and compliance partner.',
     orgs: ['mme', 'n-exchange', 'sumsub'],
     href: '/events/2026/the-odds-paris',

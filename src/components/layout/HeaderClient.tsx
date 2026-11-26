@@ -163,7 +163,7 @@ export function HeaderClient({ navigation, actions, features }: HeaderClientProp
                       onMouseEnter={() => scheduleOpen(group.id)}
                       onKeyDown={(e) => onTriggerKey(e, index, group.id)}
                       className={cn(
-                        'relative flex h-11 items-center gap-1.5 rounded-full px-3 text-[11px] font-semibold uppercase tracking-[0.18em] transition-colors',
+                        'relative flex h-11 items-center gap-1.5 whitespace-nowrap rounded-full px-3 text-[11px] font-semibold uppercase tracking-[0.18em] transition-colors',
                         isOpen ? 'text-gold' : active ? 'text-paper' : 'text-paper/90 hover:text-gold',
                       )}
                     >

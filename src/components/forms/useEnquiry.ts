@@ -1,6 +1,7 @@
 'use client';
 
 import { useCallback, useRef, useState } from 'react';
+import { track } from '../analytics/GoogleTag';
 import { formWebhooks } from '@/config/forms';
 import { contacts } from '@/config/site';
 import { getCurrentEdition } from '@/data/editions';
@@ -100,6 +101,7 @@ export function useEnquiry(kind: FormKind) {
         }
         if (!res.ok || reply.ok === false || reply.result === 'error') throw new Error(`Delivery failed (${res.status})`);
         setState({ status: 'success' });
+        track(kind === 'partnership' ? 'partnership_request' : kind === 'speaker-nomination' ? 'speaker_nomination' : 'contact_enquiry');
         return true;
       } catch {
         setState({

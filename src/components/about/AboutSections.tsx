@@ -9,7 +9,6 @@ import { Img } from '@/components/ui/Img';
 import { JsonLd } from '@/components/ui/JsonLd';
 import { Container, Eyebrow, Section, SectionHeader } from '@/components/ui/Layout';
 import { SmartLink } from '@/components/ui/SmartLink';
-import { Stats } from '@/components/ui/Stats';
 import { externalLinks } from '@/config/site';
 import { faqGroups, producerMetrics, producerTimeline, seriesBrands, team } from '@/data/about';
 import { categories } from '@/data/partners';
@@ -51,6 +50,23 @@ export function AboutIndex() {
   );
 }
 
+/** More & More's four figures in a 2 x 2 grid, so the longer ones ($50M+) never spill into the next cell. */
+function TrackRecordGrid({ className }: { className?: string }) {
+  return (
+    <div className={className}>
+      <dl className="grid grid-cols-2 gap-px overflow-hidden rounded-2xl border border-line bg-line">
+        {producerMetrics.map((m) => (
+          <div key={m.label} className="flex flex-col gap-2 bg-ink p-5 sm:p-6">
+            <dd className="serif-figure text-[clamp(2rem,1.6rem+1.4vw,2.75rem)] leading-none text-gold">{m.value}</dd>
+            <dt className="text-[11px] font-semibold uppercase tracking-[0.14em] text-muted">{m.label}</dt>
+          </div>
+        ))}
+      </dl>
+      <p className="mt-3 text-[13px] text-subtle">More &amp; More track record, as published.</p>
+    </div>
+  );
+}
+
 /** Who we are: what More & More does, in one paragraph and four photographs (Tal's review, 26 Nov 2026). */
 export function WhoWeAreSection() {
   const photos = [
@@ -71,7 +87,7 @@ export function WhoWeAreSection() {
               enterprises, sports organisations, municipalities and governments. We do it in curated rooms, at the industry’s major weeks, with
               introductions arranged in advance.
             </p>
-            <Stats items={producerMetrics} size="md" className="mt-10" source="More & More track record, as published." />
+            <TrackRecordGrid className="mt-10" />
           </div>
           <ul className="grid grid-cols-2 gap-3">
             {photos.map((p) => (
@@ -111,7 +127,7 @@ export function MoreAndMoreSection() {
                 relationships around them. The people who will decide how that goes rarely sit in the same room. Agentic Finance exists to put
                 them there: selectively, with time for the conversations that matter, and with introductions arranged in advance.
               </p>
-              <Stats items={producerMetrics} size="md" className="mt-10" source="More & More track record, as published." />
+              <TrackRecordGrid className="mt-10" />
             </div>
             <div className="relative aspect-[4/3] overflow-hidden rounded-2xl border border-line">
               <Img src="/images/singapore-2026/opening-keynote.webp" alt="Tal Mor of More & More opening the day on the Singapore stage" fill sizes="(min-width: 1024px) 50vw, 100vw" position="62% 35%" className="object-cover" />

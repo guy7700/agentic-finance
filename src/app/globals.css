@@ -340,3 +340,10 @@ html[data-scroll-lock='true'] {
 .af-checkbox:checked {
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpath d='m4.5 10.5 3.5 3.5 7.5-8' fill='none' stroke='%230A1428' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
 }
+
+/* Every company logo is shown fully white on the navy site (user, 26 Nov 2026). Logo files are
+   transparent, so the filter turns any coloured mark into a white silhouette. */
+img[src*="/images/logos/"],
+img[src*="/images/partners/"] {
+  filter: brightness(0) invert(1);
+}

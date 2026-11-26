@@ -18,8 +18,8 @@ Sent with `track()` from `GoogleTag.tsx` as `gtag('event', …)` commands. The G
 
 ## GA4 settings
 
-- Key events: the five events above (Admin > Data display > Key events).
-- Custom dimensions (event scope): `edition` and `audience` (Admin > Data display > Custom definitions), so the parameters show in reports.
-- Search Console: link it under Admin > Product links > Search Console links (property https://agentic-finance.live/).
+- Custom dimensions (event scope), created 26 Nov 2026: `Edition` from `edition`, `Audience` from `audience` (Admin > Data display > Custom definitions).
+- Key events: the five events above. GA4 has no way to add a key event by name in advance: once an event has arrived (it shows under Admin > Data display > Events > Recent events within 24 hours), select the star next to it.
+- Search Console: not linked yet. Link it under Admin > Product links > Search Console links (property https://agentic-finance.live/).
 
-A new event name needs no GA4 setup to be collected; mark it as a key event and add a custom dimension for any new parameter, then list it here.
+A new event name needs no GA4 setup to be collected. Star it as a key event if it counts as a lead, add a custom dimension for any new parameter, and list it here.

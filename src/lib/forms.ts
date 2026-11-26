@@ -72,7 +72,7 @@ export const schemas: Record<FormKind, Record<string, FieldRule>> = {
     speakerLinkedin: { label: 'LinkedIn', max: M, type: 'url' },
     speakerX: { label: 'X (Twitter)', max: M },
     speakerWebsite: { label: 'Website', max: M, type: 'url' },
-    edition: { label: 'Edition', max: S },
+    edition: { label: 'Event', required: true, max: S },
     topic: { label: 'Proposed topic', max: M },
     reason: { label: 'Why this speaker', max: L },
   },

@@ -38,12 +38,13 @@ const BACKOFF_MIN = [1, 5, 15, 60, 180, 720]; // minutes before attempts 2..7
 const MAX_ATTEMPTS = 7;
 
 // ---------- Form definitions (mirror src/data/network.ts on the site) ----------
+// Since 26 Nov 2026 no audience field is required: only name, email and organisation are.
 
 type Kind = "text" | "url" | "select" | "multi" | "yesno" | "flag";
 type Field = { key: string; label: string; kind: Kind; required?: boolean; max?: number; options?: string[]; labels?: Record<string, string> };
 
 const CATEGORIES = ["Trading", "Payments", "Compliance and security", "Data and research", "Wallets and infrastructure", "Prediction markets", "Other"];
-const CITIES = ["Hong Kong", "Dubai", "Paris", "Singapore", "Miami"];
+const CITIES = ["Hong Kong", "Cannes", "Dubai", "Miami", "Paris", "Singapore"];
 const REGIONS = ["Asia Pacific", "Middle East", "Europe", "North America", "LatAm", "Africa"];
 
 const AUDIENCES: Record<string, { label: string; org: string; fields: Field[] }> = {
@@ -51,10 +52,10 @@ const AUDIENCES: Record<string, { label: string; org: string; fields: Field[] }>
     label: "Startup",
     org: "Company",
     fields: [
-      { key: "website", label: "Website", kind: "url", required: true },
-      { key: "one_liner", label: "What they build", kind: "text", required: true, max: 140 },
-      { key: "category", label: "Category", kind: "select", required: true, options: CATEGORIES },
-      { key: "stage", label: "Stage", kind: "select", required: true, options: ["Pre-seed", "Seed", "Series A", "Series B+", "Revenue-generating"] },
+      { key: "website", label: "Website", kind: "url" },
+      { key: "one_liner", label: "What they build", kind: "text", max: 140 },
+      { key: "category", label: "Category", kind: "select", options: CATEGORIES },
+      { key: "stage", label: "Stage", kind: "select", options: ["Pre-seed", "Seed", "Series A", "Series B+", "Revenue-generating"] },
       { key: "raising", label: "Currently raising", kind: "yesno" },
       { key: "raising_amount", label: "Raising amount", kind: "text", max: 60 },
       { key: "meet", label: "Wants to meet", kind: "multi", options: ["VCs", "Banks", "Exchanges", "Payment networks", "Customers", "Media"] },
@@ -66,15 +67,15 @@ const AUDIENCES: Record<string, { label: string; org: string; fields: Field[] }>
     label: "VC (fund)",
     org: "Fund",
     fields: [
-      { key: "website", label: "Website", kind: "url", required: true },
-      { key: "fund_type", label: "Fund type", kind: "select", required: true, options: ["VC", "Corporate VC", "Family office", "Angel syndicate", "Crypto fund", "Other"] },
+      { key: "website", label: "Website", kind: "url" },
+      { key: "fund_type", label: "Fund type", kind: "select", options: ["VC", "Corporate VC", "Family office", "Angel syndicate", "Crypto fund", "Other"] },
       {
-        key: "check_size", label: "Check size", kind: "select", required: true,
+        key: "check_size", label: "Check size", kind: "select",
         options: ["under_250k", "250k_1m", "1m_5m", "5m_plus"],
         labels: { under_250k: "Under $250K", "250k_1m": "$250K to $1M", "1m_5m": "$1M to $5M", "5m_plus": "$5M+" },
       },
-      { key: "stage_focus", label: "Stage focus", kind: "multi", required: true, options: ["Pre-seed", "Seed", "Series A", "Series B+"] },
-      { key: "categories", label: "Categories", kind: "multi", required: true, options: CATEGORIES },
+      { key: "stage_focus", label: "Stage focus", kind: "multi", options: ["Pre-seed", "Seed", "Series A", "Series B+"] },
+      { key: "categories", label: "Categories", kind: "multi", options: CATEGORIES },
       { key: "regions", label: "Regions", kind: "multi", options: ["Asia", "Middle East", "Europe", "North America", "LatAm"] },
       { key: "venture_partner_interest", label: "Venture Partner brief", kind: "flag" },
       { key: "linkedin", label: "LinkedIn", kind: "url" },
@@ -84,10 +85,10 @@ const AUDIENCES: Record<string, { label: string; org: string; fields: Field[] }>
     label: "Company",
     org: "Company",
     fields: [
-      { key: "website", label: "Website", kind: "url", required: true },
-      { key: "seat", label: "Seat of interest", kind: "select", required: true, options: ["Founding Partner", "Strategic Partner", "Not sure"] },
+      { key: "website", label: "Website", kind: "url" },
+      { key: "seat", label: "Seat of interest", kind: "select", options: ["Founding Partner", "Strategic Partner", "Not sure"] },
       {
-        key: "category", label: "Category", kind: "select", required: true,
+        key: "category", label: "Category", kind: "select",
         options: ["Payments", "Banking", "Exchange or brokerage", "Custody and infrastructure", "Security and compliance", "Cloud and AI", "Data", "Prediction markets", "Other"],
       },
       { key: "cities", label: "Cities", kind: "multi", options: CITIES },
@@ -101,11 +102,11 @@ const AUDIENCES: Record<string, { label: string; org: string; fields: Field[] }>
     org: "Institution",
     fields: [
       {
-        key: "institution_type", label: "Institution type", kind: "select", required: true,
+        key: "institution_type", label: "Institution type", kind: "select",
         options: ["Bank", "Exchange", "Payment network", "Asset manager", "Broker", "Custodian", "Market infrastructure", "Regulator-affiliated", "Other"],
       },
-      { key: "region", label: "Region", kind: "select", required: true, options: REGIONS },
-      { key: "team", label: "Team", kind: "select", required: true, options: ["Innovation", "Digital assets", "Payments", "Technology", "Strategy", "Compliance", "Other"] },
+      { key: "region", label: "Region", kind: "select", options: REGIONS },
+      { key: "team", label: "Team", kind: "select", options: ["Innovation", "Digital assets", "Payments", "Technology", "Strategy", "Compliance", "Other"] },
       { key: "interests", label: "Main interest", kind: "multi", options: ["Meet startups", "Peer network", "Pilots and partnerships", "Speaking", "Market intelligence"] },
       { key: "cities", label: "Cities", kind: "multi", options: CITIES },
       { key: "long_term_partnership", label: "Long-term partnership", kind: "yesno" },
@@ -115,12 +116,12 @@ const AUDIENCES: Record<string, { label: string; org: string; fields: Field[] }>
     label: "Ecosystem",
     org: "Organisation",
     fields: [
-      { key: "website", label: "Website", kind: "url", required: true },
+      { key: "website", label: "Website", kind: "url" },
       {
-        key: "org_type", label: "Organisation type", kind: "select", required: true,
+        key: "org_type", label: "Organisation type", kind: "select",
         options: ["Association", "Government or regulator", "Accelerator or lab", "Alliance", "Media", "Event organiser", "University", "Other"],
       },
-      { key: "region", label: "Region", kind: "select", required: true, options: REGIONS },
+      { key: "region", label: "Region", kind: "select", options: REGIONS },
       { key: "community_size", label: "Community size", kind: "select", options: ["under 1,000", "1,000 to 10,000", "10,000+"] },
       { key: "wants", label: "Wants", kind: "multi", options: ["Tickets for members", "Host a delegation", "Co-create content", "Showcase startups", "Media access", "Other"] },
       { key: "can_share", label: "Can share with community", kind: "yesno" },
@@ -172,7 +173,7 @@ function validate(p: Record<string, unknown>): { ok: true; data: Clean } | { ok:
   if (name.length < 2) errors.name = "Please enter your name.";
   if (!emailRe.test(email)) errors.email = "Please enter a valid email.";
   if (organisation.length < 2) errors.organisation = "Please enter the name.";
-  if (role.length < 2) errors.role = "Please enter your role.";
+  // Joining needs only name, email and organisation (Tal, 26 Nov 2026); every other field is optional.
 
   const fields: Record<string, unknown> = {};
   for (const f of spec.fields) {

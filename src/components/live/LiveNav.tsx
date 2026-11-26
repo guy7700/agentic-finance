@@ -35,11 +35,22 @@ export function LiveNav({ current, className }: { current: LiveSection; classNam
   );
 }
 
-/** Body of a Live page that has no content yet: a [TBC] placeholder. */
-export function LivePlaceholder({ what }: { what: string }) {
+/** A Live programme entry: date block, title, time and summary. Provisional dates say so. */
+export function LiveEntry({ item }: { item: import('@/data/live').LiveItem }) {
   return (
-    <div className="rounded-2xl border border-dashed border-line-strong bg-ink-card p-8 sm:p-10">
-      <span className="mono-label">{what} [TBC]</span>
-    </div>
+    <article className="flex gap-5 rounded-2xl border border-line bg-ink-card p-6">
+      <span className="flex w-16 shrink-0 flex-col items-center self-start rounded-xl border border-gold/40 py-2">
+        <span className="font-mono text-[11px] uppercase text-gold">{item.month}</span>
+        <span className="serif-figure text-3xl leading-none">{item.day}</span>
+      </span>
+      <div>
+        <p className="mono-label">
+          {item.date} · {item.time}
+          {item.provisional ? <span className="ml-2 rounded-full border border-gold/40 px-2 py-0.5 text-gold">Provisional</span> : null}
+        </p>
+        <h3 className="mt-2 text-xl font-semibold leading-snug">{item.title}</h3>
+        <p className="mt-2 leading-relaxed text-muted">{item.summary}</p>
+      </div>
+    </article>
   );
 }

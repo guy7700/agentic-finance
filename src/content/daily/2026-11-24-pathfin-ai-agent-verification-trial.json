@@ -1,0 +1,14 @@
+{
+  "title": "Singapore banks test how to verify AI agents under PathFin.ai",
+  "slug": "pathfin-ai-agent-verification-trial",
+  "date": "2026-11-24",
+  "summary": "Green Link Digital Bank, AXS, Terminal 3 and HSBC Singapore ran a proof of concept under the Monetary Authority of Singapore's PathFin.ai programme. They tested an agent paying a biller, and a registered third-party agent acting for a corporate treasurer, with a trust layer checking each agent's identity.",
+  "whyItMatters": "Know-your-agent checks are moving from policy papers into live bank trials in Asia.",
+  "sourceName": "Fintech News Singapore",
+  "sourceUrl": "https://fintechnews.sg/142186/ai/pathfin-ai-agentic-payments-safeguards-mas/",
+  "tags": [
+    "banking",
+    "identity"
+  ],
+  "rank": 2
+}

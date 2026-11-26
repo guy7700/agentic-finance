@@ -57,9 +57,9 @@ export function CategoryExplorer({ categories, positions, note }: { categories: 
 
   return (
     <div className="grid grid-cols-1 gap-10 xl:grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)] xl:gap-14">
-      <h2 className="sr-only">Partnership categories</h2>
+      <h2 className="sr-only">Industry areas</h2>
       <div className="min-w-0">
-        <div role="tablist" aria-label="Partnership categories" className="grid grid-cols-2 gap-2 sm:grid-cols-3 lg:grid-cols-4">
+        <div role="tablist" aria-label="Industry areas" className="grid grid-cols-2 gap-2 sm:grid-cols-3 lg:grid-cols-4">
           {categories.map((c, i) => {
             const on = c.id === current.id;
             return (
@@ -87,17 +87,12 @@ export function CategoryExplorer({ categories, positions, note }: { categories: 
             );
           })}
         </div>
-        <p className="mt-5 flex items-start gap-3 rounded-xl border border-line bg-ink-card/50 p-4 text-sm leading-relaxed text-muted">
-          <Icon name="lock" size={18} className="mt-0.5 shrink-0 text-gold" />
-          <span>
-            {note ?? (
-              <>
-                Twelve conversations, and no more than <strong className="text-paper">{positions} strategic partner positions</strong> in Abu
-                Dhabi overall. Categories are not slots: some will have a lead partner, some will not.
-              </>
-            )}
-          </span>
-        </p>
+        {note ?? positions ? (
+          <p className="mt-5 flex items-start gap-3 rounded-xl border border-line bg-ink-card/50 p-4 text-sm leading-relaxed text-muted">
+            <Icon name="lock" size={18} className="mt-0.5 shrink-0 text-gold" />
+            <span>{note ?? `Twelve conversations, and no more than ${positions} partner positions per edition.`}</span>
+          </p>
+        ) : null}
       </div>
 
       <div

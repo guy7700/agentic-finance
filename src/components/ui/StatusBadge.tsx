@@ -2,9 +2,10 @@ import type { EditionStatus } from '@/data/types';
 import { cn } from '@/lib/cn';
 
 const styles: Record<EditionStatus, { label: string; cls: string; dot: string }> = {
-  upcoming: { label: 'Upcoming', cls: 'border-gold/50 bg-gold/10 text-gold-bright', dot: 'bg-gold animate-pulse shadow-[0_0_10px_rgb(209_182_121/0.55)]' },
-  completed: { label: 'Archive', cls: 'border-line-strong bg-ink/60 text-muted', dot: 'bg-muted' },
-  planned: { label: 'Planned', cls: 'border-paper/25 bg-ink/50 text-paper/80', dot: 'border border-paper/70 bg-transparent' },
+  upcoming: { label: 'Next event', cls: 'border-gold/50 bg-gold/10 text-gold-bright', dot: 'bg-gold animate-pulse shadow-[0_0_10px_rgb(209_182_121/0.55)]' },
+  completed: { label: 'Past edition', cls: 'border-line-strong bg-ink/60 text-muted', dot: 'bg-muted' },
+  planned: { label: '2027', cls: 'border-paper/25 bg-ink/50 text-paper/80', dot: 'border border-paper/70 bg-transparent' },
+  cancelled: { label: 'Not taking place', cls: 'border-line-strong bg-ink/60 text-muted', dot: 'bg-muted' },
 };
 
 export function StatusBadge({ status, label, className }: { status: EditionStatus; label?: string; className?: string }) {

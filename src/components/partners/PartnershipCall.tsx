@@ -6,7 +6,7 @@ import { BookingEmbed } from './BookingEmbed';
 /**
  * The partnership call: the Google appointment booking, what the call covers and how
  * a partnership comes together. Moved from /partners/book-a-call and /partners
- * (Tal's site structure) to /network/companies#book-a-call.
+ * (Tal's site structure) to /partners/book-a-call.
  */
 
 const AGENDA = [

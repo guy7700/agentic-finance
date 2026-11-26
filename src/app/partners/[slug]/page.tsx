@@ -3,68 +3,133 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { Gallery } from '@/components/media/Gallery';
 import { YouTubeEmbed } from '@/components/media/YouTubeEmbed';
+import { SpeakerCard } from '@/components/speakers/SpeakerCard';
 import { Breadcrumbs } from '@/components/ui/Breadcrumbs';
 import { ButtonLink, TextLink } from '@/components/ui/Button';
 import { CtaBand } from '@/components/ui/CtaBand';
 import { Icon } from '@/components/ui/Icon';
 import { Img } from '@/components/ui/Img';
-import { Container, Section } from '@/components/ui/Layout';
-import { booking } from '@/config/site';
-import { editionPath, getEdition } from '@/data/editions';
+import { Container, Section, SectionHeader } from '@/components/ui/Layout';
+import { primaryActions } from '@/config/site';
+import { conferenceLabels, editionPath, getEdition } from '@/data/editions';
 import { galleryCollections, videos } from '@/data/media';
-import { categories, getUseCase, otherUseCases, useCases } from '@/data/partners';
-import { getSession, getSpeaker, stageLabels } from '@/lib/content';
+import { networkPages } from '@/data/network';
+import { categories, editionOrganizations, getUseCase, organizations, otherUseCases, useCases } from '@/data/partners';
+import type { Organization, UseCase } from '@/data/types';
+import { companyHref, companySlug, relationshipLabel } from '@/lib/companies';
+import { getSession, getSpeaker, speakers, stageLabels } from '@/lib/content';
 import { speakerThumb } from '@/lib/paths';
 import { pageMetadata } from '@/lib/seo';
+import { toSpeakerCard } from '@/lib/speaker-cards';
 
 // Every valid path is generated at build time; anything else is a 404.
 export const dynamicParams = false;
 
+/** One page per company (Tal's review, 26 Nov 2026): eToro, Fireblocks, Alpaca, Limitless and MME Legal keep their case-study addresses. */
 export function generateStaticParams() {
-  return [...useCases, ...otherUseCases].map((u) => ({ slug: u.slug }));
+  return organizations.map((o) => ({ slug: companySlug(o.id)! }));
 }
+
+function resolve(slug: string): { org: Organization; u?: UseCase } | undefined {
+  const org = organizations.find((o) => companySlug(o.id) === slug);
+  if (!org) return undefined;
+  return { org, u: getUseCase(slug) };
+}
+
+const eventLabel = (id: string) => getEdition(id)?.shortName ?? conferenceLabels[id]?.label ?? id;
+const eventHref = (id: string) =>
+  getEdition(id)?.path ?? (id === 'the-odds-paris-2026' ? '/events/2026/the-odds-paris' : id === 'web2toweb3-abu-dhabi-2025' ? '/events/2025/web2-to-web3-abu-dhabi' : undefined);
 
 export async function generateMetadata({ params }: PageProps<'/partners/[slug]'>): Promise<Metadata> {
   const { slug } = await params;
-  const u = getUseCase(slug);
-  if (!u) return {};
+  const r = resolve(slug);
+  if (!r) return {};
+  const { org, u } = r;
+  const events = [...new Set(editionOrganizations.filter((x) => x.org === org.id && x.relationship !== 'attended').map((x) => eventLabel(x.edition)))];
   return pageMetadata({
-    title: `${u.partner} at ${u.event?.name ?? getEdition(u.edition)?.name}`,
-    description: `${u.positioning}. ${u.summary}`,
-    path: `/partners/${u.slug}`,
+    title: u ? `${org.name}: company page and case study` : `${org.name} at Agentic Finance`,
+    description: u ? `${u.positioning}. ${u.summary}` : `${org.about ? `${org.about} ` : ''}${org.name} at our events: ${events.join(', ')}.`,
+    path: `/partners/${slug}`,
   });
 }
 
-export default async function UseCasePage({ params }: PageProps<'/partners/[slug]'>) {
+/**
+ * A company page: the company first (what it does, its relationship with us), then its events,
+ * the people it put on stage, its case study where there is one, and related companies.
+ */
+export default async function CompanyPage({ params }: PageProps<'/partners/[slug]'>) {
   const { slug } = await params;
-  const u = getUseCase(slug);
-  if (!u) notFound();
-  const edition = getEdition(u.edition);
-  const eventName = u.event?.name ?? edition?.name;
-  const hero = u.photos[0];
-  // The film of the event this use case comes from, when it is on YouTube.
-  const film = videos.find((v) => v.edition === u.edition && v.youtubeId);
-  const featured = u.deliverables.filter((d) => d.photo);
-  const others = useCases.filter((x) => x.slug !== u.slug);
+  const r = resolve(slug);
+  if (!r) notFound();
+  const { org, u } = r;
+  const records = editionOrganizations.filter((x) => x.org === org.id && x.relationship !== 'attended');
+  const relation = relationshipLabel(records.map((x) => x.relationship));
+  const group = networkPages.find((p) => p.audience === org.group);
+  const people = speakers.filter((s) => (org.logo && s.logo === org.logo) || s.organization === org.name).map((s) => toSpeakerCard(s));
+  const related = organizations.filter((o) => o.group === org.group && o.id !== org.id && o.logo).slice(0, 12);
+  const hero = u?.photos[0];
+  const film = u ? videos.find((v) => v.edition === u.edition && v.youtubeId) : undefined;
+  const featured = u ? u.deliverables.filter((d) => d.photo) : [];
+  const edition = u ? getEdition(u.edition) : undefined;
 
   return (
     <>
       <header className="relative isolate overflow-hidden border-b border-line">
-        <div className="absolute inset-0 -z-10">
-          {hero ? <Img src={hero.src} alt="" fill preload sizes="100vw" position={hero.position} className="object-cover opacity-60" /> : null}
+        <div className="absolute inset-0 -z-10 bg-ink-deep">
+          {hero ? <Img src={hero.src} alt="" fill preload sizes="100vw" position={hero.position} className="object-cover opacity-45" /> : null}
           <div className="scrim-hero absolute inset-0" />
         </div>
-        <Container className="flex min-h-[min(84svh,780px)] flex-col justify-end pb-14 pt-[calc(var(--header-h)+40px)]">
-          <Breadcrumbs items={[{ label: 'Partners', href: '/partners' }, { label: 'Case studies', href: '/partners#case-studies' }, { label: u.partner }]} />
-          <div className="mt-10 relative h-10 w-44 sm:h-12 sm:w-52">
-            <Img src={u.logo} alt={u.partner} fill sizes="208px" className="object-contain object-left" />
+        <Container className={`flex flex-col justify-end pb-14 pt-[calc(var(--header-h)+40px)] ${hero ? 'min-h-[min(78svh,720px)]' : 'min-h-[420px]'}`}>
+          <Breadcrumbs items={[{ label: 'Partners', href: '/partners' }, { label: org.name }]} />
+          <div className="mt-10 grid gap-10 lg:grid-cols-[minmax(0,1.3fr)_minmax(0,1fr)] lg:items-end">
+            <div>
+              {org.logo ? (
+                <div className="relative h-12 w-52 sm:h-14 sm:w-60">
+                  <Img src={org.logo} alt={org.name} fill sizes="240px" className={`object-contain object-left ${org.invertLogo ? 'invert' : ''}`} />
+                </div>
+              ) : null}
+              <h1 className={org.logo ? 'sr-only' : 'display text-[length:var(--text-display-md)]'}>{org.name}</h1>
+              <ul className="mt-6 flex flex-wrap gap-2">
+                {org.networkMember ? (
+                  <li className="rounded-full border border-gold bg-gold/10 px-3 py-1 font-mono text-[11px] uppercase tracking-[0.12em] text-gold-bright">Agentic Finance Network Member</li>
+                ) : null}
+                {relation ? <li className="rounded-full border border-paper/25 px-3 py-1 font-mono text-[11px] uppercase tracking-[0.12em] text-paper/85">{relation}</li> : null}
+                {group ? <li className="rounded-full border border-paper/25 px-3 py-1 font-mono text-[11px] uppercase tracking-[0.12em] text-paper/85">{group.card.title}</li> : null}
+              </ul>
+              {org.about ? <p className="lede mt-6 max-w-2xl text-paper/90">{org.about}</p> : null}
+              {u ? <p className="mt-5 max-w-2xl text-paper/80">{u.summary}</p> : null}
+              <div className="mt-8 flex flex-wrap gap-3">
+                {org.url ? (
+                  <ButtonLink href={org.url} variant="outline">
+                    {org.name} website
+                  </ButtonLink>
+                ) : null}
+                <ButtonLink href={primaryActions.partner.href}>{primaryActions.partner.label}</ButtonLink>
+              </div>
+            </div>
+            <aside className="rounded-2xl border border-line bg-ink/70 p-6 backdrop-blur-md">
+              <p className="mono-label">At our events</p>
+              <ul className="mt-3 flex flex-col divide-y divide-line">
+                {records.map((x) => {
+                  const href = eventHref(x.edition);
+                  const label = relationshipLabel([x.relationship]);
+                  return (
+                    <li key={x.edition + x.relationship} className="py-3">
+                      {href ? (
+                        <Link href={href} className="font-semibold hover:text-gold">
+                          {eventLabel(x.edition)}
+                        </Link>
+                      ) : (
+                        <span className="font-semibold">{eventLabel(x.edition)}</span>
+                      )}
+                      <span className="mt-0.5 block text-sm text-muted">{[label, x.note].filter(Boolean).join(' · ')}</span>
+                    </li>
+                  );
+                })}
+              </ul>
+            </aside>
           </div>
-          <p className="eyebrow mt-6">
-            {u.event?.label ?? edition?.shortName} · {u.positioning}
-          </p>
-          <h1 className="display mt-5 max-w-4xl text-[length:var(--text-display-md)]">{u.partner} at {eventName}</h1>
-          <p className="lede mt-6 max-w-2xl text-paper/85">{u.summary}</p>
-          {u.lockup ? (
+          {u?.lockup ? (
             <div className="mt-8 inline-flex w-fit items-center gap-4 rounded-xl border border-gold/40 bg-ink/70 px-5 py-3 backdrop-blur-md">
               <span className="mono-label text-gold">Title lockup</span>
               <span className="relative h-9 w-48">
@@ -75,8 +140,51 @@ export default async function UseCasePage({ params }: PageProps<'/partners/[slug
         </Container>
       </header>
 
-      <Section>
-        <Container>
+      {org.offers?.length || org.audiences?.length || org.lookingFor?.length ? (
+        <Section>
+          <Container>
+            <dl className="grid gap-px overflow-hidden rounded-2xl border border-line bg-line md:grid-cols-3">
+              {[
+                { k: 'Products and solutions', v: org.offers },
+                { k: 'Who they serve', v: org.audiences },
+                { k: 'Who they want to meet', v: org.lookingFor },
+              ]
+                .filter((x) => x.v?.length)
+                .map((x) => (
+                  <div key={x.k} className="bg-ink p-6">
+                    <dt className="mono-label">{x.k}</dt>
+                    <dd className="mt-3 flex flex-col gap-1.5 text-paper/90">
+                      {x.v!.map((i) => (
+                        <span key={i}>{i}</span>
+                      ))}
+                    </dd>
+                  </div>
+                ))}
+            </dl>
+          </Container>
+        </Section>
+      ) : null}
+
+      {!u && people.length ? (
+        <Section bordered={!!(org.offers || org.audiences || org.lookingFor)}>
+          <Container>
+            <SectionHeader title={`On stage for ${org.name}`} size="md" />
+            <ul className="mt-8 grid grid-cols-2 gap-x-4 gap-y-8 sm:grid-cols-3 lg:grid-cols-5">
+              {people.map((s) => (
+                <li key={s.slug}>
+                  <SpeakerCard speaker={s} />
+                </li>
+              ))}
+            </ul>
+          </Container>
+        </Section>
+      ) : null}
+
+      {u ? (
+        <Section>
+          <Container>
+            <SectionHeader eyebrow="Case study" title={`${u.partner} at ${u.event?.name ?? edition?.name}`} lede={u.positioning} size="md" />
+            <div className="mt-12">
           <div className="grid gap-12 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.3fr)]">
             <div>
               {u.people.length ? <h2 className="mono-label mb-5">On stage</h2> : null}
@@ -122,7 +230,7 @@ export default async function UseCasePage({ params }: PageProps<'/partners/[slug
                   const c = categories.find((x) => x.id === id);
                   return c ? (
                     <li key={id}>
-                      <Link href={`/network/companies?category=${id}#categories`} className="inline-flex min-h-10 items-center rounded-full border border-line-strong px-4 text-sm hover:border-gold hover:text-gold">
+                      <Link href="/about/themes" className="inline-flex min-h-10 items-center rounded-full border border-line-strong px-4 text-sm hover:border-gold hover:text-gold">
                         {c.name}
                       </Link>
                     </li>
@@ -159,15 +267,17 @@ export default async function UseCasePage({ params }: PageProps<'/partners/[slug
               ) : null}
             </div>
           </div>
-        </Container>
-      </Section>
+            </div>
+          </Container>
+        </Section>
+      ) : null}
 
-      {u.photos.length ? (
+      {u && u.photos.length ? (
         <Section bordered tone="raised">
           <Container>
             <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
               <h2 className="display-tight text-3xl">In pictures</h2>
-              <TextLink href="/about/gallery">Full gallery</TextLink>
+              <TextLink href="/about/brand#photos">Full gallery</TextLink>
             </div>
             <div className="mt-8">
               <Gallery
@@ -189,36 +299,50 @@ export default async function UseCasePage({ params }: PageProps<'/partners/[slug
         </Section>
       ) : null}
 
-      <Section bordered>
-        <Container>
-          <h2 className="display-tight text-3xl">Other use cases</h2>
-          <ul className="mt-8 grid gap-3 md:grid-cols-3">
-            {others.map((o) => (
-              <li key={o.slug}>
-                <Link href={`/partners/${o.slug}`} className="group flex h-full items-center justify-between gap-4 rounded-2xl border border-line p-5 hover:border-gold/60">
-                  <span>
-                    <span className="block text-lg font-semibold">{o.partner}</span>
-                    <span className="text-sm text-muted">{o.positioning}</span>
-                  </span>
-                  <Icon name="arrow-right" size={18} className="shrink-0 text-gold transition-transform group-hover:translate-x-1" />
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </Container>
-      </Section>
+      {related.length ? (
+        <Section bordered>
+          <Container>
+            <SectionHeader title={`More ${group ? group.card.title.toLowerCase() : 'companies'} at our events`} size="md" action={<ButtonLink href="/partners" variant="outline">All partners</ButtonLink>} />
+            <ul className="mt-8 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-6">
+              {related.map((o) => (
+                <li key={o.id}>
+                  <Link href={companyHref(o.id)!} className="group flex h-full flex-col items-center gap-3 rounded-2xl border border-line p-5 transition-colors hover:border-gold/60">
+                    <span className="relative block h-10 w-full">
+                      <Img src={o.logo!} alt="" fill sizes="160px" className="object-contain opacity-80 group-hover:opacity-100" />
+                    </span>
+                    <span className="text-center text-sm font-semibold group-hover:text-gold">{o.name}</span>
+                  </Link>
+                </li>
+              ))}
+            </ul>
+            {u ? (
+              <div className="mt-10 flex flex-wrap gap-3">
+                {[...useCases, ...otherUseCases]
+                  .filter((x) => x.slug !== u.slug)
+                  .map((x) => (
+                    <Link key={x.slug} href={`/partners/${x.slug}`} className="inline-flex min-h-11 items-center gap-3 rounded-full border border-line-strong px-4 text-sm hover:border-gold hover:text-gold">
+                      <span className="relative h-5 w-16">
+                        <Img src={x.logo} alt="" fill sizes="64px" className="object-contain object-left" />
+                      </span>
+                      {x.partner} case study
+                    </Link>
+                  ))}
+              </div>
+            ) : null}
+          </Container>
+        </Section>
+      ) : null}
 
       <CtaBand
-        eyebrow="Partner with Agentic Finance Abu Dhabi"
-        title="Want this list with your name on it?"
-        body="No more than eight strategic positions in Abu Dhabi. Each one is built around your category, your stage and your introductions."
+        title="Want your company in the room?"
+        body="Stage, curated meetings and visibility at our next editions. Start with a 30-minute call."
         actions={
           <>
-            <ButtonLink href="/network/companies#book-a-call" size="lg">
-              {booking.partnership.label}
+            <ButtonLink href={primaryActions.partner.href} size="lg">
+              Book a partnership call
             </ButtonLink>
-            <ButtonLink href="/network/companies#categories" variant="outline" size="lg">
-              Find your category
+            <ButtonLink href={primaryActions.network.href} variant="outline" size="lg">
+              {primaryActions.network.label}
             </ButtonLink>
           </>
         }

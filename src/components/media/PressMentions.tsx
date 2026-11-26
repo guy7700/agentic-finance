@@ -20,7 +20,7 @@ const rank = (outlet: string) => {
   return i === -1 ? OUTLET_ORDER.length : i;
 };
 
-type Article = { outlet: string; url: string; date: string; headline: string };
+type Article = { outlet: string; url: string; date: string; headline: string; summary?: string };
 
 /**
  * The articles for one entry. A release shows the sites that republished it, never
@@ -30,9 +30,9 @@ function articlesOf(m: PressMention): Article[] {
   if (m.kind === 'release' && m.pickups?.length) {
     return [...m.pickups]
       .sort((a, b) => rank(a.outlet) - rank(b.outlet))
-      .map((p) => ({ outlet: p.outlet, url: p.url, date: p.date, headline: p.headline ?? m.headline }));
+      .map((p) => ({ outlet: p.outlet, url: p.url, date: p.date, headline: p.headline ?? m.headline, summary: m.summary }));
   }
-  return [{ outlet: m.outlet, url: m.url, date: m.date, headline: m.headline }];
+  return [{ outlet: m.outlet, url: m.url, date: m.date, headline: m.headline, summary: m.summary }];
 }
 
 const eventLabel = (m: PressMention) => galleryCollections.find((c) => c.id === m.edition)?.label;
@@ -49,7 +49,8 @@ function ArticleLink({ a, shared }: { a: Article; shared: string }) {
     >
       <span className="text-[15px] font-semibold leading-tight text-paper sm:text-base">{a.outlet}</span>
       {ownHeadline ? <span className="mt-1.5 line-clamp-2 text-[13px] leading-snug text-paper/75">{a.headline}</span> : null}
-      <span className="mt-auto flex items-center justify-between gap-2 pt-2 font-mono text-[10.5px] uppercase tracking-[0.08em] text-gold-bright">
+      {a.summary ? <span className="mt-2 text-[13px] font-light leading-snug text-paper/70">{a.summary}</span> : null}
+      <span className="mt-auto flex items-center justify-between gap-2 pt-3 font-mono text-[10.5px] uppercase tracking-[0.08em] text-gold-bright">
         <time dateTime={a.date}>{formatDate(a.date)}</time>
         <Icon
           name="arrow-up-right"
@@ -136,8 +137,21 @@ const PLACEHOLDERS: PressMention['kind'][] = ['mention', 'mention', 'recap'];
  * from the event and a highlighted link to every outlet that published it, best
  * known first. `limit` caps the number of stories, not articles.
  */
-export function PressMentions({ limit, headingLevel = 'h3', className }: { limit?: number; headingLevel?: 'h2' | 'h3'; className?: string }) {
-  const items = limit ? pressMentions.slice(0, limit) : pressMentions;
+export function PressMentions({
+  limit,
+  headingLevel = 'h3',
+  className,
+  editions,
+}: {
+  limit?: number;
+  headingLevel?: 'h2' | 'h3';
+  className?: string;
+  /** Only the stories about these events. */
+  editions?: string[];
+}) {
+  const scoped = editions ? pressMentions.filter((m) => m.edition && editions.includes(m.edition)) : pressMentions;
+  const items = limit ? scoped.slice(0, limit) : scoped;
+  if (!items.length && editions) return null;
   if (!items.length) {
     return (
       <ul className={cn('grid gap-4 md:grid-cols-3', className)}>

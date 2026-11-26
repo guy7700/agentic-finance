@@ -323,7 +323,7 @@ export const formats: Format[] = [
     name: 'Networking and deal-making',
     summary: 'Curated guests, new partnerships and deals.',
     detail:
-      'Every guest is selected, so every conversation on the floor is a relevant one. In Abu Dhabi, the VIP Gala extends this into a seated evening for approximately 200 invited leaders.',
+      'Every guest is selected, so every conversation on the floor is a relevant one. The Founders and Funders Dinner carries the conversations into the evening.',
     image: {
       src: '/images/singapore-2026/networking-floor.webp',
       alt: 'Delegates in conversation on the networking floor in Singapore',

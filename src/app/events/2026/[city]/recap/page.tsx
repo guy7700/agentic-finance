@@ -15,6 +15,7 @@ import { gallery, galleryCollections, videos } from '@/data/media';
 import { useCases } from '@/data/partners';
 import { getSession, getSpeaker, stageLabels } from '@/lib/content';
 import { speakerThumb } from '@/lib/paths';
+import { eventDate, nextEdition2027 } from '@/data/upcoming-2027';
 import { pageMetadata } from '@/lib/seo';
 
 export const metadata: Metadata = pageMetadata({
@@ -150,7 +151,7 @@ export default function SingaporeRecapPage() {
             eyebrow="Partner activations"
             title="Seen, introduced, remembered."
             lede="Title positioning, a CEO keynote, panel seats in the categories that mattered and an F1 simulator on the floor."
-            action={<ButtonLink href="/partners#case-studies" variant="outline">All use cases</ButtonLink>}
+            action={<ButtonLink href="/partners#achievements" variant="outline">All use cases</ButtonLink>}
           />
           <ul className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
             {useCases.map((u) => (
@@ -190,9 +191,9 @@ export default function SingaporeRecapPage() {
       </Section>
 
       <CtaBand
-        eyebrow="Next · Agentic Finance Abu Dhabi · December 2026"
-        title="See you in Abu Dhabi."
-        body="500 hand-selected guests, a separate VIP Gala and no more than eight strategic partners."
+        eyebrow={`Next · ${nextEdition2027().name} · ${eventDate(nextEdition2027()).medium}`}
+        title={`See you in ${nextEdition2027().city}.`}
+        body={`${nextEdition2027().attendees ? `Up to ${nextEdition2027().attendees} curated attendees, ` : ''}during ${nextEdition2027().context}. Invitation only.`}
       />
     </>
   );

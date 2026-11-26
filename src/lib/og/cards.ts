@@ -1,8 +1,10 @@
-import { editions, getCurrentEdition, getEdition, statusLabel } from '@/data/editions';
-import { otherUseCases, useCases, wallFor } from '@/data/partners';
-import { nextEvent } from '@/data/events';
+import { editions, getEdition, statusLabel } from '@/data/editions';
+import { getUseCase, organizations, wallFor } from '@/data/partners';
 import { networkPages } from '@/data/network';
-import { contextDates, upcoming2027 } from '@/data/upcoming-2027';
+import { pastArchives } from '@/data/past-archives';
+import { eventDate, nextEdition2027, upcoming2027 } from '@/data/upcoming-2027';
+import { trackRecord } from '@/data/about';
+import { companySlug } from '@/lib/companies';
 import { profiledSpeakers, speakerAppearances } from '@/lib/content';
 import { blogPageCount, formatPostDate, getPosts } from '@/lib/daily';
 
@@ -39,12 +41,10 @@ const SG = '/images/singapore-2026';
 const MNM = '/images/more-and-more';
 
 function staticCards(): OgCard[] {
-  const next = getCurrentEdition();
-  // The home page's next event (src/data/events.ts), which is no longer the current edition.
-  const home = getEdition(nextEvent.id);
+  const nx = nextEdition2027();
+  const nd = eventDate(nx);
   const singapore = getEdition('singapore-2026');
   const sgMetrics = (singapore?.metrics ?? []).map((m) => `${m.value} ${m.label.toLowerCase()}`);
-  const planned = editions.filter((e) => e.status === 'planned');
   const questionnaire: Omit<OgCard, 'path'> = {
     eyebrow: 'More & More · 2027',
     title: 'Where will you be in',
@@ -62,19 +62,19 @@ function staticCards(): OgCard[] {
   return [
     {
       path: '/',
-      eyebrow: `Next · ${home?.city ?? next.city} · ${home?.dateLabel ?? next.dateLabel}`,
-      title: 'AI Agents Are Rewriting Finance.',
-      accent: 'We’re Bringing the Industry Together.',
-      note: singapore ? `Singapore 2026 · ${sgMetrics[0]}` : undefined,
+      eyebrow: `Next · ${nx.city} · ${nd.medium}`,
+      title: 'Agentic Finance,',
+      accent: 'where the leaders of AI and finance meet.',
+      note: nx.attendees ? `Up to ${nx.attendees} curated attendees` : undefined,
       image: `${SG}/summit-poster.jpg`,
     },
     { path: '/events/2027/meetings', ...questionnaire },
     { path: '/events/2027/meetings/thanks', ...questionnaire },
     {
       path: '/apply',
-      eyebrow: `${next.name} · ${next.dateLabel}`,
+      eyebrow: `${nx.name} · ${nd.medium}`,
       title: 'Apply to attend.',
-      subtitle: `${next.guestCount} hand-selected guests. No tickets, no open registration.`,
+      subtitle: `${nx.attendees ? `Up to ${nx.attendees} curated attendees. ` : ''}No tickets, no open registration.`,
       note: 'Invitation only',
       image: `${SG}/curated-introductions.webp`,
       position: '50% 40%',
@@ -84,54 +84,64 @@ function staticCards(): OgCard[] {
     {
       path: '/network',
       eyebrow: 'Agentic Finance Network',
-      title: 'Startups, VCs, companies,',
-      accent: 'banks and ecosystem builders.',
-      subtitle: 'Meet face to face at summits and dinners, online every week, and read what matters every day.',
+      title: 'Join the Network.',
+      accent: 'Free to join.',
+      subtitle: 'Startups, VCs, companies, institutions and ecosystem organisations, connected at every event.',
       image: `${SG}/networking-floor.webp`,
     },
     ...networkPages.map((p) => ({
       path: `/network/${p.slug}`,
       eyebrow: `Agentic Finance Network · ${p.card.title}`,
       title: p.title,
-      subtitle: p.card.membership,
+      subtitle: 'Free to join',
       image: `${SG}/networking-floor.webp`,
     })),
 
-    { path: '/af100', eyebrow: 'Index', title: 'AF100.', subtitle: 'The list, the industry map and quarterly reports.' },
+    { path: '/af100', eyebrow: 'Index', title: 'Research on', accent: 'agentic finance.', subtitle: 'Agentic Finance 100 · Industry Map · Quarterly Reports' },
+    { path: '/af100/list', eyebrow: 'Index', title: 'Agentic Finance 100.', subtitle: 'The top 100 companies in agentic finance, ranked by financial institutions.' },
+    { path: '/af100/map', eyebrow: 'Index', title: 'Industry Map.', subtitle: 'The agentic finance landscape, across twelve areas.' },
+    { path: '/af100/reports', eyebrow: 'Index', title: 'Quarterly Reports.', subtitle: 'The state of agentic finance, every quarter.' },
     { path: '/privacy', eyebrow: 'Legal', title: 'Privacy.' },
-    { path: '/terms', eyebrow: 'Legal', title: 'Terms.' },
+    { path: '/terms', eyebrow: 'Legal', title: 'Terms & Conditions.' },
+    {
+      path: '/partners/book-a-call',
+      eyebrow: 'Partner with us',
+      title: 'Meet the people who decide',
+      accent: 'the future of finance.',
+      subtitle: trackRecord.map((m) => `${m.value} ${m.label.toLowerCase()}`).join(' · '),
+      image: `${SG}/etoro-networking.webp`,
+    },
 
     // Events
     {
       path: '/events',
       eyebrow: 'Events',
-      title: 'The series.',
-      subtitle: [next.shortName, singapore?.shortName, `${planned.length} cities in 2027`].filter(Boolean).join(' · '),
-      image: next.image.src,
+      title: 'Our Events.',
+      subtitle: `Next: ${nx.name}, ${nd.medium} · 2027 Global Exposure`,
+      image: nx.image.src,
     },
     {
       path: '/events/2026',
       eyebrow: 'Events · 2026',
-      title: 'Agentic Finance',
-      accent: '2026',
-      subtitle: editions.filter((e) => e.year === 2026).map((e) => e.shortName).join(' · '),
-      image: next.image.src,
+      title: 'Where we were in',
+      accent: '2026.',
+      subtitle: 'The Odds · Paris, April · Agentic Finance · Singapore, October',
+      image: singapore?.image.src,
     },
     {
       path: '/events/2027',
-      eyebrow: 'The 2027 international series',
-      title: 'Agentic Finance',
-      accent: '2027',
-      subtitle: planned.map((e) => e.city).join(' · '),
-      note: 'Dates and venues to follow',
+      eyebrow: '2027 Global Exposure',
+      title: 'Where are we heading in',
+      accent: '2027?',
+      subtitle: upcoming2027.map((e) => e.city).join(' · '),
       image: '/images/hong-kong/hk-sunset-harbour.webp',
     },
 
     // Speakers
     {
       path: '/speakers',
-      eyebrow: 'Speakers · Every edition',
-      title: 'Everyone who has held the floor.',
+      eyebrow: 'Speakers',
+      title: 'Speakers at our events.',
       subtitle: 'Standard Chartered, eToro, Pantera Capital, Aave Labs, Chainlink Labs, KPMG, Fireblocks and more.',
       image: `${SG}/opening-keynote.webp`,
     },
@@ -148,8 +158,9 @@ function staticCards(): OgCard[] {
     {
       path: '/partners',
       eyebrow: 'Partners',
-      title: 'Every company we’ve worked with.',
-      subtitle: 'Partners, Network members and the companies at our events.',
+      title: 'The companies',
+      accent: 'at our conferences.',
+      subtitle: 'And what they achieved, from acquisitions to title partnerships.',
       image: `${SG}/etoro-networking.webp`,
     },
 
@@ -164,26 +175,37 @@ function staticCards(): OgCard[] {
       position: singapore?.image.position,
     },
     {
-      path: '/about/video',
-      eyebrow: 'About · Video',
-      title: 'Video.',
-      subtitle: 'Films from our editions: recaps, highlights and aftermovies.',
+      path: '/about/brand',
+      eyebrow: 'About · Brand',
+      title: 'Brand.',
+      subtitle: 'Videos, photos and the brand kit.',
       image: `${SG}/recap-poster.jpg`,
-    },
-    {
-      path: '/about/gallery',
-      eyebrow: 'About · Photos by event',
-      title: 'Gallery.',
-      subtitle: 'Agentic Finance Singapore 2026, and More & More events in Paris and Abu Dhabi.',
-      image: `${SG}/etoro-team.webp`,
     },
     {
       path: '/about/press',
       eyebrow: 'About · Press',
-      title: 'Press and brand kit.',
-      subtitle: 'Coverage, official logo files, key facts and media contacts.',
+      title: 'Agentic Finance',
+      accent: 'in the press.',
+      subtitle: 'Coverage of Singapore, Paris and Abu Dhabi.',
       image: `${SG}/interview-capture.webp`,
     },
+    {
+      path: '/about/more-and-more',
+      eyebrow: 'About us',
+      title: 'More & More.',
+      subtitle: trackRecord.map((m) => `${m.value} ${m.label.toLowerCase()}`).join(' · '),
+      image: `${MNM}/about-mnm.jpg`,
+    },
+    { path: '/about/program', eyebrow: 'About · Program', title: 'What happens', accent: 'at our events.', image: `${SG}/networking-floor.webp` },
+    { path: '/about/themes', eyebrow: 'About · Themes', title: 'The questions', accent: 'shaping finance.', image: `${SG}/agentic-trading-panel.webp` },
+    ...pastArchives.map((a) => ({
+      path: a.path,
+      eyebrow: `Past edition · ${a.city} · ${a.date}`,
+      title: a.name,
+      subtitle: a.facts.map((f) => `${f.value} ${f.label.toLowerCase()}`).join(' · '),
+      image: a.image.src,
+      brand: a.id.startsWith('the-odds') ? ('the-odds' as const) : ('agentic-finance' as const),
+    })),
 
     // Blog
     { path: '/live/news', ...blog },
@@ -205,7 +227,7 @@ function staticCards(): OgCard[] {
       path: '/about',
       eyebrow: 'About',
       title: 'Who stands behind the room.',
-      subtitle: 'Who we are, the topics, formats, who gets in, the team and common questions.',
+      subtitle: 'More & More, the event series and our track record.',
       image: `${MNM}/about-mnm.jpg`,
     },
     {
@@ -226,7 +248,8 @@ function staticCards(): OgCard[] {
 
 function editionCards(): OgCard[] {
   // A planned 2027 city has no page of its own any more: its address is its /events/2027 page, which has its own card.
-  return editions.filter((e) => e.status !== 'planned').flatMap((e) => {
+  // Past editions only: 2027 editions have their own cards below, and cancelled ones have no page.
+  return editions.filter((e) => e.status === 'completed').flatMap((e) => {
     const venue = e.venue?.name;
     const where = !venue ? e.city : venue.includes(e.city) ? venue : `${venue}, ${e.city}`;
     const main: OgCard = {
@@ -295,15 +318,14 @@ function editionCards(): OgCard[] {
 
 function upcoming2027Cards(): OgCard[] {
   return upcoming2027.map((p) => {
-    const dates = contextDates(p);
-    const odds = p.brand === 'the-odds';
+    const d = eventDate(p);
     return {
       path: p.path,
-      eyebrow: `2027 · ${p.country}`,
-      title: odds ? 'The Odds' : 'Agentic Finance',
-      accent: odds ? `at ${p.context}, ${p.city}` : p.city,
-      subtitle: [`During ${p.context}`, dates].filter(Boolean).join(' · '),
-      note: 'Exact day and venue to follow',
+      eyebrow: `${d.medium}${d.provisional ? ' · Provisional' : ''} · During ${p.context}`,
+      title: 'Agentic Finance',
+      accent: p.city,
+      subtitle: p.subtitle,
+      note: p.attendees ? `Up to ${p.attendees} curated attendees` : 'Invitation only',
       image: p.image.src,
       position: p.image.position,
       brand: p.brand,
@@ -328,17 +350,19 @@ function speakerCards(): OgCard[] {
 }
 
 function partnerCaseCards(): OgCard[] {
-  return [...useCases, ...otherUseCases].map((u) => {
-    const e = getEdition(u.edition);
+  return organizations.map((o) => {
+    const slug = companySlug(o.id)!;
+    const u = getUseCase(slug);
+    const e = u ? getEdition(u.edition) : undefined;
     return {
-      path: `/partners/${u.slug}`,
-      eyebrow: `Partner use case · ${u.event?.label ?? e?.shortName ?? ''}`,
-      title: `${u.partner} at`,
-      accent: u.event?.name ?? e?.name,
-      subtitle: u.positioning,
-      image: u.photos[0]?.src,
-      position: u.photos[0]?.position,
-      brand: u.event?.name.startsWith('The Odds') ? 'the-odds' : 'agentic-finance',
+      path: `/partners/${slug}`,
+      eyebrow: u ? `Company page · ${u.event?.label ?? e?.shortName ?? ''}` : 'Company page',
+      title: o.name,
+      accent: u ? 'at our events.' : undefined,
+      subtitle: u?.positioning ?? o.about,
+      image: u?.photos[0]?.src,
+      position: u?.photos[0]?.position,
+      brand: u?.event?.name.startsWith('The Odds') ? 'the-odds' : 'agentic-finance',
     };
   });
 }

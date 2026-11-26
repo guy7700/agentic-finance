@@ -291,6 +291,38 @@ html[data-scroll-lock='true'] {
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .af-marquee-row {
+    animation: none !important;
+  }
+}
+
+/* Network graphic: links glow in turn. */
+@keyframes af-net-glow {
+  0%,
+  100% {
+    stroke-opacity: 0.18;
+  }
+  50% {
+    stroke-opacity: 0.75;
+  }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .af-net-link {
+    animation: af-net-glow 7.2s ease-in-out infinite;
+  }
+}
+
+/* The second logo row of a two-row marquee runs the other way. */
+@keyframes af-marquee-reverse {
+  from {
+    transform: translateX(-50%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
   *,
   *::before,
   *::after {

@@ -1,0 +1,14 @@
+{
+  "title": "PayPal's agent card terms leave disputes to card chargebacks",
+  "slug": "paypal-agentic-virtual-card-terms",
+  "date": "2026-11-24",
+  "summary": "PayPal's merchant terms for purchases made by AI agents took effect on 23 November. An agent pays with a single-use PayPal virtual card at the merchant's card checkout, refunds go back to that card, and the payments carry no PayPal Seller Protection, so disputes run as card chargebacks.",
+  "whyItMatters": "Liability for agent purchases is hardening on the merchant side, alongside the banks' own at-your-own-risk terms.",
+  "sourceName": "PayPal",
+  "sourceUrl": "https://www.paypalobjects.com/marketing/ua/OA/agentic-commerce-merchant-vc-tnc/en-US-112326.pdf",
+  "tags": [
+    "agentic-commerce",
+    "payments"
+  ],
+  "rank": 1
+}

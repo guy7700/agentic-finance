@@ -20,6 +20,8 @@ export type DailyPost = {
   sourceUrl: string;
   tags: string[];
   draft: boolean;
+  /** Order within a day: 1 is the day's lead story (the Wire's top pick). Defaults to after ranked posts. */
+  rank?: number;
   /** Only images we own or license. */
   image?: { src: string; alt: string; credit?: string };
 };
@@ -84,6 +86,7 @@ function parse(file: string): DailyPost {
     sourceUrl,
     tags: tags as string[],
     draft: entry.draft === true,
+    rank: typeof entry.rank === 'number' && entry.rank > 0 ? entry.rank : undefined,
     image,
   };
 }
@@ -106,7 +109,7 @@ export function getPosts(): DailyPost[] {
   const dev = process.env.NODE_ENV !== 'production';
   cache = all
     .filter((p) => dev || (!p.draft && postTime(p) <= Date.now()))
-    .sort((a, b) => b.date.localeCompare(a.date) || a.title.localeCompare(b.title));
+    .sort((a, b) => b.date.localeCompare(a.date) || (a.rank ?? 99) - (b.rank ?? 99) || a.title.localeCompare(b.title));
   return cache;
 }
 

@@ -18,9 +18,7 @@ export type NavFeature = {
 };
 
 type Actions = {
-  invitation: { label: string; short: string; href: string };
   partner: { label: string; href: string };
-  questionnaire: { label: string; href: string };
 };
 
 type HeaderClientProps = {
@@ -253,32 +251,17 @@ export function HeaderClient({ navigation, actions, features }: HeaderClientProp
                   </li>
                 );
               })}
-              <li className="flex h-full items-center">
-                <Link
-                  href={actions.questionnaire.href}
-                  aria-current={pathname.startsWith(actions.questionnaire.href) ? 'page' : undefined}
-                  onClick={() => setOpenId(null)}
-                  aria-label={actions.questionnaire.label}
-                  className="relative flex h-11 items-center gap-1.5 whitespace-nowrap rounded-full px-3 text-[11px] font-semibold uppercase tracking-[0.18em] text-gold-bright transition-colors hover:text-gold"
-                >
-                  <span aria-hidden className="size-1.5 rounded-full bg-gold shadow-[0_0_10px_rgb(209_182_121/0.55)]" />
-                  {/* Short label where the bar is tight; the full one from 1440px. */}
-                  <span aria-hidden className="min-[1440px]:hidden">2027</span>
-                  <span aria-hidden className="hidden min-[1440px]:inline">{actions.questionnaire.label}</span>
-                  {pathname.startsWith(actions.questionnaire.href) ? (
-                    <span aria-hidden className="absolute inset-x-3 -bottom-0.5 h-px bg-gold" />
-                  ) : null}
-                </Link>
-              </li>
             </ul>
           </nav>
 
           <div className="flex items-center gap-2.5">
-            <Link href={actions.partner.href} className="hidden min-h-11 items-center whitespace-nowrap rounded-full border border-paper/20 px-4 text-[11px] font-semibold uppercase tracking-[0.18em] text-paper transition-colors duration-500 hover:border-gold-bright hover:bg-gold-bright hover:text-ink lg:inline-flex xl:max-[1599px]:hidden">
+            {/* The one global call to action (Tal's review, 26 Nov 2026). */}
+            <Link
+              href={actions.partner.href}
+              aria-current={pathname.startsWith(actions.partner.href) ? 'page' : undefined}
+              className="glow-gold hidden min-h-11 items-center whitespace-nowrap rounded-full bg-gold px-5 text-[11px] font-semibold uppercase tracking-[0.18em] text-ink transition-colors duration-500 hover:bg-gold-bright sm:inline-flex"
+            >
               {actions.partner.label}
-            </Link>
-            <Link href={actions.invitation.href} className="glow-gold hidden min-h-11 items-center whitespace-nowrap rounded-full bg-gold px-4 text-[11px] font-semibold uppercase tracking-[0.18em] text-ink transition-colors duration-500 hover:bg-gold-bright sm:inline-flex">
-              {actions.invitation.short}
             </Link>
             <button
               ref={menuButtonRef}
@@ -433,29 +416,13 @@ function MobileDrawer({ id, navigation, actions, pathname, onClose }: DrawerProp
               </div>
             );
           })}
-          <Link
-            href={actions.questionnaire.href}
-            onClick={onClose}
-            aria-current={pathname.startsWith(actions.questionnaire.href) ? 'page' : undefined}
-            className="flex min-h-14 w-full items-center justify-between border-b border-line px-1 text-sm font-semibold uppercase tracking-[0.28em] text-gold-bright"
-          >
-            {actions.questionnaire.label}
-            <Icon name="arrow-right" size={16} className="text-gold" />
-          </Link>
         </nav>
 
         <div className="flex flex-col gap-2.5 border-t border-line px-5 pb-[max(1.75rem,env(safe-area-inset-bottom))] pt-4">
           <Link
-            href={actions.invitation.href}
-            onClick={onClose}
-            className="glow-gold flex min-h-[52px] items-center justify-center rounded-full bg-gold text-xs font-semibold uppercase tracking-[0.18em] text-ink transition-colors hover:bg-gold-bright"
-          >
-            {actions.invitation.short}
-          </Link>
-          <Link
             href={actions.partner.href}
             onClick={onClose}
-            className="flex min-h-[52px] items-center justify-center rounded-full border border-paper/20 text-xs font-semibold uppercase tracking-[0.18em] text-paper transition-colors hover:border-gold hover:bg-gold hover:text-ink"
+            className="glow-gold flex min-h-[52px] items-center justify-center rounded-full bg-gold text-xs font-semibold uppercase tracking-[0.18em] text-ink transition-colors hover:bg-gold-bright"
           >
             {actions.partner.label}
           </Link>

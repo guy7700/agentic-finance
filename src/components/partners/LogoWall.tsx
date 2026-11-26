@@ -1,9 +1,11 @@
+import Link from 'next/link';
 import type { Organization } from '@/data/types';
 import { cn } from '@/lib/cn';
 import { Img } from '../ui/Img';
 import { SmartLink } from '../ui/SmartLink';
 
-export type LogoItem = Organization & { note?: string };
+/** `href`: the company's own page on this site, when it has one (Tal: a logo leads to the company page, not out). */
+export type LogoItem = Organization & { note?: string; href?: string };
 
 type LogoWallProps = {
   items: LogoItem[];
@@ -53,7 +55,11 @@ export function LogoWall({ items, columns = 'dense', labelled, linkOut, classNam
         );
         return (
           <li key={o.id}>
-            {linkOut && o.url ? (
+            {o.href ? (
+              <Link href={o.href} className={cls} aria-label={labelled ? undefined : `${o.name}, company page`}>
+                {content}
+              </Link>
+            ) : linkOut && o.url ? (
               <SmartLink href={o.url} className={cls} aria-label={labelled ? undefined : `${o.name} website`}>
                 {content}
               </SmartLink>
@@ -79,6 +85,56 @@ export function LogoMarquee({ items }: { items: LogoItem[] }) {
           </li>
         ))}
       </ul>
+    </div>
+  );
+}
+
+/**
+ * Two rows of logos moving in opposite directions (Tal's review, 26 Nov 2026), for the strip
+ * under the home hero, the event pages and the partnership page. Fixed-size slots, so nothing
+ * shifts while logos load; it pauses on hover and keeps still for visitors who ask for less
+ * motion, where each row scrolls by hand instead. A logo with an `href` opens its company page.
+ */
+export function LogoMarqueeRows({ items, speed = 70, className }: { items: LogoItem[]; speed?: number; className?: string }) {
+  const withLogo = items.filter((o) => o.logo);
+  const half = Math.ceil(withLogo.length / 2);
+  const rows = [withLogo.slice(0, half), withLogo.slice(half)].filter((r) => r.length);
+  return (
+    <div className={cn('flex flex-col gap-5 sm:gap-7', className)}>
+      {rows.map((items, r) => {
+        const row = [...items, ...items];
+        return (
+          <div
+            key={r}
+            className="group relative overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_7%,black_93%,transparent)] motion-reduce:overflow-x-auto"
+          >
+            <ul
+              className="af-marquee-row flex w-max items-center gap-10 py-1 group-hover:[animation-play-state:paused] sm:gap-14"
+              style={{ animation: `${r === 0 ? 'af-marquee' : 'af-marquee-reverse'} ${speed + r * 8}s linear infinite` }}
+            >
+              {row.map((o, i) => {
+                const hidden = i >= items.length;
+                const logo = (
+                  <span className="relative block h-9 w-28 sm:h-10 sm:w-32">
+                    <Img src={o.logo!} alt={hidden ? '' : o.name} fill sizes="128px" className={cn('object-contain opacity-75 transition-opacity duration-300 hover:opacity-100', o.invertLogo && 'invert')} />
+                  </span>
+                );
+                return (
+                  <li key={`${o.id}-${i}`} aria-hidden={hidden || undefined} className="shrink-0">
+                    {o.href ? (
+                      <Link href={o.href} tabIndex={hidden ? -1 : undefined} aria-label={hidden ? undefined : `${o.name}, company page`}>
+                        {logo}
+                      </Link>
+                    ) : (
+                      logo
+                    )}
+                  </li>
+                );
+              })}
+            </ul>
+          </div>
+        );
+      })}
     </div>
   );
 }

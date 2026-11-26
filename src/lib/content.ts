@@ -25,7 +25,8 @@ export function speakersForEdition(edition: string): Speaker[] {
 
 /** Speakers with a published profile page. */
 export function profiledSpeakers(): Speaker[] {
-  return speakers.filter((s) => s.hasProfile !== false && Boolean(s.bio));
+  // Every speaker has a profile page (Tal, 26 Nov 2026); the biography shows where one is published.
+  return speakers;
 }
 
 export function sessionsForSpeaker(slug: string): Session[] {

@@ -13,6 +13,7 @@ import { SmartLink } from '@/components/ui/SmartLink';
 import { editionPath, getEdition } from '@/data/editions';
 import { getSpeaker, profiledSpeakers, sessionsForSpeaker, speakerAppearances, stageLabels } from '@/lib/content';
 import { absoluteUrl } from '@/lib/paths';
+import { eventDate, nextEdition2027 } from '@/data/upcoming-2027';
 import { pageMetadata } from '@/lib/seo';
 import { toSpeakerCard } from '@/lib/speaker-cards';
 
@@ -26,10 +27,11 @@ export function generateStaticParams() {
 export async function generateMetadata({ params }: PageProps<'/speakers/[slug]'>): Promise<Metadata> {
   const { slug } = await params;
   const s = getSpeaker(slug);
-  if (!s?.bio) return {};
+  if (!s) return {};
+  const where = speakerAppearances(s).map((a) => a.label).join(', ');
   return pageMetadata({
     title: `${s.name}, ${s.organization}`,
-    description: `${s.name}, ${s.title} at ${s.organization}. ${s.bio.split('. ')[0]}.`,
+    description: `${s.name}, ${s.title} at ${s.organization}.${s.bio ? ` ${s.bio.split('. ')[0]}.` : where ? ` Speaker at ${where}.` : ''}`,
     path: `/speakers/${s.slug}`,
     type: 'profile',
   });
@@ -45,7 +47,7 @@ const linkMeta: Record<string, { label: string; icon: IconName }> = {
 export default async function SpeakerPage({ params }: PageProps<'/speakers/[slug]'>) {
   const { slug } = await params;
   const s = getSpeaker(slug);
-  if (!s?.bio) notFound();
+  if (!s) notFound();
 
   const appearances = speakerAppearances(s);
   const sessions = sessionsForSpeaker(s.slug);
@@ -108,12 +110,14 @@ export default async function SpeakerPage({ params }: PageProps<'/speakers/[slug
                 </ul>
               ) : null}
 
-              <div className="mt-10 max-w-2xl border-t border-line pt-8">
-                <h2 className="mono-label">About {firstName}</h2>
-                <div className="prose-af mt-4 text-[17px]">
-                  <p>{s.bio}</p>
+              {s.bio ? (
+                <div className="mt-10 max-w-2xl border-t border-line pt-8">
+                  <h2 className="mono-label">About {firstName}</h2>
+                  <div className="prose-af mt-4 text-[17px]">
+                    <p>{s.bio}</p>
+                  </div>
                 </div>
-              </div>
+              ) : null}
               {s.expertise.length ? (
                 <div className="mt-8">
                   <h2 className="mono-label">Areas of expertise</h2>
@@ -196,7 +200,7 @@ export default async function SpeakerPage({ params }: PageProps<'/speakers/[slug
 
       <CtaBand
         title={isPastOnly ? 'Sit in the next room.' : undefined}
-        body={isPastOnly ? `${s.name} spoke at a past edition. The next one is Abu Dhabi, December 2026.` : undefined}
+        body={isPastOnly ? `${s.name} spoke at a past edition. The next one is ${nextEdition2027().name}, ${eventDate(nextEdition2027()).medium}.` : undefined}
         actions={
           <>
             <ButtonLink href="/apply" size="lg">
@@ -217,7 +221,7 @@ export default async function SpeakerPage({ params }: PageProps<'/speakers/[slug
           jobTitle: s.title,
           worksFor: { '@type': 'Organization', name: s.organization },
           image: absoluteUrl(s.photo),
-          description: s.bio,
+          ...(s.bio ? { description: s.bio } : {}),
           sameAs: Object.values(s.links).filter(Boolean),
           knowsAbout: s.expertise,
         }}

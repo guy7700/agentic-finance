@@ -2,7 +2,9 @@ import type { MetadataRoute } from 'next';
 import { navigation } from '@/config/site';
 import { editions } from '@/data/editions';
 import { upcoming2027 } from '@/data/upcoming-2027';
-import { otherUseCases, useCases } from '@/data/partners';
+import { organizations } from '@/data/partners';
+import { pastArchives } from '@/data/past-archives';
+import { companySlug } from '@/lib/companies';
 import { profiledSpeakers } from '@/lib/content';
 import { blogPageCount, getPosts } from '@/lib/daily';
 import { absoluteUrl } from '@/lib/paths';
@@ -16,12 +18,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
   for (const href of navigation.flatMap((g) => [g.href, ...g.items.map((i) => i.href)])) {
     if (!href.includes('#')) staticPaths.add(href);
   }
-  for (const p of ['/about/press', '/about/gallery', '/about/video', '/live']) staticPaths.add(p);
+  for (const p of ['/about/press', '/about/brand', '/about/more-and-more', '/about/program', '/about/themes', '/live']) staticPaths.add(p);
 
-  // Planned 2027 cities point at their /events/2027 page, listed below once published.
-  const editionPaths = editions.filter((e) => e.status !== 'planned').flatMap((e) => [
+  // Past editions with their sub-pages. 2027 editions are listed below from their own schedule;
+  // cancelled ones (Abu Dhabi 2026) are not pages any more.
+  const editionPaths = editions.filter((e) => e.status === 'completed').flatMap((e) => [
     e.path,
-    ...(e.status !== 'planned' ? [`${e.path}/speakers`, `${e.path}/partners`] : []),
+    `${e.path}/speakers`,
+    `${e.path}/partners`,
     ...(e.hasRecapPage ? [`${e.path}/recap`] : []),
     ...(e.hasAgenda ? [`${e.path}/agenda`] : []),
     ...(e.hasGala ? [`${e.path}/gala`] : []),
@@ -32,14 +36,15 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...editionPaths,
     ...upcoming2027.filter((p) => p.published).map((p) => p.path),
     ...profiledSpeakers().map((s) => `/speakers/${s.slug}`),
-    ...[...useCases, ...otherUseCases].map((u) => `/partners/${u.slug}`),
+    ...organizations.map((o) => `/partners/${companySlug(o.id)}`),
+    ...pastArchives.map((a) => a.path),
     ...Array.from({ length: blogPageCount() - 1 }, (_, i) => `/live/news/page/${i + 2}`),
     ...getPosts().map((p) => `/live/news/${p.slug}`),
   ];
 
   return Array.from(new Set(paths)).map((p) => ({
     url: absoluteUrl(p),
-    changeFrequency: p.startsWith('/events/2026/abu-dhabi') || p === '/' ? 'weekly' : 'monthly',
-    priority: p === '/' ? 1 : p.startsWith('/events/2026/abu-dhabi') || p === '/partners' || p === '/apply' ? 0.9 : 0.6,
+    changeFrequency: p.startsWith('/events/2027') || p === '/' ? 'weekly' : 'monthly',
+    priority: p === '/' ? 1 : p.startsWith('/events/2027') || p === '/partners' || p === '/partners/book-a-call' || p.startsWith('/network') ? 0.9 : 0.6,
   }));
 }

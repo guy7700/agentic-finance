@@ -1,50 +1,44 @@
 import type { Metadata } from 'next';
+import Link from 'next/link';
 import { CompanyDirectory } from '@/components/partners/CompanyDirectory';
-import { EtoroZengoStory } from '@/components/partners/EtoroZengoStory';
-import { UseCaseCard } from '@/components/partners/UseCaseCard';
 import { ButtonLink } from '@/components/ui/Button';
 import { CtaBand } from '@/components/ui/CtaBand';
+import { Img } from '@/components/ui/Img';
 import { Container, Section, SectionHeader } from '@/components/ui/Layout';
 import { PageHero } from '@/components/ui/PageHero';
-import { Stats } from '@/components/ui/Stats';
-import { booking } from '@/config/site';
-import { getEdition } from '@/data/editions';
-import { otherUseCases, useCases } from '@/data/partners';
+import { primaryActions } from '@/config/site';
+import { getOrganization, partnerAchievements } from '@/data/partners';
 import { companyDirectory } from '@/lib/companies';
 import { pageMetadata } from '@/lib/seo';
 
 /**
- * Partners (Tal's site structure, 23 Nov 2026): every company we have worked with,
- * filtered by Network group and by event, tagged Partner, Network member and Attended
- * (the user approved filters and tags on this page only). Case studies stay at
- * /partners/<company>. The walls by event (/partners/past-partners) and the use cases
- * (/partners/use-cases) moved here; the partnership call and the categories moved to
- * /network/companies. The eToro and Zengo story moved here from the home page.
+ * Partners (Tal approved the overview, 26 Nov 2026): every company at our conferences, filtered by
+ * group and by event, each card leading to its company page; then "Achievements of our partners"
+ * in place of the repeated case-study previews. The booking page is /partners/book-a-call.
  */
 
 export const metadata: Metadata = pageMetadata({
-  title: 'Partners: every company we have worked with',
+  title: 'Partners: the companies at our conferences',
   description:
-    'Every company we have worked with at Agentic Finance: partners, Network members and the companies at our events, by Network group and by event.',
+    'The companies at Agentic Finance: title and event partners, the organisations on our stages, and what they achieved, from eToro’s acquisition of Zengo to its title partnership.',
   path: '/partners',
 });
 
 export default function PartnersPage() {
   const { companies, events, groups } = companyDirectory();
-  const singapore = getEdition('singapore-2026');
   return (
     <>
       <PageHero
         size="md"
         crumbs={[{ label: 'Partners' }]}
         eyebrow="Partners"
-        title="Every company we’ve worked with."
-        lede="Partners, Network members and the companies at our events. Filter by Network group or by event."
+        title="The companies at our conferences."
+        lede="Partners and the organisations on our stages. Filter by group or by event, and open any company’s page."
         actions={
           <>
-            <ButtonLink href="/network/companies#book-a-call">{booking.partnership.label}</ButtonLink>
-            <ButtonLink href="#case-studies" variant="outline" icon="arrow-down">
-              Case studies
+            <ButtonLink href={primaryActions.partner.href}>{primaryActions.partner.label}</ButtonLink>
+            <ButtonLink href="#achievements" variant="outline" icon="arrow-down">
+              Achievements of our partners
             </ButtonLink>
           </>
         }
@@ -57,39 +51,52 @@ export default function PartnersPage() {
         </Container>
       </Section>
 
-      <Section bordered tone="raised" id="case-studies">
+      <Section bordered tone="raised" id="achievements">
         <Container>
           <SectionHeader
-            eyebrow="Case studies"
-            title="What partners received."
-            lede="Four partners, four different objectives. From a title partnership with a CEO keynote and an F1 simulator, to a single executive seat in the category that mattered most."
+            eyebrow="Outcomes"
+            title="Achievements of our partners."
+            lede="What happened for companies around our rooms: acquisitions, partnerships and launches."
           />
-          <div className="mt-12">
-            <EtoroZengoStory />
-          </div>
-          <div className="mt-5 grid gap-5 sm:grid-cols-2 xl:grid-cols-4">
-            <UseCaseCard useCase={useCases[0]} featured className="sm:col-span-2 xl:col-span-4" />
-            {[...useCases.slice(1), ...otherUseCases].map((u) => (
-              <UseCaseCard key={u.slug} useCase={u} />
+          <ul className="mt-12 grid gap-5 md:grid-cols-2">
+            {partnerAchievements.map((a) => (
+              <li key={a.id}>
+                <Link href={a.href} className="group grid h-full overflow-hidden rounded-2xl border border-line bg-ink-card transition-colors hover:border-gold/60 sm:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)]">
+                  <div className="relative min-h-[200px]">
+                    <Img src={a.image.src} alt={a.image.alt} fill sizes="(min-width: 768px) 22vw, 100vw" position={a.image.position} className="object-cover transition-transform duration-700 group-hover:scale-[1.04]" />
+                  </div>
+                  <div className="flex flex-col p-6">
+                    <p className="mono-label text-gold">{a.when}</p>
+                    <h3 className="mt-2 text-xl font-semibold leading-snug group-hover:text-gold">{a.title}</h3>
+                    <p className="mt-2 text-[15px] leading-relaxed text-muted">{a.body}</p>
+                    <ul className="mt-auto flex flex-wrap items-center gap-4 pt-5">
+                      {a.orgs.map((id) => {
+                        const o = getOrganization(id);
+                        return o?.logo ? (
+                          <li key={id} className="relative h-6 w-20">
+                            <Img src={o.logo} alt={o.name} fill sizes="80px" className="object-contain object-left opacity-80" />
+                          </li>
+                        ) : null;
+                      })}
+                    </ul>
+                  </div>
+                </Link>
+              </li>
             ))}
-          </div>
-          <p className="mt-8 max-w-3xl text-[13px] leading-relaxed text-subtle">
-            Use cases describe what each partner received at our events, as documented by More &amp; More.
-          </p>
-          {singapore?.metrics ? <Stats items={singapore.metrics} size="md" className="mt-14" source={`${singapore.name} · ${singapore.dateLabel}`} /> : null}
+          </ul>
         </Container>
       </Section>
 
       <CtaBand
-        title="Want this list with your name on it?"
-        body={`Start with a ${booking.partnership.minutes}-minute call.`}
+        title="Want your company in the room?"
+        body="Start with a 30-minute call with the team."
         actions={
           <>
-            <ButtonLink href="/network/companies#book-a-call" size="lg">
-              {booking.partnership.label}
+            <ButtonLink href={primaryActions.partner.href} size="lg">
+              Book a partnership call
             </ButtonLink>
-            <ButtonLink href="/network" variant="outline" size="lg">
-              Join the Network
+            <ButtonLink href={primaryActions.network.href} variant="outline" size="lg">
+              {primaryActions.network.label}
             </ButtonLink>
           </>
         }

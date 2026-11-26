@@ -40,7 +40,7 @@ export function CompletedEdition({ edition }: { edition: Edition }) {
         <Container className="flex min-h-[min(92svh,880px)] flex-col justify-end pb-14 pt-[calc(var(--header-h)+40px)]">
           <Breadcrumbs items={[{ label: 'Events', href: '/events' }, { label: edition.shortName }]} />
           <div className="mt-10 flex flex-wrap items-center gap-3">
-            <StatusBadge status="completed" label={`Archive · ${edition.dateLabel}`} />
+            <StatusBadge status="completed" label={`Past edition · ${edition.dateLabel}`} />
             {edition.context ? <span className="mono-label text-paper/70">{edition.context}</span> : null}
           </div>
           <h1 className="display mt-6 max-w-5xl text-[length:var(--text-display-lg)]">{edition.name} 2026</h1>
@@ -193,7 +193,7 @@ export function CompletedEdition({ edition }: { edition: Edition }) {
                   More from {edition.city} on <span className="serif-accent">video</span>.
                 </>
               }
-              action={<ButtonLink href="/about/video" variant="outline">All videos</ButtonLink>}
+              action={<ButtonLink href="/about/brand#videos" variant="outline">All videos</ButtonLink>}
             />
             <ul className="mt-12 grid gap-10 md:grid-cols-2 md:gap-6">
               {moreVideos.map((v) => (
@@ -218,7 +218,7 @@ export function CompletedEdition({ edition }: { edition: Edition }) {
             eyebrow="Partners"
             title="Who made it happen."
             lede={`The organisations that took part in ${edition.shortName}.`}
-            action={<ButtonLink href="/partners#case-studies" variant="outline">Partner use cases</ButtonLink>}
+            action={<ButtonLink href="/partners#achievements" variant="outline">Partner use cases</ButtonLink>}
           />
           <LogoWall items={editionOrgs.slice(0, 24)} className="mt-12" />
           <TextLink href={`${edition.path}/partners`} className="mt-5">
@@ -233,10 +233,10 @@ export function CompletedEdition({ edition }: { edition: Edition }) {
           <SectionHeader
             eyebrow="Gallery"
             title="Moments from Suntec City."
-            action={<ButtonLink href="/about/gallery" variant="outline">Full gallery</ButtonLink>}
+            action={<ButtonLink href="/about/brand#photos" variant="outline">Full gallery</ButtonLink>}
           />
           <div className="mt-10">
-            <Gallery images={photos} collections={galleryCollections} tags={galleryTags} limit={6} moreHref="/about/gallery" />
+            <Gallery images={photos} collections={galleryCollections} tags={galleryTags} limit={6} moreHref="/about/brand#photos" />
           </div>
         </Container>
       </Section>
@@ -266,8 +266,8 @@ export function CompletedEdition({ edition }: { edition: Edition }) {
 
       <CtaBand
         eyebrow={`Next · ${next.name} · ${next.dateLabel}`}
-        title="Singapore was the first room. Abu Dhabi is next."
-        body="500 hand-selected guests, a separate VIP Gala and no more than eight strategic partners."
+        title={`Singapore was the first room. ${next.city} is next.`}
+        body={`${next.guestCount ? `Up to ${next.guestCount} curated attendees, ` : ''}during ${next.context}. Invitation only.`}
       />
     </>
   );

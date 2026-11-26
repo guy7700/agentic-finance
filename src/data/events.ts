@@ -1,10 +1,9 @@
-import { hkEvent } from './af-hk';
 import type { ImageAsset } from './types';
+import { eventDate, nextEdition2027 } from './upcoming-2027';
 
 /**
- * The home page events block: the next event, the 2027 calendar and the "Our Recent
- * Events" figures (as published on mnm.live/agentic-finance-abu-dhabi, checked
- * 25 October 2026).
+ * The home page events: the next event, and the past editions with their figures (as
+ * published on mnm.live/agentic-finance-abu-dhabi, checked 25 October 2026).
  */
 export type UpcomingEvent = {
   id: string;
@@ -34,31 +33,23 @@ export type PastEvent = {
 };
 
 /**
- * The next event on the home page and the news pages: Hong Kong (user, 26 Nov 2026;
- * Abu Dhabi will not take place, and its own pages stay as they are). Day and time come
- * from src/data/af-hk.ts; the venue is not confirmed yet, so it is left out.
+ * The next event on the home page, the news pages and the share cards: the first 2027 edition
+ * whose day has not passed (Hong Kong, 1 Feb 2027; Abu Dhabi 2026 will not take place).
+ * Built from the one schedule in upcoming-2027.ts.
  */
+const next = nextEdition2027();
+const nextDate = eventDate(next);
 export const nextEvent: UpcomingEvent = {
-  id: 'hong-kong-2027',
-  name: 'Agentic Finance Hong Kong',
-  date: hkEvent.dayLabel ?? 'February 2027',
-  time: hkEvent.timeLabel,
-  city: 'Hong Kong',
-  venue: hkEvent.venue,
-  line: 'During Consensus Hong Kong.',
-  href: '/events/2027/hong-kong',
-  start: hkEvent.startsAt,
-  end: hkEvent.endsAt,
+  id: next.editionSlug,
+  name: next.name,
+  date: nextDate.long,
+  time: nextDate.time,
+  city: next.city,
+  line: `During ${next.context}.${next.attendees ? ` Up to ${next.attendees} curated attendees.` : ''}`,
+  href: next.path,
+  start: next.startsAt,
+  end: next.endsAt,
 };
-
-/** The 2027 calendar, in date order. */
-export const plannedEvents: UpcomingEvent[] = [
-  { id: 'hong-kong-2027', name: 'Agentic Finance Hong Kong', date: 'February 2027', city: 'Hong Kong', line: 'During Consensus Hong Kong.', href: '/events/2027/hong-kong' },
-  { id: 'dubai-2027', name: 'Agentic Finance Dubai', date: 'April 2027', city: 'Dubai', line: 'During TOKEN2049 Dubai.', href: '/events/2027/af-dubai' },
-  { id: 'paris-2027', name: 'Agentic Finance Paris', date: 'July 2027', city: 'Paris', line: 'During Signal Week.', href: '/events/2027/paris' },
-  { id: 'rio-de-janeiro-2027', name: 'Agentic Finance Rio de Janeiro', date: 'August 2027', city: 'Rio de Janeiro', line: 'During Blockchain.RIO.', href: '/events/2027#rio-de-janeiro-2027' },
-  { id: 'singapore-2027', name: 'Agentic Finance Singapore', date: 'October 2027', city: 'Singapore', line: 'During TOKEN2049 Singapore.', href: '/events/2027/singapore' },
-];
 
 export const pastEvents: PastEvent[] = [
   {
@@ -81,7 +72,7 @@ export const pastEvents: PastEvent[] = [
   },
   {
     id: 'the-odds-paris-2026',
-    name: 'The Odds at Paris Blockchain Week',
+    name: 'The Odds: Prediction Markets Live',
     city: 'Paris',
     date: 'April 2026',
     facts: [
@@ -89,12 +80,12 @@ export const pastEvents: PastEvent[] = [
       { value: '20+', label: 'Speakers' },
       { value: '8', label: 'Sessions' },
     ],
-    href: '/about#event-series',
+    href: '/events/2026/the-odds-paris',
     image: { src: '/images/more-and-more/the-odds-paris-room.jpg', alt: 'A full room at The Odds, Paris Blockchain Week' },
   },
   {
     id: 'web2-to-web3-2025',
-    name: 'Web2 to Web3 Summit',
+    name: 'Web2 to Web3 Conference',
     city: 'Abu Dhabi',
     date: '2025',
     facts: [
@@ -102,7 +93,7 @@ export const pastEvents: PastEvent[] = [
       { value: '15+', label: 'Speakers' },
       { value: '8', label: 'Sessions' },
     ],
-    href: '/about#event-series',
+    href: '/events/2025/web2-to-web3-abu-dhabi',
     image: { src: '/images/more-and-more/web2toweb3-session.webp', alt: 'A seated session at the Web2 to Web3 Summit in Abu Dhabi' },
   },
 ];

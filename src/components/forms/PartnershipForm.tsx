@@ -100,7 +100,7 @@ export function PartnershipForm({ categories, bookingUrl, bookingLabel, compact 
         ) : null}
       </FormSection>
 
-      <FormSection title="What you want to own" hint="There are twelve categories and no more than eight positions in Abu Dhabi.">
+      <FormSection title="What you want to own" hint="Twelve areas of agentic finance, each led by one company per edition.">
         <SelectField
           label="Category you want to lead"
           name="category"

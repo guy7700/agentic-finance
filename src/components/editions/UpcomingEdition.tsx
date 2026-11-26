@@ -168,8 +168,8 @@ export function UpcomingEdition({ edition }: { edition: Edition }) {
             lede={`Agenda to be announced. The programme is built around six decisions and ${topics.length} areas, from agentic trading to tokenised capital markets.`}
             action={
               <>
-                <ButtonLink href="/about#topics" variant="outline">All {topics.length} topics</ButtonLink>
-                <ButtonLink href="/about#questions" variant="ghost">The six questions</ButtonLink>
+                <ButtonLink href="/about/themes" variant="outline">All {topics.length} topics</ButtonLink>
+                <ButtonLink href="/about/themes#questions" variant="ghost">The six questions</ButtonLink>
               </>
             }
           />
@@ -240,8 +240,8 @@ export function UpcomingEdition({ edition }: { edition: Edition }) {
             lede="A limited number of positions, so every partner is seen, introduced and remembered. Twelve categories to lead; no more than eight positions overall."
             action={
               <>
-                <ButtonLink href="/network/companies#book-a-call">{booking.partnership.label}</ButtonLink>
-                <ButtonLink href="/network/companies#categories" variant="outline">Partnership categories</ButtonLink>
+                <ButtonLink href="/partners/book-a-call">{booking.partnership.label}</ButtonLink>
+                <ButtonLink href="/about/themes" variant="outline">Partnership categories</ButtonLink>
               </>
             }
           />
@@ -333,7 +333,7 @@ export function UpcomingEdition({ edition }: { edition: Edition }) {
       <Section bordered id="faq">
         <Container>
           <div className="grid gap-12 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.6fr)]">
-            <SectionHeader stacked eyebrow="Common questions" title="Before you apply." action={<TextLink href="/about#faq">All questions</TextLink>} />
+            <SectionHeader stacked eyebrow="Common questions" title="Before you apply." action={<TextLink href="/about">All questions</TextLink>} />
             <Accordion items={faqs.map((f, i) => ({ id: `faq-${i}`, title: f.q, content: <p className="leading-relaxed">{f.a}</p> }))} />
           </div>
         </Container>

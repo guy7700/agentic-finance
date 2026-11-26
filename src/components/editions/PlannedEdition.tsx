@@ -27,7 +27,7 @@ export function PlannedEdition({ edition }: { edition: Edition }) {
         <Container className="flex min-h-[min(86svh,820px)] flex-col justify-end pb-16 pt-[calc(var(--header-h)+40px)]">
           <Breadcrumbs items={[{ label: 'Events', href: '/events' }, { label: '2027', href: '/events/2027' }, { label: edition.city }]} />
           <div className="mt-10 flex flex-wrap items-center gap-3">
-            <StatusBadge status="planned" label="Planned · 2027" />
+            <StatusBadge status="planned" label="2027" />
             <span className="mono-label text-paper/70">{edition.country}</span>
           </div>
           <h1 className="display mt-6 text-[length:var(--text-display-lg)]">
@@ -49,7 +49,7 @@ export function PlannedEdition({ edition }: { edition: Edition }) {
             <ButtonLink href={interestHref} size="lg">
               Apply to attend
             </ButtonLink>
-            <ButtonLink href="/network/companies#book-a-call" variant="outline" size="lg">
+            <ButtonLink href="/partners/book-a-call" variant="outline" size="lg">
               Partner across the 2027 series
             </ButtonLink>
           </div>
@@ -76,7 +76,7 @@ export function PlannedEdition({ edition }: { edition: Edition }) {
             <div>
               <p className="mono-label">The six questions</p>
               <p className="mt-3 text-muted">The decisions every edition is built around.</p>
-              <TextLink href="/about#questions" className="mt-4">
+              <TextLink href="/about/themes#questions" className="mt-4">
                 Read the six questions
               </TextLink>
             </div>
@@ -136,7 +136,7 @@ export function PlannedEdition({ edition }: { edition: Edition }) {
             <ButtonLink href={interestHref} size="lg">
               Apply to attend
             </ButtonLink>
-            <ButtonLink href={booking.partnership.url} variant="outline" size="lg">
+            <ButtonLink href="/partners/book-a-call" variant="outline" size="lg">
               {booking.partnership.label}
             </ButtonLink>
           </>

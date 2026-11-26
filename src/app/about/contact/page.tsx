@@ -1,58 +1,63 @@
 import type { Metadata } from 'next';
+import Link from 'next/link';
 import { ContactForm } from '@/components/forms/ContactForm';
-import { Icon, type IconName } from '@/components/ui/Icon';
+import { socialIcon } from '@/components/layout/SiteFooter';
+import { Icon } from '@/components/ui/Icon';
 import { Container, Section } from '@/components/ui/Layout';
 import { PageHero } from '@/components/ui/PageHero';
 import { SmartLink } from '@/components/ui/SmartLink';
-import { booking, contacts, social } from '@/config/site';
-import { editions } from '@/data/editions';
+import { contacts, primaryActions, social } from '@/config/site';
+import { upcoming2027 } from '@/data/upcoming-2027';
 import { pageMetadata } from '@/lib/seo';
 
 export const metadata: Metadata = pageMetadata({
-  title: 'Contact the team',
-  description: 'Contact the Agentic Finance team about attendance, partnerships, speaking or press.',
+  title: 'Contact the Agentic Finance team',
+  description: 'Send the Agentic Finance team a message, or talk to us about a partnership. Every enquiry reaches a person.',
   path: '/about/contact',
 });
 
-const ROUTES: { title: string; body: string; href: string; label: string; icon: IconName }[] = [
-  { title: 'Attend', body: 'Invitation requests for the next edition.', href: '/apply', label: 'Apply to attend', icon: 'door' },
-  { title: 'Partner', body: `A ${booking.partnership.minutes}-minute call with the partnerships team.`, href: '/network/companies#book-a-call', label: 'Partner with us', icon: 'handshake' },
-  { title: 'Speak', body: 'Put yourself or someone else forward.', href: '/speakers/nominate', label: 'Nominate a speaker', icon: 'mic' },
-  { title: 'Press', body: 'Interviews, imagery and the brand kit.', href: '/about/press', label: 'Press resources', icon: 'spark' },
-];
-
+/**
+ * Contact (Tal's review, 26 Nov 2026): the enquiry form first, the partnership route beside it
+ * with Guy's email, then the other contacts and the social icons. No office-location labels.
+ */
 export default function ContactPage() {
-  const editionOptions = editions.map((e) => ({ slug: e.slug, label: e.shortName }));
+  const editionOptions = upcoming2027.map((e) => ({ slug: e.editionSlug, label: `${e.city} 2027` }));
   return (
     <>
       <PageHero
         size="md"
         crumbs={[{ label: 'About', href: '/about' }, { label: 'Contact' }]}
         eyebrow="Talk to the team"
-        title="Contact."
-        lede="Choose the route that fits, or send a message below. Every enquiry reaches a person."
+        title="Contact us."
+        lede="Send a message and the right person replies. For partnerships, go straight to the partnerships team."
       />
       <Section className="!pt-12">
         <Container>
-          <ul className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
-            {ROUTES.map((r) => (
-              <li key={r.title}>
-                <SmartLink href={r.href} className="group flex h-full flex-col gap-3 rounded-2xl border border-line p-6 hover:border-gold/60">
-                  <Icon name={r.icon} size={22} className="text-gold" />
-                  <span className="text-xl font-semibold">{r.title}</span>
-                  <span className="text-sm text-muted">{r.body}</span>
-                  <span className="mt-auto inline-flex items-center gap-1.5 pt-3 text-sm font-semibold text-gold">
-                    {r.label}
-                    <Icon name="arrow-right" size={14} className="transition-transform group-hover:translate-x-1" />
-                  </span>
-                </SmartLink>
-              </li>
-            ))}
-          </ul>
-
-          <div className="mt-14 grid gap-10 lg:grid-cols-[minmax(0,1.6fr)_minmax(0,1fr)]">
-            <ContactForm editions={editionOptions} />
+          <div className="grid gap-10 lg:grid-cols-[minmax(0,1.5fr)_minmax(0,1fr)]">
+            <div className="rounded-2xl border border-line bg-ink-card/60 p-6 sm:p-8">
+              <p className="eyebrow">General enquiry</p>
+              <div className="mt-6">
+                <ContactForm editions={editionOptions} />
+              </div>
+            </div>
             <aside className="flex flex-col gap-4">
+              <div className="edge-gold relative rounded-2xl border border-gold/50 bg-gold/[0.06] p-6 sm:p-7">
+                <p className="mono-label flex items-center gap-2 text-gold">
+                  <Icon name="handshake" size={16} />
+                  Partnership enquiry
+                </p>
+                <p className="mt-3 text-xl font-semibold">Talk to us about partnering.</p>
+                <p className="mt-2 text-sm text-muted">Stage, meetings and visibility at our events. Book a call, or email the partnerships team.</p>
+                <div className="mt-5 flex flex-col gap-3">
+                  <Link href={primaryActions.partner.href} className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full bg-gold px-6 text-xs font-semibold uppercase tracking-[0.18em] text-ink hover:bg-gold-bright">
+                    Book a partnership call <Icon name="arrow-right" size={16} />
+                  </Link>
+                  <a href={`mailto:${contacts.partnerships}`} className="inline-flex items-center gap-2 font-semibold text-gold hover:text-gold-bright">
+                    <Icon name="mail" size={16} />
+                    {contacts.partnerships}
+                  </a>
+                </div>
+              </div>
               <div className="rounded-2xl border border-line p-6">
                 <p className="mono-label">Direct</p>
                 <ul className="mt-4 flex flex-col gap-4 text-[15px]">
@@ -63,22 +68,30 @@ export default function ContactPage() {
                     </a>
                   </li>
                   <li>
-                    <span className="block text-sm text-muted">Partnerships</span>
-                    <a href={`mailto:${contacts.partnerships}`} className="font-semibold text-gold">
-                      {contacts.partnerships}
-                    </a>
+                    <span className="block text-sm text-muted">Speakers</span>
+                    <Link href="/speakers/nominate" className="font-semibold text-gold">
+                      Nominate a speaker
+                    </Link>
+                  </li>
+                  <li>
+                    <span className="block text-sm text-muted">Attending</span>
+                    <Link href={primaryActions.invitation.href} className="font-semibold text-gold">
+                      Apply to attend the next event
+                    </Link>
                   </li>
                 </ul>
               </div>
               <div className="rounded-2xl border border-line p-6">
-                <p className="mono-label">More &amp; More</p>
-                <p className="mt-3 text-[15px] text-paper/90">Tel Aviv · Dubai</p>
-                <p className="text-sm text-muted">Sunday to Thursday, 9am to 6pm Gulf Standard Time</p>
-                <ul className="mt-5 flex flex-wrap gap-2">
+                <p className="mono-label">Follow More &amp; More</p>
+                <ul className="mt-4 flex flex-wrap gap-2">
                   {social.map((s) => (
                     <li key={s.href}>
-                      <SmartLink href={s.href} className="inline-flex min-h-10 items-center rounded-full border border-line-strong px-4 text-sm hover:border-gold hover:text-gold">
-                        {s.short}
+                      <SmartLink
+                        href={s.href}
+                        aria-label={s.label}
+                        className="flex size-12 items-center justify-center rounded-full border border-line-strong text-paper/85 transition-colors hover:border-gold hover:text-gold"
+                      >
+                        <Icon name={socialIcon[s.short] ?? 'globe'} size={18} />
                       </SmartLink>
                     </li>
                   ))}

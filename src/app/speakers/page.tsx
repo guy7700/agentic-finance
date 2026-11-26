@@ -27,7 +27,7 @@ export default function SpeakersPage() {
 
   const eventCounts = count(entries, (e) => e.events);
   const editionEvents = editions
-    .filter((e) => e.status !== 'planned')
+    .filter((e) => e.status === 'completed')
     .map((e) => ({ value: e.shortName, label: e.shortName, count: eventCounts.get(e.shortName) ?? 0 }));
   const otherEvents = Object.values(conferenceLabels).map((c) => ({ value: c.label, label: c.label, count: eventCounts.get(c.label) ?? 0 }));
   const events = [...editionEvents, ...otherEvents].filter((o) => o.count > 0 || editionEvents.includes(o));
@@ -37,16 +37,14 @@ export default function SpeakersPage() {
   const orgCounts = count(entries, (e) => [e.organization]);
   const organizations = Array.from(orgCounts, ([value, n]) => ({ value, label: value, count: n })).sort((a, b) => a.label.localeCompare(b.label));
 
-  const abuDhabi = editions.find((e) => e.status === 'upcoming');
-
   return (
     <>
       <PageHero
         size="md"
         crumbs={[{ label: 'Speakers' }]}
         eyebrow="Speakers · Every edition"
-        title="Everyone who has held the floor."
-        lede="Operators from the banks, exchanges, funds, regulators and infrastructure providers putting AI agents into production, tagged by the edition and city where they spoke."
+        title="Speakers at our events."
+        lede="Leaders from the banks, exchanges, funds, regulators and companies putting AI agents to work in finance, tagged by the event where they spoke."
         actions={
           <>
             <ButtonLink href="/speakers/nominate">Nominate a speaker</ButtonLink>
@@ -61,21 +59,12 @@ export default function SpeakersPage() {
             events={events}
             cities={cities}
             organizations={organizations}
-            emptyEvents={
-              abuDhabi
-                ? {
-                    [abuDhabi.shortName]: {
-                      title: `${abuDhabi.city} speakers are announced one by one.`,
-                      body: `No speakers have been publicly announced for ${abuDhabi.name} yet. The first names will appear here as they confirm.`,
-                    },
-                  }
-                : {}
-            }
+            emptyEvents={{}}
           />
           <p className="mt-14 max-w-3xl text-[13px] leading-relaxed text-subtle">
             Profiles, titles and photographs are as published for each edition. “More &amp; More conferences” marks speakers listed among
             speakers at our events without a specific Agentic Finance edition; “The Odds · Paris 2026” marks speakers from the sister
-            prediction-markets summit.
+            prediction-markets summit; “Web2 to Web3 · Abu Dhabi 2025” marks speakers from the Web2 to Web3 conference.
           </p>
         </Container>
       </Section>

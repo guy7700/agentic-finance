@@ -2,7 +2,7 @@
 
 import { useRef, useState, type FormEvent } from 'react';
 import { Button } from '../ui/Button';
-import { CheckboxField, FormSection, Honeypot, TextAreaField, TextField } from './Fields';
+import { CheckboxField, FormSection, Honeypot, SelectField, TextAreaField, TextField } from './Fields';
 import { FormError, FormSuccess } from './FormStatus';
 import { useEnquiry } from './useEnquiry';
 
@@ -23,11 +23,12 @@ const initial = {
 };
 
 /**
- * Speaker nomination, field-for-field compatible with the live Abu Dhabi form
- * so submissions land in the same sheet.
+ * Speaker nomination, field-for-field compatible with the earlier Abu Dhabi form so submissions
+ * land in the same sheet. The event comes first (Tal's review, 26 Nov 2026).
  */
-export function NominationForm({ edition }: { edition: string }) {
+export function NominationForm({ events, defaultEvent = '' }: { events: string[]; defaultEvent?: string }) {
   const [v, setV] = useState(initial);
+  const [edition, setEdition] = useState(defaultEvent);
   const [self, setSelf] = useState(false);
   const formRef = useRef<HTMLFormElement>(null);
   const { state, errors, submit, reset, touch, honeypot, setHoneypot } = useEnquiry('speaker-nomination');
@@ -62,6 +63,7 @@ export function NominationForm({ edition }: { edition: string }) {
         onReset={() => {
           setV(initial);
           setSelf(false);
+          setEdition(defaultEvent);
           reset();
         }}
         resetLabel="Nominate someone else"
@@ -75,6 +77,22 @@ export function NominationForm({ edition }: { edition: string }) {
   return (
     <form ref={formRef} onSubmit={onSubmit} noValidate className="relative flex flex-col gap-6">
       <Honeypot value={honeypot} onChange={setHoneypot} />
+      <FormSection title="The event" hint="Which stage is this nomination for?">
+        <SelectField
+          label="Event"
+          name="edition"
+          required
+          className="sm:col-span-2"
+          options={events.map((x) => ({ value: x, label: x }))}
+          placeholder="Choose an event…"
+          value={edition}
+          onChange={(e) => {
+            touch();
+            setEdition(e.target.value);
+          }}
+          error={errors.edition}
+        />
+      </FormSection>
       <FormSection title="You" hint="So we know who put this name forward, and where to reply.">
         <TextField label="Your name" name="nominatorName" required autoComplete="name" value={v.nominatorName} onChange={set('nominatorName')} error={errors.nominatorName} />
         <TextField

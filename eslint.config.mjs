@@ -16,6 +16,8 @@ const eslintConfig = defineConfig([
     "qa/**",
     // Supabase edge functions (Deno, deployed to Supabase, not part of the site build).
     "supabase/**",
+    // Unrouted reference copies of retired pages (Abu Dhabi 2026).
+    "src/archive/**",
   ]),
 ]);
 

@@ -1,7 +1,7 @@
 import { conferenceLabels, getEdition } from '@/data/editions';
 import { networkPages } from '@/data/network';
 import { editionOrganizations, organizations, otherUseCases, teamsAttending, useCases } from '@/data/partners';
-import type { NetworkGroup } from '@/data/types';
+import type { NetworkGroup, OrgRelationship } from '@/data/types';
 
 /**
  * The /partners/ company list (Tal's site structure): every company we have worked
@@ -24,10 +24,27 @@ export type CompanyEntry = {
   events: string[];
   /** Case study page, when there is one. */
   caseStudy?: string;
+  /** The company's page on this site. */
+  href: string;
+  /** The most significant documented relationship, worded accurately: "Title partner", "Partner", "On stage", "Media partner"... */
+  relationshipLabel?: string;
 };
 
 export type DirectoryEvent = { id: string; label: string; teams: string[] };
 export type DirectoryGroup = { value: NetworkGroup; label: string; href: string };
+
+const RELATIONSHIP_LABELS: [OrgRelationship, string][] = [
+  ['title-partner', 'Title partner'],
+  ['partner', 'Partner'],
+  ['media', 'Media'],
+  ['public-sector', 'Public sector'],
+  ['on-stage', 'On stage'],
+];
+
+/** The most significant relationship on record, for the card tag. Being on stage is not a sponsorship. */
+export function relationshipLabel(rels: OrgRelationship[]): string | undefined {
+  return RELATIONSHIP_LABELS.find(([r]) => rels.includes(r))?.[1];
+}
 
 const rank = (id: string) => {
   const rel = editionOrganizations.filter((r) => r.org === id).map((r) => r.relationship);
@@ -54,6 +71,8 @@ export function companyDirectory(): { companies: CompanyEntry[]; events: Directo
         attended: records.length > 0,
         events: [...new Set(shown.map((r) => r.edition))],
         caseStudy: study ? `/partners/${study.slug}` : undefined,
+        href: `/partners/${study?.slug ?? o.id}`,
+        relationshipLabel: relationshipLabel(shown.map((r) => r.relationship)),
       };
     })
     .filter((c) => c !== null)
@@ -68,4 +87,18 @@ export function companyDirectory(): { companies: CompanyEntry[]; events: Directo
   const groups = networkPages.map((p) => ({ value: p.audience, label: p.card.title, href: `/network/${p.slug}` }));
 
   return { companies, events, groups };
+}
+
+/** The company's page slug: its case study's slug where it has one (eToro, Fireblocks, ...), else its id. */
+export function companySlug(id: string): string | undefined {
+  const o = organizations.find((x) => x.id === id);
+  if (!o) return undefined;
+  const study = [...useCases, ...otherUseCases].find((u) => u.logo === o.logo);
+  return study?.slug ?? o.id;
+}
+
+/** The company's page on this site: every organisation in partners.ts has one (Tal: a logo leads to the company page). */
+export function companyHref(id: string): string | undefined {
+  const slug = companySlug(id);
+  return slug ? `/partners/${slug}` : undefined;
 }

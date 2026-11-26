@@ -10,8 +10,8 @@ import { JsonLd } from '@/components/ui/JsonLd';
 import { Container, Eyebrow, Section, SectionHeader } from '@/components/ui/Layout';
 import { SmartLink } from '@/components/ui/SmartLink';
 import { Stats } from '@/components/ui/Stats';
-import { booking, externalLinks } from '@/config/site';
-import { faqGroups, producerMetrics, producerServices, producerTimeline, seriesBrands } from '@/data/about';
+import { externalLinks } from '@/config/site';
+import { faqGroups, producerMetrics, producerTimeline, seriesBrands, team } from '@/data/about';
 import { categories } from '@/data/partners';
 import { audience, formats, strategicQuestions, topics } from '@/data/program';
 import { getSession, getSpeaker } from '@/lib/content';
@@ -23,16 +23,16 @@ import { getSession, getSpeaker } from '@/lib/content';
  * old address forwards to the section's anchor (src/data/redirects.mjs).
  */
 
-/** In-page index, in reading order. */
+/** The About overview's index: its two sections, then the About pages (Tal's review, 26 Nov 2026). */
 export const aboutSections = [
-  { id: 'who-we-are', label: 'Who we are' },
-  { id: 'more-and-more', label: 'More & More' },
-  { id: 'event-series', label: 'Event series' },
-  { id: 'program', label: 'Program' },
-  { id: 'formats', label: 'Formats' },
-  { id: 'who-its-for', label: 'Who it’s for' },
-  { id: 'team', label: 'Team' },
-  { id: 'faq', label: 'FAQ' },
+  { id: 'who-we-are', label: 'More & More', href: '#who-we-are' },
+  { id: 'event-series', label: 'Event series and track record', href: '#event-series' },
+  { id: 'about-us', label: 'About us and team', href: '/about/more-and-more' },
+  { id: 'program', label: 'Program', href: '/about/program' },
+  { id: 'themes', label: 'Themes', href: '/about/themes' },
+  { id: 'brand', label: 'Brand', href: '/about/brand' },
+  { id: 'press', label: 'Press', href: '/about/press' },
+  { id: 'contact', label: 'Contact', href: '/about/contact' },
 ];
 
 export function AboutIndex() {
@@ -41,7 +41,7 @@ export function AboutIndex() {
       <ul className="flex flex-wrap gap-2">
         {aboutSections.map((s) => (
           <li key={s.id}>
-            <a href={`#${s.id}`} className="inline-flex min-h-10 items-center rounded-full border border-line-strong px-4 text-sm hover:border-gold hover:text-gold">
+            <a href={s.href} className="inline-flex min-h-10 items-center rounded-full border border-line-strong px-4 text-sm hover:border-gold hover:text-gold">
               {s.label}
             </a>
           </li>
@@ -51,25 +51,35 @@ export function AboutIndex() {
   );
 }
 
-/** Who we are: why we convene this room (formerly the body of /about). */
+/** Who we are: what More & More does, in one paragraph and four photographs (Tal's review, 26 Nov 2026). */
 export function WhoWeAreSection() {
+  const photos = [
+    { src: '/images/singapore-2026/agentic-capital-panel.webp', alt: 'The Agentic Capital panel at Agentic Finance Singapore', position: '50% 46%' },
+    { src: '/images/more-and-more/the-odds-paris-room.jpg', alt: 'A full room at The Odds, Paris Blockchain Week' },
+    { src: '/images/more-and-more/hub71-networking.jpg', alt: 'Guests networking at the Web2 to Web3 conference in Abu Dhabi' },
+    { src: '/images/singapore-2026/curated-introductions.webp', alt: 'Guests being introduced at Agentic Finance Singapore' },
+  ];
   return (
     <Section bordered tone="raised" id="who-we-are">
       <Container>
         <div className="grid gap-12 lg:grid-cols-2 lg:items-center">
           <div>
-            <Eyebrow>Why we convene this room</Eyebrow>
-            <h2 className="display mt-5 text-[length:var(--text-display-sm)]">The most valuable deals still happen in the room.</h2>
+            <Eyebrow>More &amp; More</Eyebrow>
+            <h2 className="display mt-5 text-[length:var(--text-display-sm)]">We connect the companies building technology with the organisations putting it to work.</h2>
             <p className="mt-6 leading-relaxed text-muted">
-              AI agents are entering trading, payments, custody and capital management faster than the rules, the infrastructure or the
-              relationships around them. The people who will decide how that goes rarely sit in the same room. Agentic Finance exists to
-              put them there: selectively, with time for the conversations that matter, and with introductions arranged in advance.
+              More &amp; More brings innovative technology companies together with the organisations that adopt technology: financial institutions,
+              enterprises, sports organisations, municipalities and governments. We do it in curated rooms, at the industry’s major weeks, with
+              introductions arranged in advance.
             </p>
             <Stats items={producerMetrics} size="md" className="mt-10" source="More & More track record, as published." />
           </div>
-          <div className="relative aspect-[4/3] overflow-hidden rounded-2xl border border-line">
-            <Img src="/images/singapore-2026/opening-keynote.webp" alt="Tal Mor of More & More opening the day on the Singapore stage" fill sizes="(min-width: 1024px) 50vw, 100vw" position="62% 35%" className="object-cover" />
-          </div>
+          <ul className="grid grid-cols-2 gap-3">
+            {photos.map((p) => (
+              <li key={p.src} className="relative aspect-[4/3] overflow-hidden rounded-2xl border border-line">
+                <Img src={p.src} alt={p.alt} fill sizes="(min-width: 1024px) 25vw, 50vw" position={p.position} className="object-cover" />
+              </li>
+            ))}
+          </ul>
         </div>
       </Container>
     </Section>
@@ -92,26 +102,21 @@ export function MoreAndMoreSection() {
               </>
             }
             lede="More & More creates curated side events, executive gatherings, VIP delegations and strategic business-development environments across global technology and institutional markets. The company is built around one idea: the most valuable deals still happen in the room."
-            action={
-              <>
-                <ButtonLink href={externalLinks.moreAndMore}>Visit mnm.live</ButtonLink>
-                <ButtonLink href={booking.partnership.url} variant="outline">
-                  Book a call with the team
-                </ButtonLink>
-              </>
-            }
           />
-          <h3 className="eyebrow mt-16">What More &amp; More does</h3>
-          <p className="display-tight mt-4 text-[clamp(1.6rem,1.2rem+1.2vw,2.25rem)]">Four ways into the room.</p>
-          <ul className="mt-10 grid gap-px overflow-hidden rounded-2xl border border-line bg-line md:grid-cols-2 lg:grid-cols-4">
-            {producerServices.map((s, i) => (
-              <li key={s.name} className="flex flex-col gap-3 bg-ink p-7">
-                <span className="font-mono text-xs text-gold">0{i + 1}</span>
-                <span className="text-xl font-semibold">{s.name}</span>
-                <span className="leading-relaxed text-muted">{s.body}</span>
-              </li>
-            ))}
-          </ul>
+          <div className="mt-14 grid gap-12 lg:grid-cols-2 lg:items-center">
+            <div>
+              <h3 className="eyebrow">Why we convene</h3>
+              <p className="mt-4 text-[17px] leading-relaxed text-paper/85">
+                AI agents are entering trading, payments, custody and capital management faster than the rules, the infrastructure or the
+                relationships around them. The people who will decide how that goes rarely sit in the same room. Agentic Finance exists to put
+                them there: selectively, with time for the conversations that matter, and with introductions arranged in advance.
+              </p>
+              <Stats items={producerMetrics} size="md" className="mt-10" source="More & More track record, as published." />
+            </div>
+            <div className="relative aspect-[4/3] overflow-hidden rounded-2xl border border-line">
+              <Img src="/images/singapore-2026/opening-keynote.webp" alt="Tal Mor of More & More opening the day on the Singapore stage" fill sizes="(min-width: 1024px) 50vw, 100vw" position="62% 35%" className="object-cover" />
+            </div>
+          </div>
         </Container>
       </Section>
 
@@ -119,7 +124,7 @@ export function MoreAndMoreSection() {
         <Container>
           <div className="grid gap-12 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.4fr)]">
             <div>
-              <SectionHeader eyebrow="Track record" title="From Abu Dhabi to Singapore, and back." size="md" as="h3" />
+              <SectionHeader eyebrow="Track record" title="From Abu Dhabi to Singapore, and on to Hong Kong." size="md" as="h3" />
               <p className="mt-6 text-muted">
                 Recent rooms produced by More &amp; More, leading to Agentic Finance. The full portfolio, including case studies, is on the
                 More &amp; More site.
@@ -176,9 +181,18 @@ export function EventSeriesSection() {
       <Container>
         <SectionHeader
           eyebrow="The More & More ecosystem"
-          title="Three brands. Three rooms."
+          title="Event series and track record."
           lede="More & More produces several curated series. They share a standard and a team, not an audience: each has its own programme, guest list and purpose."
         />
+        <ol className="mt-10 grid gap-px overflow-hidden rounded-2xl border border-line bg-line sm:grid-cols-2 lg:grid-cols-4">
+          {producerTimeline.map((t) => (
+            <li key={t.what} className={`flex flex-col gap-2 p-5 ${t.next ? 'bg-gold/[0.08]' : 'bg-ink'}`}>
+              <span className={`font-mono text-[11px] uppercase tracking-[0.08em] ${t.next ? 'text-gold' : 'text-muted'}`}>{t.when}</span>
+              <span className={`font-semibold leading-snug ${t.next ? 'text-gold' : ''}`}>{t.what}</span>
+              <span className="text-sm text-muted">{t.note}</span>
+            </li>
+          ))}
+        </ol>
         <ol className="mt-12 flex flex-col gap-6">
           {seriesBrands.map((b, i) => (
             <li
@@ -263,7 +277,7 @@ export function ProgramSection() {
                   const t = topics.find((x) => x.slug === slug);
                   return t ? (
                     <li key={slug}>
-                      <Link href={`/about#${slug}`} className="inline-flex min-h-10 items-center rounded-full border border-line-strong px-4 text-sm hover:border-gold hover:text-gold">
+                      <Link href={`/about/themes#${slug}`} className="inline-flex min-h-10 items-center rounded-full border border-line-strong px-4 text-sm hover:border-gold hover:text-gold">
                         {t.name}
                       </Link>
                     </li>
@@ -337,7 +351,7 @@ export function FormatsSection() {
         <ul className="mt-8 grid gap-4 sm:grid-cols-3">
           {EXTRAS.map((name) => (
             <li key={name} className="edge-gold relative flex min-h-48 flex-col justify-end rounded-2xl border border-dashed border-line-strong bg-ink-card p-6">
-              <span className="mono-label">Photo [TBC]</span>
+              <Icon name="spark" size={22} className="text-gold" />
               <span className="mt-2 text-xl font-medium">{name}</span>
             </li>
           ))}
@@ -475,9 +489,21 @@ export function TeamSection() {
             </div>
           </div>
         ) : null}
-        <div className="mt-12 rounded-2xl border border-dashed border-line-strong bg-ink-card p-6">
-          <span className="mono-label">Team profiles [TBC]</span>
-        </div>
+        {team.filter((m) => m.photo && m.role).length ? (
+          <ul className="mt-12 grid grid-cols-2 gap-4 md:grid-cols-4">
+            {team
+              .filter((m) => m.photo && m.role)
+              .map((m) => (
+                <li key={m.name}>
+                  <div className="relative aspect-[4/5] overflow-hidden rounded-2xl border border-line">
+                    <Img src={m.photo!} alt={`${m.name}, ${m.role}`} fill sizes="(min-width: 768px) 22vw, 50vw" position="50% 25%" className="object-cover" />
+                  </div>
+                  <p className="mt-3 font-semibold">{m.name}</p>
+                  <p className="text-sm text-muted">{m.role}</p>
+                </li>
+              ))}
+          </ul>
+        ) : null}
       </Container>
     </Section>
   );

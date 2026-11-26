@@ -2,47 +2,40 @@ import type { Metadata } from 'next';
 import { PressMentions } from '@/components/media/PressMentions';
 import { ButtonLink } from '@/components/ui/Button';
 import { CtaBand } from '@/components/ui/CtaBand';
-import { Icon } from '@/components/ui/Icon';
-import { Img } from '@/components/ui/Img';
 import { Container, Section, SectionHeader } from '@/components/ui/Layout';
 import { PageHero } from '@/components/ui/PageHero';
 import { contacts, site } from '@/config/site';
-import { getCurrentEdition, getEdition } from '@/data/editions';
-import { asset } from '@/lib/paths';
+import { getEdition } from '@/data/editions';
+import { eventDate, nextEdition2027, upcoming2027 } from '@/data/upcoming-2027';
 import { pageMetadata } from '@/lib/seo';
 
 export const metadata: Metadata = pageMetadata({
-  title: 'Press and brand kit',
-  description: 'Agentic Finance in the Press: coverage and original links, plus official logo files, key facts about the series and editions, and media contacts.',
+  title: 'Press: Agentic Finance in the news',
+  description: 'Agentic Finance and More & More in the press: coverage of Singapore 2026, The Odds in Paris and Web2 to Web3 in Abu Dhabi, with key facts and media contacts.',
   path: '/about/press',
 });
 
-const LOGOS = [
-  { name: 'Agentic Finance logo, blue (as on the Abu Dhabi page)', file: '/brand/agentic-finance-logo-blue.svg', bg: 'bg-ink' },
-  { name: 'Agentic Finance wordmark, gold', file: '/brand/agentic-finance-logo-gold.svg', bg: 'bg-ink' },
-  { name: 'Agentic Finance logo', file: '/brand/agentic-finance-logo.svg', bg: 'bg-ink' },
-  { name: 'More & More logo, white', file: '/brand/more-and-more-logo-white.svg', bg: 'bg-ink' },
-];
 
 export default function PressPage() {
-  const next = getCurrentEdition();
+  const next = nextEdition2027();
+  const nd = eventDate(next);
   const sg = getEdition('singapore-2026')!;
   const facts = [
     ['What', 'Agentic Finance: an invitation-only summit series for the leaders shaping AI-native finance.'],
-    ['Producer', 'More & More, a curated events and business-development company, headquartered in Tel Aviv and Dubai.'],
+    ['Producer', 'More & More, a curated events and business-development company: 100+ events organised.'],
     ['First edition', `${sg.name}, ${sg.dateLabel}, ${sg.venue?.name}. An official side event of TOKEN2049 Singapore. ${sg.metrics?.map((m) => `${m.value} ${m.label.toLowerCase()}`).join(', ')}.`],
-    ['Next edition', `${next.name}, ${next.dateLabel}. ${next.guestCount} curated guests; VIP Gala on Tuesday 8 December 2026.`],
-    ['2027', 'Hong Kong (February), Dubai (April), Paris (July), Rio de Janeiro (August) and Singapore (October).'],
+    ['Next edition', `${next.name}, ${nd.long}, during ${next.context}.${next.attendees ? ` Up to ${next.attendees} curated attendees.` : ''}`],
+    ['2027', upcoming2027.map((e) => `${e.city} (${eventDate(e).monthYear.split(' ')[0]})`).join(', ')],
   ];
 
   return (
     <>
       <PageHero
         size="md"
-        crumbs={[{ label: 'About', href: '/about' }, { label: 'Press and brand kit' }]}
+        crumbs={[{ label: 'About', href: '/about' }, { label: 'Press' }]}
         eyebrow="About · Press"
-        title="Press and brand kit."
-        lede="Key facts, official logo files and the people to talk to. For interview requests, accreditation and imagery, contact the team."
+        title="Agentic Finance in the press."
+        lede="Coverage of our events, key facts and the people to talk to. Logo files are on the Brand page."
         actions={
           <>
             <ButtonLink href={`mailto:${contacts.press}?subject=Agentic%20Finance%20media%20enquiry`} icon="mail">
@@ -73,48 +66,6 @@ export default function PressPage() {
             <a href={`mailto:${contacts.press}`} className="font-semibold text-gold">
               {contacts.press}
             </a>
-          </p>
-        </Container>
-      </Section>
-
-      <Section bordered tone="raised" id="brand-kit">
-        <Container>
-          <SectionHeader eyebrow="Brand kit" title="Logo files." lede="Official marks as used on our event sites. Please do not alter, recolour or crop them." size="md" />
-          <ul className="mt-10 grid gap-4 md:grid-cols-3">
-            {LOGOS.map((l) => (
-              <li key={l.file} className="overflow-hidden rounded-2xl border border-line">
-                <div className={`relative flex h-48 items-center justify-center p-8 ${l.bg}`}>
-                  <span className="relative h-full w-full">
-                    <Img src={l.file} alt={l.name} fill sizes="320px" className="object-contain" unoptimized />
-                  </span>
-                </div>
-                <div className="flex items-center justify-between gap-4 border-t border-line bg-ink-card p-4">
-                  <span className="text-sm font-semibold">{l.name}</span>
-                  <a href={asset(l.file)} download className="inline-flex items-center gap-1.5 text-sm font-semibold text-gold hover:text-gold-bright">
-                    <Icon name="download" size={16} />
-                    SVG
-                  </a>
-                </div>
-              </li>
-            ))}
-          </ul>
-          <div className="mt-8 grid gap-4 md:grid-cols-3">
-            {[
-              { name: 'Navy', hex: '#0A1428', cls: 'bg-ink border border-line-strong' },
-              { name: 'Ivory', hex: '#EDE6D3', cls: 'bg-ivory' },
-              { name: 'Gold', hex: '#D1B679', cls: 'bg-gold' },
-            ].map((c) => (
-              <div key={c.hex} className="flex items-center gap-4 rounded-2xl border border-line p-4">
-                <span className={`size-12 shrink-0 rounded-xl ${c.cls}`} />
-                <span>
-                  <span className="block font-semibold">{c.name}</span>
-                  <span className="font-mono text-xs text-muted">{c.hex}</span>
-                </span>
-              </div>
-            ))}
-          </div>
-          <p className="mt-6 text-sm text-muted">
-            Typography: Space Grotesk and Cormorant Garamond. For event photography, contact the press team.
           </p>
         </Container>
       </Section>

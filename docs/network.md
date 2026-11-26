@@ -2,6 +2,8 @@
 
 Five forms (startups, VCs, companies, institutions, ecosystem) on agentic-finance.live/network/. Copy and fields: `src/data/network.ts`.
 
+**Since 26 Nov 2026 (Tal's review): only name, email and organisation are required.** Every other field (role, website, check size, stage, geography...) is optional and sits behind "Tell us more (optional)". All five groups are free to join; the paid tiers (Venture Partner, partner seats) are no longer part of the form. The edge function in `supabase/functions/network-apply/index.ts` was changed to match and **must be deployed** (Supabase > Edge Functions > network-apply, or `supabase functions deploy network-apply --no-verify-jwt`) before the new site goes live: the version live until then still requires the old fields and would reject the short form with field errors.
+
 ## How a submission flows
 
 ```

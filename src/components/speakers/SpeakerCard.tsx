@@ -12,11 +12,51 @@ export type SpeakerCardData = {
   tags: string[];
   tagline?: string;
   hasProfile: boolean;
+  /** Company logo (white on transparent), shown under the name. */
+  logo?: string;
 };
 
-/** Portrait card used in every speaker grid, rail and directory. */
-export function SpeakerCard({ speaker, className, priority, sizes }: { speaker: SpeakerCardData; className?: string; priority?: boolean; sizes?: string }) {
-  const body = (
+/**
+ * Portrait card used in every speaker grid, rail and directory. `compact` (the home page,
+ * Tal's review of 26 Nov 2026): a smaller portrait, the name and the company logo, no title.
+ */
+export function SpeakerCard({
+  speaker,
+  className,
+  priority,
+  sizes,
+  compact,
+}: {
+  speaker: SpeakerCardData;
+  className?: string;
+  priority?: boolean;
+  sizes?: string;
+  compact?: boolean;
+}) {
+  const body = compact ? (
+    <>
+      <div className="relative aspect-square overflow-hidden rounded-xl border border-line bg-ink-raised transition-colors duration-500 group-hover:border-gold/70">
+        <Img
+          src={speaker.photo}
+          alt={speaker.photoAlt}
+          fill
+          sizes={sizes ?? '(min-width: 1280px) 12vw, (min-width: 768px) 20vw, 33vw'}
+          position="50% 22%"
+          className="object-cover grayscale-[0.5] transition-[transform,filter] duration-700 ease-[var(--ease-out-soft)] group-hover:scale-[1.04] group-hover:grayscale-0"
+        />
+      </div>
+      <h3 className="mt-3 text-[14.5px] font-semibold leading-tight transition-colors group-hover:text-gold">{speaker.name}</h3>
+      <span className="mt-2 flex h-5 items-center">
+        {speaker.logo ? (
+          <span className="relative block h-5 w-24">
+            <Img src={speaker.logo} alt={speaker.organization} fill sizes="96px" className="object-contain object-left opacity-75" />
+          </span>
+        ) : (
+          <span className="font-mono text-[10.5px] uppercase tracking-[0.08em] text-gold">{speaker.organization}</span>
+        )}
+      </span>
+    </>
+  ) : (
     <>
       <div className="relative aspect-[4/5] overflow-hidden rounded-xl border border-line bg-ink-raised transition-colors duration-500 group-hover:border-gold/70">
         <Img
@@ -42,7 +82,14 @@ export function SpeakerCard({ speaker, className, priority, sizes }: { speaker: 
       <div className="mt-4 flex flex-col gap-1">
         <h3 className="text-[17px] font-semibold leading-tight transition-colors group-hover:text-gold">{speaker.name}</h3>
         <p className="text-[13.5px] leading-snug text-muted">{speaker.title}</p>
-        <p className="font-mono text-[11px] uppercase tracking-[0.08em] text-gold">{speaker.organization}</p>
+        <p className="flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.08em] text-gold">
+          {speaker.logo ? (
+            <span className="relative block h-4 w-16 shrink-0">
+              <Img src={speaker.logo} alt="" fill sizes="64px" className="object-contain object-left opacity-80" />
+            </span>
+          ) : null}
+          {speaker.organization}
+        </p>
         {speaker.tagline ? <p className="mt-1 text-[12.5px] leading-snug text-subtle">{speaker.tagline}</p> : null}
       </div>
     </>

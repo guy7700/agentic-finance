@@ -212,7 +212,10 @@ export function buildCalendarEvents({
   editions,
   events,
   year,
+  alsoOurs = [],
 }: {
+  /** More of our own events (the other 2027 editions), shown like the next one. */
+  alsoOurs?: CalendarEvent[];
   nextEvent: UpcomingEvent;
   editions: Edition[];
   /** `events2027` */
@@ -334,7 +337,7 @@ export function buildCalendarEvents({
 
   // Dated events by first day (ties keep the config order); then the rest by month.
   const key = (e: CalendarEvent) => e.start ?? (e.month ? `${e.month}-99` : '9999-99-99');
-  const all = [...ours, ...menu];
+  const all = [...ours, ...alsoOurs.filter((e) => e.id !== nextEvent.id), ...menu];
   const ids = new Set<string>();
   for (const e of all) {
     if (ids.has(e.id)) throw new Error(`Event calendar: duplicate event id "${e.id}".`);

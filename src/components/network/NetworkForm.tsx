@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState, type FormEvent } from 'react';
 import { contacts } from '@/config/site';
 import { formWebhooks } from '@/config/forms';
-import type { NetworkField, NetworkPage } from '@/data/network';
+import { QUICK_FIELDS, type NetworkField, type NetworkPage } from '@/data/network';
 import { cn } from '@/lib/cn';
 import { CheckboxField, Honeypot, SelectField, TextAreaField, TextField } from '../forms/Fields';
 import { FormSuccess } from '../forms/FormStatus';
@@ -261,10 +261,7 @@ export function NetworkForm({ page }: { page: NetworkPage }) {
 
   const v = (key: string) => (typeof values[key] === 'string' ? (values[key] as string) : '');
 
-  return (
-    <form ref={formRef} onSubmit={onSubmit} noValidate className="relative grid gap-6 sm:grid-cols-2">
-      <Honeypot value={honeypot} onChange={setHoneypot} />
-      {fields.map((f) => {
+  const renderField = (f: NetworkField) => {
         if (f.key === 'raising_amount' && v('raising') !== 'Yes') return null;
         const error = errors[f.key];
         if (f.kind === 'multi') {
@@ -328,10 +325,29 @@ export function NetworkForm({ page }: { page: NetworkPage }) {
             value={v(f.key)}
             onChange={(e) => set(f.key, e.target.value)}
             error={error}
-            className={f.key === 'one_liner' ? 'sm:col-span-2' : undefined}
+            className={f.key === 'one_liner' || f.key === 'organisation' ? 'sm:col-span-2' : undefined}
           />
         );
-      })}
+  };
+  const quick = fields.filter((f) => QUICK_FIELDS.includes(f.key));
+  const more = fields.filter((f) => !QUICK_FIELDS.includes(f.key));
+  const moreHasError = more.some((f) => errors[f.key]);
+
+  return (
+    <form ref={formRef} onSubmit={onSubmit} noValidate className="relative grid gap-6 sm:grid-cols-2">
+      <Honeypot value={honeypot} onChange={setHoneypot} />
+      {quick.map(renderField)}
+      {more.length ? (
+        <details open={moreHasError || undefined} className="group/more rounded-2xl border border-line bg-ink/40 sm:col-span-2 [&_summary::-webkit-details-marker]:hidden">
+          <summary className="flex min-h-12 cursor-pointer list-none items-center justify-between gap-3 px-5 text-sm font-semibold text-paper/90 hover:text-gold">
+            <span>
+              Tell us more <span className="font-normal text-subtle">(optional)</span>
+            </span>
+            <Icon name="chevron-down" size={16} className="shrink-0 transition-transform group-open/more:rotate-180" />
+          </summary>
+          <div className="grid gap-6 border-t border-line p-5 sm:grid-cols-2">{more.map(renderField)}</div>
+        </details>
+      ) : null}
 
       <div className="flex flex-col gap-4 sm:col-span-2">
         {status.kind === 'error' ? (
@@ -359,11 +375,11 @@ export function NetworkForm({ page }: { page: NetworkPage }) {
           {status.kind === 'sending' ? 'Sending…' : page.form.button}
         </button>
         <p className="text-[13px] text-subtle">
-          By applying you agree to our{' '}
+          Free to join. By joining you agree to our{' '}
           <a href={PRIVACY_URL} className="underline underline-offset-4 hover:text-gold">
             privacy policy
           </a>
-          . We use your details to review your application and to run the Network.
+          . We use your details to review your membership and to run the Network.
         </p>
       </div>
     </form>

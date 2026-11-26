@@ -5,7 +5,6 @@ import { useEffect, useMemo, useState, type ReactNode } from 'react';
 import type { CompanyEntry, DirectoryEvent, DirectoryGroup } from '@/lib/companies';
 import { cn } from '@/lib/cn';
 import { Img } from '../ui/Img';
-import { SmartLink } from '../ui/SmartLink';
 
 const ALL = '';
 const TBC = 'tbc';
@@ -48,12 +47,12 @@ export function CompanyDirectory({ companies, events, groups }: Props) {
 
   const shown = useMemo(() => companies.filter((c) => inGroup(c, group) && inEvent(c, event)), [companies, group, event]);
   const groupLabel = (g?: string) => groups.find((x) => x.value === g)?.label;
-  const lines = events.filter((e) => !event || e.id === event);
+  const lines = events.filter((e) => (!event || e.id === event) && e.teams.length);
 
   const groupChips = [
     { value: ALL, label: 'All' },
     ...groups.map((g) => ({ value: g.value as string, label: g.label })),
-    { value: TBC, label: '[TBC]' },
+    ...(companies.some((c) => !c.group) ? [{ value: TBC, label: 'Other' }] : []),
   ].map((g) => ({ ...g, count: companies.filter((c) => inGroup(c, g.value) && inEvent(c, event)).length }));
   const eventChips = [{ id: ALL, label: 'All events' }, ...events].map((e) => ({
     ...e,
@@ -87,27 +86,20 @@ export function CompanyDirectory({ companies, events, groups }: Props) {
         <ul className="mt-4 grid grid-cols-2 border-l border-t border-line sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
           {shown.map((c) => (
             <li key={c.id} className="flex flex-col border-b border-r border-line p-5">
-              {c.url ? (
-                <SmartLink href={c.url} className="group flex h-16 items-center justify-center rounded-lg transition-colors hover:bg-ink-card" aria-label={`${c.name} website`}>
-                  <Logo company={c} />
-                </SmartLink>
-              ) : (
-                <div className="flex h-16 items-center justify-center">
-                  <Logo company={c} />
-                </div>
-              )}
-              <p className={c.logo ? 'mt-4 text-sm font-semibold text-paper/90' : 'sr-only'}>{c.name}</p>
-              <p className="mt-1 font-mono text-[10.5px] uppercase tracking-[0.08em] text-muted">{groupLabel(c.group) ?? 'Network group [TBC]'}</p>
-              <ul className="mt-3 flex flex-wrap gap-1.5" aria-label="Tags">
-                {c.partner ? <Tag tone="gold">Partner</Tag> : null}
-                {c.networkMember ? <Tag>Network member</Tag> : c.networkMember === undefined ? <Tag tone="tbc">Network member [TBC]</Tag> : null}
-                {c.attended ? <Tag>Attended</Tag> : null}
+              <Link href={c.href} className="group flex h-16 items-center justify-center rounded-lg transition-colors hover:bg-ink-card" aria-label={`${c.name}, company page`}>
+                <Logo company={c} />
+              </Link>
+              <Link href={c.href} className={c.logo ? 'mt-4 text-sm font-semibold text-paper/90 hover:text-gold' : 'sr-only'}>
+                {c.name}
+              </Link>
+              {groupLabel(c.group) ? <p className="mt-1 font-mono text-[10.5px] uppercase tracking-[0.08em] text-muted">{groupLabel(c.group)}</p> : null}
+              <ul className="mt-3 flex flex-wrap gap-1.5" aria-label="Relationship">
+                {c.relationshipLabel ? <Tag tone={c.partner ? 'gold' : undefined}>{c.relationshipLabel}</Tag> : null}
+                {c.networkMember ? <Tag>Network member</Tag> : null}
               </ul>
-              {c.caseStudy ? (
-                <Link href={c.caseStudy} className="mt-auto pt-4 text-sm font-semibold text-gold hover:underline">
-                  Case study
-                </Link>
-              ) : null}
+              <Link href={c.href} className="mt-auto pt-4 text-sm font-semibold text-gold hover:underline">
+                {c.caseStudy ? 'Company page and case study' : 'Company page'}
+              </Link>
             </li>
           ))}
         </ul>
@@ -120,7 +112,7 @@ export function CompanyDirectory({ companies, events, groups }: Props) {
           {lines.map((e) => (
             <div key={e.id}>
               <dt className="mono-label">Teams attending from · {e.label}</dt>
-              <dd className="mt-2 text-[15px] leading-relaxed text-paper/85">{e.teams.length ? e.teams.join(' · ') : '[TBC]'}</dd>
+              <dd className="mt-2 text-[15px] leading-relaxed text-paper/85">{e.teams.join(' · ')}</dd>
             </div>
           ))}
         </dl>

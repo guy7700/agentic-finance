@@ -5,7 +5,8 @@
  * structured data. Adding a new city or year means adding records, not pages.
  */
 
-export type EditionStatus = 'upcoming' | 'completed' | 'planned';
+/** 'cancelled' (Abu Dhabi 2026): kept as a record, never listed, its pages forward elsewhere. */
+export type EditionStatus = 'upcoming' | 'completed' | 'planned' | 'cancelled';
 
 export type ImageAsset = {
   src: string;
@@ -189,10 +190,15 @@ export type Organization = {
   url?: string;
   /** Logo needs a light surface to remain legible. */
   invertLogo?: boolean;
-  /** Network group, for the /partners/ filter. Left out until the team classifies the company: shows [TBC]. */
+  /** Kind of organisation, for the /partners/ filter and the Network pages. Not a membership claim. */
   group?: NetworkGroup;
-  /** Member of the Agentic Finance Network. Left out until confirmed: shows [TBC]. */
+  /** Confirmed member of the Agentic Finance Network: shows "Agentic Finance Network Member". Unset until confirmed. */
   networkMember?: boolean;
+  /** Company page introduction, only from verified sources: what it does, its products, who it serves, who it wants to meet. */
+  about?: string;
+  offers?: string[];
+  audiences?: string[];
+  lookingFor?: string[];
 };
 
 export type EditionOrganization = {

@@ -252,13 +252,7 @@ export const useCases: UseCase[] = [
         width: 1600,
         height: 900,
       },
-      {
-        src: '/images/more-and-more/fireblocks-ran-goldi-close.webp',
-        alt: 'Ran Goldi, SVP Payments & Network at Fireblocks, on stage with his name on screen at the Web2 to Web3 Summit, Abu Dhabi 2025',
-        edition: 'web2toweb3-abu-dhabi-2025',
-        width: 1600,
-        height: 900,
-      },
+      // fireblocks-ran-goldi-close.webp was removed: it shows Oleg Belousov under Ran's name (Tal flagged it, 26 Oct 2026).
     ],
     url: 'https://www.fireblocks.com',
   },
@@ -371,62 +365,67 @@ export function getUseCase(slug: string) {
 }
 
 /**
- * Logo registry. Logos are white-on-transparent files migrated from the live sites.
+ * `about` text comes only from published sources on file (the speakers' published bios), quoted in substance.
+ *
+ * Logo registry. Logos are white-on-transparent files migrated from the live sites. `group` is the
+ * kind of organisation (startup, VC, company, institution, ecosystem), set on 26 Nov 2026 for the
+ * /partners/ filter and the Network pages; it says what the organisation is, not that it is a
+ * Network member. `networkMember` stays unset until membership is confirmed.
  */
 export const organizations: Organization[] = [
-  { id: 'etoro', name: 'eToro', logo: '/images/partners/etoro.png', url: 'https://www.etoro.com' },
-  { id: 'fireblocks', name: 'Fireblocks', logo: '/images/partners/fireblocks.png', url: 'https://www.fireblocks.com' },
-  { id: 'alpaca', name: 'Alpaca', logo: '/images/partners/alpaca.svg', url: 'https://alpaca.markets' },
-  { id: 'limitless', name: 'Limitless', logo: '/images/logos/limitless.png', url: 'https://limitless.exchange' },
-  { id: 'standard-chartered', name: 'Standard Chartered', logo: '/images/logos/standard-chartered.png', url: 'https://www.sc.com' },
-  { id: 'kpmg', name: 'KPMG', logo: '/images/logos/kpmg-global.png', url: 'https://kpmg.com/sg/en/home.html' },
-  { id: 'pantera', name: 'Pantera Capital', logo: '/images/logos/pantera.png', url: 'https://panteracapital.com' },
-  { id: 'aave', name: 'Aave Labs', logo: '/images/logos/aave.svg', url: 'https://aave.com' },
-  { id: 'chainlink', name: 'Chainlink Labs', logo: '/images/logos/chainlink.svg', url: 'https://chain.link' },
-  { id: 'base', name: 'Base', logo: '/images/logos/base.png', url: 'https://base.org' },
-  { id: 'alchemy', name: 'Alchemy', logo: '/images/logos/alchemy.svg', url: 'https://www.alchemy.com' },
-  { id: 'cnbc', name: 'CNBC', logo: '/images/logos/cnbc.png', url: 'https://www.cnbc.com' },
-  { id: 'crypto-com', name: 'Crypto.com', logo: '/images/logos/crypto-com.png', url: 'https://crypto.com' },
-  { id: 'animoca', name: 'Animoca Brands', logo: '/images/logos/animoca-minds.svg' },
-  { id: 'nethermind', name: 'Nethermind', logo: '/images/logos/nethermind.svg', url: 'https://www.nethermind.io' },
-  { id: 'trm-labs', name: 'TRM Labs', logo: '/images/logos/trm-labs.png', url: 'https://www.trmlabs.com' },
-  { id: 'fca', name: 'FCA / British High Commission Singapore', logo: '/images/logos/fca.png' },
-  { id: 'bank-frick', name: 'Bank Frick', logo: '/images/logos/bank-frick.png' },
-  { id: 'world', name: 'World Foundation', logo: '/images/logos/world.svg', url: 'https://world.org' },
-  { id: 'hfw', name: 'HFW', logo: '/images/logos/hfw.png' },
-  { id: 'zengo', name: 'Zengo', logo: '/images/logos/zengo.png', url: 'https://zengo.com' },
-  { id: 'blockaid', name: 'Blockaid', logo: '/images/logos/blockaid.svg', url: 'https://www.blockaid.io' },
-  { id: 'redstone', name: 'RedStone', logo: '/images/logos/redstone.png' },
-  { id: 'liquid', name: 'Liquid', logo: '/images/logos/liquid.png', url: 'https://www.liquid.trade' },
-  { id: 'theoriq', name: 'Theoriq', logo: '/images/logos/theoriq.png' },
-  { id: 'aeon', name: 'AEON', logo: '/images/logos/aeon.png', url: 'https://aeon.xyz' },
-  { id: 'atlas', name: 'Atlas Capital Team', logo: '/images/logos/usaf.png', url: 'https://www.atlascap.io' },
-  { id: 'acx', name: 'ACX Compliance', logo: '/images/logos/acx-compliance.png', url: 'https://www.acxcompliance.com' },
-  { id: 'secondlane', name: 'SecondLane', logo: '/images/logos/secondlane.svg' },
-  { id: 'rum', name: 'RUM Group', logo: '/images/logos/rum.png', url: 'https://www.rum.group' },
-  { id: 'libertai', name: 'LibertAI', logo: '/images/logos/libertai.svg', url: 'https://libertai.io' },
-  { id: 'lava', name: 'Lava Network', logo: '/images/logos/lava.svg' },
-  { id: 'vulsight', name: 'VulSight', logo: '/images/logos/vulsight.png', url: 'https://www.vulsight.com' },
-  { id: 'gornitzky', name: 'Gornitzky & Co.', logo: '/images/logos/gornitzky.png' },
-  { id: 'kewmann', name: 'KewMann', logo: '/images/logos/kewmann.png' },
-  { id: 'kleros', name: 'Kleros', logo: '/images/logos/kleros.svg', url: 'https://kleros.io' },
-  { id: 'truflation', name: 'Truflation', logo: '/images/logos/truflation.svg' },
-  { id: 'avail', name: 'Avail', logo: '/images/logos/avail.svg' },
-  { id: 'zenith', name: 'Zenith', logo: '/images/logos/zenith.png' },
-  { id: 'bitcoin-japan', name: 'Bitcoin Japan', logo: '/images/logos/bitcoin-japan.png' },
-  { id: 'dlt-law', name: 'DLT Law', logo: '/images/logos/dlt-law.png', url: 'https://dltlaw.io' },
-  { id: 'xchainge', name: 'Xchainge', logo: '/images/logos/xchainge.svg', url: 'https://xchainge.io' },
-  { id: 'kash', name: 'Kash', logo: '/images/logos/kash.svg', url: 'https://www.kash.bot' },
-  { id: 'stratamedia', name: 'StrataMedia', logo: '/images/logos/stratamedia.png' },
-  { id: 'tradeil', name: 'Israel Trade Mission Singapore', logo: '/images/logos/tradeil.png' },
-  { id: 'mme', name: 'MME Legal | Tax | Compliance', logo: '/images/partners/mme.webp' },
+  { id: 'etoro', name: 'eToro', logo: '/images/partners/etoro.png', url: 'https://www.etoro.com', group: 'company', about: 'A publicly listed multi-asset investment platform serving retail and institutional investors across equities, commodities and crypto, with tokenised assets and self-custody through Zengo.' },
+  { id: 'fireblocks', name: 'Fireblocks', logo: '/images/partners/fireblocks.png', url: 'https://www.fireblocks.com', group: 'company' },
+  { id: 'alpaca', name: 'Alpaca', logo: '/images/partners/alpaca.svg', url: 'https://alpaca.markets', group: 'company' },
+  { id: 'limitless', name: 'Limitless', logo: '/images/logos/limitless.png', url: 'https://limitless.exchange', group: 'startup' },
+  { id: 'standard-chartered', name: 'Standard Chartered', logo: '/images/logos/standard-chartered.png', url: 'https://www.sc.com', group: 'institution' },
+  { id: 'kpmg', name: 'KPMG', logo: '/images/logos/kpmg-global.png', url: 'https://kpmg.com/sg/en/home.html', group: 'company' },
+  { id: 'pantera', name: 'Pantera Capital', logo: '/images/logos/pantera.png', url: 'https://panteracapital.com', group: 'vc' },
+  { id: 'aave', name: 'Aave Labs', logo: '/images/logos/aave.svg', url: 'https://aave.com', group: 'company' },
+  { id: 'chainlink', name: 'Chainlink Labs', logo: '/images/logos/chainlink.svg', url: 'https://chain.link', group: 'company' },
+  { id: 'base', name: 'Base', logo: '/images/logos/base.png', url: 'https://base.org', group: 'company', about: 'The blockchain for global finance, built to drive adoption and support builders around the world.' },
+  { id: 'alchemy', name: 'Alchemy', logo: '/images/logos/alchemy.svg', url: 'https://www.alchemy.com', group: 'company' },
+  { id: 'cnbc', name: 'CNBC', logo: '/images/logos/cnbc.png', url: 'https://www.cnbc.com', group: 'ecosystem' },
+  { id: 'crypto-com', name: 'Crypto.com', logo: '/images/logos/crypto-com.png', url: 'https://crypto.com', group: 'company' },
+  { id: 'animoca', name: 'Animoca Brands', logo: '/images/logos/animoca-minds.svg', group: 'company' },
+  { id: 'nethermind', name: 'Nethermind', logo: '/images/logos/nethermind.svg', url: 'https://www.nethermind.io', group: 'company' },
+  { id: 'trm-labs', name: 'TRM Labs', logo: '/images/logos/trm-labs.png', url: 'https://www.trmlabs.com', group: 'company' },
+  { id: 'fca', name: 'FCA / British High Commission Singapore', logo: '/images/logos/fca.png', group: 'ecosystem' },
+  { id: 'bank-frick', name: 'Bank Frick', logo: '/images/logos/bank-frick.png', group: 'institution' },
+  { id: 'world', name: 'World Foundation', logo: '/images/logos/world.svg', url: 'https://world.org', group: 'company' },
+  { id: 'hfw', name: 'HFW', logo: '/images/logos/hfw.png', group: 'company' },
+  { id: 'zengo', name: 'Zengo', logo: '/images/logos/zengo.png', url: 'https://zengo.com', group: 'company', about: 'The self-custodial wallet built on multi-party computation rather than seed phrases. Part of eToro since April 2026.' },
+  { id: 'blockaid', name: 'Blockaid', logo: '/images/logos/blockaid.svg', url: 'https://www.blockaid.io', group: 'startup' },
+  { id: 'redstone', name: 'RedStone', logo: '/images/logos/redstone.png', group: 'startup' },
+  { id: 'liquid', name: 'Liquid', logo: '/images/logos/liquid.png', url: 'https://www.liquid.trade', group: 'startup' },
+  { id: 'theoriq', name: 'Theoriq', logo: '/images/logos/theoriq.png', group: 'startup' },
+  { id: 'aeon', name: 'AEON', logo: '/images/logos/aeon.png', url: 'https://aeon.xyz', group: 'startup' },
+  { id: 'atlas', name: 'Atlas Capital Team', logo: '/images/logos/usaf.png', url: 'https://www.atlascap.io', group: 'vc' },
+  { id: 'acx', name: 'ACX Compliance', logo: '/images/logos/acx-compliance.png', url: 'https://www.acxcompliance.com', group: 'company' },
+  { id: 'secondlane', name: 'SecondLane', logo: '/images/logos/secondlane.svg', group: 'startup' },
+  { id: 'rum', name: 'RUM Group', logo: '/images/logos/rum.png', url: 'https://www.rum.group', group: 'company' },
+  { id: 'libertai', name: 'LibertAI', logo: '/images/logos/libertai.svg', url: 'https://libertai.io', group: 'startup' },
+  { id: 'lava', name: 'Lava Network', logo: '/images/logos/lava.svg', group: 'startup' },
+  { id: 'vulsight', name: 'VulSight', logo: '/images/logos/vulsight.png', url: 'https://www.vulsight.com', group: 'startup' },
+  { id: 'gornitzky', name: 'Gornitzky & Co.', logo: '/images/logos/gornitzky.png', group: 'company' },
+  { id: 'kewmann', name: 'KewMann', logo: '/images/logos/kewmann.png', group: 'company' },
+  { id: 'kleros', name: 'Kleros', logo: '/images/logos/kleros.svg', url: 'https://kleros.io', group: 'startup' },
+  { id: 'truflation', name: 'Truflation', logo: '/images/logos/truflation.svg', group: 'startup' },
+  { id: 'avail', name: 'Avail', logo: '/images/logos/avail.svg', group: 'startup' },
+  { id: 'zenith', name: 'Zenith', logo: '/images/logos/zenith.png', group: 'startup' },
+  { id: 'bitcoin-japan', name: 'Bitcoin Japan', logo: '/images/logos/bitcoin-japan.png', group: 'company' },
+  { id: 'dlt-law', name: 'DLT Law', logo: '/images/logos/dlt-law.png', url: 'https://dltlaw.io', group: 'company' },
+  { id: 'xchainge', name: 'Xchainge', logo: '/images/logos/xchainge.svg', url: 'https://xchainge.io', group: 'startup' },
+  { id: 'kash', name: 'Kash', logo: '/images/logos/kash.svg', url: 'https://www.kash.bot', group: 'startup' },
+  { id: 'stratamedia', name: 'StrataMedia', logo: '/images/logos/stratamedia.png', group: 'ecosystem' },
+  { id: 'tradeil', name: 'Israel Trade Mission Singapore', logo: '/images/logos/tradeil.png', group: 'ecosystem' },
+  { id: 'mme', name: 'MME Legal | Tax | Compliance', logo: '/images/partners/mme.webp', group: 'company' },
   // Agoric: Singapore (Dean Tribble, Agentic Capital panel). n.exchange and Sumsub: The Odds.
   // Kalshi and AWS: ecosystem partners in Singapore. Logos supplied by the user (26 Nov 2026).
-  { id: 'agoric', name: 'Agoric', logo: '/images/logos/agoric.png' },
-  { id: 'n-exchange', name: 'n.exchange', logo: '/images/logos/n-exchange.png' },
-  { id: 'sumsub', name: 'Sumsub', logo: '/images/logos/sumsub.png' },
-  { id: 'kalshi', name: 'Kalshi', logo: '/images/logos/kalshi.png' },
-  { id: 'aws', name: 'AWS', logo: '/images/logos/aws.png' },
+  { id: 'agoric', name: 'Agoric', logo: '/images/logos/agoric.png', group: 'startup', about: 'The team behind Ymax, for the safe deployment of capital by autonomous agents within a client’s mandate.' },
+  { id: 'n-exchange', name: 'n.exchange', logo: '/images/logos/n-exchange.png', group: 'company' },
+  { id: 'sumsub', name: 'Sumsub', logo: '/images/logos/sumsub.png', group: 'company' },
+  { id: 'kalshi', name: 'Kalshi', logo: '/images/logos/kalshi.png', group: 'company' },
+  { id: 'aws', name: 'AWS', logo: '/images/logos/aws.png', group: 'company' },
 ];
 
 export function getOrganization(id: string) {
@@ -484,4 +483,58 @@ export function teamsAttending(event: string): Organization[] {
 /** A curated set of on-stage organisations for compact homepage logo rows. */
 export const featuredOnStage = [
   'standard-chartered', 'kpmg', 'pantera', 'aave', 'chainlink', 'base', 'alchemy', 'trm-labs', 'nethermind', 'crypto-com', 'animoca', 'blockaid',
+];
+
+/**
+ * "Achievements of our partners" on /partners (Tal's review, 26 Nov 2026), worded from the records
+ * on file. Not claimed until confirmed: that eToro and Zengo first met at our event, that the
+ * acquisition was announced on our stage, that Atlas "launched" (rather than presented) the
+ * Technodollar with us, and that The Odds was the world's first prediction markets conference.
+ * The 50,000-listener X Space belongs on The Odds' site (Tal), so it is not here.
+ */
+export const partnerAchievements: {
+  id: string;
+  when: string;
+  title: string;
+  body: string;
+  orgs: string[];
+  href: string;
+  image: ImageAsset;
+}[] = [
+  {
+    id: 'etoro-zengo',
+    when: 'Abu Dhabi 2025 → Paris 2026',
+    title: 'eToro acquires Zengo',
+    body: 'Both companies took the stage at our Web2 to Web3 conference in Abu Dhabi. In April 2026 eToro acquired Zengo, and the two brands shared the stage at The Odds in Paris.',
+    orgs: ['etoro', 'zengo'],
+    href: '/partners/etoro',
+    image: { src: '/images/more-and-more/the-odds-paris-etoro-stage.webp', alt: 'Two speakers on stage at The Odds in Paris, in front of eToro x Zengo branding', position: '38% 30%' },
+  },
+  {
+    id: 'etoro-title',
+    when: 'Singapore · October 2026',
+    title: 'eToro becomes title partner',
+    body: '“Agentic Finance by eToro”: title positioning across the summit, the headline keynote from CEO Yoni Assia, and an F1 simulator on the floor.',
+    orgs: ['etoro'],
+    href: '/partners/etoro',
+    image: { src: '/images/singapore-2026/etoro-f1-simulator.webp', alt: 'A guest racing on eToro’s F1 simulator in Singapore', position: '45% 55%' },
+  },
+  {
+    id: 'atlas-technodollar',
+    when: 'Singapore · October 2026',
+    title: 'Atlas Capital presents the Technodollar',
+    body: 'Founder and CEO Reza Bundy presented the Technodollar, a programmable reserve asset designed for AI agents, in a keynote on our Singapore stage.',
+    orgs: ['atlas'],
+    href: '/partners/atlas',
+    image: { src: '/images/speakers/reza-bundy.webp', alt: 'Reza Bundy, Founder, Chairman and CEO of Atlas Capital Team', position: '50% 25%' },
+  },
+  {
+    id: 'the-odds',
+    when: 'Paris · April 2026',
+    title: 'A conference built for prediction markets',
+    body: 'The Odds: Prediction Markets Live brought operators, exchanges and regulators together at the Louvre during Paris Blockchain Week, with MME Legal as legal, tax and compliance partner.',
+    orgs: ['mme', 'n-exchange', 'sumsub'],
+    href: '/events/2026/the-odds-paris',
+    image: { src: '/images/more-and-more/the-odds-paris-room.jpg', alt: 'A full room at The Odds, Paris Blockchain Week' },
+  },
 ];

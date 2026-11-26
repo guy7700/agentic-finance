@@ -5,12 +5,12 @@ import { Button, ButtonLink } from '../ui/Button';
 import { Icon } from '../ui/Icon';
 
 /**
- * Google Calendar appointment schedule, embedded on request. The third-party
- * frame only loads after the visitor chooses to book, keeping the page fast and
- * avoiding third-party requests for visitors who never book.
+ * Google Calendar appointment schedule. With `open` (the partnership page, Tal's review of
+ * 26 Nov 2026) the calendar shows at once, lazy-loaded as it scrolls into view; otherwise the
+ * frame loads only when the visitor chooses to book.
  */
-export function BookingEmbed({ url, minutes, title }: { url: string; minutes: number; title: string }) {
-  const [show, setShow] = useState(false);
+export function BookingEmbed({ url, minutes, title, open = false }: { url: string; minutes: number; title: string; open?: boolean }) {
+  const [show, setShow] = useState(open);
   return (
     <div className="overflow-hidden rounded-2xl border border-line bg-ink-card/60">
       <div className="flex flex-col gap-5 p-6 sm:flex-row sm:items-center sm:justify-between sm:p-8">
@@ -31,9 +31,11 @@ export function BookingEmbed({ url, minutes, title }: { url: string; minutes: nu
               Choose a time here
             </Button>
           ) : null}
-          <ButtonLink href={url} variant="outline">
-            Open booking page
-          </ButtonLink>
+          {!open ? (
+            <ButtonLink href={url} variant="outline">
+              Open booking page
+            </ButtonLink>
+          ) : null}
         </div>
       </div>
       {show ? (

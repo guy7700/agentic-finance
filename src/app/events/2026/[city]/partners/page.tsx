@@ -11,6 +11,7 @@ import { PageHero } from '@/components/ui/PageHero';
 import { booking } from '@/config/site';
 import { cityParams, getEditionByPath } from '@/data/editions';
 import { categories, otherUseCases, partnerBenefits, teamsAttending, useCases, wallFor } from '@/data/partners';
+import { companyHref } from '@/lib/companies';
 import { pageMetadata } from '@/lib/seo';
 
 /**
@@ -67,11 +68,13 @@ export default async function EditionPartnersPage({ params }: PageProps<'/events
       {orgs.length ? (
         <Section className="!pt-12">
           <Container>
-            <LogoWall items={orgs} linkOut />
-            <div className="mt-10 border-t border-line pt-8">
-              <p className="mono-label">Teams attending from</p>
-              <p className="mt-2 text-[15px] leading-relaxed text-paper/85">{teams.length ? teams.map((o) => o.name).join(' · ') : '[TBC]'}</p>
-            </div>
+            <LogoWall items={orgs.map((o) => ({ ...o, href: companyHref(o.id) }))} />
+            {teams.length ? (
+              <div className="mt-10 border-t border-line pt-8">
+                <p className="mono-label">Teams attending from</p>
+                <p className="mt-2 text-[15px] leading-relaxed text-paper/85">{teams.map((o) => o.name).join(' · ')}</p>
+              </div>
+            ) : null}
           </Container>
         </Section>
       ) : (
@@ -83,8 +86,8 @@ export default async function EditionPartnersPage({ params }: PageProps<'/events
               lede={`${e.partnerPositions ? `No more than ${e.partnerPositions} strategic positions. ` : ''}Partners for ${e.city} are not listed until their participation is confirmed.`}
               action={
                 <>
-                  <ButtonLink href="/network/companies#book-a-call">{booking.partnership.label}</ButtonLink>
-                  <ButtonLink href="/network/companies#categories" variant="outline">Partnership categories</ButtonLink>
+                  <ButtonLink href="/partners/book-a-call">{booking.partnership.label}</ButtonLink>
+                  <ButtonLink href="/about/themes" variant="outline">Partnership categories</ButtonLink>
                 </>
               }
             />
@@ -165,7 +168,7 @@ export default async function EditionPartnersPage({ params }: PageProps<'/events
           body={`Talk to the partnerships team about the category your company should own in ${e.city}. Positions for ${e.city} are limited to ${(WORDS[offer] ?? String(offer)).toLowerCase()}. Start with a ${booking.partnership.minutes}-minute call.`}
           actions={
             <>
-              <ButtonLink href="/network/companies#book-a-call" size="lg">
+              <ButtonLink href="/partners/book-a-call" size="lg">
                 {booking.partnership.label}
               </ButtonLink>
               <ButtonLink href="/apply" variant="outline" size="lg">

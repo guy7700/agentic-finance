@@ -4,8 +4,8 @@ import { ButtonLink } from '@/components/ui/Button';
 import { Icon } from '@/components/ui/Icon';
 import { Container, Section } from '@/components/ui/Layout';
 import { PageHero } from '@/components/ui/PageHero';
-import { booking, contacts, externalLinks } from '@/config/site';
-import { getCurrentEdition } from '@/data/editions';
+import { booking, contacts } from '@/config/site';
+import { nextEdition2027, upcoming2027 } from '@/data/upcoming-2027';
 import { pageMetadata } from '@/lib/seo';
 
 export const metadata: Metadata = pageMetadata({
@@ -15,21 +15,23 @@ export const metadata: Metadata = pageMetadata({
   path: '/speakers/nominate',
 });
 
+/** Nominate a speaker (Tal approved it; 26 Nov 2026: the event first, a shorter subtitle). */
 export default function NominatePage() {
-  const e = getCurrentEdition();
+  const e = nextEdition2027();
+  const events = [...upcoming2027.map((x) => `${x.name} 2027`), 'Any upcoming event'];
   return (
     <>
       <PageHero
         size="md"
         crumbs={[{ label: 'Speakers', href: '/speakers' }, { label: 'Nominate a speaker' }]}
-        eyebrow={`Speaker nomination · ${e.name}`}
+        eyebrow="Speakers"
         title="Nominate a speaker."
-        lede={`Put forward a senior voice for the stage, or nominate yourself: a short list of voices, in front of ${e.guestCount} hand-selected leaders in finance, ${e.city}, ${e.dateLabel}.`}
+        lede="Put forward a senior voice for our stage, or nominate yourself."
       />
       <Section className="!pt-12">
         <Container>
           <div className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,360px)] lg:gap-14">
-            <NominationForm edition={e.shortName} />
+            <NominationForm events={events} defaultEvent={`${e.name} 2027`} />
             <aside className="flex flex-col gap-4 lg:sticky lg:top-[calc(var(--header-h)+24px)] lg:self-start">
               <div className="rounded-2xl border border-gold/40 bg-gold/[0.05] p-6">
                 <p className="eyebrow">Prefer to talk?</p>
@@ -47,7 +49,7 @@ export default function NominatePage() {
                   {[
                     'Every nomination is read by the programme team.',
                     'Speakers are chosen for what they decide, not how often they speak.',
-                    'Abu Dhabi speakers are announced one by one, as each confirms.',
+                    'Speakers are announced on each event’s page as they confirm.',
                     'A nomination is not a confirmation of a slot.',
                   ].map((x) => (
                     <li key={x} className="flex gap-2.5">
@@ -62,10 +64,6 @@ export default function NominatePage() {
                   Problems with the form? Email{' '}
                   <a href={`mailto:${contacts.general}`} className="font-semibold text-gold">
                     {contacts.general}
-                  </a>{' '}
-                  or use the{' '}
-                  <a href={externalLinks.nominateLegacy} target="_blank" rel="noopener noreferrer" className="font-semibold text-gold">
-                    Abu Dhabi nomination page
                   </a>
                   .
                 </p>

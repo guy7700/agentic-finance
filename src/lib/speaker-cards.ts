@@ -14,7 +14,8 @@ export function toSpeakerCard(s: Speaker, opts: { withTagline?: boolean } = {}):
     photoAlt: s.photoAlt,
     tags: speakerAppearances(s).map((a) => a.label),
     tagline: opts.withTagline ? primarySessionLabel(s) : undefined,
-    hasProfile: s.hasProfile !== false && Boolean(s.bio),
+    hasProfile: true,
+    logo: s.logo,
   };
 }
 

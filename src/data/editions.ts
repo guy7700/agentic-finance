@@ -1,5 +1,31 @@
 import { externalLinks } from '@/config/site';
 import type { Edition } from './types';
+import { eventDate, nextEdition2027, upcoming2027, type Upcoming2027 } from './upcoming-2027';
+
+/** A 2027 edition as an Edition record: the next one is 'upcoming', the rest 'planned'. */
+function editionFrom2027(p: Upcoming2027): Edition {
+  const d = eventDate(p);
+  return {
+    slug: p.editionSlug,
+    path: p.path,
+    name: p.name,
+    shortName: `${p.city} 2027`,
+    city: p.city,
+    country: p.country,
+    year: 2027,
+    status: p === nextEdition2027() ? 'upcoming' : 'planned',
+    dateLabel: d.provisional ? `${d.medium} (provisional)` : d.medium,
+    startDate: p.startsAt,
+    endDate: p.endsAt,
+    context: p.context,
+    tagline: p.tagline,
+    summary: p.subtitle,
+    positioning: p.positioning,
+    image: p.image,
+    invitationUrl: p.luma?.url,
+    guestCount: p.attendees,
+  };
+}
 
 /**
  * The Agentic Finance series. Status drives every template: upcoming editions
@@ -15,12 +41,14 @@ export const editions: Edition[] = [
   {
     slug: 'abu-dhabi-2026',
     path: '/events/2026/abu-dhabi',
+    // Will not take place (Tal, 26 Nov 2026). Kept as a record and a design reference; its pages
+    // are no longer built and its addresses forward (src/data/redirects.mjs).
     name: 'Agentic Finance Abu Dhabi',
     shortName: 'Abu Dhabi 2026',
     city: 'Abu Dhabi',
     country: 'United Arab Emirates',
     year: 2026,
-    status: 'upcoming',
+    status: 'cancelled',
     dateLabel: '4 December 2026',
     startDate: '2026-12-04T14:00:00+04:00',
     endDate: '2026-12-04T18:00:00+04:00',
@@ -68,7 +96,7 @@ export const editions: Edition[] = [
     ],
     speakersAnnounced: false,
     hasGala: true,
-    invitationUrl: externalLinks.invitation,
+    invitationUrl: externalLinks.abuDhabiRegistration,
     partnerPositions: 8,
     guestCount: 500,
   },
@@ -107,100 +135,8 @@ export const editions: Edition[] = [
     speakersAnnounced: true,
     hasAgenda: true,
   },
-  {
-    slug: 'hong-kong-2027',
-    path: '/events/2027/hong-kong',
-    name: 'Agentic Finance Hong Kong',
-    shortName: 'Hong Kong 2027',
-    city: 'Hong Kong',
-    country: 'Hong Kong SAR',
-    year: 2027,
-    status: 'planned',
-    dateLabel: 'February 2027',
-    context: 'Consensus Hong Kong',
-    tagline: 'Asia’s capital markets, and the agents entering them.',
-    summary: 'A planned 2027 edition in one of Asia’s deepest capital markets.',
-    positioning:
-      'A gateway between global institutions and Asian capital, with an active digital-asset policy agenda. A natural room for the trading, custody and market-infrastructure decisions agents will force.',
-    image: {
-      src: '/images/cities/hong-kong.webp',
-      alt: 'Victoria Harbour at night, a red-sailed junk in front of the Hong Kong skyline',
-    },
-  },
-  {
-    slug: 'dubai-2027',
-    path: '/events/2027/af-dubai',
-    name: 'Agentic Finance Dubai',
-    shortName: 'Dubai 2027',
-    city: 'Dubai',
-    country: 'United Arab Emirates',
-    year: 2027,
-    status: 'planned',
-    dateLabel: 'April 2027',
-    context: 'TOKEN2049 Dubai',
-    tagline: 'The Gulf’s fastest-moving market for digital assets.',
-    summary: 'A planned 2027 edition in More & More’s home market.',
-    positioning:
-      'A regional hub for exchanges, fintech and digital-asset firms, and one of More & More’s two bases. Dubai is where operators come to build, license and scale.',
-    image: { src: '/images/cities/dubai.webp', alt: 'Downtown Dubai at dusk, the Burj Khalifa rising above the skyline' },
-  },
-  {
-    slug: 'paris-2027',
-    path: '/events/2027/paris',
-    name: 'Agentic Finance Paris',
-    shortName: 'Paris 2027',
-    city: 'Paris',
-    country: 'France',
-    year: 2027,
-    status: 'planned',
-    dateLabel: 'July 2027',
-    context: 'Signal Week',
-    tagline: 'European rules for autonomous finance.',
-    summary: 'A planned 2027 edition in the city where More & More produced The Odds in April 2026.',
-    positioning:
-      'Europe sets much of the world’s regulatory tone. Paris is the room for governance, compliance and the institutional questions agentic finance has to answer before it scales.',
-    image: { src: '/images/cities/paris.webp', alt: 'The Louvre pyramid in Paris, lit at night' },
-  },
-  {
-    slug: 'rio-de-janeiro-2027',
-    path: '/events/2027#rio-de-janeiro-2027',
-    name: 'Agentic Finance Rio de Janeiro',
-    shortName: 'Rio de Janeiro 2027',
-    city: 'Rio de Janeiro',
-    country: 'Brazil',
-    year: 2027,
-    status: 'planned',
-    dateLabel: 'August 2027',
-    context: 'Blockchain.RIO',
-    tagline: 'Latin America’s payments momentum, in one room.',
-    summary: 'A planned 2027 edition, the series’ first in Latin America.',
-    positioning:
-      'Brazil has become one of the most closely watched markets for digital payments and fintech. Rio is where agentic payments and commerce meet population scale.',
-    image: {
-      src: '/images/cities/rio-de-janeiro.webp',
-      alt: 'Christ the Redeemer above Rio de Janeiro, with Sugarloaf Mountain across the bay',
-    },
-  },
-  {
-    slug: 'singapore-2027',
-    path: '/events/2027/singapore',
-    name: 'Agentic Finance Singapore',
-    shortName: 'Singapore 2027',
-    city: 'Singapore',
-    country: 'Singapore',
-    year: 2027,
-    status: 'planned',
-    dateLabel: 'October 2027',
-    context: 'TOKEN2049 Singapore',
-    tagline: 'Back where the series began.',
-    summary: 'A planned 2027 return to the city that hosted the first Agentic Finance Summit.',
-    positioning:
-      'Asia’s financial centre and home of the first edition. The second Singapore room builds on 2026: the same seniority, sharper questions.',
-    image: {
-      src: '/images/cities/singapore.webp',
-      alt: 'Marina Bay at night, Gardens by the Bay and Marina Bay Sands across the water',
-    },
-  },
+  // The 2027 editions, from the one schedule in upcoming-2027.ts.
+  ...upcoming2027.map(editionFrom2027),
 ];
 
 export function getEdition(slug: string): Edition | undefined {
@@ -218,7 +154,7 @@ export function getEditionByPath(path: string): Edition | undefined {
  */
 export function cityParams(year: number, keep: (e: Edition) => boolean = () => true): { city: string }[] {
   const prefix = `/events/${year}/`;
-  return editions.filter((e) => e.path.startsWith(prefix) && keep(e)).map((e) => ({ city: e.path.slice(prefix.length) }));
+  return editions.filter((e) => e.path.startsWith(prefix) && e.status !== 'cancelled' && keep(e)).map((e) => ({ city: e.path.slice(prefix.length) }));
 }
 
 /** The page of the edition `slug`, or one of its sub-pages: editionPath('singapore-2026', 'agenda'). */
@@ -238,14 +174,20 @@ export function getCurrentEdition(): Edition {
   return upcoming;
 }
 
+/** Visible labels. No "Planned", "Archive", "TBC" or "TBD" tags (Tal, 26 Nov 2026). */
 export const statusLabel: Record<Edition['status'], string> = {
-  upcoming: 'Upcoming',
-  completed: 'Archive',
-  planned: 'Planned · 2027',
+  upcoming: 'Next event',
+  completed: 'Past edition',
+  planned: '2027',
+  cancelled: 'Not taking place',
 };
+
+/** The editions a visitor can see: everything but cancelled ones. */
+export const listedEditions = () => editions.filter((e) => e.status !== 'cancelled');
 
 /** Short labels for other More & More stages referenced by speaker records. */
 export const conferenceLabels: Record<string, { label: string; city?: string }> = {
   'the-odds-paris-2026': { label: 'The Odds · Paris 2026', city: 'Paris' },
+  'web2toweb3-abu-dhabi-2025': { label: 'Web2 to Web3 · Abu Dhabi 2025', city: 'Abu Dhabi' },
   'more-and-more': { label: 'More & More conferences' },
 };

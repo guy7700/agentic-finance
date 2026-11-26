@@ -8,6 +8,21 @@ export const producerMetrics: Metric[] = [
   { value: '5+', label: 'Continents' },
 ];
 
+/** More & More's track record (not Tal's personal one): the four figures Tal approved on 26 Nov 2026, worded as published on mnm.live. */
+export const trackRecord = producerMetrics;
+
+/**
+ * The team (Tal, 26 Nov 2026: Tal, Guy, Tomer and Mia, with photos and roles). A member shows on
+ * /about/more-and-more once both a photo and a verified role are filled in. Tal's own block is the
+ * founder section above the grid.
+ */
+export const team: { name: string; role?: string; photo?: string }[] = [
+  { name: 'Guy' },
+  { name: 'Tomer' },
+  { name: 'Mia' },
+];
+
+/** Kept for reference; "Four ways into the room" left the site (Tal, 26 Nov 2026). */
 export const producerServices = [
   {
     name: 'Events organisation',
@@ -31,7 +46,7 @@ export const producerTimeline = [
   { when: 'Abu Dhabi · 2025', what: 'Web2 to Web3 Summit', note: 'Co-produced with Hub71' },
   { when: 'Paris · April 2026', what: 'The Odds · Paris Blockchain Week', note: 'Connect Lounge, the Louvre' },
   { when: 'Singapore · October 2026', what: 'Agentic Finance Summit · TOKEN2049 Week', note: 'With The Odds, co-located' },
-  { when: 'Next · Abu Dhabi · December 2026', what: 'Agentic Finance Abu Dhabi', note: 'Summit and VIP Gala', next: true },
+  { when: 'Next · Hong Kong · 1 February 2027', what: 'Agentic Finance Hong Kong · Consensus Hong Kong', note: 'Summit and Founders and Funders Dinner', next: true },
 ];
 
 export type SeriesBrand = {
@@ -56,8 +71,8 @@ export const seriesBrands: SeriesBrand[] = [
     focus: 'AI agents in institutional finance',
     summary:
       'An invitation-only summit series for the institutions, capital allocators, regulators and builders deciding how AI agents enter trading, payments, custody and capital management.',
-    relationship: 'The flagship series. Singapore 2026 was the first edition; Abu Dhabi follows in December 2026, then five cities in 2027.',
-    facts: ['Singapore · 8 October 2026 · 650+ attendees', 'Abu Dhabi · December 2026 · 500 curated guests', '2027 · Hong Kong, Rio de Janeiro, Paris, Dubai, Singapore'],
+    relationship: 'The flagship series. Singapore 2026 was the first edition; Hong Kong opens 2027, during Consensus Hong Kong.',
+    facts: ['Singapore · 8 October 2026 · 650+ attendees', 'Hong Kong · 1 February 2027 · up to 400 curated attendees', '2027 · Hong Kong, Cannes, Dubai, Miami, Paris, Singapore'],
     image: { src: '/images/singapore-2026/agentic-capital-panel.webp', alt: 'The five-strong Agentic Capital panel on the Singapore stage' },
     href: '/events',
     linkLabel: 'See every edition',
@@ -83,7 +98,7 @@ export const seriesBrands: SeriesBrand[] = [
     summary:
       'A curated institutional programme in Abu Dhabi, produced with Hub71, where banks, payment leaders, regulators and VCs met the founders building the onboarding layer for institutional capital.',
     relationship:
-      'The proof that More & More can convene Abu Dhabi. Agentic Finance Abu Dhabi is built by the same team, with the same relationships, on the same island.',
+      'Where the series’ relationships in the Gulf began. Agentic Finance is built by the same team, with the same institutional network.',
     facts: ['Abu Dhabi · 2025', '150 senior professionals', 'Speakers from Fireblocks, eToro, CertiK, Zengo, Nominis and CryptoLaw Partners'],
     image: { src: '/images/more-and-more/web2toweb3-session.webp', alt: 'A seated session at the Web2 to Web3 Summit in Abu Dhabi, produced by More & More' },
     youtube: { id: 'K7Bu0Pml6-8', title: 'Web2 to Web3 Conference: Official Recap (UAE)', duration: '0:56' },
@@ -104,7 +119,7 @@ export const faqGroups: FaqGroup[] = [
       {
         q: 'Can anyone register?',
         a: 'No. Agentic Finance is invitation-only and there are no tickets. Every guest is selected. You can apply to attend, and each application is reviewed by the team. Submitting a request does not guarantee admission.',
-        links: [{ label: 'How selection works', href: '/about#who-its-for' }],
+        links: [{ label: 'How selection works', href: '/about/program#who-its-for' }],
       },
       {
         q: 'How do I apply to attend Abu Dhabi?',
@@ -141,7 +156,7 @@ export const faqGroups: FaqGroup[] = [
       },
       {
         q: 'Which cities are planned for 2027?',
-        a: 'Hong Kong, Rio de Janeiro, Paris, Dubai and Singapore. Dates and venues will be announced city by city. You can register your interest now.',
+        a: 'Hong Kong, Cannes, Dubai, Miami, Paris and Singapore, each during a major industry week. Each event page carries its date.',
         links: [{ label: 'The 2027 series', href: '/events/2027' }],
       },
       {
@@ -173,17 +188,17 @@ export const faqGroups: FaqGroup[] = [
       {
         q: 'Can my company become a partner?',
         a: 'Yes. Abu Dhabi has no more than eight strategic partner positions, each built around a seat on stage, introductions arranged before the event and the VIP Gala. Start with the partnership form or book a call.',
-        links: [{ label: 'Partner with us', href: '/network/companies#book-a-call' }],
+        links: [{ label: 'Partner with us', href: '/partners/book-a-call' }],
       },
       {
         q: 'What does owning a category mean?',
         a: 'Each part of the agentic finance ecosystem, from trading and payments to wallets, compliance and capital, is a conversation we lead on stage. A category partner becomes the company associated with one of them: its session, its branding and the introductions around it. There are twelve categories but no more than eight positions, so not every category will have a partner.',
-        links: [{ label: 'Partnership categories', href: '/network/companies#categories' }],
+        links: [{ label: 'Partnership categories', href: '/about/themes' }],
       },
       {
         q: 'What did partners receive in Singapore?',
         a: 'Title positioning, keynotes and panel seats, branded areas, main-stage branding, activations such as an F1 simulator, PR, photography, video and executive networking. The use cases show it partner by partner.',
-        links: [{ label: 'Use cases', href: '/partners#case-studies' }],
+        links: [{ label: 'Use cases', href: '/partners#achievements' }],
       },
       {
         q: 'Is there a price list?',

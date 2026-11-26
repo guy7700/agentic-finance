@@ -7,9 +7,8 @@ import { publishedTermsSections, termsMeta, type TermsBlock } from '@/data/terms
 import { pageMetadata } from '@/lib/seo';
 
 /**
- * Terms & Conditions, as approved by More & More (26 Nov 2026). The wording lives in src/data/terms.ts;
- * text that still holds a bracketed placeholder (the governing law, the legal entity and its address)
- * stays off the page until it is filled in.
+ * Terms & Conditions, as approved by More & More (26 Nov 2026). The wording lives in src/data/terms.ts,
+ * which also keeps any text with a bracketed placeholder off the page.
  */
 export const metadata: Metadata = pageMetadata({
   title: 'Terms & Conditions',

@@ -1,10 +1,10 @@
 /**
  * Terms & Conditions for agentic-finance.live, as approved by More & More (26 Nov 2026).
  *
- * Wording is More & More's own: change it only with their approval. A paragraph, list item or line
- * that still holds a bracketed placeholder, such as "[applicable jurisdiction]", is not shown on the
- * page (see `hasPlaceholder`), and a section left with nothing to show is skipped. Replace the
- * placeholder with the real text and it appears, with the sections renumbered.
+ * Wording is More & More's own: change it only with their approval. The company's registered address
+ * is deliberately not published. As a safeguard, a paragraph, list item or line that holds a bracketed
+ * placeholder, such as "[applicable jurisdiction]", is not shown on the page (see `hasPlaceholder`),
+ * and a section left with nothing to show is skipped; the sections renumber themselves.
  */
 
 export type TermsBlock =
@@ -255,23 +255,25 @@ export const termsSections: TermsSection[] = [
     id: 'governing-law',
     title: 'Governing Law and Jurisdiction',
     blocks: [
-      p('These Terms and Conditions shall be governed by the laws of [applicable jurisdiction].'),
-      p('Disputes arising in connection with these Terms shall be subject to the jurisdiction of the competent courts of [applicable jurisdiction], without prejudice to any mandatory legal rights or protections available to users.'),
+      p('These Terms and Conditions shall be governed by and construed in accordance with the laws of the State of Israel.'),
+      p('Any dispute arising out of or in connection with these Terms or the use of the Platform shall be subject to the jurisdiction of the competent courts of the State of Israel, without prejudice to any mandatory rights or protections afforded to users under applicable law.'),
     ],
   },
   {
     id: 'contact',
-    title: 'Contact Information',
+    title: 'Company and Contact Information',
+    // The registered address is left out on purpose: it is a private home address (Guy, 26 Nov 2026).
     blocks: [
-      p('For questions regarding these Terms and Conditions, intellectual property, privacy, network participation or other legal matters, please contact:'),
       lines(
         'Agentic Finance | More & More',
-        'Legal entity: [Full registered company name]',
-        'Registered address: [Company registered address]',
-        'Guy Kaufman, Head of Partnerships: guy@mnm.live',
-        'Tal Mor, Founder: tal@mnm.live',
+        'Legal Entity: MORE AND MORE B,D, LTD',
+        'Company Registration Number: 517306296',
+        'Country of Incorporation: Israel',
+        'Business Inquiries: guy@mnm.live',
+        'Management and Legal Inquiries: tal@mnm.live',
+        'Finance: finance@mnm.live',
         'Website: https://agentic-finance.live',
-        'Corporate website: https://mnm.live',
+        'Corporate Website: https://mnm.live',
       ),
     ],
   },

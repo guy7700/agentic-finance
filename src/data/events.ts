@@ -1,9 +1,10 @@
+import { hkEvent } from './af-hk';
 import type { ImageAsset } from './types';
 
 /**
- * The home page events block. Facts as published on
- * mnm.live/agentic-finance-abu-dhabi (checked 25 October 2026): the summit and
- * Gala, its 2027 calendar, and its "Our Recent Events" figures.
+ * The home page events block: the next event, the 2027 calendar and the "Our Recent
+ * Events" figures (as published on mnm.live/agentic-finance-abu-dhabi, checked
+ * 25 October 2026).
  */
 export type UpcomingEvent = {
   id: string;
@@ -16,6 +17,9 @@ export type UpcomingEvent = {
   /** At most one line about a side event, inside the same card. */
   note?: string;
   href: string;
+  /** ISO start and end with offset, for the event's structured data. */
+  start?: string;
+  end?: string;
 };
 
 export type PastEvent = {
@@ -29,17 +33,22 @@ export type PastEvent = {
   image: ImageAsset;
 };
 
-/** The next event. Its own page, mnm.live/agentic-finance-abu-dhabi, handles sign-ups. */
+/**
+ * The next event on the home page and the news pages: Hong Kong (user, 26 Nov 2026;
+ * Abu Dhabi will not take place, and its own pages stay as they are). Day and time come
+ * from src/data/af-hk.ts; the venue is not confirmed yet, so it is left out.
+ */
 export const nextEvent: UpcomingEvent = {
-  id: 'abu-dhabi-2026',
-  name: 'Agentic Finance Summit Abu Dhabi',
-  date: 'Friday 4 December 2026',
-  time: '14:00-18:00 GST',
-  city: 'Abu Dhabi',
-  venue: 'Saadiyat Island',
-  line: '500 curated guests. By invitation only.',
-  note: 'VIP Gala on Tuesday 8 December 2026, by personal invitation only.',
-  href: 'https://mnm.live/agentic-finance-abu-dhabi',
+  id: 'hong-kong-2027',
+  name: 'Agentic Finance Hong Kong',
+  date: hkEvent.dayLabel ?? 'February 2027',
+  time: hkEvent.timeLabel,
+  city: 'Hong Kong',
+  venue: hkEvent.venue,
+  line: 'During Consensus Hong Kong.',
+  href: '/events/2027/hong-kong',
+  start: hkEvent.startsAt,
+  end: hkEvent.endsAt,
 };
 
 /** The 2027 calendar, in date order. */

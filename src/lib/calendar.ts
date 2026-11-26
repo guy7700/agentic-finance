@@ -231,7 +231,7 @@ export function buildCalendarEvents({
     kind: 'summit',
     ours: true,
     name: nextEvent.name,
-    short: 'Summit',
+    short: /summit/i.test(nextEvent.name) ? 'Summit' : 'Agentic Finance',
     start: summit.iso,
     end: summit.iso,
     month: summit.iso.slice(0, 7),

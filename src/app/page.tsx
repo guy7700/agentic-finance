@@ -2,9 +2,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { EventCalendar } from '@/components/events/EventCalendar';
 import { HomeHero } from '@/components/home/HomeHero';
-import { CategoryCards, FormatTiles, HomePartners, MediaTeaser, PastEditions, QuestionnaireBand, WhoWeAre } from '@/components/home/HomeSections';
-import { EtoroZengoStory } from '@/components/partners/EtoroZengoStory';
-import { UseCaseCard } from '@/components/partners/UseCaseCard';
+import { HomeIndex, HomeLive, HomeNetwork, HomePartners, MediaTeaser, PastEditions, QuestionnaireBand, WhoWeAre } from '@/components/home/HomeSections';
 import { SpeakerCard } from '@/components/speakers/SpeakerCard';
 import { ButtonLink } from '@/components/ui/Button';
 import { CtaBand } from '@/components/ui/CtaBand';
@@ -12,9 +10,8 @@ import { JsonLd } from '@/components/ui/JsonLd';
 import { Container, Section, SectionHeader } from '@/components/ui/Layout';
 import { EVENTS_YEAR, events2027 } from '@/config/events-2027';
 import { primaryActions, site } from '@/config/site';
-import { editions, getCurrentEdition } from '@/data/editions';
+import { editions, getEdition } from '@/data/editions';
 import { nextEvent, pastEvents } from '@/data/events';
-import { otherUseCases, useCases } from '@/data/partners';
 import { buildCalendarEvents } from '@/lib/calendar';
 import { getSpeaker } from '@/lib/content';
 import { absoluteUrl } from '@/lib/paths';
@@ -26,7 +23,7 @@ import { toSpeakerCard } from '@/lib/speaker-cards';
 export const metadata: Metadata = pageMetadata({
   title: 'Agentic Finance: AI agents in finance summits',
   description:
-    'Agentic Finance brings together the banks, investors, regulators and builders putting AI agents to work in finance. Next: Abu Dhabi, 4 December 2026.',
+    `Agentic Finance brings together the banks, investors, regulators and builders putting AI agents to work in finance. Next: ${nextEvent.city}, ${nextEvent.date.replace(/^[A-Z][a-z]+day /, '')}.`,
   path: '/',
 });
 
@@ -46,23 +43,25 @@ const FEATURED_SPEAKERS = [
   'joanna-ossinger',
 ];
 
-/** Home page order as set in Tal's redesign brief. */
+/**
+ * Home page in the order of Tal's site structure (23 Nov 2026): hero (news or the next event),
+ * upcoming events, Network, Live, Index, past events, speakers and partner logos, who we are.
+ * Moved off the home page: topics and categories (/network/companies#categories, /about#topics),
+ * event formats (/about#formats), use cases and the eToro and Zengo story (/partners#case-studies).
+ */
 export default function HomePage() {
-  const next = getCurrentEdition();
+  // The next event (src/data/events.ts) and its edition, for the hero, the share card and the closing band.
+  const next = getEdition(nextEvent.id);
+  if (!next) throw new Error(`Home page: no edition for the next event "${nextEvent.id}".`);
   const eventCard = getOgCard(`${next.path}`);
   const featured = FEATURED_SPEAKERS.map(getSpeaker).filter((s) => s !== undefined).map((s) => toSpeakerCard(s));
-  // eToro leads through the eToro and Zengo story; every other use case follows.
-  const cases = [...useCases.filter((u) => u.slug !== 'etoro'), ...otherUseCases];
 
   return (
     <>
-      {/* 1. Hero with the latest industry news */}
+      {/* 1. Hero: headline, next event, the 3 latest news items or the next event */}
       <HomeHero next={next} />
 
-      {/* 2. Partners and organisations at our conferences */}
-      <HomePartners />
-
-      {/* 3. Upcoming events */}
+      {/* 2. Upcoming events, then the 2027 questionnaire */}
       <Section bordered tone="raised" id="events">
         <Container>
           <SectionHeader
@@ -88,16 +87,22 @@ export default function HomePage() {
         </Container>
       </Section>
 
-      {/* Where will you be in 2027? (the questionnaire) */}
       <QuestionnaireBand />
 
-      {/* 4. Past Editions */}
+      {/* 3. Network: one card per audience, linking to its form */}
+      <HomeNetwork />
+
+      {/* 4. Live: latest X Space or webinar, newsletter signup */}
+      <HomeLive />
+
+      {/* 5. Index: AF100 preview */}
+      <HomeIndex />
+
+      {/* 6. Past events: recap films, then video, photos and press */}
       <PastEditions events={pastEvents} />
+      <MediaTeaser />
 
-      {/* 5. Who we are */}
-      <WhoWeAre />
-
-      {/* 6. Speakers */}
+      {/* 7. Speakers and partner logos */}
       <Section bordered id="speakers">
         <Container>
           <SectionHeader
@@ -106,7 +111,6 @@ export default function HomePage() {
                 Speakers at <span className="serif-accent">Our Events</span>
               </>
             }
-            lede="Abu Dhabi speakers are announced as each one confirms."
             action={
               <>
                 <ButtonLink href="/speakers" variant="outline">
@@ -128,57 +132,24 @@ export default function HomePage() {
         </Container>
       </Section>
 
-      {/* 7. Topics and categories */}
-      <CategoryCards />
+      <HomePartners />
 
-      {/* 8. Event formats and experience */}
-      <FormatTiles />
+      {/* 8. Who we are, short, linking to /about */}
+      <WhoWeAre />
 
-      {/* 9. Use cases */}
-      <Section bordered tone="raised" id="use-cases">
-        <Container>
-          <SectionHeader
-            title={
-              <>
-                Use <span className="serif-accent">cases</span>
-              </>
-            }
-            lede="What partners got from our events."
-            action={
-              <ButtonLink href="/partners#case-studies" variant="outline">
-                All use cases
-              </ButtonLink>
-            }
-          />
-          <div className="mt-12">
-            <EtoroZengoStory />
-          </div>
-          <ul className="mt-5 grid gap-5 sm:grid-cols-2 xl:grid-cols-4">
-            {cases.map((u) => (
-              <li key={u.slug} className="flex">
-                <UseCaseCard useCase={u} className="w-full" />
-              </li>
-            ))}
-          </ul>
-        </Container>
-      </Section>
-
-      {/* 10. Media, video gallery and press coverage */}
-      <MediaTeaser />
-
-      {/* 11. Direct Abu Dhabi CTA */}
+      {/* Direct CTA for the next event */}
       <CtaBand
-        eyebrow={`${nextEvent.name} · ${next.dateLabel}`}
+        eyebrow={`${nextEvent.name} · ${nextEvent.date}`}
         title={
           <>
-            Join us in <span className="serif-accent">Abu Dhabi</span>
+            Join us in <span className="serif-accent">{nextEvent.city}</span>
           </>
         }
-        body={`${next.guestCount} curated guests. By invitation only.`}
+        body={nextEvent.line}
         actions={
           <>
             <ButtonLink href={nextEvent.href} size="lg">
-              Join us in Abu Dhabi
+              Join us in {nextEvent.city}
             </ButtonLink>
             <ButtonLink href={primaryActions.partner.href} variant="outline" size="lg">
               {primaryActions.partner.label}
@@ -196,24 +167,29 @@ export default function HomePage() {
             url: absoluteUrl('/'),
             publisher: { '@id': `${absoluteUrl('/')}#organization` },
           },
-          {
-            '@context': 'https://schema.org',
-            '@type': 'Event',
-            name: nextEvent.name,
-            description: `${nextEvent.line} ${nextEvent.time}, ${nextEvent.venue}, ${nextEvent.city}.`,
-            startDate: next.startDate,
-            endDate: next.endDate,
-            eventStatus: 'https://schema.org/EventScheduled',
-            eventAttendanceMode: 'https://schema.org/OfflineEventAttendanceMode',
-            location: {
-              '@type': 'Place',
-              name: `${nextEvent.venue}, ${nextEvent.city}`,
-              address: { '@type': 'PostalAddress', addressLocality: nextEvent.city, addressCountry: 'AE' },
-            },
-            image: [eventCard ? ogImage(eventCard).url : absoluteUrl(next.image.src)],
-            url: nextEvent.href,
-            organizer: { '@type': 'Organization', name: 'More & More', url: 'https://mnm.live' },
-          },
+          // An Event needs a start date; without one the home page describes only the site.
+          ...(nextEvent.start
+            ? [
+                {
+                  '@context': 'https://schema.org',
+                  '@type': 'Event',
+                  name: nextEvent.name,
+                  description: `${nextEvent.line} ${[nextEvent.time, nextEvent.venue, nextEvent.city].filter(Boolean).join(', ')}.`,
+                  startDate: nextEvent.start,
+                  endDate: nextEvent.end,
+                  eventStatus: 'https://schema.org/EventScheduled',
+                  eventAttendanceMode: 'https://schema.org/OfflineEventAttendanceMode',
+                  location: {
+                    '@type': 'Place',
+                    name: [nextEvent.venue, nextEvent.city].filter(Boolean).join(', '),
+                    address: { '@type': 'PostalAddress', addressLocality: nextEvent.city },
+                  },
+                  image: [eventCard ? ogImage(eventCard).url : absoluteUrl(next.image.src)],
+                  url: nextEvent.href.startsWith('/') ? absoluteUrl(nextEvent.href) : nextEvent.href,
+                  organizer: { '@type': 'Organization', name: 'More & More', url: 'https://mnm.live' },
+                },
+              ]
+            : []),
         ]}
       />
     </>

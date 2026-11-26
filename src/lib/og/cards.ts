@@ -1,5 +1,6 @@
 import { editions, getCurrentEdition, getEdition, statusLabel } from '@/data/editions';
 import { otherUseCases, useCases, wallFor } from '@/data/partners';
+import { nextEvent } from '@/data/events';
 import { networkPages } from '@/data/network';
 import { contextDates, upcoming2027 } from '@/data/upcoming-2027';
 import { profiledSpeakers, speakerAppearances } from '@/lib/content';
@@ -39,6 +40,8 @@ const MNM = '/images/more-and-more';
 
 function staticCards(): OgCard[] {
   const next = getCurrentEdition();
+  // The home page's next event (src/data/events.ts), which is no longer the current edition.
+  const home = getEdition(nextEvent.id);
   const singapore = getEdition('singapore-2026');
   const sgMetrics = (singapore?.metrics ?? []).map((m) => `${m.value} ${m.label.toLowerCase()}`);
   const planned = editions.filter((e) => e.status === 'planned');
@@ -59,7 +62,7 @@ function staticCards(): OgCard[] {
   return [
     {
       path: '/',
-      eyebrow: `Next · ${next.city} · ${next.dateLabel}`,
+      eyebrow: `Next · ${home?.city ?? next.city} · ${home?.dateLabel ?? next.dateLabel}`,
       title: 'AI Agents Are Rewriting Finance.',
       accent: 'We’re Bringing the Industry Together.',
       note: singapore ? `Singapore 2026 · ${sgMetrics[0]}` : undefined,

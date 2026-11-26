@@ -80,7 +80,7 @@ export default async function PostPage({ params }: PageProps<'/live/news/[slug]'
               {nextEvent.name}
             </h2>
             <p className="mt-2 text-muted">
-              {nextEvent.date}, {nextEvent.venue}, {nextEvent.city}. {nextEvent.line}
+              {[nextEvent.date, nextEvent.venue, nextEvent.city].filter(Boolean).join(', ')}. {nextEvent.line}
             </p>
             <div className="mt-6">
               <ButtonLink href={nextEvent.href}>{primaryActions.invitation.label}</ButtonLink>

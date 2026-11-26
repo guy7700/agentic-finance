@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import { CompanyDirectory } from '@/components/partners/CompanyDirectory';
+import { EtoroZengoStory } from '@/components/partners/EtoroZengoStory';
 import { UseCaseCard } from '@/components/partners/UseCaseCard';
 import { ButtonLink } from '@/components/ui/Button';
 import { CtaBand } from '@/components/ui/CtaBand';
@@ -18,7 +19,7 @@ import { pageMetadata } from '@/lib/seo';
  * (the user approved filters and tags on this page only). Case studies stay at
  * /partners/<company>. The walls by event (/partners/past-partners) and the use cases
  * (/partners/use-cases) moved here; the partnership call and the categories moved to
- * /network/companies.
+ * /network/companies. The eToro and Zengo story moved here from the home page.
  */
 
 export const metadata: Metadata = pageMetadata({
@@ -63,7 +64,10 @@ export default function PartnersPage() {
             title="What partners received."
             lede="Four partners, four different objectives. From a title partnership with a CEO keynote and an F1 simulator, to a single executive seat in the category that mattered most."
           />
-          <div className="mt-12 grid gap-5 sm:grid-cols-2 xl:grid-cols-4">
+          <div className="mt-12">
+            <EtoroZengoStory />
+          </div>
+          <div className="mt-5 grid gap-5 sm:grid-cols-2 xl:grid-cols-4">
             <UseCaseCard useCase={useCases[0]} featured className="sm:col-span-2 xl:col-span-4" />
             {[...useCases.slice(1), ...otherUseCases].map((u) => (
               <UseCaseCard key={u.slug} useCase={u} />

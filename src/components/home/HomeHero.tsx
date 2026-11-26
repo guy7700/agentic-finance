@@ -2,13 +2,13 @@ import Link from 'next/link';
 import { primaryActions } from '@/config/site';
 import { getEdition } from '@/data/editions';
 import type { Edition } from '@/data/types';
-import { cn } from '@/lib/cn';
-import { getLatestNews } from '@/lib/daily';
+import { getHeroNews } from '@/lib/daily';
 import { AmbientVideo } from '../media/VideoPlayer';
 import { ButtonLink } from '../ui/Button';
 import { Icon } from '../ui/Icon';
 import { Container } from '../ui/Layout';
 import { HeroNews } from './HeroNews';
+import { HeroNextEvent } from './HeroNextEvent';
 
 /** Darkens the top and the text side, then fades fully into --color-ink so the hero runs into the next section with no seam. */
 const SCRIM = [
@@ -16,9 +16,13 @@ const SCRIM = [
   'linear-gradient(to right, rgb(10 20 40 / 0.8) 0%, rgb(10 20 40 / 0.25) 60%, rgb(10 20 40 / 0) 100%)',
 ].join(', ');
 
-/** The hero: the Singapore film behind the brief's headline, one line on what we do, the two actions and the latest industry news. */
+/**
+ * The hero: the Singapore film behind the brief's headline, one line on what we do, the two
+ * actions, and the 3 latest news items, or the next event when nothing is new in 7 days.
+ */
 export function HomeHero({ next }: { next: Edition }) {
-  const news = getLatestNews();
+  const news = getHeroNews();
+  const nextCard = <HeroNextEvent next={next} />;
   const film = getEdition('singapore-2026')?.heroVideo;
   return (
     <section aria-labelledby="hero-title" className="relative isolate overflow-hidden">
@@ -30,7 +34,7 @@ export function HomeHero({ next }: { next: Edition }) {
       </div>
 
       <Container wide className="flex min-h-[min(92svh,900px)] flex-col justify-end pb-14 pt-[calc(var(--header-h)+56px)] sm:pb-20">
-        <div className={cn('grid gap-12', news.length > 0 && 'lg:grid-cols-[minmax(0,1fr)_minmax(0,400px)] lg:items-end')}>
+        <div className="grid gap-12 lg:grid-cols-[minmax(0,1fr)_minmax(0,400px)] lg:items-end">
           <div className="max-w-[1000px]">
             <Link href="#events" className="eyebrow group inline-flex flex-wrap items-center gap-x-3 gap-y-1 hover:text-gold-bright">
               <span className="size-1.5 animate-pulse rounded-full bg-gold shadow-[0_0_10px_rgb(209_182_121/0.55)]" aria-hidden />
@@ -52,7 +56,7 @@ export function HomeHero({ next }: { next: Edition }) {
               </ButtonLink>
             </div>
           </div>
-          {news.length > 0 ? <HeroNews posts={news} /> : null}
+          {news.length > 0 ? <HeroNews posts={news} fallback={nextCard} /> : nextCard}
         </div>
       </Container>
     </section>

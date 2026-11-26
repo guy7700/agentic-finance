@@ -1,13 +1,11 @@
 import Link from 'next/link';
-import type { ReactNode } from 'react';
 import { events2027 } from '@/config/events-2027';
 import { externalLinks, primaryActions } from '@/config/site';
 import type { PastEvent } from '@/data/events';
 import { getEdition } from '@/data/editions';
 import { videos } from '@/data/media';
+import { networkOverview, networkPages } from '@/data/network';
 import { editionOrganizations, featuredOnStage, getOrganization } from '@/data/partners';
-import { formats } from '@/data/program';
-import { cn } from '@/lib/cn';
 import { VideoPlayer } from '../media/VideoPlayer';
 import { YouTubeEmbed } from '../media/YouTubeEmbed';
 import { LogoWall, type LogoItem } from '../partners/LogoWall';
@@ -37,7 +35,7 @@ export function HomePartners() {
           size="md"
           action={
             <ButtonLink href="/partners" variant="outline">
-              By edition
+              All companies
             </ButtonLink>
           }
         />
@@ -151,15 +149,11 @@ const VALUE: { icon: IconName; label: string }[] = [
   { icon: 'target', label: 'Deal-making' },
 ];
 
-const photo = (id: string) => formats.find((f) => f.id === id)?.image;
-
-/** Who we are and what companies get: the brief's list on the left, networking and meeting photographs on the right. */
+/**
+ * Who we are, short (Tal's homepage order): the headline, the producer and what companies
+ * get, linking to /about. The full story, formats and photos are on /about.
+ */
 export function WhoWeAre() {
-  const shots = [
-    photo('introductions'),
-    photo('networking'),
-    { src: '/images/singapore-2026/etoro-networking.webp', alt: 'Guests meeting beside eToro’s stand in Singapore', position: '50% 35%' },
-  ].filter(isDefined);
   return (
     <Section bordered tone="raised" id="who-we-are" aria-labelledby="who-we-are-title" className="isolate overflow-hidden">
       <div
@@ -167,7 +161,7 @@ export function WhoWeAre() {
         className="absolute inset-0 -z-10 bg-[radial-gradient(ellipse_50%_60%_at_15%_40%,rgb(209_182_121/0.1),transparent_70%)]"
       />
       <Container>
-        <div className="grid gap-14 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.1fr)] lg:items-center lg:gap-16">
+        <div className="grid gap-12 lg:grid-cols-2 lg:items-center lg:gap-16">
           <div>
             <Eyebrow>Who we are</Eyebrow>
             <h2 id="who-we-are-title" className="display mt-5 text-[length:var(--text-display-md)]">
@@ -182,116 +176,64 @@ export function WhoWeAre() {
               </a>
               , which runs curated summits and side events across technology and finance.
             </p>
-            <ul className="mt-10 border-t border-line">
-              {VALUE.map((v, i) => (
-                <li key={v.label} className="reveal group relative overflow-hidden border-b border-line">
-                  <span
-                    aria-hidden
-                    className="absolute inset-0 origin-left scale-x-0 bg-gradient-to-r from-gold/15 via-gold/5 to-transparent transition-transform duration-700 ease-[var(--ease-out-soft)] group-hover:scale-x-100"
-                  />
-                  <span className="relative flex min-h-16 items-center gap-4 px-1 py-3 sm:px-2">
-                    <span aria-hidden className="serif-figure w-7 shrink-0 text-lg leading-none text-gold/70 transition-colors group-hover:text-gold">
-                      0{i + 1}
-                    </span>
-                    <span className="flex size-10 shrink-0 items-center justify-center rounded-full border border-gold/30 bg-gold/10 text-gold-bright transition-shadow duration-500 group-hover:shadow-[0_0_24px_rgb(209_182_121/0.5)]">
-                      <Icon name={v.icon} size={18} />
-                    </span>
-                    <span className="text-[17px] font-medium leading-snug transition-[color,transform] duration-500 group-hover:translate-x-1 group-hover:text-gold sm:text-lg">
-                      {v.label}
-                    </span>
-                  </span>
-                </li>
-              ))}
-            </ul>
-            <div className="mt-10 flex flex-wrap gap-3">
-              <ButtonLink href={primaryActions.partner.href}>{primaryActions.partner.label}</ButtonLink>
-              <ButtonLink href="/about" variant="outline">
-                About us
+            <div className="mt-8 flex flex-wrap gap-3">
+              <ButtonLink href="/about">About us</ButtonLink>
+              <ButtonLink href={primaryActions.partner.href} variant="outline">
+                {primaryActions.partner.label}
               </ButtonLink>
             </div>
           </div>
-
-          <div className="relative">
-            <span aria-hidden className="absolute -inset-3 -z-10 translate-x-3 translate-y-3 rounded-3xl border border-gold/20 sm:-inset-4 sm:translate-x-4 sm:translate-y-4" />
-            <div className="grid grid-cols-2 gap-3">
-              {shots.map((s, i) => (
-                <figure
-                  key={s.src}
-                  className={cn(
-                    'group relative overflow-hidden rounded-2xl border border-line',
-                    i === 0 ? 'col-span-2 aspect-[16/10]' : 'aspect-[4/3]',
-                  )}
-                >
-                  <Img
-                    src={s.src}
-                    alt={s.alt}
-                    fill
-                    sizes={i === 0 ? '(min-width: 1024px) 50vw, 100vw' : '(min-width: 1024px) 25vw, 50vw'}
-                    position={s.position}
-                    className="object-cover transition-transform duration-1000 ease-[var(--ease-out-soft)] group-hover:scale-[1.05]"
-                  />
-                  {i === 0 ? (
-                    <>
-                      <span aria-hidden className="scrim-bottom absolute inset-x-0 bottom-0 h-1/2" />
-                      <figcaption className="eyebrow absolute bottom-4 left-4 sm:bottom-5 sm:left-5">Agentic Finance Singapore 2026</figcaption>
-                    </>
-                  ) : null}
-                </figure>
-              ))}
-            </div>
-          </div>
+          <ul className="grid gap-3 sm:grid-cols-2">
+            {VALUE.map((v) => (
+              <li key={v.label} className="flex min-h-14 items-center gap-3 rounded-xl border border-line bg-ink-card/60 px-4 py-3">
+                <span className="flex size-9 shrink-0 items-center justify-center rounded-full border border-gold/30 bg-gold/10 text-gold-bright">
+                  <Icon name={v.icon} size={16} />
+                </span>
+                <span className="text-[15px] font-medium leading-snug">{v.label}</span>
+              </li>
+            ))}
+          </ul>
         </div>
       </Container>
     </Section>
   );
 }
 
-const CATEGORIES: { name: string; icon: IconName }[] = [
-  { name: 'Agentic Payments', icon: 'card' },
-  { name: 'Agentic Trading', icon: 'chart' },
-  { name: 'AI Infrastructure', icon: 'chip' },
-  { name: 'Capital & Asset Management', icon: 'bank' },
-  { name: 'Data & Oracles', icon: 'database' },
-  { name: 'Compliance & Security', icon: 'shield' },
-  { name: 'Tokenization', icon: 'token' },
-  { name: 'Wallets, Custody & Settlement', icon: 'wallet' },
-];
-
-/** Icon-led category cards, as named in the brief. */
-export function CategoryCards() {
+/** The Network (Tal's homepage order): one card per audience, each linking to its application form. */
+export function HomeNetwork() {
   return (
-    <Section bordered tone="raised" id="categories">
+    <Section bordered id="network">
       <Container>
         <SectionHeader
           title={
             <>
-              Topics and <span className="serif-accent">categories</span>
+              The Agentic Finance <span className="serif-accent">Network</span>
             </>
           }
+          lede={networkOverview.lede}
           action={
-            <>
-              <ButtonLink href="/network/companies#categories" variant="outline">
-                All categories
-              </ButtonLink>
-              <ButtonLink href="/about#topics" variant="outline">
-                Topics
-              </ButtonLink>
-            </>
+            <ButtonLink href="/network" variant="outline">
+              The Network
+            </ButtonLink>
           }
         />
-        <ul className="mt-12 grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-4">
-          {CATEGORIES.map((c) => (
-            <li key={c.name} className="min-w-0">
+        <ul className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
+          {networkPages.map((p) => (
+            <li key={p.slug}>
               <Link
-                href="/network/companies#categories"
-                className="edge-gold group relative flex h-full min-h-40 flex-col justify-between gap-6 rounded-2xl border border-line bg-ink-card p-4 transition-colors duration-500 hover:border-gold/60 min-[360px]:p-5 sm:p-6"
+                href={`/network/${p.slug}#apply`}
+                className="edge-gold group relative flex h-full min-h-64 flex-col justify-between gap-6 rounded-2xl border border-line bg-ink-card p-6 transition-colors duration-500 hover:border-gold/60"
               >
-                <span className="flex size-12 items-center justify-center rounded-full border border-gold/30 bg-gold/10 text-gold-bright transition-shadow duration-500 group-hover:shadow-[0_0_24px_rgb(209_182_121/0.35)]">
-                  <Icon name={c.icon} size={22} />
+                <span>
+                  <span className="flex items-center justify-between gap-3 text-xl font-medium transition-colors group-hover:text-gold">
+                    {p.card.title}
+                    <Icon name="arrow-right" size={18} className="shrink-0 transition-transform group-hover:translate-x-1" />
+                  </span>
+                  <span className="mt-3 block text-[15px] leading-relaxed text-muted">{p.card.line}</span>
                 </span>
-                <span className="flex items-end justify-between gap-3">
-                  <span className="min-w-0 hyphens-auto break-words text-[17px] font-medium leading-snug transition-colors group-hover:text-gold sm:text-lg">{c.name}</span>
-                  <Icon name="arrow-right" size={16} className="mb-1 shrink-0 text-muted transition-transform group-hover:translate-x-1 group-hover:text-gold" />
+                <span className="flex flex-col gap-1.5">
+                  <span className="mono-label text-gold">{p.card.membership}</span>
+                  <span className="text-sm font-semibold text-paper/85">{p.primaryCta}</span>
                 </span>
               </Link>
             </li>
@@ -302,51 +244,79 @@ export function CategoryCards() {
   );
 }
 
-/** Formats as photographs, meetings first. */
-export function FormatTiles({ id = 'formats', eyebrow, title, lede }: { id?: string; eyebrow?: ReactNode; title?: ReactNode; lede?: ReactNode } = {}) {
+const LIVE = [
+  {
+    label: 'X Spaces and webinars',
+    title: 'Latest X Space or webinar',
+    links: [
+      { label: 'X Spaces', href: '/live/spaces' },
+      { label: 'Webinars', href: '/live/webinars' },
+    ],
+  },
+  { label: 'Newsletter', title: 'Newsletter signup', links: [{ label: 'Newsletter', href: '/live/newsletter' }] },
+];
+
+/** Live (Tal's homepage order): the latest X Space or webinar and the newsletter signup, both [TBC] until they exist. */
+export function HomeLive() {
   return (
-    <Section bordered id={id}>
+    <Section bordered tone="raised" id="live">
       <Container>
         <SectionHeader
-          eyebrow={eyebrow}
-          title={
-            title ?? (
-              <>
-                Event formats and <span className="serif-accent">experience</span>
-              </>
-            )
-          }
-          lede={lede}
+          title={<span className="serif-accent">Live</span>}
+          lede="News, X Spaces, webinars and the newsletter."
           action={
-            <ButtonLink href="/about#formats" variant="outline">
-              All formats
+            <ButtonLink href="/live/news" variant="outline">
+              All news
             </ButtonLink>
           }
         />
-        <ul className="mt-12 grid gap-3 sm:grid-cols-2 lg:grid-cols-6">
-          {formats.map((f, i) => (
-            <li
-              key={f.id}
-              className={cn(
-                'relative isolate flex min-h-72 flex-col justify-end overflow-hidden rounded-2xl border border-line p-5 sm:p-6',
-                i < 2 ? 'lg:col-span-3 lg:min-h-96' : 'lg:col-span-2',
-                i === formats.length - 1 && 'sm:col-span-2 lg:col-span-2',
-              )}
-            >
-              <Img
-                src={f.image.src}
-                alt={f.image.alt}
-                fill
-                sizes={i < 2 ? '(min-width: 1024px) 50vw, 100vw' : '(min-width: 1024px) 33vw, 100vw'}
-                position={f.image.position}
-                className="-z-10 object-cover opacity-80"
-              />
-              <span aria-hidden className="scrim-bottom absolute inset-0 -z-10" />
-              <h3 className="text-xl font-medium leading-tight sm:text-2xl">{f.name}</h3>
-              <p className="mt-2 max-w-md text-[15px] font-light leading-relaxed text-paper/85">{f.summary}</p>
+        <ul className="mt-12 grid gap-4 md:grid-cols-2">
+          {LIVE.map((x) => (
+            <li key={x.title} className="flex min-h-48 flex-col justify-between gap-6 rounded-2xl border border-dashed border-line-strong bg-ink-card p-6">
+              <span>
+                <span className="mono-label">{x.label}</span>
+                <span className="mt-3 block text-xl font-medium">{x.title}</span>
+                <span className="mono-label mt-2 block">[TBC]</span>
+              </span>
+              <span className="flex flex-wrap gap-x-6 gap-y-2">
+                {x.links.map((l) => (
+                  <Link key={l.href} href={l.href} className="inline-flex items-center gap-1.5 text-sm font-semibold text-gold hover:text-gold-bright">
+                    {l.label}
+                    <Icon name="arrow-right" size={14} />
+                  </Link>
+                ))}
+              </span>
             </li>
           ))}
         </ul>
+      </Container>
+    </Section>
+  );
+}
+
+/** Index (Tal's homepage order): a preview of the AF100, [TBC] until the list exists. */
+export function HomeIndex() {
+  return (
+    <Section bordered id="index">
+      <Container>
+        <div className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.2fr)] lg:items-center">
+          <SectionHeader
+            stacked
+            eyebrow="Index"
+            title={<span className="serif-accent">AF100</span>}
+            lede="The AF100 list and how it is built, the industry map and quarterly reports."
+          />
+          <Link
+            href="/af100"
+            className="group flex min-h-48 flex-col justify-between gap-6 rounded-2xl border border-dashed border-line-strong bg-ink-card p-6 transition-colors hover:border-gold"
+          >
+            <span className="flex items-center justify-between gap-3 text-xl font-medium group-hover:text-gold">
+              AF100 preview
+              <Icon name="arrow-right" size={18} className="shrink-0 transition-transform group-hover:translate-x-1" />
+            </span>
+            <span className="mono-label">[TBC]</span>
+          </Link>
+        </div>
       </Container>
     </Section>
   );

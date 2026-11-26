@@ -26,8 +26,8 @@ export type DailyPost = {
 
 /** How many posts the home page news block lists. */
 export const NEWS_COUNT = 3;
-/** Posts older than this leave the home page news block; the blog keeps them. */
-export const NEWS_MAX_AGE_MS = 14 * 24 * 60 * 60 * 1000;
+/** The home hero lists the latest news only while the newest post is younger than this (Tal: 7 days). */
+export const HERO_NEWS_FRESH_MS = 7 * 24 * 60 * 60 * 1000;
 export const BLOG_PAGE_SIZE = 12;
 
 const DIR = path.join(process.cwd(), 'src/content/daily');
@@ -117,11 +117,10 @@ export function getPost(slug: string): DailyPost | undefined {
 /** Midnight UTC of the post's date, as a timestamp. */
 export const postTime = (p: DailyPost) => Date.parse(`${p.date}T00:00:00Z`);
 
-/** The newest posts that are recent enough for the home page, up to NEWS_COUNT. */
-export function getLatestNews(): DailyPost[] {
-  return getPosts()
-    .filter((p) => Date.now() - postTime(p) < NEWS_MAX_AGE_MS)
-    .slice(0, NEWS_COUNT);
+/** The 3 latest posts for the home hero, or none when nothing is new in 7 days (the hero then shows the next event). */
+export function getHeroNews(): DailyPost[] {
+  const posts = getPosts().slice(0, NEWS_COUNT);
+  return posts.length && Date.now() - postTime(posts[0]) < HERO_NEWS_FRESH_MS ? posts : [];
 }
 
 /** Two posts sharing the most tags, then the most recent. */

@@ -1,6 +1,6 @@
 # Analytics
 
-Google Tag Manager container `GTM-K3H2734X` holds the Google tag for GA4 property stream `G-D230PZDQTX` (agentic-finance.live). The site loads it in `src/components/analytics/GoogleTag.tsx`, with Consent Mode: analytics storage is denied until the visitor accepts the cookie bar, so GA4 receives cookieless pings until then.
+Google Tag Manager container `GTM-K3H2734X` holds the Google tag for GA4 property stream `G-D230PZDQTX` (agentic-finance.live). The site loads it in `src/components/analytics/GoogleTag.tsx`. Analytics is on for every visitor, with no consent step, for the most complete measurement (decided 26 Nov 2026, regardless of EU consent rules); advertising storage stays off. The cookie bar is a notice with one button, Accept, which only closes it.
 
 ## Site events
 
@@ -40,6 +40,6 @@ with `<release>` a short name such as `hk27-announcement`. Releases sent before 
 
 **Old addresses.** Forwarding pages (scripts/write-redirects.mjs) redirect with a script, which would make the forwarding page the referrer and the visit "direct". When the visitor came from another site and the link has no campaign tags, the forwarding page adds `utm_source=<that site>&utm_medium=referral`, so the PR rules above still apply.
 
-**Consent.** Analytics storage is denied until the visitor accepts the cookie bar. Visitors who decline or ignore it send cookieless pings that GA4 uses only for modelling, which a site of this size does not qualify for, so they are mostly missing from the reports, PR visits included.
+**Consent.** Every visitor is measured, so PR visits are counted whether or not the visitor clicks Accept.
 
 A new event name needs no GA4 setup to be collected. Star it as a key event if it counts as a lead, add a custom dimension for any new parameter, and list it here.

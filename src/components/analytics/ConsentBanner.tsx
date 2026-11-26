@@ -5,7 +5,10 @@ import { useEffect, useState } from 'react';
 
 const KEY = 'af-consent';
 
-/** A small analytics-consent bar. Accept grants analytics storage; Decline keeps it denied. */
+/**
+ * A small cookie notice. Analytics runs for every visitor (see GoogleTag); Accept closes the notice
+ * and it does not come back on later visits.
+ */
 export function ConsentBanner() {
   const [show, setShow] = useState(false);
   useEffect(() => {
@@ -18,14 +21,12 @@ export function ConsentBanner() {
     // eslint-disable-next-line react-hooks/set-state-in-effect -- read once from storage after mount
     if (!v) setShow(true);
   }, []);
-  const choose = (granted: boolean) => {
+  const accept = () => {
     try {
-      localStorage.setItem(KEY, granted ? 'granted' : 'denied');
+      localStorage.setItem(KEY, 'granted');
     } catch {
       /* ignore */
     }
-    const w = window as unknown as { gtag?: (...a: unknown[]) => void };
-    w.gtag?.('consent', 'update', { analytics_storage: granted ? 'granted' : 'denied' });
     setShow(false);
   };
   if (!show) return null;
@@ -37,14 +38,9 @@ export function ConsentBanner() {
           Privacy
         </Link>
       </p>
-      <div className="flex shrink-0 gap-2">
-        <button type="button" onClick={() => choose(false)} className="min-h-10 rounded-full border border-line-strong px-4 font-semibold hover:border-gold hover:text-gold">
-          Decline
-        </button>
-        <button type="button" onClick={() => choose(true)} className="min-h-10 rounded-full bg-gold px-4 font-semibold text-ink hover:bg-gold-bright">
-          Accept
-        </button>
-      </div>
+      <button type="button" onClick={accept} className="min-h-10 shrink-0 self-start rounded-full bg-gold px-5 font-semibold text-ink hover:bg-gold-bright sm:self-auto">
+        Accept
+      </button>
     </div>
   );
 }

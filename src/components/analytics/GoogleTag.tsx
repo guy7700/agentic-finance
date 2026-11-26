@@ -5,20 +5,16 @@ import { ConsentBanner } from './ConsentBanner';
 export const GTM_ID = 'GTM-K3H2734X';
 
 /**
- * Google tag (Tag Manager), with Consent Mode: storage is denied until the visitor accepts in the
- * consent banner (or accepted before), so GA4 only sets cookies with consent.
+ * Google tag (Tag Manager). Analytics is on for every visitor, with no consent step, for the most
+ * complete measurement (Guy, 26 Nov 2026, regardless of EU consent rules). Advertising storage stays
+ * off: the site runs no ads. The cookie bar is a notice with one button, Accept, which closes it.
  */
 export function GoogleTag() {
   const init = `
 window.dataLayer = window.dataLayer || [];
 function gtag(){dataLayer.push(arguments);}
 window.gtag = gtag;
-var c = null; try { c = localStorage.getItem('af-consent'); } catch (e) {}
-gtag('consent', 'default', {
-  ad_storage: 'denied', ad_user_data: 'denied', ad_personalization: 'denied',
-  analytics_storage: c === 'granted' ? 'granted' : 'denied',
-  wait_for_update: 500
-});
+gtag('consent', 'default', { analytics_storage: 'granted', ad_storage: 'denied', ad_user_data: 'denied', ad_personalization: 'denied' });
 gtag('js', new Date());
 dataLayer.push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' });`;
   return (

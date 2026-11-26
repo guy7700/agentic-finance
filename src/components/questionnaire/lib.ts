@@ -1,5 +1,5 @@
 /**
- * Pure helpers for the "Where will you be in 2027?" questionnaire (/2027):
+ * Pure helpers for the "Where will you be in 2027?" questionnaire (/events/2027/meetings):
  * reading the personal link, campaign tracking, validation, the payload the
  * Apps Script expects (apps-script/questionnaire-2027.gs) and browser storage.
  */
@@ -51,7 +51,7 @@ export type ThanksSummary = {
 
 /* ------------------------------------------------------------- Constants */
 
-export const THANKS_PATH = '/2027/thanks';
+export const THANKS_PATH = '/events/2027/meetings/thanks';
 
 /** Personal fields in the link. Stripped from the address bar and from `source_url`. */
 export const PII_PARAMS = ['first_name', 'last_name', 'name', 'fname', 'lname', 'email', 'company'] as const;

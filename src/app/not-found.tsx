@@ -18,7 +18,7 @@ export default function NotFound() {
         </p>
         <div className="mt-10 flex flex-wrap gap-3">
           <ButtonLink href="/">Go to the homepage</ButtonLink>
-          <ButtonLink href="/editions/singapore-2026" variant="outline">
+          <ButtonLink href="/events/2026/singapore" variant="outline">
             Singapore 2026 archive
           </ButtonLink>
         </div>

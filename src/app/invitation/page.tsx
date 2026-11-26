@@ -27,7 +27,7 @@ export default function InvitationPage() {
   return (
     <>
       <PageHero
-        crumbs={[{ label: 'Editions', href: '/editions' }, { label: 'Apply to attend' }]}
+        crumbs={[{ label: 'Events', href: '/events' }, { label: 'Apply to attend' }]}
         eyebrow={`${e.name} · ${e.dateLabel}`}
         title="Apply to attend."
         lede={`${e.guestCount} hand-selected guests. No tickets, no open registration. Tell us who you are, and the team will review your request.`}
@@ -37,7 +37,7 @@ export default function InvitationPage() {
             <ButtonLink href={invitationUrl} size="lg">
               Apply to attend
             </ButtonLink>
-            <ButtonLink href="/program/who-gets-in" variant="outline" size="lg">
+            <ButtonLink href="/about#who-its-for" variant="outline" size="lg">
               Who gets in
             </ButtonLink>
           </>
@@ -91,7 +91,7 @@ export default function InvitationPage() {
                 <p className="mt-2 leading-relaxed text-muted">
                   A separate evening on Tuesday 8 December 2026 with its own guest list, by personal invitation only.
                 </p>
-                <TextLink href={`/editions/${e.slug}/gala`} className="mt-4">
+                <TextLink href={`${e.path}/gala`} className="mt-4">
                   About the Gala
                 </TextLink>
               </div>

@@ -22,39 +22,35 @@ Navigation follows the six-group hierarchy in the navigation spec (`Agentic Fina
 | --- | --- | --- |
 | — | `/` | Global homepage |
 | — | `/invitation` | Request an invitation (current edition → Luma) |
-| **Editions** | `/editions` | Series overview |
-| | `/editions/abu-dhabi-2026` | Upcoming edition: Summit + VIP Gala |
-| | `/editions/abu-dhabi-2026/gala` | VIP Gala, Tue 8 Dec 2026 |
-| | `/editions/singapore-2026` | Archive: recap, agenda, speakers, partners, gallery |
-| | `/editions/singapore-2026/agenda` | Run of show, both stages (legacy `#af-1530` anchors kept) |
-| | `/editions/2027` | 2027 international series |
-| | `/editions/{city}-2027` | Planned-city pages (dates TBA) |
-| **Program** | `/program` | Overview |
-| | `/program/topics` | 15 topics |
-| | `/program/questions` | The six questions |
-| | `/program/formats` | Formats |
-| | `/program/who-gets-in` | Invitation model |
+| **Events** | `/events` | Series overview |
+| | `/events/2026` | Every 2026 event |
+| | `/events/2026/abu-dhabi` | Abu Dhabi: Summit + VIP Gala |
+| | `/events/2026/abu-dhabi/gala` | VIP Gala, Tue 8 Dec 2026 |
+| | `/events/2026/singapore` | Archive: recap, agenda, speakers, partners, gallery |
+| | `/events/2026/singapore/agenda` | Run of show, both stages (legacy `#af-1530` anchors kept) |
+| | `/events/2027` | 2027 international series |
+| | `/events/2027/{hong-kong,af-dubai,paris,the-odds-cannes,the-odds-dubai,singapore}` | 2027 event pages (kept out of search until `published`) |
+| | `/events/2027/meetings` | "Where will you be in 2027?" questionnaire (personal links, Meta pixel) |
+| **About** | `/about` | One page: who we are, More & More, event series, program (six questions, 15 topics), formats, who gets in, team, FAQ |
+| | `/about/press` | Press coverage and brand kit |
+| | `/about/gallery` | Photos from every event |
+| | `/about/video` | Video library |
+| | `/about/contact` | Contact form (`?topic=&edition=` prefill) |
+| | `/events/2026/singapore/recap` | Singapore 2026 recap |
+| **Live** | `/live` | News, X Spaces, webinars and newsletter |
+| | `/live/news`, `/live/news/{slug}` | Daily news (formerly `/blog`), from `src/content/daily` |
+| | `/live/{spaces,webinars,newsletter}` | [TBC] pages, kept out of search until they have content |
 | **Speakers** | `/speakers` | Directory (filters: edition, city, organisation, search) |
 | | `/speakers/{slug}` | Speaker profiles (59) |
-| | `/editions/abu-dhabi-2026/speakers` | Abu Dhabi lineup (announced one by one) |
-| | `/editions/singapore-2026/speakers` | Singapore lineup + speakers by session |
+| | `/events/2026/abu-dhabi/speakers` | Abu Dhabi lineup (announced one by one) |
+| | `/events/2026/singapore/speakers` | Singapore lineup + speakers by session |
 | | `/speakers/nominate` | Nomination form + 15-minute call |
 | **Partners** | `/partners` | Partnership overview |
 | | `/partners/categories` | 12 categories (interactive, `?category=` deep links) |
 | | `/partners/use-cases` | Use cases index |
-| | `/partners/use-cases/{etoro,fireblocks,alpaca,limitless}` | Case studies |
+| | `/partners/{etoro,fireblocks,alpaca,limitless,mme-legal}` | Case studies |
 | | `/partners/past-partners` | Logos by edition, partners kept separate from on-stage organisations |
 | | `/partners/book-a-call` | 20-minute call (Google appointment schedule) + enquiry form |
-| **Media** | `/media` | Overview |
-| | `/media/singapore-2026-recap` | Event report |
-| | `/media/video` | Video library |
-| | `/media/gallery` | Gallery with lightbox, by edition |
-| | `/media/press` | Press facts, logo downloads, contacts |
-| **About** | `/about` | Overview |
-| | `/about/more-and-more` | Producer |
-| | `/about/event-series` | Agentic Finance, The Odds, Web2 to Web3 |
-| | `/about/faq` | FAQ (FAQPage structured data) |
-| | `/about/contact` | Contact form (`?topic=&edition=` prefill) |
 | — | `/sitemap.xml`, `/robots.txt`, `/og/<page path>.jpg` | SEO and link previews: one share card per page, drawn at build time from `src/lib/og/cards.ts` |
 
 ## Architecture
@@ -82,11 +78,13 @@ src/
   app/                    Routes (see map above)
 ```
 
-Edition pages are one template per status (`UpcomingEdition`, `CompletedEdition`, `PlannedEdition`), rendered by `app/editions/[edition]`. Nothing is duplicated per city.
+Edition pages are one template per status (`UpcomingEdition`, `CompletedEdition`), rendered by `app/events/2026/[city]`. Each edition's address is its `path` in `src/data/editions.ts`; the 2027 pages are `app/events/2027/[slug]`, from `src/data/upcoming-2027.ts`. Nothing is duplicated per city.
+
+**Moved pages.** Old addresses are listed in `src/data/redirects.mjs`. After `next build`, `scripts/write-redirects.mjs` writes a forwarding page at each one and fails the build if any address in `qa/baseline-urls.txt` (the site on 24 Nov 2026) stops answering.
 
 ### Adding or updating content
 
-- **New edition / city:** add a record to `src/data/editions.ts`. A planned city gets a page, a card on `/editions` and `/editions/2027`, and a sitemap entry automatically. When it becomes the next event, set `status: 'upcoming'`, fill `dateLabel`, `facts`, `experiences`, `invitationUrl`, and point `site.currentEdition` at it; every “Request an invitation” CTA follows.
+- **New edition / city:** add a record to `src/data/editions.ts`. Give it a `path`. A planned city gets a card on `/events` and a section on `/events/2027`; its page is its entry in `src/data/upcoming-2027.ts`. When it becomes the next event, set `status: 'upcoming'`, fill `dateLabel`, `facts`, `experiences`, `invitationUrl`, and point `site.currentEdition` at it; every “Request an invitation” CTA follows.
 - **Archive an edition:** set `status: 'completed'`, add `metrics`, and add its sessions file to `sessions` in `src/lib/content.ts`.
 - **Announce an Abu Dhabi speaker:** add `'abu-dhabi-2026'` to that speaker’s `editions` in `src/data/speakers.ts` (or add a new speaker record and headshot in `public/images/speakers/`). The empty state is replaced automatically.
 - **Announce a partner:** add an `editionOrganizations` record in `src/data/partners.ts` with `relationship: 'partner'`. Only records with `title-partner` or `partner` are shown as partners.

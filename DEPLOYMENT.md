@@ -47,4 +47,4 @@ npm run build        # static site in out/
 
 ## Old mnm.live URLs (optional)
 
-To send visitors from the old pages to the new site, add redirects on the mnm.live server, for example `mnm.live/agentic-finance` → `https://agentic-finance.live/`, `/agentic-finance-abu-dhabi` → `https://agentic-finance.live/editions/abu-dhabi-2026/`, and `/agentic-finance/speakers/:slug` → `https://agentic-finance.live/speakers/:slug/`. The full map is in `src/data/legacy-redirects.ts`. Keep `/agentic-finance-abu-dhabi/invitation` live, because invitation verification still runs there.
+To send visitors from the old pages to the new site, add redirects on the mnm.live server, for example `mnm.live/agentic-finance` → `https://agentic-finance.live/`, `/agentic-finance-abu-dhabi` → `https://agentic-finance.live/events/2026/abu-dhabi/`, and `/agentic-finance/speakers/:slug` → `https://agentic-finance.live/speakers/:slug/`. The full map is in `src/data/legacy-redirects.ts`. Keep `/agentic-finance-abu-dhabi/invitation` live, because invitation verification still runs there.

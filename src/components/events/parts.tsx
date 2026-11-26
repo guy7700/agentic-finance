@@ -112,7 +112,7 @@ export function CityChip({ event: e, overlay, className }: { event: CalendarEven
 
 /**
  * The event's action as a button-styled link: "Tell us if you'll be there"
- * (/2027?event=<id>) for a 2027 event, the event page for our own. The label
+ * (/events/2027/meetings?event=<id>) for a 2027 event, the event page for our own. The label
  * may wrap on narrow cards.
  */
 export function EventCta({

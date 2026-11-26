@@ -76,7 +76,7 @@ export function PostCard({ post, headingLevel = 'h3', className, variant = 'defa
     </p>
   );
   const title = (
-    <Link href={`/blog/${post.slug}`} className="transition-colors after:absolute after:inset-0 after:z-[1] after:rounded-2xl group-hover:text-gold">
+    <Link href={`/live/news/${post.slug}`} className="transition-colors after:absolute after:inset-0 after:z-[1] after:rounded-2xl group-hover:text-gold">
       {post.title}
     </Link>
   );

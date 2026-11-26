@@ -49,7 +49,7 @@ const FEATURED_SPEAKERS = [
 /** Home page order as set in Tal's redesign brief. */
 export default function HomePage() {
   const next = getCurrentEdition();
-  const eventCard = getOgCard(`/editions/${next.slug}`);
+  const eventCard = getOgCard(`${next.path}`);
   const featured = FEATURED_SPEAKERS.map(getSpeaker).filter((s) => s !== undefined).map((s) => toSpeakerCard(s));
   // eToro leads through the eToro and Zengo story; every other use case follows.
   const cases = [...useCases.filter((u) => u.slug !== 'etoro'), ...otherUseCases];
@@ -72,7 +72,7 @@ export default function HomePage() {
               </>
             }
             action={
-              <ButtonLink href="/editions" variant="outline">
+              <ButtonLink href="/events" variant="outline">
                 All Editions
               </ButtonLink>
             }

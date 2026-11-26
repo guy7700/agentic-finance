@@ -50,7 +50,7 @@ export default function SpeakersPage() {
         actions={
           <>
             <ButtonLink href="/speakers/nominate">Nominate a speaker</ButtonLink>
-            <ButtonLink href="/editions/singapore-2026/agenda" variant="outline">Who spoke when</ButtonLink>
+            <ButtonLink href="/events/2026/singapore/agenda" variant="outline">Who spoke when</ButtonLink>
           </>
         }
       />

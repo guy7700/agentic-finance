@@ -4,7 +4,7 @@ import { cn } from '@/lib/cn';
 import { Container, Section } from '../ui/Layout';
 import { PostCard } from './PostCard';
 
-export const blogPageHref = (page: number) => (page <= 1 ? '/blog' : `/blog/page/${page}`);
+export const blogPageHref = (page: number) => (page <= 1 ? '/live/news' : `/live/news/page/${page}`);
 
 /**
  * One page of the blog index, with numbered pagination. Every card leads with
@@ -31,7 +31,7 @@ export function BlogList({ page }: { page: number }) {
           <p className="lede">The first daily post is on its way.</p>
         )}
         {pages > 1 ? (
-          <nav aria-label="Blog pages" className="mt-14 flex flex-wrap items-center gap-2">
+          <nav aria-label="News pages" className="mt-14 flex flex-wrap items-center gap-2">
             {Array.from({ length: pages }, (_, i) => i + 1).map((n) => (
               <Link
                 key={n}

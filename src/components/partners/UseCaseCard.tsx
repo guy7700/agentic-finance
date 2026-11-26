@@ -9,7 +9,7 @@ export function UseCaseCard({ useCase, featured, className }: { useCase: UseCase
   const photo = useCase.photos[0];
   return (
     <Link
-      href={`/partners/use-cases/${useCase.slug}`}
+      href={`/partners/${useCase.slug}`}
       className={cn(
         'group flex flex-col overflow-hidden rounded-2xl border border-line bg-ink-card/60 transition-colors duration-500 hover:border-gold/60',
         featured && 'lg:flex-row',

@@ -45,7 +45,7 @@ export function QuestionsEditorial({ questions, variant = 'full' }: { questions:
                     <dt className="mono-label w-24 shrink-0 pt-0.5">In Singapore</dt>
                     <dd>
                       <Link
-                        href={`/editions/singapore-2026/agenda#${q.session}`}
+                        href={`/events/2026/singapore/agenda#${q.session}`}
                         className="inline-flex items-start gap-1.5 text-paper/85 hover:text-gold"
                       >
                         {q.sessionTitle}

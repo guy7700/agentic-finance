@@ -56,7 +56,7 @@ type SectionHeaderProps = {
   className?: string;
   id?: string;
   size?: 'lg' | 'md';
-  as?: 'h1' | 'h2';
+  as?: 'h1' | 'h2' | 'h3';
   /** Keep the action under the title, for narrow columns. */
   stacked?: boolean;
 };

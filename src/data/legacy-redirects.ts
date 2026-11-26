@@ -20,16 +20,16 @@ export type LegacyRedirect = {
 
 export const legacyRedirects: LegacyRedirect[] = [
   // Singapore 2026 site (currently at mnm.live/agentic-finance)
-  { source: '/agentic-finance/agenda', destination: '/editions/singapore-2026/agenda', inApp: true },
+  { source: '/agentic-finance/agenda', destination: '/events/2026/singapore/agenda', inApp: true },
   { source: '/agentic-finance/partner', destination: '/partners/book-a-call', inApp: true },
   { source: '/agentic-finance/nominate', destination: '/speakers/nominate', inApp: true },
-  { source: '/agentic-finance/gallery', destination: '/media/gallery', inApp: true },
+  { source: '/agentic-finance/gallery', destination: '/about/gallery', inApp: true },
   // /agentic-finance/speakers and /agentic-finance/speakers/:slug keep the same paths.
 
   // Abu Dhabi 2026 site
-  { source: '/agentic-finance-abu-dhabi', destination: '/editions/abu-dhabi-2026', inApp: false },
-  { source: '/agentic-finance-abu-dhabi/gala', destination: '/editions/abu-dhabi-2026/gala', inApp: false },
-  { source: '/agentic-finance-abu-dhabi/speakers', destination: '/editions/abu-dhabi-2026/speakers', inApp: false },
+  { source: '/agentic-finance-abu-dhabi', destination: '/events/2026/abu-dhabi', inApp: false },
+  { source: '/agentic-finance-abu-dhabi/gala', destination: '/events/2026/abu-dhabi/gala', inApp: false },
+  { source: '/agentic-finance-abu-dhabi/speakers', destination: '/events/2026/abu-dhabi/speakers', inApp: false },
   { source: '/agentic-finance-abu-dhabi/speakers/:slug', destination: '/speakers/:slug', inApp: false },
   { source: '/agentic-finance-abu-dhabi/nominate', destination: '/speakers/nominate', inApp: false },
   { source: '/agentic-finance-abu-dhabi/partner', destination: '/partners/book-a-call', inApp: false },

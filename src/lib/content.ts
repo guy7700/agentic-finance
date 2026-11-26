@@ -53,7 +53,7 @@ export function isProgrammeSession(s: Session): boolean {
 export function speakerAppearances(s: Speaker): { label: string; city?: string; href?: string }[] {
   const fromEditions = s.editions.map((slug) => {
     const e = getEdition(slug);
-    return { label: e?.shortName ?? slug, city: e?.city, href: e ? `/editions/${e.slug}` : undefined };
+    return { label: e?.shortName ?? slug, city: e?.city, href: e ? `${e.path}` : undefined };
   });
   const fromConferences = (s.conferences ?? []).map((c) => ({ label: conferenceLabels[c]?.label ?? c, city: conferenceLabels[c]?.city }));
   return [...fromEditions, ...fromConferences];

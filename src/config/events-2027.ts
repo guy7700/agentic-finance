@@ -29,7 +29,7 @@ export const eventCategories = [
 export type EventCategory = (typeof eventCategories)[number];
 
 export type Event2027 = {
-  /** Used in links: /2027?event=<id>. Keep stable once shared. */
+  /** Used in links: /events/2027/meetings?event=<id> (old /2027?event=<id> links forward there). Keep stable once shared. */
   id: string;
   name: string;
   city: string;

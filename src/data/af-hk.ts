@@ -1,7 +1,7 @@
 import type { ImageAsset } from './types';
 
 /**
- * Content for /upcoming/2027/afhk, from docs/hong-kong-page-structure.md.
+ * Content for /events/2027/hong-kong (formerly /upcoming/2027/afhk), from docs/hong-kong-page-structure.md.
  *
  * Unconfirmed facts are optional fields. While one is empty the page leaves out
  * the sentence, number or card that depends on it; nothing is invented and no

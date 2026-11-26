@@ -25,12 +25,15 @@ export function TopicExplorer({ topics }: { topics: TopicView[] }) {
       if (topics.some((t) => t.slug === slug)) {
         setActive(slug);
         setOpenMobile(slug);
+        // On a wide screen the anchor (#slug) sits in the hidden mobile list, so bring the selected tab into view.
+        const tab = document.getElementById(`${uid}-tab-${slug}`);
+        if (tab && tab.offsetParent !== null) tab.scrollIntoView({ block: 'center' });
       }
     };
     fromHash();
     window.addEventListener('hashchange', fromHash);
     return () => window.removeEventListener('hashchange', fromHash);
-  }, [topics]);
+  }, [topics, uid]);
 
   const current = topics.find((t) => t.slug === active) ?? topics[0];
 

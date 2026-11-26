@@ -36,7 +36,7 @@ const rows = [];
 for (const file of pages.sort()) {
   const route = '/' + path.relative(OUT, path.dirname(file)).replace(/\\/g, '/');
   const html = fs.readFileSync(file, 'utf8');
-  if (/<meta name="robots" content="noindex/.test(html) && route.startsWith('/blog/first-post')) continue;
+  if (/<meta name="robots" content="noindex/.test(html) && route.startsWith('/live/news/first-post')) continue;
   const title = (html.match(/<title>([^<]*)<\/title>/) || [])[1];
   const ogTitle = meta(html, 'property', 'og:title');
   const ogImage = meta(html, 'property', 'og:image');

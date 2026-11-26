@@ -1,6 +1,6 @@
 # Publishing the daily article
 
-One article a day from the agentic finance space. Each article is one JSON file. It appears in the "Latest news" block on the home page, gets its own page under `/blog`, and goes into the RSS feed at `/rss.xml`. Publishing never needs a code change: adding the file is the whole job.
+One article a day from the agentic finance space. Each article is one JSON file. It appears in the "Latest news" block on the home page, and gets its own page under `/live/news`. There is no RSS feed (removed on Tal's feedback, 24 Nov 2026). Publishing never needs a code change: adding the file is the whole job.
 
 ## Where the file goes
 
@@ -15,7 +15,7 @@ For example `src/content/daily/2026-10-26-agentic-payments-pilot.json`. The date
 | Field | Required | Rules |
 | --- | --- | --- |
 | `title` | yes | Our own headline, not the source's. Up to 140 characters. |
-| `slug` | yes | Lowercase words joined by hyphens, unique. Becomes `/blog/<slug>`. `page` is reserved. |
+| `slug` | yes | Lowercase words joined by hyphens, unique. Becomes `/live/news/<slug>`. `page` is reserved. |
 | `date` | yes | Publication date, `YYYY-MM-DD`. A future date waits for that day's build. |
 | `summary` | yes | 2 to 4 sentences in our own words. Never copy text from the article. Up to 900 characters. |
 | `whyItMatters` | yes | One sentence on why it matters for finance. Up to 300 characters. |
@@ -59,4 +59,4 @@ To publish by hand, add the file on github.com (Add file, then Create new file) 
 
 Every entry is checked during the build. A missing field, a bad date, a duplicate slug or a non-https link stops the build, the Actions log names the file and the problem, and the live site stays as it was until the file is fixed.
 
-The home page block, right under the hero, lists the 3 newest published entries from the last 14 days. An entry leaves the block once it is 14 days old, and the block hides when none is left; every entry stays on `/blog`. The age is checked at build time and again in the visitor's browser, so the block never shows stale news even if a daily build is missed.
+The home page block, right under the hero, lists the 3 newest published entries from the last 14 days. An entry leaves the block once it is 14 days old, and the block hides when none is left; every entry stays on `/live/news`. The age is checked at build time and again in the visitor's browser, so the block never shows stale news even if a daily build is missed.

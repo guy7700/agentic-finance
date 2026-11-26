@@ -145,7 +145,7 @@ export function CategoryExplorer({ categories, positions, note }: { categories: 
               {current.sessionList.map((s) => (
                 <li key={s.id}>
                   <Link
-                    href={`/editions/singapore-2026/agenda#${s.id}`}
+                    href={`/events/2026/singapore/agenda#${s.id}`}
                     className="group inline-flex items-start gap-2 text-sm text-paper/80 hover:text-gold"
                   >
                     <span className="font-mono text-[10.5px] uppercase tracking-[0.08em] text-subtle">{s.format}</span>
@@ -161,7 +161,7 @@ export function CategoryExplorer({ categories, positions, note }: { categories: 
               {current.useCases.map((u, i) => (
                 <span key={u.slug}>
                   {i > 0 ? ', ' : ''}
-                  <Link href={`/partners/use-cases/${u.slug}`} className="font-semibold text-gold hover:text-gold-bright">
+                  <Link href={`/partners/${u.slug}`} className="font-semibold text-gold hover:text-gold-bright">
                     {u.partner}
                   </Link>
                 </span>
@@ -176,7 +176,7 @@ export function CategoryExplorer({ categories, positions, note }: { categories: 
             {current.topics.map((t, i) => (
               <span key={t.slug}>
                 {i > 0 ? ' · ' : ''}
-                <Link href={`/program/topics#${t.slug}`} className="text-paper/85 underline decoration-line-strong underline-offset-4 hover:text-gold">
+                <Link href={`/about#${t.slug}`} className="text-paper/85 underline decoration-line-strong underline-offset-4 hover:text-gold">
                   {t.name}
                 </Link>
               </span>

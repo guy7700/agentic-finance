@@ -25,7 +25,7 @@ export function PlannedEdition({ edition }: { edition: Edition }) {
           <div className="scrim-hero absolute inset-0" />
         </div>
         <Container className="flex min-h-[min(86svh,820px)] flex-col justify-end pb-16 pt-[calc(var(--header-h)+40px)]">
-          <Breadcrumbs items={[{ label: 'Editions', href: '/editions' }, { label: '2027 cities', href: '/editions/2027' }, { label: edition.city }]} />
+          <Breadcrumbs items={[{ label: 'Events', href: '/events' }, { label: '2027', href: '/events/2027' }, { label: edition.city }]} />
           <div className="mt-10 flex flex-wrap items-center gap-3">
             <StatusBadge status="planned" label="Planned · 2027" />
             <span className="mono-label text-paper/70">{edition.country}</span>
@@ -76,7 +76,7 @@ export function PlannedEdition({ edition }: { edition: Edition }) {
             <div>
               <p className="mono-label">The six questions</p>
               <p className="mt-3 text-muted">The decisions every edition is built around.</p>
-              <TextLink href="/program/questions" className="mt-4">
+              <TextLink href="/about#questions" className="mt-4">
                 Read the six questions
               </TextLink>
             </div>
@@ -100,7 +100,7 @@ export function PlannedEdition({ edition }: { edition: Edition }) {
                 <Eyebrow>The standard we hold</Eyebrow>
                 <h2 className="display mt-5 text-[length:var(--text-display-sm)]">What the first edition delivered.</h2>
                 <p className="mt-5 text-muted">{singapore.summary}</p>
-                <TextLink href="/editions/singapore-2026" className="mt-6">
+                <TextLink href="/events/2026/singapore" className="mt-6">
                   The Singapore archive
                 </TextLink>
               </div>
@@ -115,7 +115,7 @@ export function PlannedEdition({ edition }: { edition: Edition }) {
           <SectionHeader
             eyebrow="The 2027 series"
             title="Four more cities."
-            action={<ButtonLink href="/editions/2027" variant="outline">The 2027 series</ButtonLink>}
+            action={<ButtonLink href="/events/2027" variant="outline">The 2027 series</ButtonLink>}
           />
           <ul className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
             {others.map((e) => (

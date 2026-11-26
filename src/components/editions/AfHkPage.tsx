@@ -357,10 +357,10 @@ export function AfHkPage({ page }: { page: Upcoming2027 }) {
               </h2>
               <p className="lede mt-6 max-w-lg">Five cities, each during a major industry week. Hong Kong opens the series.</p>
               <div className="mt-10 flex flex-wrap gap-3">
-                <ButtonLink href="/editions/2027" size="lg">
+                <ButtonLink href="/events/2027" size="lg">
                   See the 2027 editions
                 </ButtonLink>
-                <ButtonLink href="/2027" variant="outline" size="lg">
+                <ButtonLink href="/events/2027/meetings" variant="outline" size="lg">
                   Tell us where you’ll be
                 </ButtonLink>
               </div>

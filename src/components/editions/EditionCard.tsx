@@ -1,12 +1,30 @@
 import Link from 'next/link';
 import type { Edition } from '@/data/types';
+import { contextMonth, type Upcoming2027 } from '@/data/upcoming-2027';
 import { cn } from '@/lib/cn';
 import { Icon } from '../ui/Icon';
 import { Img } from '../ui/Img';
 import { StatusBadge } from '../ui/StatusBadge';
 
+/** What a card shows. An edition has all of it; a 2027 page is mapped with cardFromUpcoming2027(). */
+export type EditionCardData = Pick<Edition, 'path' | 'status' | 'country' | 'city' | 'year' | 'tagline' | 'dateLabel' | 'image'>;
+
+/** A 2027 page as a planned card. The Odds pages name The Odds and their host event above the city. */
+export function cardFromUpcoming2027(p: Upcoming2027): EditionCardData {
+  return {
+    path: p.path,
+    status: 'planned',
+    country: p.brand === 'the-odds' ? `The Odds · ${p.context}` : p.country,
+    city: p.city,
+    year: 2027,
+    tagline: p.tagline,
+    dateLabel: contextMonth(p),
+    image: p.image,
+  };
+}
+
 type EditionCardProps = {
-  edition: Edition;
+  edition: EditionCardData;
   index?: string;
   size?: 'feature' | 'standard' | 'compact';
   className?: string;
@@ -18,7 +36,7 @@ export function EditionCard({ edition, index, size = 'standard', className, size
   const planned = edition.status === 'planned';
   return (
     <Link
-      href={`/editions/${edition.slug}`}
+      href={edition.path}
       className={cn(
         'group relative isolate flex flex-col justify-end overflow-hidden rounded-2xl border bg-ink-card transition-colors duration-500',
         edition.status === 'upcoming' ? 'border-gold/40 hover:border-gold' : 'border-line hover:border-line-strong',

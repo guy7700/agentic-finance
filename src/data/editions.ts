@@ -14,6 +14,7 @@ import type { Edition } from './types';
 export const editions: Edition[] = [
   {
     slug: 'abu-dhabi-2026',
+    path: '/events/2026/abu-dhabi',
     name: 'Agentic Finance Abu Dhabi',
     shortName: 'Abu Dhabi 2026',
     city: 'Abu Dhabi',
@@ -61,7 +62,7 @@ export const editions: Edition[] = [
         when: 'Abu Dhabi · Tuesday 8 December 2026, 20:00-00:00',
         summary: 'An exclusive evening for approximately 200 invited senior leaders and strategic partners.',
         points: ['Executive networking, seated and unhurried', 'Private relationship building', 'By personal invitation only'],
-        href: '/editions/abu-dhabi-2026/gala',
+        href: '/events/2026/abu-dhabi/gala',
         cta: 'Discover the Gala',
       },
     ],
@@ -73,6 +74,8 @@ export const editions: Edition[] = [
   },
   {
     slug: 'singapore-2026',
+    path: '/events/2026/singapore',
+    hasRecapPage: true,
     name: 'Agentic Finance Singapore',
     shortName: 'Singapore 2026',
     city: 'Singapore',
@@ -106,6 +109,7 @@ export const editions: Edition[] = [
   },
   {
     slug: 'hong-kong-2027',
+    path: '/events/2027/hong-kong',
     name: 'Agentic Finance Hong Kong',
     shortName: 'Hong Kong 2027',
     city: 'Hong Kong',
@@ -125,6 +129,7 @@ export const editions: Edition[] = [
   },
   {
     slug: 'dubai-2027',
+    path: '/events/2027/af-dubai',
     name: 'Agentic Finance Dubai',
     shortName: 'Dubai 2027',
     city: 'Dubai',
@@ -141,14 +146,15 @@ export const editions: Edition[] = [
   },
   {
     slug: 'paris-2027',
+    path: '/events/2027/paris',
     name: 'Agentic Finance Paris',
     shortName: 'Paris 2027',
     city: 'Paris',
     country: 'France',
     year: 2027,
     status: 'planned',
-    dateLabel: 'June 2027',
-    context: 'Proof of Talk',
+    dateLabel: 'July 2027',
+    context: 'Signal Week',
     tagline: 'European rules for autonomous finance.',
     summary: 'A planned 2027 edition in the city where More & More produced The Odds in April 2026.',
     positioning:
@@ -157,6 +163,7 @@ export const editions: Edition[] = [
   },
   {
     slug: 'rio-de-janeiro-2027',
+    path: '/events/2027#rio-de-janeiro-2027',
     name: 'Agentic Finance Rio de Janeiro',
     shortName: 'Rio de Janeiro 2027',
     city: 'Rio de Janeiro',
@@ -176,6 +183,7 @@ export const editions: Edition[] = [
   },
   {
     slug: 'singapore-2027',
+    path: '/events/2027/singapore',
     name: 'Agentic Finance Singapore',
     shortName: 'Singapore 2027',
     city: 'Singapore',
@@ -197,6 +205,27 @@ export const editions: Edition[] = [
 
 export function getEdition(slug: string): Edition | undefined {
   return editions.find((e) => e.slug === slug);
+}
+
+/** The edition whose page is at `path` ("/events/2026/singapore"). */
+export function getEditionByPath(path: string): Edition | undefined {
+  return editions.find((e) => e.path === path);
+}
+
+/**
+ * Route params for /events/<year>/[city]: the editions whose page sits under
+ * /events/<year>/, optionally narrowed (only those with an agenda, say).
+ */
+export function cityParams(year: number, keep: (e: Edition) => boolean = () => true): { city: string }[] {
+  const prefix = `/events/${year}/`;
+  return editions.filter((e) => e.path.startsWith(prefix) && keep(e)).map((e) => ({ city: e.path.slice(prefix.length) }));
+}
+
+/** The page of the edition `slug`, or one of its sub-pages: editionPath('singapore-2026', 'agenda'). */
+export function editionPath(slug: string, sub?: 'speakers' | 'agenda' | 'gala'): string {
+  const e = getEdition(slug);
+  if (!e) throw new Error(`editionPath: no edition "${slug}" in src/data/editions.ts`);
+  return sub ? `${e.path}/${sub}` : e.path;
 }
 
 export function editionsByStatus(status: Edition['status']): Edition[] {

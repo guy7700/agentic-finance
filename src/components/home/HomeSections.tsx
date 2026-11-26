@@ -60,7 +60,7 @@ export function PastEditions({ events }: { events: PastEvent[] }) {
             </>
           }
           action={
-            <ButtonLink href="/editions" variant="outline">
+            <ButtonLink href="/events" variant="outline">
               All Editions
             </ButtonLink>
           }
@@ -272,7 +272,7 @@ export function CategoryCards() {
               <ButtonLink href="/partners/categories" variant="outline">
                 All categories
               </ButtonLink>
-              <ButtonLink href="/program/topics" variant="outline">
+              <ButtonLink href="/about#topics" variant="outline">
                 Topics
               </ButtonLink>
             </>
@@ -317,7 +317,7 @@ export function FormatTiles({ id = 'formats', eyebrow, title, lede }: { id?: str
           }
           lede={lede}
           action={
-            <ButtonLink href="/program/formats" variant="outline">
+            <ButtonLink href="/about#formats" variant="outline">
               All formats
             </ButtonLink>
           }
@@ -352,9 +352,9 @@ export function FormatTiles({ id = 'formats', eyebrow, title, lede }: { id?: str
 }
 
 const MEDIA = [
-  { href: '/media/video', label: 'Video library', text: 'Films from our Editions, by edition and type.', image: '/images/singapore-2026/recap-poster.jpg' },
-  { href: '/media/gallery', label: 'Photo gallery', text: 'Filter by edition and view full screen.', image: '/images/singapore-2026/agentic-finance-backdrop.webp' },
-  { href: '/media/press', label: 'Agentic Finance in the Press', text: 'TradingView, Binance, CoinMarketCap and more.' },
+  { href: '/about/video', label: 'Video library', text: 'Films from our Editions, by edition and type.', image: '/images/singapore-2026/recap-poster.jpg' },
+  { href: '/about/gallery', label: 'Photo gallery', text: 'Filter by edition and view full screen.', image: '/images/singapore-2026/agentic-finance-backdrop.webp' },
+  { href: '/about/press', label: 'Agentic Finance in the Press', text: 'TradingView, Binance, CoinMarketCap and more.' },
 ];
 
 /** Media, video gallery and press coverage. */
@@ -369,7 +369,7 @@ export function MediaTeaser() {
             </>
           }
           action={
-            <ButtonLink href="/media" variant="outline">
+            <ButtonLink href="/about/gallery" variant="outline">
               All media
             </ButtonLink>
           }
@@ -428,7 +428,7 @@ export function QuestionnaireBand() {
               Where will you be in <span className="serif-accent [text-shadow:0_0_36px_rgb(209_182_121/0.35)]">2027?</span>
             </p>
             <div className="mt-10">
-              <ButtonLink href="/2027" size="lg">
+              <ButtonLink href="/events/2027/meetings" size="lg">
                 Tell us where you’ll be
               </ButtonLink>
             </div>

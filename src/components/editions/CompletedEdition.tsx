@@ -7,6 +7,7 @@ import type { Edition } from '@/data/types';
 import { getSpeaker, isProgrammeSession, sessionsForEdition, speakersForEdition, stageLabels } from '@/lib/content';
 import { speakerThumb } from '@/lib/paths';
 import { toSpeakerCard } from '@/lib/speaker-cards';
+import { EditionNav } from './EditionNav';
 import { Gallery } from '../media/Gallery';
 import { VideoPlayer } from '../media/VideoPlayer';
 import { LogoWall } from '../partners/LogoWall';
@@ -40,7 +41,7 @@ export function CompletedEdition({ edition }: { edition: Edition }) {
           <div className="scrim-hero absolute inset-0" />
         </div>
         <Container className="flex min-h-[min(92svh,880px)] flex-col justify-end pb-14 pt-[calc(var(--header-h)+40px)]">
-          <Breadcrumbs items={[{ label: 'Editions', href: '/editions' }, { label: edition.shortName }]} />
+          <Breadcrumbs items={[{ label: 'Events', href: '/events' }, { label: edition.shortName }]} />
           <div className="mt-10 flex flex-wrap items-center gap-3">
             <StatusBadge status="completed" label={`Archive · ${edition.dateLabel}`} />
             {edition.context ? <span className="mono-label text-paper/70">{edition.context}</span> : null}
@@ -63,13 +64,20 @@ export function CompletedEdition({ edition }: { edition: Edition }) {
             <ButtonLink href="#recap" size="lg" icon="play">
               Watch the recap
             </ButtonLink>
-            <ButtonLink href={`/editions/${edition.slug}/agenda`} variant="outline" size="lg">
+            <ButtonLink href={`${edition.path}/agenda`} variant="outline" size="lg">
               Browse the agenda
             </ButtonLink>
           </div>
           <Stats items={edition.metrics ?? []} size="md" className="mt-12" />
         </Container>
       </header>
+
+      {/* The event's own pages */}
+      <div className="border-b border-line bg-ink-deep">
+        <Container>
+          <EditionNav edition={edition} current="overview" className="py-4" />
+        </Container>
+      </div>
 
       <div className="border-b border-gold/30 bg-gold/[0.06]">
         <Container className="flex flex-col gap-3 py-4 sm:flex-row sm:items-center sm:justify-between">
@@ -80,7 +88,7 @@ export function CompletedEdition({ edition }: { edition: Edition }) {
             </strong>
             .
           </p>
-          <TextLink href={`/editions/${next.slug}`}>Go to {next.shortName}</TextLink>
+          <TextLink href={next.path}>Go to {next.shortName}</TextLink>
         </Container>
       </div>
 
@@ -115,7 +123,7 @@ export function CompletedEdition({ edition }: { edition: Edition }) {
                 </li>
               </ul>
               <div className="mt-8 flex flex-wrap gap-3">
-                <ButtonLink href="/media/singapore-2026-recap" variant="outline">Read the full recap</ButtonLink>
+                <ButtonLink href="/events/2026/singapore/recap" variant="outline">Read the full recap</ButtonLink>
               </div>
             </div>
           </div>
@@ -129,12 +137,12 @@ export function CompletedEdition({ edition }: { edition: Edition }) {
             eyebrow="The agenda"
             title={`${sessions.length} sessions across two stages.`}
             lede="Keynotes, panels and one-on-ones on banking, wallets, payments, trading, capital and the limits on autonomous agents."
-            action={<ButtonLink href={`/editions/${edition.slug}/agenda`} variant="outline">Full run of show</ButtonLink>}
+            action={<ButtonLink href={`${edition.path}/agenda`} variant="outline">Full run of show</ButtonLink>}
           />
           <ul className="mt-12 grid gap-px overflow-hidden rounded-2xl border border-line bg-line md:grid-cols-2">
             {sessions.map((s) => (
               <li key={s.id} className="bg-ink-raised">
-                <Link href={`/editions/${edition.slug}/agenda#${s.id}`} className="group flex h-full flex-col gap-2 p-6 transition-colors hover:bg-ink-card">
+                <Link href={`${edition.path}/agenda#${s.id}`} className="group flex h-full flex-col gap-2 p-6 transition-colors hover:bg-ink-card">
                   <span className="flex items-center gap-3 font-mono text-[10.5px] uppercase tracking-[0.08em]">
                     <span className="text-paper/80">{s.start}</span>
                     <span className={s.stage === 'af' ? 'text-gold' : 'text-[#9fb6e8]'}>{stageLabels[s.stage].name}</span>
@@ -165,7 +173,7 @@ export function CompletedEdition({ edition }: { edition: Edition }) {
             eyebrow="Speakers"
             title="The Singapore lineup."
             lede="Operators from the banks, exchanges, funds and infrastructure providers putting AI agents into production."
-            action={<ButtonLink href={`/editions/${edition.slug}/speakers`} variant="outline">All {editionSpeakers.length} profiles</ButtonLink>}
+            action={<ButtonLink href={`${edition.path}/speakers`} variant="outline">All {editionSpeakers.length} profiles</ButtonLink>}
           />
           <ul className="mt-12 grid grid-cols-2 gap-x-4 gap-y-10 sm:gap-x-6 md:grid-cols-4 lg:grid-cols-6">
             {editionSpeakers.slice(0, 12).map((s) => (
@@ -188,7 +196,7 @@ export function CompletedEdition({ edition }: { edition: Edition }) {
                   More from {edition.city} on <span className="serif-accent">video</span>.
                 </>
               }
-              action={<ButtonLink href="/media/video" variant="outline">All videos</ButtonLink>}
+              action={<ButtonLink href="/about/video" variant="outline">All videos</ButtonLink>}
             />
             <ul className="mt-12 grid gap-10 md:grid-cols-2 md:gap-6">
               {moreVideos.map((v) => (
@@ -216,11 +224,9 @@ export function CompletedEdition({ edition }: { edition: Edition }) {
             action={<ButtonLink href="/partners/use-cases" variant="outline">Partner use cases</ButtonLink>}
           />
           <LogoWall items={editionOrgs.slice(0, 24)} className="mt-12" />
-          {editionOrgs.length > 24 ? (
-            <TextLink href="/partners/past-partners" className="mt-5">
-              All {editionOrgs.length} organisations
-            </TextLink>
-          ) : null}
+          <TextLink href={`${edition.path}/partners`} className="mt-5">
+            All {editionOrgs.length} partners and organisations
+          </TextLink>
         </Container>
       </Section>
 
@@ -230,10 +236,10 @@ export function CompletedEdition({ edition }: { edition: Edition }) {
           <SectionHeader
             eyebrow="Gallery"
             title="Moments from Suntec City."
-            action={<ButtonLink href="/media/gallery" variant="outline">Full gallery</ButtonLink>}
+            action={<ButtonLink href="/about/gallery" variant="outline">Full gallery</ButtonLink>}
           />
           <div className="mt-10">
-            <Gallery images={photos} collections={galleryCollections} tags={galleryTags} limit={6} moreHref="/media/gallery" />
+            <Gallery images={photos} collections={galleryCollections} tags={galleryTags} limit={6} moreHref="/about/gallery" />
           </div>
         </Container>
       </Section>

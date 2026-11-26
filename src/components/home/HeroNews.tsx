@@ -21,7 +21,7 @@ export function HeroNews({ posts }: { posts: DailyPost[] }) {
           <h2 id="hero-news" className="eyebrow">
             Latest news
           </h2>
-          <Link href="/blog" className="text-[11px] font-semibold uppercase tracking-[0.18em] text-paper/80 transition-colors hover:text-gold">
+          <Link href="/live/news" className="text-[11px] font-semibold uppercase tracking-[0.18em] text-paper/80 transition-colors hover:text-gold">
             All news
           </Link>
         </div>
@@ -39,7 +39,7 @@ export function HeroNews({ posts }: { posts: DailyPost[] }) {
                     <time dateTime={p.date}>{formatPostDate(p)}</time> · {p.sourceName}
                   </p>
                   <h3 className="mt-1.5 text-[17px] font-medium leading-snug">
-                    <Link href={`/blog/${p.slug}`} className="transition-colors hover:text-gold">
+                    <Link href={`/live/news/${p.slug}`} className="transition-colors hover:text-gold">
                       {p.title}
                     </Link>
                   </h3>

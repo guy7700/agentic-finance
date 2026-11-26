@@ -46,7 +46,7 @@ export function EtoroZengoStory() {
           ))}
         </ol>
         <div className="mt-auto pt-6">
-          <TextLink href="/partners/use-cases/etoro">Read the eToro use case</TextLink>
+          <TextLink href="/partners/etoro">Read the eToro use case</TextLink>
         </div>
       </div>
     </article>

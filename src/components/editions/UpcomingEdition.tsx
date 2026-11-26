@@ -7,6 +7,7 @@ import { strategicQuestions, topics } from '@/data/program';
 import { speakers } from '@/data/speakers';
 import { getEdition } from '@/data/editions';
 import { toSpeakerCard } from '@/lib/speaker-cards';
+import { EditionNav } from './EditionNav';
 import { AmbientVideo } from '../media/VideoPlayer';
 import { SpeakerCard } from '../speakers/SpeakerCard';
 import { Accordion } from '../ui/Accordion';
@@ -52,7 +53,7 @@ export function UpcomingEdition({ edition }: { edition: Edition }) {
           <div className="scrim-hero absolute inset-0" />
         </div>
         <Container className="flex min-h-[min(96svh,920px)] flex-col justify-end pb-14 pt-[calc(var(--header-h)+40px)]">
-          <Breadcrumbs items={[{ label: 'Editions', href: '/editions' }, { label: edition.shortName }]} />
+          <Breadcrumbs items={[{ label: 'Events', href: '/events' }, { label: edition.shortName }]} />
           <div className="mt-10 flex flex-wrap items-center gap-3">
             <StatusBadge status="upcoming" label={`Upcoming · ${edition.dateLabel}`} />
             <span className="mono-label text-paper/70">
@@ -81,6 +82,13 @@ export function UpcomingEdition({ edition }: { edition: Edition }) {
           <p className="mt-4 font-mono text-[10.5px] uppercase tracking-[0.08em] text-subtle">Background film: Agentic Finance Singapore, October 2026</p>
         </Container>
       </header>
+
+      {/* The event's own pages */}
+      <div className="border-b border-line bg-ink-deep">
+        <Container>
+          <EditionNav edition={edition} current="overview" className="py-4" />
+        </Container>
+      </div>
 
       {/* Two rooms */}
       <Section id="experiences">
@@ -160,8 +168,8 @@ export function UpcomingEdition({ edition }: { edition: Edition }) {
             lede={`Agenda to be announced. The programme is built around six decisions and ${topics.length} areas, from agentic trading to tokenised capital markets.`}
             action={
               <>
-                <ButtonLink href="/program/topics" variant="outline">All {topics.length} topics</ButtonLink>
-                <ButtonLink href="/program/questions" variant="ghost">The six questions</ButtonLink>
+                <ButtonLink href="/about#topics" variant="outline">All {topics.length} topics</ButtonLink>
+                <ButtonLink href="/about#questions" variant="ghost">The six questions</ButtonLink>
               </>
             }
           />
@@ -185,7 +193,7 @@ export function UpcomingEdition({ edition }: { edition: Edition }) {
             lede="The Abu Dhabi programme is announced speaker by speaker, as each one confirms. A deliberately short list, chosen for what they decide rather than how often they speak."
             action={
               <>
-                <ButtonLink href={`/editions/${edition.slug}/speakers`} variant="outline">{edition.city} speakers</ButtonLink>
+                <ButtonLink href={`${edition.path}/speakers`} variant="outline">{edition.city} speakers</ButtonLink>
                 <ButtonLink href="/speakers/nominate">Nominate a speaker</ButtonLink>
               </>
             }
@@ -280,7 +288,7 @@ export function UpcomingEdition({ edition }: { edition: Edition }) {
                   <p className="mt-2 text-lg text-paper/90">
                     {singapore.metrics.map((m) => `${m.value} ${m.label.toLowerCase()}`).join(' · ')}
                   </p>
-                  <TextLink href="/editions/singapore-2026" className="mt-4">
+                  <TextLink href="/events/2026/singapore" className="mt-4">
                     Open the Singapore archive
                   </TextLink>
                 </div>
@@ -325,7 +333,7 @@ export function UpcomingEdition({ edition }: { edition: Edition }) {
       <Section bordered id="faq">
         <Container>
           <div className="grid gap-12 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.6fr)]">
-            <SectionHeader stacked eyebrow="Common questions" title="Before you apply." action={<TextLink href="/about/faq">All questions</TextLink>} />
+            <SectionHeader stacked eyebrow="Common questions" title="Before you apply." action={<TextLink href="/about#faq">All questions</TextLink>} />
             <Accordion items={faqs.map((f, i) => ({ id: `faq-${i}`, title: f.q, content: <p className="leading-relaxed">{f.a}</p> }))} />
           </div>
         </Container>

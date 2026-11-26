@@ -59,7 +59,7 @@ export const seriesBrands: SeriesBrand[] = [
     relationship: 'The flagship series. Singapore 2026 was the first edition; Abu Dhabi follows in December 2026, then five cities in 2027.',
     facts: ['Singapore · 8 October 2026 · 650+ attendees', 'Abu Dhabi · December 2026 · 500 curated guests', '2027 · Hong Kong, Rio de Janeiro, Paris, Dubai, Singapore'],
     image: { src: '/images/singapore-2026/agentic-capital-panel.webp', alt: 'The five-strong Agentic Capital panel on the Singapore stage' },
-    href: '/editions',
+    href: '/events',
     linkLabel: 'See every edition',
   },
   {
@@ -104,7 +104,7 @@ export const faqGroups: FaqGroup[] = [
       {
         q: 'Can anyone register?',
         a: 'No. Agentic Finance is invitation-only and there are no tickets. Every guest is selected. You can apply to attend, and each application is reviewed by the team. Submitting a request does not guarantee admission.',
-        links: [{ label: 'How selection works', href: '/program/who-gets-in' }],
+        links: [{ label: 'How selection works', href: '/about#who-its-for' }],
       },
       {
         q: 'How do I apply to attend Abu Dhabi?',
@@ -133,7 +133,7 @@ export const faqGroups: FaqGroup[] = [
       {
         q: 'What is the difference between the Summit and the VIP Gala?',
         a: 'The Summit is the main gathering of 500 hand-selected guests. The VIP Gala is a separate evening for approximately 200 invited senior leaders and strategic partners, with its own guest list. An invitation to one does not include the other.',
-        links: [{ label: 'About the Gala', href: '/editions/abu-dhabi-2026/gala' }],
+        links: [{ label: 'About the Gala', href: '/events/2026/abu-dhabi/gala' }],
       },
       {
         q: 'How do editions differ from one another?',
@@ -142,7 +142,7 @@ export const faqGroups: FaqGroup[] = [
       {
         q: 'Which cities are planned for 2027?',
         a: 'Hong Kong, Rio de Janeiro, Paris, Dubai and Singapore. Dates and venues will be announced city by city. You can register your interest now.',
-        links: [{ label: 'The 2027 series', href: '/editions/2027' }],
+        links: [{ label: 'The 2027 series', href: '/events/2027' }],
       },
       {
         q: 'Was Singapore connected to TOKEN2049?',
@@ -162,7 +162,7 @@ export const faqGroups: FaqGroup[] = [
       {
         q: 'Who is speaking in Abu Dhabi?',
         a: 'The Abu Dhabi programme is announced speaker by speaker, as each one confirms. Speakers from past editions are shown separately and are not confirmed for Abu Dhabi unless announced.',
-        links: [{ label: 'Abu Dhabi speakers', href: '/editions/abu-dhabi-2026/speakers' }],
+        links: [{ label: 'Abu Dhabi speakers', href: '/events/2026/abu-dhabi/speakers' }],
       },
     ],
   },
@@ -198,7 +198,7 @@ export const faqGroups: FaqGroup[] = [
       {
         q: 'How do I make a media enquiry?',
         a: 'Use the contact form and choose “Press and media”, or email the team directly. Logo files are available on the press page.',
-        links: [{ label: 'Press and brand kit', href: '/media/press' }],
+        links: [{ label: 'Press and brand kit', href: '/about/press' }],
       },
     ],
   },

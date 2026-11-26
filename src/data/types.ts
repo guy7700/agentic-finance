@@ -33,6 +33,12 @@ export type EditionExperience = {
 
 export type Edition = {
   slug: string;
+  /**
+   * Where the event lives, for good (Tal's site structure, 23 Nov 2026): "/events/<year>/<city>".
+   * A 2027 city points at its /events/2027 page; one without its own page points at its
+   * section of /events/2027.
+   */
+  path: string;
   name: string;
   shortName: string;
   city: string;
@@ -59,6 +65,8 @@ export type Edition = {
   speakersAnnounced?: boolean;
   hasAgenda?: boolean;
   hasGala?: boolean;
+  /** A hand-written recap page at <path>/recap (Singapore 2026). */
+  hasRecapPage?: boolean;
   /** Primary conversion for this edition. */
   invitationUrl?: string;
   /** Partner positions available, when published. */
@@ -227,6 +235,8 @@ export type PressMention = {
   edition?: string;
   /** A photo from that event, from our own gallery. */
   image?: ImageAsset;
+  /** One or two sentences on what the release says, using only facts stated in it. Shown on every outlet's tile. */
+  summary?: string;
   /**
    * For a release: the sites that republished it, each opened and checked. Date YYYY-MM-DD as
    * published there; `headline` only when that site's headline differs from ours.

@@ -1,6 +1,6 @@
 # "Where will you be in 2027?" questionnaire
 
-The campaign page is `agentic-finance.live/2027`. It follows Tal's flow:
+The campaign page is `agentic-finance.live/events/2027/meetings` (until 24 Nov 2026 `agentic-finance.live/2027`, which still forwards there and keeps every field of the link). It follows Tal's flow:
 
 1. Email 1 (day 0, everyone) links to the page with `utm_content=email_1`.
 2. Email 2 (24 hours later, only people who did not click) uses the same link with `utm_content=email_2`. Still no click: stop and tag them in the CRM.
@@ -31,7 +31,7 @@ One file, `src/config/events-2027.ts`, feeds both the questionnaire and the home
 ## Personal link
 
 ```
-https://agentic-finance.live/2027?first_name={{first_name}}&last_name={{last_name}}&email={{email}}&company={{company}}&utm_source=crm&utm_medium=email&utm_campaign=calendar_2027&utm_content=email_1&channel=email
+https://agentic-finance.live/events/2027/meetings?first_name={{first_name}}&last_name={{last_name}}&email={{email}}&company={{company}}&utm_source=crm&utm_medium=email&utm_campaign=calendar_2027&utm_content=email_1&channel=email
 ```
 
 The form has one Full name field: `first_name` and `last_name` from the link are joined into it, so the CRM link does not need to change. A single `name={{full_name}}` also works.
@@ -104,7 +104,7 @@ Open the personal link with your own email, submit, then check: the row in the S
 
 ## Privacy
 
-The consent box links to https://mnm.live/privacy. The Meta pixel runs only on `/2027` and `/2027/thanks`. Visitors in the EU and UK normally have to agree to marketing cookies before a pixel loads; the site has no cookie banner yet.
+The consent box links to https://mnm.live/privacy. The Meta pixel runs only on `/events/2027/meetings` and `/events/2027/meetings/thanks`. Visitors in the EU and UK normally have to agree to marketing cookies before a pixel loads; the site has no cookie banner yet.
 
 ## City photo credits
 

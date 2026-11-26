@@ -14,6 +14,8 @@ const eslintConfig = defineConfig([
     "next-env.d.ts",
     // Node QA scripts (CommonJS, run outside the app bundle).
     "qa/**",
+    // Supabase edge functions (Deno, deployed to Supabase, not part of the site build).
+    "supabase/**",
   ]),
 ]);
 

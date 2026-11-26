@@ -9,7 +9,7 @@ import { Container, Section, SectionHeader } from '../ui/Layout';
 import { StatusBadge } from '../ui/StatusBadge';
 
 /**
- * One template for every /upcoming/2027/<slug> page. It renders only the
+ * One template for every /events/2027/<city> page except Hong Kong. It renders only the
  * fields the data file holds, so a page grows by adding data, not code.
  */
 export function Upcoming2027Page({ page }: { page: Upcoming2027 }) {
@@ -32,7 +32,7 @@ export function Upcoming2027Page({ page }: { page: Upcoming2027 }) {
           <div className="scrim-hero absolute inset-0" />
         </div>
         <Container className="flex min-h-[min(80svh,760px)] flex-col justify-end pb-16 pt-[calc(var(--header-h)+40px)]">
-          <Breadcrumbs items={[{ label: '2027', href: '/2027' }, { label: page.name }]} />
+          <Breadcrumbs items={[{ label: 'Events', href: '/events' }, { label: '2027', href: '/events/2027' }, { label: page.name }]} />
           <div className="mt-10 flex flex-wrap items-center gap-3">
             <StatusBadge status="planned" label="Planned · 2027" />
             <span className="mono-label text-paper/70">{page.city}</span>

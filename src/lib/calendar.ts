@@ -195,7 +195,7 @@ export const isDated = (e: CalendarEvent): e is CalendarEvent & { start: IsoDay;
   e.start !== undefined && e.end !== undefined;
 
 /** Questionnaire link that preselects the event. */
-export const questionnaireHref = (id: string) => `/2027?event=${encodeURIComponent(id)}`;
+export const questionnaireHref = (id: string) => `/events/2027/meetings?event=${encodeURIComponent(id)}`;
 
 export const QUESTIONNAIRE_CTA = 'Tell us if you’ll be there';
 
@@ -278,7 +278,7 @@ export function buildCalendarEvents({
       country: nextEdition?.country,
       label: 'Agentic Finance',
       line: invitation ? `${invitation.replace(/\.$/, '')}.` : gala.summary,
-      href: gala.href ?? `/editions/${nextEvent.id}/gala`,
+      href: gala.href ?? (nextEdition ? `${nextEdition.path}/gala` : '/events'),
       cta: 'Gala details',
       status: 'upcoming',
       badge: 'Invitation only',

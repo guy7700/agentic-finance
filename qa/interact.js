@@ -211,7 +211,7 @@ async function visible(page, sel) {
     const iframe = await p.locator('iframe[title*="appointment booking"]').getAttribute('src');
     check('book-a-call: booking embed loads Google appointment schedule', Boolean(iframe?.includes('calendar.google.com/calendar/appointments')));
 
-    await p.goto(BASE + '/program/topics', { waitUntil: 'networkidle' });
+    await p.goto(BASE + '/about#topics', { waitUntil: 'networkidle' });
     const ttabs = p.getByRole('tab');
     check('topics: 15 topics', (await ttabs.count()) === 15);
     await ttabs.nth(9).click();
@@ -235,7 +235,7 @@ async function visible(page, sel) {
   {
     const ctx = await desktop(b);
     const p = await ctx.newPage();
-    await p.goto(BASE + '/media/gallery', { waitUntil: 'networkidle' });
+    await p.goto(BASE + '/about/gallery', { waitUntil: 'networkidle' });
     const items = () => p.locator('main ul.columns-1 > li').count();
     const all = await items();
     check('gallery: renders photos', all === 27, String(all));
@@ -258,7 +258,7 @@ async function visible(page, sel) {
     await p.waitForTimeout(150);
     check('gallery: Escape closes lightbox', !(await p.locator('dialog[open]').count()));
 
-    await p.goto(BASE + '/about/faq', { waitUntil: 'networkidle' });
+    await p.goto(BASE + '/about#faq', { waitUntil: 'networkidle' });
     const q = p.locator('main button[aria-expanded]').first();
     await q.click();
     const region = p.locator(`[id="${await q.getAttribute('aria-controls')}"]`);
@@ -266,14 +266,14 @@ async function visible(page, sel) {
     await q.click();
     check('faq: question collapses', (await q.getAttribute('aria-expanded')) === 'false');
 
-    await p.goto(BASE + '/media/video', { waitUntil: 'networkidle' });
+    await p.goto(BASE + '/about/video', { waitUntil: 'networkidle' });
     await p.getByRole('button', { name: /Play video/ }).first().click();
     const vsrc = await p.locator('video[controls]').getAttribute('src');
     check('video: click-to-play loads the recap file', vsrc === '/video/singapore-2026-recap.mp4', vsrc);
     const head = await p.request.get(BASE + '/video/singapore-2026-recap.mp4', { headers: { Range: 'bytes=0-100' } });
     check('video: file is served', [200, 206].includes(head.status()), String(head.status()));
 
-    await p.goto(BASE + '/editions/singapore-2026/agenda', { waitUntil: 'networkidle' });
+    await p.goto(BASE + '/events/2026/singapore/agenda', { waitUntil: 'networkidle' });
     const sessions = () => p.locator('main ol > li[id]').count();
     const allS = await sessions();
     check('agenda: all 23 entries', allS === 23, String(allS));
@@ -283,7 +283,7 @@ async function visible(page, sel) {
     await p.getByRole('button', { name: 'Keynote', exact: true }).click();
     check('agenda: format filter keynotes', (await sessions()) === 3, String(await sessions()));
     const p2 = await ctx.newPage();
-    await p2.goto(BASE + '/editions/singapore-2026/agenda#af-1530', { waitUntil: 'networkidle' });
+    await p2.goto(BASE + '/events/2026/singapore/agenda#af-1530', { waitUntil: 'networkidle' });
     const anchor = await p2.locator('#af-1530').isVisible();
     check('agenda: legacy anchor #af-1530 exists', anchor);
     await ctx.close();

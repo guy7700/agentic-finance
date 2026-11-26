@@ -17,6 +17,13 @@ const LEGACY_GENERAL_WEBHOOK =
 const QUESTIONNAIRE_2027_WEBHOOK =
   'https://script.google.com/macros/s/AKfycbxgV6mGoooq74EvCf4rxTwBhIJWbEH5XmicfHhkYVGOr-0IBBPa84-8591yZGZfG3p41g/exec';
 
+/**
+ * Network applications (/network/*): the Supabase edge function network-apply. It saves to Supabase first
+ * (public.network_applications), then writes the Network Sheet and posts to Google Chat, with retries.
+ * Setup and secrets: docs/network.md.
+ */
+const NETWORK_ENDPOINT = 'https://zcfypqptssyldfpeyirh.supabase.co/functions/v1/network-apply';
+
 const live = process.env.NEXT_PUBLIC_FORMS_LIVE === 'true';
 
 export const formWebhooks = {
@@ -26,4 +33,6 @@ export const formWebhooks = {
   general: process.env.NEXT_PUBLIC_AF_GENERAL_WEBHOOK_URL || (live ? LEGACY_GENERAL_WEBHOOK : undefined),
   /** "Where will you be in 2027?" (/2027): Sheet, Chat and thank-you email (apps-script/questionnaire-2027.gs). */
   questionnaire2027: process.env.NEXT_PUBLIC_Q2027_WEBHOOK_URL || (live ? QUESTIONNAIRE_2027_WEBHOOK : undefined),
+  /** Network applications: Supabase edge function (see above). */
+  network: process.env.NEXT_PUBLIC_NETWORK_WEBHOOK_URL || (live ? NETWORK_ENDPOINT : undefined),
 };

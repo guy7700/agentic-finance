@@ -10,7 +10,7 @@ import { Img } from '@/components/ui/Img';
 import { JsonLd } from '@/components/ui/JsonLd';
 import { Container, Section } from '@/components/ui/Layout';
 import { SmartLink } from '@/components/ui/SmartLink';
-import { getEdition } from '@/data/editions';
+import { editionPath, getEdition } from '@/data/editions';
 import { getSpeaker, profiledSpeakers, sessionsForSpeaker, speakerAppearances, stageLabels } from '@/lib/content';
 import { absoluteUrl } from '@/lib/paths';
 import { pageMetadata } from '@/lib/seo';
@@ -150,7 +150,7 @@ export default async function SpeakerPage({ params }: PageProps<'/speakers/[slug
                       <span>{x.format}</span>
                     </p>
                     <h3 className="mt-3 text-xl font-semibold leading-snug">
-                      <Link href={`/editions/${x.edition}/agenda#${x.id}`} className="hover:text-gold">
+                      <Link href={`${editionPath(x.edition, 'agenda')}#${x.id}`} className="hover:text-gold">
                         {x.title}
                       </Link>
                     </h3>

@@ -1,6 +1,7 @@
 import { booking } from '@/config/site';
 import { editions, getCurrentEdition, getEdition, statusLabel } from '@/data/editions';
-import { otherUseCases, useCases } from '@/data/partners';
+import { editionOrganizations, otherUseCases, useCases } from '@/data/partners';
+import { networkPages } from '@/data/network';
 import { contextDates, upcoming2027 } from '@/data/upcoming-2027';
 import { profiledSpeakers, speakerAppearances } from '@/lib/content';
 import { blogPageCount, formatPostDate, getPosts } from '@/lib/daily';
@@ -14,7 +15,7 @@ import { blogPageCount, formatPostDate, getPosts } from '@/lib/daily';
  * files, never typed fresh here. A missing fact stays off the card.
  */
 export type OgCard = {
-  /** The page the card belongs to, e.g. "/editions/dubai-2027". */
+  /** The page the card belongs to, e.g. "/events/2027/af-dubai". */
   path: string;
   /** Small gold label above the headline. */
   eyebrow: string;
@@ -65,8 +66,8 @@ function staticCards(): OgCard[] {
       note: singapore ? `Singapore 2026 · ${sgMetrics[0]}` : undefined,
       image: `${SG}/summit-poster.jpg`,
     },
-    { path: '/2027', ...questionnaire },
-    { path: '/2027/thanks', ...questionnaire },
+    { path: '/events/2027/meetings', ...questionnaire },
+    { path: '/events/2027/meetings/thanks', ...questionnaire },
     {
       path: '/invitation',
       eyebrow: `${next.name} · ${next.dateLabel}`,
@@ -77,62 +78,47 @@ function staticCards(): OgCard[] {
       position: '50% 40%',
     },
 
-    // Editions
+    // Network (Tal's copy, 25 Nov 2026)
     {
-      path: '/editions',
-      eyebrow: 'Editions',
+      path: '/network',
+      eyebrow: 'Agentic Finance Network',
+      title: 'Startups, VCs, companies,',
+      accent: 'banks and ecosystem builders.',
+      subtitle: 'Meet face to face at summits and dinners, online every week, and read what matters every day.',
+      image: `${SG}/networking-floor.webp`,
+    },
+    ...networkPages.map((p) => ({
+      path: `/network/${p.slug}`,
+      eyebrow: `Agentic Finance Network · ${p.card.title}`,
+      title: p.title,
+      subtitle: p.card.membership,
+      image: `${SG}/networking-floor.webp`,
+    })),
+
+    // Events
+    {
+      path: '/events',
+      eyebrow: 'Events',
       title: 'The series.',
       subtitle: [next.shortName, singapore?.shortName, `${planned.length} cities in 2027`].filter(Boolean).join(' · '),
       image: next.image.src,
     },
     {
-      path: '/editions/2027',
+      path: '/events/2026',
+      eyebrow: 'Events · 2026',
+      title: 'Agentic Finance',
+      accent: '2026',
+      subtitle: editions.filter((e) => e.year === 2026).map((e) => e.shortName).join(' · '),
+      image: next.image.src,
+    },
+    {
+      path: '/events/2027',
       eyebrow: 'The 2027 international series',
       title: 'Agentic Finance',
       accent: '2027',
       subtitle: planned.map((e) => e.city).join(' · '),
       note: 'Dates and venues to follow',
       image: '/images/hong-kong/hk-sunset-harbour.webp',
-    },
-
-    // Program
-    {
-      path: '/program',
-      eyebrow: 'Program',
-      title: 'What the room is here to decide.',
-      subtitle: 'Topics, the six questions, formats and who gets in.',
-      image: `${SG}/agentic-banking-panel.webp`,
-      position: '30% 50%',
-    },
-    {
-      path: '/program/topics',
-      eyebrow: 'Program · 15 areas',
-      title: 'The topics.',
-      subtitle: 'AI agents in banking, trading and payments, wallets, stablecoins, regulation and AI infrastructure.',
-      image: `${SG}/agentic-payments-panel.webp`,
-    },
-    {
-      path: '/program/questions',
-      eyebrow: 'The questions shaping finance',
-      title: 'Six questions.',
-      accent: 'No easy answers.',
-      subtitle: 'From who controls the agent to who is liable when an autonomous transaction goes wrong.',
-      image: `${SG}/agentic-trading-panel.webp`,
-    },
-    {
-      path: '/program/formats',
-      eyebrow: 'Formats',
-      title: 'Event formats and',
-      accent: 'experience',
-      subtitle: 'Curated meetings and private meeting rooms come first. Then keynotes, firesides, panels and networking.',
-      image: `${SG}/networking-floor.webp`,
-    },
-    {
-      path: '/program/who-gets-in',
-      eyebrow: 'Invitation only · Every request reviewed',
-      title: 'The guest list is the product.',
-      subtitle: 'There are no tickets. Every guest is selected, and every invitation is personal.',
-      image: `${SG}/media-on-site.webp`,
     },
 
     // Speakers
@@ -189,16 +175,9 @@ function staticCards(): OgCard[] {
       image: `${SG}/f1-simulator.webp`,
     },
 
-    // Media
+    // Photos, video and press (under About), and the Singapore recap
     {
-      path: '/media',
-      eyebrow: 'Media',
-      title: 'Proof in pictures.',
-      subtitle: 'The rooms we have built, as they happened: recap, photos, video and press.',
-      image: `${SG}/agentic-trading-panel.webp`,
-    },
-    {
-      path: '/media/singapore-2026-recap',
+      path: '/events/2026/singapore/recap',
       eyebrow: singapore ? `Singapore 2026 · ${singapore.dateLabel}` : 'Singapore 2026',
       title: 'Singapore 2026,',
       accent: 'the recap.',
@@ -207,60 +186,49 @@ function staticCards(): OgCard[] {
       position: singapore?.image.position,
     },
     {
-      path: '/media/video',
-      eyebrow: 'Media · Video',
+      path: '/about/video',
+      eyebrow: 'About · Video',
       title: 'Video.',
       subtitle: 'Films from our editions: recaps, highlights and aftermovies.',
       image: `${SG}/recap-poster.jpg`,
     },
     {
-      path: '/media/gallery',
-      eyebrow: 'Media · Photos by edition',
+      path: '/about/gallery',
+      eyebrow: 'About · Photos by event',
       title: 'Gallery.',
       subtitle: 'Agentic Finance Singapore 2026, and More & More events in Paris and Abu Dhabi.',
       image: `${SG}/etoro-team.webp`,
     },
     {
-      path: '/media/press',
-      eyebrow: 'Media · Press',
+      path: '/about/press',
+      eyebrow: 'About · Press',
       title: 'Press and brand kit.',
       subtitle: 'Coverage, official logo files, key facts and media contacts.',
       image: `${SG}/interview-capture.webp`,
     },
 
     // Blog
-    { path: '/blog', ...blog },
-    ...Array.from({ length: Math.max(blogPageCount() - 1, 1) }, (_, i) => ({ path: `/blog/page/${i + 2}`, ...blog })),
+    { path: '/live/news', ...blog },
+    {
+      path: '/live',
+      eyebrow: 'Live',
+      title: 'News, X Spaces,',
+      accent: 'webinars and the newsletter.',
+    },
+    ...(['X Spaces', 'Webinars', 'Newsletter'] as const).map((label) => ({
+      path: `/live/${label === 'X Spaces' ? 'spaces' : label.toLowerCase()}`,
+      eyebrow: `Live · ${label}`,
+      title: `${label}.`,
+    })),
+    ...Array.from({ length: Math.max(blogPageCount() - 1, 1) }, (_, i) => ({ path: `/live/news/page/${i + 2}`, ...blog })),
 
     // About
     {
       path: '/about',
       eyebrow: 'About',
       title: 'Who stands behind the room.',
-      subtitle: 'Agentic Finance is produced by More & More.',
+      subtitle: 'Who we are, the topics, formats, who gets in, the team and common questions.',
       image: `${MNM}/about-mnm.jpg`,
-    },
-    {
-      path: '/about/more-and-more',
-      eyebrow: 'The producer',
-      title: 'More & More',
-      subtitle: 'Curated side events, executive gatherings and VIP delegations. 100+ events organised, 250+ deals and introductions.',
-      image: `${MNM}/about-mnm.jpg`,
-    },
-    {
-      path: '/about/event-series',
-      eyebrow: 'The More & More ecosystem',
-      title: 'Three brands.',
-      accent: 'Three rooms.',
-      subtitle: 'Agentic Finance · The Odds: Prediction Markets Live · Web2 to Web3 Summit',
-      image: `${MNM}/the-odds-stage.webp`,
-    },
-    {
-      path: '/about/faq',
-      eyebrow: 'Access, invitations, partnerships',
-      title: 'Common questions.',
-      subtitle: 'Applying to attend, speaker nominations, partnerships, locations and media enquiries.',
-      image: `${MNM}/concept-the-room.webp`,
     },
     {
       path: '/about/contact',
@@ -279,11 +247,12 @@ function staticCards(): OgCard[] {
 }
 
 function editionCards(): OgCard[] {
-  return editions.flatMap((e) => {
+  // A planned 2027 city has no page of its own any more: its address is its /events/2027 page, which has its own card.
+  return editions.filter((e) => e.status !== 'planned').flatMap((e) => {
     const venue = e.venue?.name;
     const where = !venue ? e.city : venue.includes(e.city) ? venue : `${venue}, ${e.city}`;
     const main: OgCard = {
-      path: `/editions/${e.slug}`,
+      path: e.path,
       eyebrow: e.status === 'planned' ? `${statusLabel.planned} · ${e.country}` : `${statusLabel[e.status]} · ${e.country}`,
       title: 'Agentic Finance',
       accent: e.status === 'completed' ? `${e.city} ${e.year}` : e.city,
@@ -303,7 +272,7 @@ function editionCards(): OgCard[] {
     const cards: OgCard[] = [main];
     if (e.status !== 'planned') {
       cards.push({
-        path: `/editions/${e.slug}/speakers`,
+        path: `${e.path}/speakers`,
         eyebrow: `${e.shortName} · Speakers`,
         title: e.status === 'completed' ? `The ${e.city} lineup.` : 'Speakers',
         accent: e.status === 'completed' ? undefined : e.shortName,
@@ -311,9 +280,20 @@ function editionCards(): OgCard[] {
         image: e.status === 'completed' ? `${SG}/agentic-banking-panel.webp` : e.image.src,
       });
     }
+    if (e.status !== 'planned') {
+      const orgCount = editionOrganizations.filter((r) => r.edition === e.slug).length;
+      cards.push({
+        path: `${e.path}/partners`,
+        eyebrow: `${e.shortName} · Partners`,
+        title: 'Partners and',
+        accent: 'organisations.',
+        subtitle: orgCount ? `${orgCount} organisations took part.` : 'Announced as they confirm.',
+        image: e.status === 'completed' ? `${SG}/etoro-f1-simulator.webp` : e.image.src,
+      });
+    }
     if (e.hasAgenda) {
       cards.push({
-        path: `/editions/${e.slug}/agenda`,
+        path: `${e.path}/agenda`,
         eyebrow: `${e.shortName} · Agenda`,
         title: 'The run of show.',
         subtitle: `${e.dateLabel} · ${where}`,
@@ -323,7 +303,7 @@ function editionCards(): OgCard[] {
     const gala = e.experiences?.find((x) => x.id === 'gala');
     if (e.hasGala && gala) {
       cards.push({
-        path: `/editions/${e.slug}/gala`,
+        path: `${e.path}/gala`,
         eyebrow: `${e.name} · VIP Gala`,
         title: 'The VIP Gala.',
         subtitle: gala.when,
@@ -340,7 +320,7 @@ function upcoming2027Cards(): OgCard[] {
     const dates = contextDates(p);
     const odds = p.brand === 'the-odds';
     return {
-      path: `/upcoming/2027/${p.slug}`,
+      path: p.path,
       eyebrow: `2027 · ${p.country}`,
       title: odds ? 'The Odds' : 'Agentic Finance',
       accent: odds ? `at ${p.context}, ${p.city}` : p.city,
@@ -373,7 +353,7 @@ function partnerCaseCards(): OgCard[] {
   return [...useCases, ...otherUseCases].map((u) => {
     const e = getEdition(u.edition);
     return {
-      path: `/partners/use-cases/${u.slug}`,
+      path: `/partners/${u.slug}`,
       eyebrow: `Partner use case · ${u.event?.label ?? e?.shortName ?? ''}`,
       title: `${u.partner} at`,
       accent: u.event?.name ?? e?.name,
@@ -387,7 +367,7 @@ function partnerCaseCards(): OgCard[] {
 
 function blogCards(): OgCard[] {
   return getPosts().map((p) => ({
-    path: `/blog/${p.slug}`,
+    path: `/live/news/${p.slug}`,
     eyebrow: `Today in agentic finance · ${formatPostDate(p)}`,
     title: p.title,
     subtitle: `Our summary, why it matters, and the original from ${p.sourceName}.`,
@@ -409,7 +389,7 @@ export function getOgCard(path: string): OgCard | undefined {
   return ogCards().get(path === '/' ? '/' : path.replace(/\/$/, ''));
 }
 
-/** "/" → ["home.jpg"]; "/editions/dubai-2027" → ["editions", "dubai-2027.jpg"]. */
+/** "/" → ["home.jpg"]; "/events/2027/af-dubai" → ["events", "2027", "af-dubai.jpg"]. */
 export function ogImageSegments(path: string): string[] {
   const parts = path.split('/').filter(Boolean);
   if (!parts.length) return ['home.jpg'];

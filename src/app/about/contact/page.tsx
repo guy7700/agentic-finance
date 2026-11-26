@@ -15,7 +15,7 @@ export const metadata: Metadata = pageMetadata({
 });
 
 const ROUTES: { title: string; body: string; href: string; label: string; icon: IconName }[] = [
-  { title: 'Attend', body: 'Invitation requests for the next edition.', href: '/invitation', label: 'Apply to attend', icon: 'door' },
+  { title: 'Attend', body: 'Invitation requests for the next edition.', href: '/apply', label: 'Apply to attend', icon: 'door' },
   { title: 'Partner', body: `A ${booking.partnership.minutes}-minute call with the partnerships team.`, href: '/partners/book-a-call', label: 'Partner with us', icon: 'handshake' },
   { title: 'Speak', body: 'Put yourself or someone else forward.', href: '/speakers/nominate', label: 'Nominate a speaker', icon: 'mic' },
   { title: 'Press', body: 'Interviews, imagery and the brand kit.', href: '/about/press', label: 'Press resources', icon: 'spark' },

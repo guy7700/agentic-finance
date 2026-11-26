@@ -168,7 +168,7 @@ export default function PartnersPage() {
             <ButtonLink href="/partners/book-a-call" size="lg">
               {booking.partnership.label}
             </ButtonLink>
-            <ButtonLink href="/invitation" variant="outline" size="lg">
+            <ButtonLink href="/apply" variant="outline" size="lg">
               Apply to attend
             </ButtonLink>
           </>

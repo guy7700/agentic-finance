@@ -38,12 +38,19 @@ export function SiteHeader() {
       href: '/partners/etoro',
       image: { src: '/images/singapore-2026/etoro-f1-simulator.webp', alt: 'A guest racing on eToro’s F1 simulator in Singapore', position: '45% 55%' },
     },
-    media: {
+    live: {
       kicker: 'Watch',
       title: 'Singapore 2026 recap',
       text: 'Two minutes forty on the first edition.',
       href: '/about/video',
       image: { src: '/images/singapore-2026/recap-poster.jpg', alt: 'Still from the Singapore 2026 recap video' },
+    },
+    index: {
+      kicker: 'Index',
+      title: 'AF100',
+      text: 'The AF100 list and how it is built, the industry map and quarterly reports.',
+      href: '/af100',
+      image: { src: '/images/singapore-2026/agentic-trading-panel.webp', alt: 'The Agentic Trading panel on stage in Singapore' },
     },
     about: {
       kicker: 'Produced by',

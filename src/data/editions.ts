@@ -53,7 +53,7 @@ export const editions: Edition[] = [
           'Senior founder and institutional discussions',
           'Curated introductions and private meetings',
         ],
-        href: '/invitation',
+        href: '/apply',
         cta: 'Apply to attend',
       },
       {

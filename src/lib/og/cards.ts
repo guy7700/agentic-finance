@@ -69,7 +69,7 @@ function staticCards(): OgCard[] {
     { path: '/events/2027/meetings', ...questionnaire },
     { path: '/events/2027/meetings/thanks', ...questionnaire },
     {
-      path: '/invitation',
+      path: '/apply',
       eyebrow: `${next.name} · ${next.dateLabel}`,
       title: 'Apply to attend.',
       subtitle: `${next.guestCount} hand-selected guests. No tickets, no open registration.`,
@@ -94,6 +94,10 @@ function staticCards(): OgCard[] {
       subtitle: p.card.membership,
       image: `${SG}/networking-floor.webp`,
     })),
+
+    { path: '/af100', eyebrow: 'Index', title: 'AF100.', subtitle: 'The list, the industry map and quarterly reports.' },
+    { path: '/privacy', eyebrow: 'Legal', title: 'Privacy.' },
+    { path: '/terms', eyebrow: 'Legal', title: 'Terms.' },
 
     // Events
     {

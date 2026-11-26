@@ -79,4 +79,7 @@ export const redirects = [
 
   // Live: the blog is the news of Live (Tal's site structure). Its posts move with it.
   { from: '/blog', to: '/live/news' },
+
+  // Apply to attend (Tal's site structure: /apply/).
+  { from: '/invitation', to: '/apply' },
 ];

@@ -199,7 +199,7 @@ export default async function SpeakerPage({ params }: PageProps<'/speakers/[slug
         body={isPastOnly ? `${s.name} spoke at a past edition. The next one is Abu Dhabi, December 2026.` : undefined}
         actions={
           <>
-            <ButtonLink href="/invitation" size="lg">
+            <ButtonLink href="/apply" size="lg">
               Apply to attend
             </ButtonLink>
             <ButtonLink href="/speakers/nominate" variant="outline" size="lg">

@@ -109,7 +109,7 @@ export const faqGroups: FaqGroup[] = [
       {
         q: 'How do I apply to attend Abu Dhabi?',
         a: 'Use any “Apply to attend” button. It takes you to the Abu Dhabi application on Luma, where the team reviews your seniority, institution and fit. You will hear back by email.',
-        links: [{ label: 'Apply to attend', href: '/invitation' }],
+        links: [{ label: 'Apply to attend', href: '/apply' }],
       },
       {
         q: 'I have received a personal invitation. What next?',

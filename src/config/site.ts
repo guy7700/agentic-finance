@@ -80,7 +80,7 @@ export type NavGroup = {
   items: NavItem[];
 };
 
-/** The six top-level groups, in the order defined by the navigation spec. */
+/** The top-level groups, in the order of Tal's site structure: Events, Network, Partners, Speakers, Live, Index, About. */
 export const navigation: NavGroup[] = [
   {
     id: 'editions',
@@ -91,7 +91,7 @@ export const navigation: NavGroup[] = [
       { label: 'Abu Dhabi 2026', description: 'Upcoming · Summit and VIP Gala, Tue 8 Dec', href: '/events/2026/abu-dhabi' },
       { label: 'Singapore 2026', description: 'Archive · 8 Oct 2026, recap and numbers', href: '/events/2026/singapore' },
       { label: '2027 cities', description: 'Hong Kong, Rio de Janeiro, Paris, Dubai, Singapore', href: '/events/2027' },
-      { label: 'Apply to attend', description: 'Abu Dhabi 2026', href: '/invitation', cta: true },
+      { label: 'Apply to attend', description: 'Abu Dhabi 2026', href: '/apply', cta: true },
     ],
   },
   {
@@ -108,18 +108,6 @@ export const navigation: NavGroup[] = [
     ],
   },
   {
-    id: 'speakers',
-    label: 'Speakers',
-    job: 'Everyone who has held the floor, tagged by city.',
-    href: '/speakers',
-    items: [
-      { label: 'All speakers', description: 'Every edition', href: '/speakers' },
-      { label: 'Abu Dhabi 2026', description: 'Announced one by one', href: '/events/2026/abu-dhabi/speakers' },
-      { label: 'Singapore 2026', description: '60+ speakers, 17 sessions', href: '/events/2026/singapore/speakers' },
-      { label: 'Nominate a speaker', description: 'Form or 15-minute call', href: '/speakers/nominate', cta: true },
-    ],
-  },
-  {
     id: 'partners',
     label: 'Partners',
     job: 'The commercial path. Ends in a call, never a price list.',
@@ -132,17 +120,35 @@ export const navigation: NavGroup[] = [
     ],
   },
   {
-    id: 'media',
-    label: 'Media',
-    job: 'Proof in pictures for partners and guests.',
-    href: '/about/gallery',
+    id: 'speakers',
+    label: 'Speakers',
+    job: 'Everyone who has held the floor, tagged by city.',
+    href: '/speakers',
+    items: [
+      { label: 'All speakers', description: 'Every edition', href: '/speakers' },
+      { label: 'Abu Dhabi 2026', description: 'Announced one by one', href: '/events/2026/abu-dhabi/speakers' },
+      { label: 'Singapore 2026', description: '60+ speakers, 17 sessions', href: '/events/2026/singapore/speakers' },
+      { label: 'Nominate a speaker', description: 'Form or 15-minute call', href: '/speakers/nominate', cta: true },
+    ],
+  },
+  {
+    id: 'live',
+    label: 'Live',
+    job: 'News, X Spaces, webinars and the newsletter.',
+    href: '/live',
     items: [
       { label: 'News', description: 'Today in agentic finance', href: '/live/news' },
-      { label: 'Singapore 2026 recap', description: 'Numbers, sessions, moments', href: '/events/2026/singapore/recap' },
-      { label: 'Video', description: 'Recap and highlights', href: '/about/video' },
-      { label: 'Gallery', description: 'Photos by edition', href: '/about/gallery' },
-      { label: 'Press and brand kit', description: 'Coverage, logos, contacts', href: '/about/press' },
+      { label: 'X Spaces', description: 'Episodes [TBC]', href: '/live/spaces' },
+      { label: 'Webinars', description: '[TBC]', href: '/live/webinars' },
+      { label: 'Newsletter', description: 'Signup and archive [TBC]', href: '/live/newsletter' },
     ],
+  },
+  {
+    id: 'index',
+    label: 'Index',
+    job: 'The AF100, the industry map and quarterly reports.',
+    href: '/af100',
+    items: [{ label: 'AF100', description: 'The list, the map and quarterly reports [TBC]', href: '/af100' }],
   },
   {
     id: 'about',
@@ -153,6 +159,9 @@ export const navigation: NavGroup[] = [
       { label: 'Program', description: 'Six questions, 15 topics, formats, who gets in', href: '/about#program' },
       { label: 'More & More', description: 'Producer, track record', href: '/about#more-and-more' },
       { label: 'Event series', description: 'Web2 to Web3, The Odds, Agentic Finance', href: '/about#event-series' },
+      { label: 'Gallery', description: 'Photos from every event', href: '/about/gallery' },
+      { label: 'Video', description: 'Recaps and highlights', href: '/about/video' },
+      { label: 'Press and brand kit', description: 'Coverage, logos, contacts', href: '/about/press' },
       { label: 'FAQ', description: 'Access, invitations, partnerships', href: '/about#faq' },
       { label: 'Contact', description: 'Talk to the team', href: '/about/contact' },
     ],
@@ -161,8 +170,9 @@ export const navigation: NavGroup[] = [
 
 /** The two permanent header actions. */
 export const primaryActions = {
-  invitation: { label: 'Apply to attend', href: '/invitation' },
-  partner: { label: 'Partner with us', href: '/partners' },
+  /** `short` is the header button (Tal's site structure: "Apply"); `label` is used on buttons across the site. */
+  invitation: { label: 'Apply to attend', short: 'Apply', href: '/apply' },
+  partner: { label: 'Partner with us', href: '/network/companies' },
   /** The 2027 questionnaire, linked from the header and the mobile menu. */
   questionnaire: { label: 'Where in 2027?', href: '/events/2027/meetings' },
 } as const;

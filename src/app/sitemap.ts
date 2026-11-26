@@ -11,7 +11,7 @@ import { absoluteUrl } from '@/lib/paths';
 export const dynamic = 'force-static';
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const staticPaths = new Set<string>(['/', '/events/2026', '/invitation', '/photo-credits']);
+  const staticPaths = new Set<string>(['/', '/events/2026', '/apply', '/photo-credits']);
   // In-page links ("/about#faq") are sections of a page already listed, not pages.
   for (const href of navigation.flatMap((g) => [g.href, ...g.items.map((i) => i.href)])) {
     if (!href.includes('#')) staticPaths.add(href);
@@ -40,6 +40,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
   return Array.from(new Set(paths)).map((p) => ({
     url: absoluteUrl(p),
     changeFrequency: p.startsWith('/events/2026/abu-dhabi') || p === '/' ? 'weekly' : 'monthly',
-    priority: p === '/' ? 1 : p.startsWith('/events/2026/abu-dhabi') || p === '/partners' || p === '/invitation' ? 0.9 : 0.6,
+    priority: p === '/' ? 1 : p.startsWith('/events/2026/abu-dhabi') || p === '/partners' || p === '/apply' ? 0.9 : 0.6,
   }));
 }

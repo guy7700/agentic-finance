@@ -12,7 +12,7 @@ export const metadata: Metadata = pageMetadata({
   title: 'Apply to attend Agentic Finance Abu Dhabi',
   description:
     'Apply to attend the Agentic Finance Summit Abu Dhabi, 4 December 2026. Invitation only: every application is reviewed for seniority and fit.',
-  path: '/invitation',
+  path: '/apply',
 });
 
 const STEPS = [

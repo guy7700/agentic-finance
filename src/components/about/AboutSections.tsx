@@ -344,7 +344,7 @@ export function FormatsSection() {
         </ul>
         <div className="mt-14 flex flex-wrap gap-3">
           <ButtonLink href="/events/2026/singapore/agenda" variant="outline">See a full run of show</ButtonLink>
-          <ButtonLink href="/invitation">Apply to attend</ButtonLink>
+          <ButtonLink href="/apply">Apply to attend</ButtonLink>
         </div>
       </Container>
     </Section>
@@ -382,7 +382,7 @@ export function WhoItsForSection() {
             lede="There are no tickets. Every guest is selected, and every invitation is personal. That is what makes the conversations worth having."
             action={
               <>
-                <ButtonLink href="/invitation">Apply to attend</ButtonLink>
+                <ButtonLink href="/apply">Apply to attend</ButtonLink>
                 <ButtonLink href="#faq" variant="outline">Questions about access</ButtonLink>
               </>
             }

@@ -52,7 +52,7 @@ export default async function GalaPage({ params }: PageProps<'/events/2026/[city
         image={{ src: '/images/abu-dhabi-2026/al-maryah.webp', alt: '' }}
         actions={
           <>
-            <ButtonLink href="/invitation">Apply to attend</ButtonLink>
+            <ButtonLink href="/apply">Apply to attend</ButtonLink>
             <ButtonLink href="/partners/book-a-call" variant="outline">Partner positions include the Gala</ButtonLink>
           </>
         }
@@ -92,7 +92,7 @@ export default async function GalaPage({ params }: PageProps<'/events/2026/[city
               </p>
               <p className="mt-4 leading-relaxed text-muted">Not invited to the Gala? You can still apply to attend the summit.</p>
               <div className="mt-8">
-                <ButtonLink href="/invitation">Apply to attend</ButtonLink>
+                <ButtonLink href="/apply">Apply to attend</ButtonLink>
               </div>
             </div>
           </div>

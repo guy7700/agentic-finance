@@ -73,7 +73,7 @@ export default function EditionsPage() {
         lede="What is coming, and what already happened. Every edition is its own curated room; the standard and the questions travel with us."
         actions={
           <>
-            <ButtonLink href="/invitation">Apply to attend</ButtonLink>
+            <ButtonLink href="/apply">Apply to attend</ButtonLink>
             <ButtonLink href="/events/2027" variant="outline">The 2027 cities</ButtonLink>
           </>
         }

@@ -18,7 +18,7 @@ export type NavFeature = {
 };
 
 type Actions = {
-  invitation: { label: string; href: string };
+  invitation: { label: string; short: string; href: string };
   partner: { label: string; href: string };
   questionnaire: { label: string; href: string };
 };
@@ -278,7 +278,7 @@ export function HeaderClient({ navigation, actions, features }: HeaderClientProp
               {actions.partner.label}
             </Link>
             <Link href={actions.invitation.href} className="glow-gold hidden min-h-11 items-center whitespace-nowrap rounded-full bg-gold px-4 text-[11px] font-semibold uppercase tracking-[0.18em] text-ink transition-colors duration-500 hover:bg-gold-bright sm:inline-flex">
-              {actions.invitation.label}
+              {actions.invitation.short}
             </Link>
             <button
               ref={menuButtonRef}
@@ -450,7 +450,7 @@ function MobileDrawer({ id, navigation, actions, pathname, onClose }: DrawerProp
             onClick={onClose}
             className="glow-gold flex min-h-[52px] items-center justify-center rounded-full bg-gold text-xs font-semibold uppercase tracking-[0.18em] text-ink transition-colors hover:bg-gold-bright"
           >
-            {actions.invitation.label}
+            {actions.invitation.short}
           </Link>
           <Link
             href={actions.partner.href}

@@ -23,7 +23,10 @@
 /network/companies
 /network/institutions
 /network/ecosystem
-/invitation
+/apply
+/af100
+/privacy
+/terms
 /speakers
 /speakers/yoni-assia
 /speakers/megan-otway

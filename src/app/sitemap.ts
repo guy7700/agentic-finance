@@ -13,7 +13,7 @@ import { absoluteUrl } from '@/lib/paths';
 export const dynamic = 'force-static';
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const staticPaths = new Set<string>(['/', '/events/2026', '/apply', '/photo-credits']);
+  const staticPaths = new Set<string>(['/', '/events/2026', '/apply', '/photo-credits', '/terms']);
   // In-page links ("/about#faq") are sections of a page already listed, not pages.
   for (const href of navigation.flatMap((g) => [g.href, ...g.items.map((i) => i.href)])) {
     if (!href.includes('#')) staticPaths.add(href);

@@ -81,6 +81,7 @@ export default function BrandPage() {
           name: v.title,
           description: v.description,
           thumbnailUrl: [absoluteUrl(v.poster)],
+          uploadDate: v.uploadDate,
           ...(v.youtubeId
             ? { embedUrl: `https://www.youtube.com/embed/${v.youtubeId}`, url: v.src }
             : { contentUrl: v.external ? v.src : absoluteUrl(v.src) }),

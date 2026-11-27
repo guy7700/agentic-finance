@@ -162,6 +162,7 @@ export const videos: Video[] = [
     src: '/video/singapore-2026-recap.mp4',
     poster: '/images/singapore-2026/recap-poster.jpg',
     duration: '2:41',
+    uploadDate: '2026-10-23T12:51:23+03:00',
     hasAudio: true,
     speakers: ['tal-mor', 'yoni-assia'],
   },
@@ -174,6 +175,7 @@ export const videos: Video[] = [
     src: '/video/singapore-2026-summit.mp4',
     poster: '/images/singapore-2026/summit-poster.jpg',
     duration: '0:21',
+    uploadDate: '2026-10-23T12:51:23+03:00',
     hasAudio: false,
   },
   {
@@ -186,6 +188,7 @@ export const videos: Video[] = [
     youtubeId: 'K7Bu0Pml6-8',
     poster: '/images/more-and-more/web2toweb3-session.webp',
     duration: '0:56',
+    uploadDate: '2025-12-17T04:25:56-08:00',
     hasAudio: true,
   },
   {
@@ -198,6 +201,7 @@ export const videos: Video[] = [
     youtubeId: 'O8voyGJqDLE',
     poster: '/images/more-and-more/the-odds-paris-room.jpg',
     duration: '1:39',
+    uploadDate: '2026-04-29T05:35:20-07:00',
     hasAudio: true,
   },
   {
@@ -210,6 +214,7 @@ export const videos: Video[] = [
     src: 'https://mnm.live/theodds/t2049singapore/aftermovie.mp4',
     poster: '/images/singapore-2026/the-odds-welcome.webp',
     duration: '1:26',
+    uploadDate: '2026-10-23T12:51:23+03:00',
     hasAudio: false,
     external: true,
   },

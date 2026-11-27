@@ -218,6 +218,11 @@ export type Video = {
   src: string;
   poster: string;
   duration: string;
+  /**
+   * When the film was first published, for Google's video results (required there). YouTube films:
+   * their YouTube publish date. Films hosted here or on mnm.live: the day they went up on this site.
+   */
+  uploadDate: string;
   hasAudio: boolean;
   speakers?: string[];
   sessions?: string[];

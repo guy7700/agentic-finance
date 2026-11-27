@@ -14,12 +14,13 @@ export const trackRecord = producerMetrics;
 /**
  * The team (Tal, 26 Nov 2026: Tal, Guy, Tomer and Mia, with photos and roles). A member shows on
  * /about/more-and-more once both a photo and a verified role are filled in. Tal's own block is the
- * founder section above the grid.
+ * founder section above the grid. Names, roles and photos from Guy, 27 Nov 2026: cut-outs of their
+ * public portraits on one background (public/images/team/).
  */
 export const team: { name: string; role?: string; photo?: string }[] = [
-  { name: 'Guy' },
-  { name: 'Tomer' },
-  { name: 'Mia' },
+  { name: 'Guy Kaufman', role: 'Head of Partnerships', photo: '/images/team/guy-kaufman.webp' },
+  { name: 'Tomer Friedman', role: 'Chief Marketing Officer', photo: '/images/team/tomer-friedman.webp' },
+  { name: 'Mia Milasevic', role: 'Head of Customer Success', photo: '/images/team/mia-milasevic.webp' },
 ];
 
 /** Kept for reference; "Four ways into the room" left the site (Tal, 26 Nov 2026). */

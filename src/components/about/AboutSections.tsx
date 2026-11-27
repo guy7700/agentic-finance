@@ -506,15 +506,15 @@ export function TeamSection() {
           </div>
         ) : null}
         {team.filter((m) => m.photo && m.role).length ? (
-          <ul className="mt-12 grid grid-cols-2 gap-4 md:grid-cols-4">
+          <ul className="mx-auto mt-14 flex max-w-4xl flex-wrap justify-center gap-4 sm:gap-6">
             {team
               .filter((m) => m.photo && m.role)
               .map((m) => (
-                <li key={m.name}>
-                  <div className="relative aspect-[4/5] overflow-hidden rounded-2xl border border-line">
-                    <Img src={m.photo!} alt={`${m.name}, ${m.role}`} fill sizes="(min-width: 768px) 22vw, 50vw" position="50% 25%" className="object-cover" />
+                <li key={m.name} className="w-[calc(50%-0.5rem)] text-center sm:w-[calc((100%-3rem)/3)]">
+                  <div className="relative aspect-square overflow-hidden rounded-2xl border border-line">
+                    <Img src={m.photo!} alt={`${m.name}, ${m.role} at More & More`} fill sizes="(min-width: 896px) 280px, (min-width: 640px) 31vw, 50vw" className="object-cover" />
                   </div>
-                  <p className="mt-3 font-semibold">{m.name}</p>
+                  <p className="mt-4 font-semibold">{m.name}</p>
                   <p className="text-sm text-muted">{m.role}</p>
                 </li>
               ))}

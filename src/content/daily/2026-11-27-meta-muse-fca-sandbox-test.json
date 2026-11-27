@@ -1,0 +1,11 @@
+{
+  "title": "Meta turned down an FCA sandbox test of its Muse shopping agent before the UK launch",
+  "slug": "meta-muse-fca-sandbox-test",
+  "date": "2026-11-27",
+  "summary": "The FCA's innovation head said Meta declined a joint test of its Muse agent in the regulator's sandbox a week before the 24 Nov UK launch, and had told the FCA about it only the month before. The FCA published guidance the same day listing payment execution among activities that may need authorisation, while the ICO and CMA settled for voluntary monitoring and term changes.",
+  "whyItMatters": "The FCA lists payment execution among activities that may need authorisation, so shopping agents that pay for users may need it too, even as platforms ship before regulators have tested them.",
+  "sourceName": "Longbridge",
+  "sourceUrl": "https://longbridge.com/en/news/306972026",
+  "tags": ["agentic-commerce", "regulation"],
+  "rank": 1
+}
